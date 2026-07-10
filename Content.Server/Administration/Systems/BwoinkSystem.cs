@@ -527,6 +527,7 @@ namespace Content.Server.Administration.Systems
             }
 
             _relayMessages[userId] = existingEmbed;
+            RaiseLocalEvent(new CorvaxAHelpRelayChangedEvent(userId)); // Corvax-API
 
             // Actually do the on call relay last, we just need to grab it before we dequeue every message above.
             if (onCallRelay &&
