@@ -1,0 +1,19 @@
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: AmmoBox12magnum
+  name: shotgun shell box
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/Ammunition/Boxes/shell.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunMagnum12
+    capacity: 12

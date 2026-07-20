@@ -1,0 +1,93 @@
+- type: entity
+  parent: BaseItem
+  id: ReinforcementRadioCombineC17
+  name: рация подкрепления
+  suffix: Soldier SMG
+  components:
+  - type: Marker
+  - type: Sprite
+    sprite: Objects/Devices/communication.rsi
+    layers:
+    - state: radio
+    netsync: false
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCombineOTAC17
+  - type: GhostRole
+    raffle:
+      settings: short
+    category: Ивенты
+    allowMovement: true
+    allowSpeech: true
+    makeSentient: true
+    name: Солдат Альянса
+    description: Боец сверх-человеческого отдела Гражданской Обороны города 17.
+  - type: EmitSoundOnUse
+    sound: /Audio/Effects/Emotes/parp1.ogg
+  - type: UseDelay
+    delay: 5
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineC17AR2
+  suffix: Soldier AR2
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCombineOTAC17AR2
+  - type: GhostRole
+    name: Солдат Альянса
+    description: Боец сверх-человеческого отдела Гражданской Обороны города 17, вооруженный импульсной винтвкой AR2.
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineC17Leader
+  suffix: Soldier Leader
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCombineOTAC17Leader
+  - type: GhostRole
+    name: Дивижион Лидер Альянса
+    description: Полевой командир сверх-человеческого отдела Гражданской Обороны города 17.
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineC17Shotgun
+  suffix: Soldier Shotgun
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCombineOTAC17Shotgun
+  - type: GhostRole
+    name: Солдат Альянса
+    description: Боец сверх-человеческого отдела Гражданской Обороны города 17, вооруженный штурмовым дробовиком SPAS-12.
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineEliteOTAC17
+  suffix: Soldier Elite
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCombineEliteOTAC17
+  - type: GhostRole
+    name: Elite Combine Soldier
+    description: Элитный солдат сверх-человеческого отдела Надзора, больше киборг чем человек, выполняет сверх-важные задания или роль командующего дивизией.
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineCPC17
+  suffix: Patrol Unit
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCPC17
+  - type: GhostRole
+    name: юнит патруля Гражданской Обороны
+    description: Юнит патруля Надзора, силовик имеющий небольшое количество имплантов.
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCombineCPC17SMG
+  suffix: Patrol Unit SMG
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCPC17SMG
+  - type: GhostRole
+    name: юнит патруля Гражданской Обороны
+    description: Юнит патруля Надзора, силовик имеющий небольшое количество имплантов.

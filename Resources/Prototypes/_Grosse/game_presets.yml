@@ -1,0 +1,39 @@
+- type: gamePreset
+  id: City14Extended
+  name: Расширенный
+  showInVote: false
+  showInAdminVote: true # DS14
+  voteType: admin # DS14
+  description: Расширенный режим города 14, обычная жизнь в оккупационном мире, где человечеству пришлось пережить сразу 2 апокалипсиса. Режим без крупных угроз.
+  rules:
+  - CombineCityRoundstartVariation
+
+- type: gamePreset
+  id: City14Rebellion
+  name: Восстание
+  showInVote: false
+  showInAdminVote: true
+  voteType: admin
+  description: В городе 14 была организована повстанческая ячейка, которая потихому собирает силы для атаки капитолия города.
+  rules:
+  - CombineCityRoundstartVariation
+
+- type: gamePreset
+  id: City14NukeOps
+  name: Война
+  showInVote: false
+  showInAdminVote: true
+  voteType: admin
+  description: Пришла весть о том что Сити 17 пал, а Цитадель уничтожена вместе с супер-порталом. Ко всему прочему, Белая Роща отправила к городу отряд диверсантов. Тяжелое время для правительства города 14.
+  rules:
+  - CombineCityRoundstartVariation
+
+- type: gamePreset
+  id: City14Fall
+  name: Падение
+  showInVote: false
+  showInAdminVote: true
+  voteType: admin
+  description: Группа диверсантов присланная Белой Рощей должна уничтожить поле подавления города 14, что-бы город остался без защиты от фауны.
+  rules:
+  - CombineCityRoundstartVariation

@@ -1,0 +1,99 @@
+- type: entity
+  id: SpawnPointCivilProtactionUnit
+  parent: SpawnPointJobBase
+  name: гражданская оборона
+  suffix: Роли Города 14
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnit
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCitizen
+  parent: SpawnPointCivilProtactionUnit
+  name: гражданин
+  components:
+  - type: SpawnPoint
+    job_id: Citizen
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointWorker
+  parent: SpawnPointCivilProtactionUnit
+  name: рабочий
+  components:
+  - type: SpawnPoint
+    job_id: Worker
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointUnionFactoryHead
+  parent: SpawnPointCivilProtactionUnit
+  name: начальник завода
+  components:
+  - type: SpawnPoint
+    job_id: UnionFactoryHead
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointUnionWorkersHead
+  parent: SpawnPointCivilProtactionUnit
+  name: глава гср
+  components:
+  - type: SpawnPoint
+    job_id: UnionWorkersHead
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointUnionMiner
+  parent: SpawnPointCivilProtactionUnit
+  name: шахтер
+  components:
+  - type: SpawnPoint
+    job_id: UnionMiner
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointUnionResearcher
+  parent: SpawnPointCivilProtactionUnit
+  name: исследователь
+  components:
+  - type: SpawnPoint
+    job_id: UnionResearcher
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCivilProtactionUnit02
+  parent: SpawnPointCivilProtactionUnit
+  name: локальный командир гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnit02
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCivilProtactionUnitOfficer
+  parent: SpawnPointCivilProtactionUnit
+  name: офицер гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnitOfficer
+  - type: Sprite
+    layers:
+      - state: green

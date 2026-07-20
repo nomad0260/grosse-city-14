@@ -1,0 +1,55 @@
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionWorker
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: spets
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionMiner
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: miner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionPerson
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: person
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionCivilian
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: civilian
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionGrey
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: uniongrey
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionGold
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: uniongold
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnion
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: union
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconUnionElite
+  icon:
+    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    state: unionelite

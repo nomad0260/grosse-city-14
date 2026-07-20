@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Created by discord:no_mad.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "console1"
+    },
+    {
+      "name": "console1-unshaded"
+    },
+    {
+      "name": "console2"
+    },
+    {
+      "name": "console2-unshaded"
+    },
+    {
+      "name": "console3"
+    },
+    {
+      "name": "console3-unshaded"
+    },
+    {
+      "name": "consolemonitor"
+    },
+    {
+      "name": "consolemonitor-unshaded"
+    },
+    {
+      "name": "monitor1"
+    },
+    {
+      "name": "monitor1-unshaded"
+    },
+    {
+      "name": "monitor2"
+    },
+    {
+      "name": "monitor2-unshaded"
+    }
+  ]
+}

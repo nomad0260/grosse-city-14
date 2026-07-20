@@ -1,0 +1,45 @@
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetCMBC17
+  name: Гарнитура Альянса
+  description: Стандартная гарнитура Альянса.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCMBC17
+      - EncryptionKeyService
+      - EncryptionKeyCargo
+  - type: Sprite
+    sprite: _Grosse/rsi/Ears/Headsets/base.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/Ears/Headsets/base.rsi
+  - type: UnpoweredFlashlight
+  #- type: Unremoveable
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 6
+
+- type: entity
+  parent: ClothingHeadsetCommand
+  id: ClothingHeadsetCMBHeadsC17
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommand
+      - EncryptionKeyService
+      - EncryptionKeyCargo
+
+- type: entity
+  parent: ClothingHeadsetCMBC17
+  id: ClothingHeadsetCMBLeaderC17
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommand
+      - EncryptionKeyCMBC17
+      - EncryptionKeyService

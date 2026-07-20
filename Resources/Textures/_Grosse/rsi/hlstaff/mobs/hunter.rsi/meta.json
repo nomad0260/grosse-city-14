@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 48
+  },
+  "states": [
+    {
+      "name": "hunter",
+      "directions": 4
+    },
+    {
+      "name": "hunter_dead"
+    }
+  ]
+}

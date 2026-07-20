@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "public_phone"
+    },
+    {
+      "name": "trash_can"
+    },
+    {
+      "name": "clock"
+    },
+    {
+      "name": "filing_cabinet"
+    },
+    {
+      "name": "railing_corner",
+      "directions": 4
+    },
+    {
+      "name": "railing",
+      "directions": 8
+    },
+    {
+      "name": "radiator",
+      "directions": 4
+    },
+    {
+      "name": "pedestrian_pole"
+    },
+    {
+      "name": "water_barrel"
+    },
+    {
+      "name": "explosive_barrel"
+    },
+    {
+      "name": "trash"
+    }
+  ]
+}

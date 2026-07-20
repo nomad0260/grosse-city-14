@@ -1,0 +1,218 @@
+#- type: playTimeTracker
+#  id: JobCivilProtection
+#
+#- type: job
+#  id: CivilProtactionUnit
+#  name: Гражданская Оборона
+#  description: Обороняй граждан
+#  playTimeTracker: JobCivilProtection
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: CivilProtectionGear
+#  icon: "JobIconUnion"
+#  supervisors: Секториальному Командующему
+#  canBeAntag: false
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  access:
+#    - UnionBase
+#    - UnionCP
+#    - Engineering
+#    - UnionAdmin
+#  special:
+#  - !type:AddImplantSpecial
+#    implants: [ MindShieldImplant ]
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#    - type: NpcFactionMember
+#      factions:
+#      - Xenoborg
+#- type: playTimeTracker
+#  id: JobCivilProtection02
+#
+#- type: job
+#  id: CivilProtactionUnit02
+#  name: Локальный Командир Гражданской Обороны
+#  description: Обороняй граждан
+#  playTimeTracker: JobCivilProtection02
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: CivilProtection02Gear
+#  icon: "JobIconUnionGold"
+#  supervisors: Секториальному Командующему
+#  canBeAntag: false
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  access:
+#    - UnionBase
+#    - UnionCP
+#    - Engineering
+#    - UnionAdmin
+#  special:
+#  - !type:AddImplantSpecial
+#    implants: [ MindShieldImplant ]
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#    - type: NpcFactionMember
+#      factions:
+#      - Xenoborg
+#
+#- type: playTimeTracker
+#  id: JobCivilProtectionOfficer
+#
+#- type: job
+#  id: CivilProtactionUnitOfficer
+#  name: Офицер Гражданской Обороны
+#  description: Обороняй граждан
+#  playTimeTracker: JobCivilProtectionOfficer
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: CivilProtectionOfficerGear
+#  icon: "JobIconUnionCommander"
+#  supervisors: Секториальному Командующему
+#  canBeAntag: false
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  access:
+#    - UnionBase
+#    - UnionCP
+#    - Engineering
+#    - UnionAdmin
+#  special:
+#  - !type:AddImplantSpecial
+#    implants: [ MindShieldImplant ]
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#    - type: NpcFactionMember
+#      factions:
+#      - Xenoborg
+#
+#- type: playTimeTracker
+#  id: JobUnionWorkersHead
+#
+#- type: job
+#  id: UnionWorkersHead
+#  name: Глава ГСР
+#  description: Руководи Гражданским Союзом Рабочих
+#  playTimeTracker: JobUnionWorkersHead
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: HeadUnionWorker
+#  icon: "JobIconUnionGrey"
+#  supervisors: Администратору Города
+#  canBeAntag: false
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  access:
+#    - UnionBase
+#    - Engineering
+#    - UnionAdmin
+#  special:
+#  - !type:AddImplantSpecial
+#    implants: [ MindShieldImplant ]
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#    - type: NpcFactionMember
+#      factions:
+#      - Xenoborg
+#
+#- type: playTimeTracker
+#  id: JobUnionFactoryHead
+#
+#- type: job
+#  id: UnionFactoryHead
+#  name: Начальник Завода
+#  description: Руководи Заводским Районом
+#  playTimeTracker: JobUnionFactoryHead
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: UnionFactoryHead
+#  icon: "JobIconUnionGrey"
+#  supervisors: Администратору Города
+#  canBeAntag: false
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  access:
+#    - UnionBase
+#    - Engineering
+#    - UnionAdmin
+#  special:
+#  - !type:AddImplantSpecial
+#    implants: [ MindShieldImplant ]
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#    - type: NpcFactionMember
+#      factions:
+#      - Xenoborg
+#- type: playTimeTracker
+#  id: JobUnionResearcher
+#
+#- type: job
+#  id: UnionResearcher
+#  name: Исследователь
+#  description: Исследуй неизвестные пустоши на окраине города 14.
+#  playTimeTracker: JobUnionResearcher
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: CMBWorkerResearcherGear
+#  icon: "JobIconUnionWorker"
+#  supervisors: Главе ГСР и Начальнику Завода
+#  canBeAntag: false
+#  access:
+#    - UnionBase
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  special:
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#
+#- type: playTimeTracker
+#  id: JobUnionMiner
+#
+#- type: job
+#  id: UnionMiner
+#  name: Шахтер
+#  description: добывай материалы на окраине города 14.
+#  playTimeTracker: JobUnionMiner
+#  applyTraits: false
+#  joinNotifyCrew: false
+#  overrideConsoleVisibility: true
+#  startingGear: CMBWorkerMinerGear
+#  icon: "JobIconUnionMiner"
+#  supervisors: Главе ГСР и Начальнику Завода
+#  canBeAntag: false
+#  access:
+#    - UnionBase
+#  requirements:
+#    - !type:SpeciesRequirement
+#      species:
+#      - Human
+#  special:
+#  - !type:AddComponentSpecial
+#    components:
+#    - type: AntagImmune
+#

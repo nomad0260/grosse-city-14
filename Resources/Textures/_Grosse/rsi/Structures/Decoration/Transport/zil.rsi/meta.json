@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Corvax Stalker",
+    "size": {
+        "x": 128,
+        "y": 144
+    },
+    "states": [
+        {
+            "name": "z1",
+            "directions": 4
+        },
+        {
+            "name": "z2",
+            "directions": 4
+        },
+        {
+            "name": "z2-box",
+            "directions": 4
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+- type: soundCollection
+  id: ShellLand
+  files:
+  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell1.ogg
+  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell2.ogg
+  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell3.ogg
+
+- type: soundCollection
+  id: ShotgunshotCMB
+  files:
+  - _Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire6.ogg
+  - _Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire7.ogg

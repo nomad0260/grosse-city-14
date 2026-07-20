@@ -1,0 +1,17 @@
+- type: entity
+  id: CombineCityRoundstartVariation
+  parent: BaseGameRule
+  components:
+  - type: RoundstartStationVariationRule
+    rules:
+    - id: BasicTrashVariationPassC17
+    - id: BloodbathPuddleMessVariationPass
+      prob: 0.05
+      orGroup: puddleMess
+    - id: BasicDecalDirtVariationPass
+    - id: BasicDecalBrunsVariationPass
+      prob: 0.50
+      orGroup: monospaceDecals
+    - id: BasicDecalDirtMonospaceVariationPass
+      prob: 0.50
+      orGroup: monospaceDecals

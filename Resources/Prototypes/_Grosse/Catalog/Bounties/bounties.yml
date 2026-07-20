@@ -1,0 +1,108 @@
+- type: cargoBountyGroup
+  id: CombineJob
+
+- type: cargoBounty
+  id: BountyUnionConsole
+  reward: 10000
+  description: Поступил запрос на создание нескольких консолей, нам нужно что-бы вы произвели их.
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/structure/console.rsi
+    state: console1
+  entries:
+  - name: консоль Альянса
+    amount: 10
+    whitelist:
+      tags:
+      - UnionMonitor
+  - name: монитор Альянса
+    amount: 10
+    whitelist:
+      tags:
+      - UnionComputer
+
+- type: cargoBounty
+  id: BountyUnionMedkits
+  reward: 10000
+  description: Патруль Города 13 запрашивает новую партию аптечек, их местные производественные линии не могут справиться.
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/medical.rsi
+    state: aptejka
+  entries:
+  - name: аптечки
+    amount: 30
+    whitelist:
+      tags:
+      - CMBMedkit
+
+- type: cargoBounty
+  id: BountyUnionManhacks
+  reward: 10000
+  description: Фауна Зена продолжает наперать на трущебы, отправлять силы ГэО слишком опасно, а у ОТА щас своих проблем навалом, нужно произвести мэнхеков чтобы те зачистили трущебы.
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/manhack.rsi
+    state: manhack
+  entries:
+  - name: Мэнхеки
+    amount: 30
+    whitelist:
+      tags:
+      - CMBManhack
+
+- type: cargoBounty
+  id: BountyUnionDispencer
+  reward: 10000
+  description: Ближайший Город запрашивает допольнительные рационы, так как их снабжение прекратилось из-за большой активности муравьиных львов.
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/food.rsi
+    state: standard_ration
+  entries:
+  - name: ящики пополнения рационов
+    amount: 30
+    whitelist:
+      tags:
+      - CMBDispencer
+
+- type: cargoBounty
+  id: BountyUnionAlyx
+  reward: 10000
+  description: Мы получили донесение, что какая-то одна женщина смогла полностью уничтожить отряды стабилизации в секторе B14, а так же умыкнула все запасы черной смолы. Бойцам просто не из чего делать боеприпасы.
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/misc/material.rsi
+    state: sheet-resin
+  entries:
+  - name: черная смола
+    amount: 120
+    whitelist:
+      tags:
+      - CMBBlackMaterial
+
+- type: cargoBounty
+  id: BountyUnionHopperMine
+  reward: 10000
+  description: Сверх-Человеческий Отдел запросил партию противо-пехотных мин, как они сказали, их прошлые мины кто-то украл...
+  group: CombineJob
+  idPrefix: CMB
+  sprite:
+    sprite: /Uploaded/combine/rsi/hlstaff/hoppermine.rsi
+    state: landmine
+  entries:
+  - name: прыгающие мины
+    amount: 10
+    whitelist:
+      tags:
+      - CMBHopperMine
+  - name: Мэнхеки
+    amount: 20
+    whitelist:
+      tags:
+      - CMBManhack

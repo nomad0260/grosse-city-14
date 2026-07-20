@@ -1,0 +1,23 @@
+- type: Tag
+  id: CombineLeader
+
+- type: Tag
+  id: CombineUnit
+
+- type: Tag
+  id: CombineStructure
+
+- type: Tag
+  id: City17Structure
+
+- type: Tag
+  id: Ingibitor
+
+- type: Tag
+  id: IngibitorPolice
+
+- type: Tag
+  id: IngibitorElite
+
+- type: Tag
+  id: MagazinePulseRifle

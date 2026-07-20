@@ -1,0 +1,7 @@
+- type: radioChannel
+  id: CMB
+  name: Альянс
+  keycode: 'е'
+  frequency: 1725
+  color: "#fc0303"
+  longRange: true

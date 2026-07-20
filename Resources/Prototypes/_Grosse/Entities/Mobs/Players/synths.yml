@@ -1,0 +1,91 @@
+#- type: entity
+#  name: Советник Альянса
+#  parent: [ SimpleMobBase, FlyingMobBase ]
+#  id: MobAdvisor
+#  description: Советует.
+#  components:
+#  - type: ComplexInteraction
+#  #- type: RespiratorImmunity
+#  - type: PressureImmunity
+#  - type: ShowJobIcons
+#  - type: ShowMindShieldIcons
+#  - type: Body
+#    prototype: Gunship
+#  - type: Hands
+#    showInHands: false
+#  - type: MovementSpeedModifier
+#    baseWalkSpeed : 2.5
+#    baseSprintSpeed : 4.5
+#  - type: Sprite
+#    sprite: _Grosse/rsi/hlstaff/mobs/advisor.rsi
+#    drawdepth: Mobs
+#    layers:
+#    - map: ["enum.DamageStateVisualLayers.Base"]
+#      state: advisor
+#    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+#      state: advisor-unshaded
+#      shader: unshaded
+#  - type: Fixtures
+#    fixtures:
+#      fix1:
+#        shape:
+#          !type:PhysShapeCircle
+#          radius: 0.35
+#        density: 10
+#        mask:
+#        - FlyingMobMask
+#        layer:
+#        - FlyingMobLayer
+#  - type: DamageStateVisuals
+#    states:
+#      Alive:
+#        Base: advisor
+#        BaseUnshaded: advisor-unshaded
+#      Dead:
+#        Base: advisor_dead
+#        BaseUnshaded: advisor_dead-unshaded
+#  - type: Bloodstream
+#    bloodMaxVolume: 50
+#  - type: MeleeWeapon
+#    soundHit:
+#        path: /Audio/Effects/bite.ogg
+#    angle: 0
+#    animation: WeaponArcBite
+#    damage:
+#      types:
+#        Piercing: 15
+#  - type: MobThresholds
+#    thresholds:
+#      0: Alive
+#      260: Dead
+#  - type: Destructible
+#    thresholds:
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 260
+#      behaviors:
+#      - !type:PlaySoundBehavior
+#        sound:
+#          path: /Uploaded/combine/audio/blackmesa/mob/advisor/advisor_scream.ogg
+#  - type: IntrinsicRadioReceiver
+#  - type: ActiveRadio
+#    channels:
+#    - CMB
+#  - type: IntrinsicRadioTransmitter
+#    channels:
+#    - CMB
+#  #- type: LanguageSpeaker
+#  #  currentLanguage: TauCetiBasic
+#  #- type: LanguageKnowledge
+#  #  speaks:
+#  #  - TauCetiBasic
+#  #  understands:
+#  #  - TauCetiBasic
+#  #- type: Access
+#  #  tags:
+#  #  - UnionBase
+#  #  - Engineering
+#  #  - UnionCP
+#  #  - UnionOTA
+#  #  - UnionAdmin
+#

@@ -1,0 +1,9 @@
+- type: soundCollection
+  id: FootstepSoldier
+  files:
+  - _Grosse/combine/audio/Effects/gear1.ogg
+  - _Grosse/combine/audio/Effects/gear2.ogg
+  - _Grosse/combine/audio/Effects/gear3.ogg
+  - _Grosse/combine/audio/Effects/gear4.ogg
+  - _Grosse/combine/audio/Effects/gear5.ogg
+  - _Grosse/combine/audio/Effects/gear6.ogg

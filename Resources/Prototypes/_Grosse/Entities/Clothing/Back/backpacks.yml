@@ -1,0 +1,56 @@
+- type: entity
+  parent: ClothingBackpackERTSecurity
+  id: ClothingBackpackCombineC17
+  name: satchel
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+    color: black
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+  - type: Storage
+    grid:
+    - 0,0,10,5
+  #- type: Unremoveable
+
+- type: entity
+  parent: ClothingBackpackCombineEliteC17
+  id: ClothingBackpackCombineEliteC17Filled
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: StorageFill
+      contents:
+        - id: BoxFlare
+        - id: CombineGrenadeC17
+          amount: 4
+        - id: MagazinePulseRifleC17
+          amount: 12
+        - id: HealthvialC17
+          amount: 5
+        - id: MedkitC17
+          amount: 8
+
+- type: entity
+  parent: ClothingBackpackCombineC17
+  id: ClothingBackpackCombineEliteC17
+  name: satchel
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+  - type: Storage
+    grid:
+    - 0,0,14,5
+  #- type: Unremoveable
+
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: ClothingBackpackCPC17
+  categories: [ HideSpawnMenu ]
+  name: satchel
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+  #- type: Unremoveable

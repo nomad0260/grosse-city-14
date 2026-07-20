@@ -1,0 +1,10 @@
+- type: entity
+  id: BasicTrashVariationPassC17
+  parent: BaseVariationPass
+  components:
+  - type: EntitySpawnVariationPass
+    tilesPerEntityAverage: 35
+    tilesPerEntityStdDev: 4
+    entities:
+    - id: RandomCMBTrashSpawner
+    

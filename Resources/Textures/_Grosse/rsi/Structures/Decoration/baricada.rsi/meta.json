@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "concrete_barrier",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_1",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_2",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_3",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_4",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_5",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_alt",
+      "directions": 4
+    },
+    {
+      "name": "concrete_barrier_alt_1",
+      "directions": 4
+    },
+    {
+      "name": "road_barrier",
+      "directions": 4
+    },
+    {
+      "name": "combine",
+      "directions": 4
+    },
+    {
+      "name": "combine_emplacement",
+      "directions": 4
+    }
+  ]
+}

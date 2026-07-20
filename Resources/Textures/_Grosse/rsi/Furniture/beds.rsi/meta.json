@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "wire_bed"
+    },
+    {
+      "name": "metal_bed"
+    },
+    {
+      "name": "matras"
+    },
+    {
+      "name": "cot"
+    },
+    {
+      "name": "wood_bed"
+    },
+    {
+      "name": "dirty_mattress"
+    },
+    {
+      "name": "old_mattress"
+    },
+    {
+      "name": "stained_mattress"
+    },
+    {
+      "name": "yellowed_mattress"
+    },
+    {
+      "name": "filthy_mattress"
+    },
+    {
+      "name": "stale_mattress"
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+- type: entity
+  parent: IDCardStandard
+  id: UnionIDCard
+  name: union ID card
+  description: A shoulder strap necessary to access various areas.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/id.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/id.rsi
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardCivil
+  name: union civillion ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_grey
+  - type: IdCard
+    jobTitle: Гражданин
+    jobIcon: JobIconUnionCivilian
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardWorker
+  name: union worker ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_green
+  - type: IdCard
+    jobTitle: CMB Worker Group 6
+    jobIcon: JobIconUnionPerson
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+
+- type: entity
+  parent: UnionIDCardWorker
+  id: UnionIDCardResearcher
+  name: union researcher ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_navy
+  - type: IdCard
+    jobTitle: CMB Researcher Group 2
+    jobIcon: JobIconUnionWorker
+  - type: Access
+    tags:
+    - UnionBase
+
+- type: entity
+  parent: UnionIDCardWorker
+  id: UnionIDCardMiner
+  name: union miner ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_red
+  - type: IdCard
+    jobTitle: CMB Miner Group 4
+    jobIcon: JobIconUnionMiner
+  - type: Access
+    tags:
+    - UnionBase
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardAdministrator
+  name: union administrator ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Администратор
+    jobIcon: JobIconUnionGold
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardAdministrationReferent
+  name: union administration referent ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Референт Администрации
+    jobIcon: JobIconUnionGrey
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardUnionWorkersHead
+  name: union worker head ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Глава ГСР
+    jobIcon: JobIconUnionGrey
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardUnionFactoryHead
+  name: union factory head ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Начальник Завода
+    jobIcon: JobIconUnionGrey
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardOTASoldier
+  name: union OTA Soldier ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: OTA Soldier
+    jobIcon: JobIconUnion
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionOTA
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardOTASoldierElite
+  name: union OTA Elite Soldier ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: OTA Elite Soldier
+    jobIcon: JobIconUnionElite
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionOTA
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardCivilProtection
+  name: union civil protection ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine2
+  - type: IdCard
+    jobTitle: Гражданская Оборона
+    jobIcon: JobIconUnion
+  - type: AgentIDCard
+  - type: ActivatableUI
+    key: enum.AgentIDCardUiKey.Key
+    verbText: agent-id-open-ui-verb
+  - type: UserInterface
+    interfaces:
+      enum.AgentIDCardUiKey.Key:
+        type: AgentIDCardBoundUserInterface
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCardCivilProtection
+  id: UnionIDCardCivilProtectionLocalCommander
+  name: union civil protection local commander ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Локальный Командир Гражданской Обороны
+    jobIcon: JobIconUnionGold
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCardCivilProtection
+  id: UnionIDCardCivilProtectionOfficer
+  name: union civil protection officer ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Офицер Гражданской Обороны
+    jobIcon: JobIconUnionCommander
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+
+- type: entity
+  parent: UnionIDCard
+  id: UnionIDCardSectorialCommander
+  name: union sectorial commander ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: Гражданская Оборона
+    jobIcon: JobIconUnionElite
+  #- type: ClothingGrantTag
+  #  tag: CombineUnit
+  - type: FactionClothing
+    faction: Xenoborg
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin

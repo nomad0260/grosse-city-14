@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "size": {
+    "x": 112,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "m1",
+      "directions": 4
+    },
+    {
+      "name": "backleftdoor",
+      "directions": 4
+    },
+    {
+      "name": "backrightdoor",
+      "directions": 4
+    },
+    {
+      "name": "bagaj",
+      "directions": 4
+    },
+    {
+      "name": "copilotdoor",
+      "directions": 4
+    }
+  ]
+}

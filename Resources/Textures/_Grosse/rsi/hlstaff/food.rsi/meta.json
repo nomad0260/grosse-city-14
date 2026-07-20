@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "service_ration"
+    },
+    {
+      "name": "priority_ration"
+    },
+    {
+      "name": "standard_ration"
+    },
+    {
+      "name": "biotic_ration"
+    },
+    {
+      "name": "service_ration_open"
+    },
+    {
+      "name": "priority_ration_open"
+    },
+    {
+      "name": "standard_ration_open"
+    },
+    {
+      "name": "biotic_ration_open"
+    },
+    {
+      "name": "bar_package"
+    },
+    {
+      "name": "bar_package_2"
+    },
+    {
+      "name": "bar_package_3"
+    },
+    {
+      "name": "bar_package_4"
+    },
+    {
+      "name": "bar_package_crumpled"
+    },
+    {
+      "name": "bar_package_2_crumpled"
+    },
+    {
+      "name": "bar_package_3_crumpled"
+    },
+    {
+      "name": "bar_package_crumpled_4"
+    },
+    {
+      "name": "water_bar"
+    },
+    {
+      "name": "pork_bar"
+    },
+    {
+      "name": "food_package"
+    },
+    {
+      "name": "food_package_2"
+    },
+    {
+      "name": "food_package_3"
+    },
+    {
+      "name": "food_package_open"
+    },
+    {
+      "name": "food_package_2_open"
+    },
+    {
+      "name": "food_package_3_open"
+    },
+    {
+      "name": "egg_paste"
+    },
+    {
+      "name": "chicken_paste"
+    },
+    {
+      "name": "cookie"
+    },
+    {
+      "name": "coffee"
+    },
+    {
+      "name": "pill_bottle"
+    },
+    {
+      "name": "breen_can"
+    },
+    {
+      "name": "breen_can_red"
+    },
+    {
+      "name": "breen_can_yellow"
+    },
+    {
+      "name": "breen_can_open"
+    },
+    {
+      "name": "breen_can_red_open"
+    },
+    {
+      "name": "breen_can_yellow_open"
+    },
+    {
+      "name": "breen_can_crushed"
+    },
+    {
+      "name": "breen_can_red_crushed"
+    },
+    {
+      "name": "breen_can_yellow_crushed"
+    },
+    {
+      "name": "debug_ration"
+    },
+    {
+      "name": "debug_ration_open"
+    },
+    {
+      "name": "Debug_bar"
+    },
+    {
+      "name": ""
+    },
+    {
+      "name": "cardboardbox"
+    },
+    {
+      "name": "cardboardbox_open"
+    },
+    {
+      "name": "bar_package_4_open"
+    },
+    {
+      "name": "beef_patty"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+#- type: startingGear
+#  id: OTAGear
+#  equipment:
+#    jumpsuit: ClothingUniformJumpsuitOTAC17
+#    back: ClothingBackpackCombineC17Filled
+#    shoes: ClothingShoesBootsNedoSpetsnaz
+#    gloves: ClothingHandsGlovesCombat
+#    ears: ClothingHeadsetCMBC17
+#    outerClothing: ClothingOuterArmorOTAC17
+#    suitstorage: WeaponSubMachineGunC17
+#    id: UnionIDCardOTASoldier
+#    head: ClothingHeadOTAC17
+#    belt: WeaponPistolC17
+#    pocket1: MagazinePistol
+#    pocket2: MagazinePistol
+#    neck: CombatKnifeSpetsnaz
+#
+#- type: startingGear
+#  id: OTAAR2Gear
+#  equipment:
+#    jumpsuit: ClothingUniformJumpsuitOTAC17
+#    back: ClothingBackpackCombineC17AR2Filled
+#    shoes: ClothingShoesBootsNedoSpetsnaz
+#    gloves: ClothingHandsGlovesCombat
+#    ears: ClothingHeadsetCMBC17
+#    outerClothing: ClothingOuterArmorOTAC17
+#    suitstorage: WeaponPulseRifleAR2C17
+#    id: UnionIDCardOTASoldier
+#    head: ClothingHeadOTAC17
+#    belt: WeaponPistolC17
+#    pocket1: MagazinePistol
+#    pocket2: MagazinePistol
+#    neck: CombatKnifeSpetsnaz
+#
+#- type: startingGear
+#  id: OTAShotgunGear
+#  equipment:
+#    jumpsuit: ClothingUniformJumpsuitOTAC17Shotgunner
+#    back: ClothingBackpackCombineC17ShotgunFilled
+#    shoes: ClothingShoesBootsNedoSpetsnaz
+#    gloves: ClothingHandsGlovesCombat
+#    ears: ClothingHeadsetCMBC17
+#    outerClothing: ClothingOuterArmorOTAC17Shotgunner
+#    suitstorage: WeaponShotgun12CombineC17
+#    id: UnionIDCardOTASoldier
+#    head: ClothingHeadOTAC17Shotgunner
+#    belt: WeaponPistolC17
+#    pocket1: MagazinePistol
+#    pocket2: MagazinePistol
+#    neck: CombatKnifeSpetsnaz
+#

@@ -1,0 +1,155 @@
+- type: entity
+  abstract: true
+  id: MaskGasTankBase
+  components:
+  - type: UseDelay
+    delays:
+      gasTank:
+        length: 1.0
+  - type: ActivatableUI
+    key: enum.SharedGasTankUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SharedGasTankUiKey.Key:
+        type: GasTankBoundUserInterface
+  - type: GasTank
+    outputPressure: 21.3
+    air:
+      volume: 5
+      temperature: 293.15
+      moles:
+        Oxygen: 2.051379050 # oxygen
+    tankLowPressure: 30.0
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskOTAC17
+  name: overwatch soldier unit gasmask
+  description: A military-grade gas mask that can be connected to an air supply.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.8
+        Heat: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.7
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+    - HidesHair
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskCPC17
+  name: overwatch CP unit gasmask
+  description: A Police gas mask that can be connected to an air supply.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/gasmask/cp.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/gasmask/cp.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+    - HidesHair
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - HeadTop
+    - FacialHair
+    - HeadSide
+    - Snout
+  - type: VoiceMask
+  - type: UIRequiresLock
+    userInterfaceKeys:
+      - enum.VoiceMaskUIKey.Key
+    accessDeniedSound: null
+    popup: null
+  - type: UserInterface
+    interfaces:
+      enum.VoiceMaskUIKey.Key:
+        type: VoiceMaskBoundUserInterface
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskOTAEliteC17
+  name: overwatch soldier unit gasmask
+  description: A military-grade gas mask that can be connected to an air supply.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/gasmask/otaking.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/gasmask/otaking.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.8
+        Heat: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.7
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+    - HidesHair
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskWorkerC17
+  name: CMB worker gasmask
+  description: A worker gas mask that can be connected to an air supply.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/gasmask/worker.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/gasmask/worker.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+    - HidesHair
+    - WhitelistChameleon
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+    - FacialHair

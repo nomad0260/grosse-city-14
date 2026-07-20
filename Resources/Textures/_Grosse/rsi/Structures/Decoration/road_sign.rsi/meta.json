@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 48
+  },
+  "states": [
+    {
+      "name": "stop"
+    },
+    {
+      "name": "noturn",
+      "directions": 4
+    },
+    {
+      "name": "noparking"
+    },
+    {
+      "name": "street"
+    },
+    {
+      "name": "direction"
+    },
+    {
+      "name": "busstop"
+    },
+    {
+      "name": "railcrossing"
+    },
+    {
+      "name": "onlydir",
+      "directions": 4
+    },
+    {
+      "name": "speed",
+      "directions": 4
+    },
+    {
+      "name": "warnings",
+      "directions": 4
+    },
+    {
+      "name": "turn",
+      "directions": 8
+    },
+    {
+      "name": "Unused"
+    },
+    {
+      "name": "exit",
+      "directions": 4
+    },
+    {
+      "name": "nopedestrian"
+    },
+    {
+      "name": "merge"
+    },
+    {
+      "name": "snake"
+    }
+  ]
+}

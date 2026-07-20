@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "headcrab",
+      "directions": 4
+    },
+    {
+      "name": "headcrab_dead"
+    },
+    {
+      "name": "headcrabhead",
+      "directions": 4
+    },
+    {
+      "name": "human-template",
+      "directions": 4
+    },
+    {
+      "name": "zombieoverlay",
+      "directions": 4
+    }
+  ]
+}

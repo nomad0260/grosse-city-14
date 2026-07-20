@@ -1,0 +1,46 @@
+- type: gameMap
+  id: City14
+  mapName: 'City 14'
+  mapPath: /eventMasters/no_mad/maps/city14.yml
+  minPlayers: 0
+  maxPlayers: 140
+  maxRandomOffset: 0
+  randomRotation: false
+  stations:
+    City14:
+      stationProto: StandardCombineCity
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'City 14'
+        - type: StationJobs
+          availableJobs:
+            Citizen: [ -1, -1 ]
+            # ГСР
+            Worker: [ 15, 15 ]
+            UnionMiner: [ 5, 5 ]
+            UnionResearcher: [ 3, 3 ]
+            # Главы
+            UnionFactoryHead: [ 1, 1 ]
+            UnionWorkersHead: [ 1, 1 ]
+            # ГэО
+            CivilProtactionUnit: [ 18, 18 ]
+            CivilProtactionUnit02: [ 4, 4 ]
+            CivilProtactionUnitOfficer: [ 1, 1 ]
+
+- type: entity
+  id: StandardCombineCity
+  parent:
+    - BaseStation
+    - BaseStationNews
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationAlertLevels
+    - BaseCity14Jobs
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Transform
+    - type: StationCargoBountyDatabase
+      group: CombineJob
+      maxBounties: 3

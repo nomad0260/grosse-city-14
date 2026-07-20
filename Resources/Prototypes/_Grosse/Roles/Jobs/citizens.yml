@@ -1,0 +1,50 @@
+- type: playTimeTracker
+  id: JobCivilianC17
+
+- type: job
+  id: Citizen
+  name: Гражданин
+  description: Живи и работай
+  playTimeTracker: JobCivilianC17
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CitizenGear
+  icon: "JobIconUnionCivilian"
+  supervisors: Абсолютно всем
+  canBeAntag: false
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+
+- type: playTimeTracker
+  id: JobWorkerC17
+
+- type: job
+  id: Worker
+  name: Разнорабочий
+  description: Живи и работай
+  playTimeTracker: JobWorkerC17
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CMBWorkerNotReadyGear
+  icon: "JobIconUnionPerson"
+  supervisors: Главе ГСР и Начальнику Завода
+  canBeAntag: false
+  access:
+    - UnionBase
+    - Engineering
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune

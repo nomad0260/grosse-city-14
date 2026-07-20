@@ -1,0 +1,24 @@
+- type: department
+  id: City14
+  name: Гражданский Союз Рабочих
+  description: Роли города 14.
+  color: "#9e6715"
+  weight: -15
+  roles:
+  - Citizen
+  - Worker
+  - UnionFactoryHead
+  - UnionWorkersHead
+  - UnionMiner
+  - UnionResearcher
+
+- type: department
+  id: City14CivilProtection
+  name: Гражданская Оборона
+  description: Роли города 14.
+  color: "Blue"
+  weight: -16
+  roles:
+  - CivilProtactionUnit
+  - CivilProtactionUnit02
+  - CivilProtactionUnitOfficer

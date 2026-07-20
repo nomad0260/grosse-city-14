@@ -1,0 +1,15 @@
+- type: accessLevel
+  id: UnionBase
+  name: Вселенский Союз Общий
+
+- type: accessLevel
+  id: UnionCP
+  name: Вселенский Союз Гражданская Оборона
+
+- type: accessLevel
+  id: UnionOTA
+  name: Вселенский Союз Сверх-Человеческий Отдел
+
+- type: accessLevel
+  id: UnionAdmin
+  name: Вселенский Союз Администратор

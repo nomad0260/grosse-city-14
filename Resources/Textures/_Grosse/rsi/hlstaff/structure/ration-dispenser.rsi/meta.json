@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "rationdispenser",
+      "directions": 4
+    },
+    {
+      "name": "rationdispenser-off",
+      "directions": 4
+    }
+  ]
+}

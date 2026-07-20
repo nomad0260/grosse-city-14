@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "size": {
+    "x": 128,
+    "y": 78
+  },
+  "states": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "rusted"
+    }
+  ]
+}

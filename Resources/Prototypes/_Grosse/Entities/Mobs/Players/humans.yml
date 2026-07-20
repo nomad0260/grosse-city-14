@@ -1,0 +1,160 @@
+#- type: entity
+#  name: CP unit
+#  parent: MobHuman
+#  suffix: Альянс Civil Protection unit
+#  id: MobHumanCPC17
+#  components:
+#  - type: NameIdentifier
+#    group: GenericNumber
+#  - type: Icon
+#    sprite: Markers/jobs.rsi
+#    state: ertmedicaleva
+#  - type: Speech
+#    speechSounds: Metrocop
+#    soundCooldownTime: 0.1
+#  - type: Tag
+#    tags:
+#      - CombineUnit
+#      - CanPilot
+#      - FootstepSound
+#      - DoorBumpOpener
+#  - type: TriggerOnMobstateChange
+#    mobState:
+#    - Critical
+#  - type: EmitSoundOnTrigger
+#    sound:
+#      collection: SoldierDeath
+#  - type: Loadout
+#    prototypes: [CivilProtectionGear]
+#  - type: NpcFactionMember
+#    factions:
+#      - Xenoborg
+#  - type: RandomHumanoidAppearance
+#    randomizeName: false
+#  - type: MindShield
+#  - type: ShowJobIcons
+#  - type: ShowMindShieldIcons
+#  - type: TriggerOnSpawn
+#    keyOut: GotRemoved
+#  - type: RemoveComponentsOnTrigger
+#    targetUser: false
+#    keysIn:
+#    - GotRemoved
+#    components:
+#    - type: Crawler
+#  #  - type: SleepOnSSD
+#  - type: Fixtures
+#    fixtures:
+#      fix1:
+#        shape:
+#          !type:PhysShapeCircle
+#          radius: 0.35
+#        density: 300
+#        mask:
+#        - MobMask
+#        layer:
+#        - MobLayer
+#
+#- type: entity
+#  name: unit
+#  parent: MobHumanCombine
+#  suffix: Альянс
+#  id: MobHumanCombineC17
+#  categories: [ HideSpawnMenu ]
+#  components:
+#  - type: NameIdentifier
+#    group: GenericNumber
+#  - type: MindShield
+#  - type: NpcFactionMember
+#    factions:
+#      - Xenoborg
+#  - type: ShowJobIcons
+#  - type: ShowMindShieldIcons
+#  - type: Tag
+#    tags:
+#      - CombineUnit
+#      - CanPilot
+#      - FootstepSound
+#      - DoorBumpOpener
+#
+#- type: entity
+#  name: unit
+#  suffix: Альянс
+#  parent: MobHumanCombineC17
+#  description: Жалкая кучка спецназа.
+#  id: MobHumanCombineOTAC17
+#  components:
+#  - type: Loadout
+#    prototypes: [OTAGear]
+#
+#- type: entity
+#  name: unit
+#  suffix: Альянс AR2
+#  parent: MobHumanCombineC17
+#  description: Жалкая кучка спецназа.
+#  id: MobHumanCombineOTAC17AR2
+#  components:
+#  - type: Loadout
+#    prototypes: [OTAAR2Gear]
+#
+#- type: entity
+#  name: leader
+#  suffix: Альянс Leader
+#  parent: MobHumanCombineC17
+#  description: Жалкая кучка спецназа.
+#  id: MobHumanCombineOTAC17Leader
+#  components:
+#  - type: NameIdentifier
+#    group: GenericNumber
+#  - type: Loadout
+#    prototypes: [OTAAR2Gear]
+#  - type: MindShield
+#  - type: Tag
+#    tags:
+#      - CannotSuicide
+#      - DoorBumpOpener
+#      - FootstepSound
+#      - CanPilot
+#      - CombineLeader
+#
+#- type: entity
+#  name: unit
+#  suffix: Альянс Shotgun
+#  parent: MobHumanCombineC17
+#  description: Жалкая кучка спецназа.
+#  id: MobHumanCombineOTAC17Shotgun
+#  components:
+#  - type: Loadout
+#    prototypes: [OTAShotgunGear]
+#
+#- type: entity
+#  name: elite
+#  suffix: Альянс Elite unit
+#  parent: MobHumanCombineC17
+#  description: Жалкая кучка спецназа.
+#  id: MobHumanCombineEliteOTAC17
+#  components:
+#  - type: NameIdentifier
+#    group: GenericNumber
+#  - type: Loadout
+#    prototypes: [OTAEliteGear]
+#  - type: MindShield
+#
+#- type: entity
+#  name: CP unit
+#  parent: MobHumanCPC17
+#  suffix: Альянс SMG
+#  id: MobHumanCPC17SMG
+#  components:
+#  - type: Loadout
+#    prototypes: [CivilProtectionSMGGear]
+#
+#- type: entity
+#  name: CP unit
+#  parent: MobHumanCPC17
+#  suffix: Альянс Officer
+#  id: MobHumanCPC17Officer
+#  components:
+#  - type: Loadout
+#    prototypes: [CivilProtectionOfficerGear]
+#

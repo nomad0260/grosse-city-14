@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "id_trim"
+    },
+    {
+      "name": "id_combine2"
+    },
+    {
+      "name": "id_combine"
+    },
+    {
+      "name": "id_orange"
+    },
+    {
+      "name": "id_red"
+    },
+    {
+      "name": "id_purple"
+    },
+    {
+      "name": "id_green"
+    },
+    {
+      "name": "id_grey"
+    },
+    {
+      "name": "id_navy"
+    }
+  ]
+}

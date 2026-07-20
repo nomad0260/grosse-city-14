@@ -1,0 +1,7 @@
+- type: soundCollection
+  id: SoldierDeath
+  files:
+  - _Grosse/audio/combine/die1.ogg
+  - _Grosse/audio/combine/die2.ogg
+  - _Grosse/audio/combine/die3.ogg
+  - _Grosse/audio/combine/die4.ogg

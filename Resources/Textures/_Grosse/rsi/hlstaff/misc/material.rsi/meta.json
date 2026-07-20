@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "sheet-scrapglass"
+    },
+    {
+      "name": "sheet-scrapglass_2"
+    },
+    {
+      "name": "sheet-scrapglass_3"
+    },
+    {
+      "name": "roundplate"
+    },
+    {
+      "name": "claymoreframe"
+    },
+    {
+      "name": "sheet-scrapparts"
+    },
+    {
+      "name": "sheet-scrapparts_2"
+    },
+    {
+      "name": "sheet-scrapparts_3"
+    },
+    {
+      "name": "sheet-scrapmetal"
+    },
+    {
+      "name": "sheet-scrapmetal_2"
+    },
+    {
+      "name": "sheet-scrapmetal_3"
+    },
+    {
+      "name": "sheet-scrapwood"
+    },
+    {
+      "name": "sheet-wood"
+    },
+    {
+      "name": "sheet-wood_2"
+    },
+    {
+      "name": "sheet-wood_3"
+    },
+    {
+      "name": "sheet-cloth"
+    },
+    {
+      "name": "sheet-cloth_2"
+    },
+    {
+      "name": "sheet-cloth_3"
+    },
+    {
+      "name": "plastic"
+    },
+    {
+      "name": "plastic_2"
+    },
+    {
+      "name": "plastic_3"
+    },
+    {
+      "name": "brick"
+    },
+    {
+      "name": "brick_2"
+    },
+    {
+      "name": "brick_3"
+    },
+    {
+      "name": "kevlar"
+    },
+    {
+      "name": "sheet-resin"
+    },
+    {
+      "name": "sheet-resin_2"
+    },
+    {
+      "name": "sheet-resin_3"
+    },
+    {
+      "name": "ironingot"
+    },
+    {
+      "name": "ironpowder"
+    },
+    {
+      "name": "scrap_copper"
+    },
+    {
+      "name": "gunpowder"
+    },
+    {
+      "name": "bullets"
+    },
+    {
+      "name": "goldingot"
+    },
+    {
+      "name": "silveringot"
+    },
+    {
+      "name": "copper"
+    },
+    {
+      "name": "barbedwire"
+    }
+  ]
+}

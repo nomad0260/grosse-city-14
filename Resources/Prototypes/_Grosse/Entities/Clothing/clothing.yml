@@ -1,0 +1,179 @@
+- type: entity
+  abstract: true
+  parent: [ClothingOuterBase, AllowSuitStorageClothing]
+  id: ClothingOuterEVASuitBaseC17
+  name: base EVA Suit
+  components:
+  - type: PressureProtection
+    highPressureMultiplier: 0.1
+    lowPressureMultiplier: 1000
+  - type: TemperatureProtection
+    coefficient: 0.01
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+  - type: Item
+    size: Huge
+  - type: Tag
+    tags:
+    - Hardsuit
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterEVASuitBaseC17
+  id: ClothingOuterArmorOTAC17
+  name: overwatch soldier unit armor
+  description: Military-grade suit for special overwatch units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+    stripDelay: 10
+    equipDelay: 5
+  #- type: Unremoveable
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: Armor
+    modifiers:
+#      armorLvls:
+#        Piercing: 2
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.5
+        Heat: 0.5
+        Radiation: 0.5
+        Caustic: 0.5
+        Stun: 0.2
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+
+- type: entity
+  parent: ClothingOuterArmorBasic
+  id: ClothingOuterArmorCPC17
+  name: бронежилет гражданской обороны
+  description: Полицейский жилет для защиты гражданской обороны.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+  - type: Armor 
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.45
+        Heat: 0.6
+
+- type: entity
+  parent: ClothingOuterEVASuitBaseC17
+  id: ClothingOuterArmorResistenceC17
+  name: броня солдата Альянса
+  description: Переделанный сопротивлением бронежилет солдата Альянса для более удобного ношения в бою.
+  suffix: Resistens
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/resistance.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/resistance.rsi
+    stripDelay: 10
+    equipDelay: 5
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.4
+        Heat: 0.5
+        Stun: 0.5
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitOTAC17
+  name: overwatch soldier unit штаны
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitOTAC17Shotgunner
+  name: overwatch soldier unit штаны
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingOuterArmorOTAC17
+  id: ClothingOuterArmorOTAC17Shotgunner
+  name: overwatch soldier unit armor
+  description: Military-grade suit for special overwatch units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckRebelBand
+  name: Rebel armored band
+  description: Damn, it feels good to be a rebel.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/neck/armor.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/neck/armor.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.95
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCPC17
+  name: overwatch CP patrol unit jumpsuit
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCPOfficerC17
+  name: overwatch officer CP unit jumpsuit
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/cpofficeruniform.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/cpofficeruniform.rsi
+
+- type: entity
+  parent: ClothingOuterCoatHoSGreatcoat
+  id: ClothingOuterArmorCPSeCC17
+  name: sectorial commander coat
+  description: Coat of Sectorial Commander.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi

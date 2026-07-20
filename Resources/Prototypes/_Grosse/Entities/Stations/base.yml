@@ -1,0 +1,9 @@
+- type: entity
+  id: BaseCity14Jobs
+  abstract: true
+  components:
+  - type: SalvageJobsData
+    rankThresholds:
+      0:
+        title: Город 14
+        bountyGroup: CombineJob

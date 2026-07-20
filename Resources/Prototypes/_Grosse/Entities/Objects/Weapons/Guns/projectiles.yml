@@ -1,0 +1,82 @@
+- type: entity
+  id: PulseBullet
+  name: pulse bullet
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/muzzle/pulse.rsi
+    layers:
+    - state: pulse
+      shader: unshaded
+  - type: Ammo
+    muzzleFlash: MuzzlePulseEffect
+  - type: Projectile
+    impactEffect: BulletPulseEffect
+    damage:
+#      armorPiercingLevels:
+#        Piercing: 2
+      types:
+        Heat: 5
+        Piercing: 3
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: Tag
+    tags:
+      - PulseBullet
+  - type: Reflective
+    reflective:
+    - Energy
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.1"
+        hard: false
+        mask:
+        - Opaque
+      fly-by: &flybyfixture
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer:
+        - Opaque
+        - Impassable
+        hard: False
+
+
+- type: entity
+  id: PulseBulletCombine
+  name: pulse bullet
+  parent: PulseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+#      armorPiercingLevels:
+#        Piercing: 2
+      types:
+        Heat: 32
+        Piercing: 20
+  - type: Reflective
+    reflective:
+    - NonEnergy
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.1"
+        hard: false
+        mask:
+        - Opaque
+
+- type: entity
+  id: PelletShotgunMagnum12Spread
+  categories: [ HideSpawnMenu ]
+  parent: PelletShotgun
+  components:
+  - type: ProjectileSpread
+    proto: PelletShotgun
+    count: 10
+    spread: 16

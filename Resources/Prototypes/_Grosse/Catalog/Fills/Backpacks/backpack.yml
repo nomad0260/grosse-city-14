@@ -1,0 +1,33 @@
+- type: entity
+  parent: ClothingBackpackCombineC17
+  id: ClothingBackpackCombineC17Filled
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: StorageFill
+      contents:
+        - id: BoxFlare
+        - id: CombineGrenadeC17
+          amount: 4
+        - id: MagazinePistolSubMachineGun
+          amount: 8
+        - id: HealthvialC17
+          amount: 5
+        - id: MedkitC17
+          amount: 2
+
+- type: entity
+  parent: ClothingBackpackCombineC17
+  id: ClothingBackpackCombineC17ShotgunFilled
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: StorageFill
+      contents:
+        - id: BoxFlare
+        - id: CombineGrenadeC17
+          amount: 4
+        - id: AmmoBox12magnum
+          amount: 8
+        - id: HealthvialC17
+          amount: 7
+        - id: MedkitC17
+          amount: 4

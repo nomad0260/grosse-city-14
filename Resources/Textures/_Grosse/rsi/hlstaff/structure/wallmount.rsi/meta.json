@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "suitcharger"
+    },
+    {
+      "name": "suitcharger_01"
+    },
+    {
+      "name": "suitcharger_02"
+    },
+    {
+      "name": "suitcharger_03"
+    },
+    {
+      "name": "healthcharger"
+    },
+    {
+      "name": "healthcharger_01"
+    },
+    {
+      "name": "healthcharger_02"
+    },
+    {
+      "name": "healthcharger_03"
+    }
+  ]
+}
