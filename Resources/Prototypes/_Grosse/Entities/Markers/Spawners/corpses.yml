@@ -1,0 +1,90 @@
+- type: entity
+  name: спавнер голого трупа
+  id: SalvageHumanCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - SalvageHumanCorpseC17
+
+- type: entity
+  name: спавнер трупа гражданского
+  id: MobRandomCitizenCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Гражданский
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomCitizenCorpseC17
+
+- type: entity
+  name: спавнер трупа рабочего
+  id: MobRandomWorkerCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Рабочий
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomWorkerCorpseC17
+
+- type: entity
+  name: спавнер трупа беженца
+  id: MobRandomRefugeeCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Беженец, Вооруженый
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomRefugeeCorpseC17
+
+- type: entity
+  name: спавне трупа легкого повстанца
+  id: MobRandomRefugeeHeavyCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Повстанец, Легко вооруженый
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomRefugeeHeavyCorpseC17
+
+- type: entity
+  name: спавнер трупа повстанца
+  id: MobRandomRebelCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Повстанец, Вооруженый
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomRebelCorpseC17
+
+- type: entity
+  name: спавнер трупа ГэОшника
+  id: MobRandomCivilProtectionCorpseC17Spawner
+  parent: SpawnerVehicleMoskvich17
+  suffix: Труп города 17, Гражданская Оборона
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+  - type: RandomSpawner
+    prototypes:
+    - MobRandomCivilProtectionCorpseC17

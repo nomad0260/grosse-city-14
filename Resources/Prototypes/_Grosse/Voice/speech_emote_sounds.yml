@@ -1,0 +1,8 @@
+- type: emoteSounds
+  id: ZombieHeadcrabed
+  params:
+    variation: 0.125
+    volume: -10
+  sounds:
+    PainZombie:
+      collection: ZombiePain

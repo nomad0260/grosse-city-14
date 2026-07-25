@@ -5,3 +5,9 @@
   - _Grosse/audio/combine/die2.ogg
   - _Grosse/audio/combine/die3.ogg
   - _Grosse/audio/combine/die4.ogg
+
+- type: soundCollection
+  id: HeadcrabDeath
+  files:
+    - _Grosse/audio/blackmesa/mob/headcrab/die1.ogg
+    - _Grosse/audio/blackmesa/mob/headcrab/die2.ogg

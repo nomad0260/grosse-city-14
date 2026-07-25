@@ -1,0 +1,13 @@
+- type: entity
+  parent: BaseAction
+  id: ActionHeadcrabJump
+  name: прыгнуть
+  description: Напрячь свои лапки чтобы совершить резкий рывок вперед.
+  components:
+  - type: Action
+    useDelay: 5
+    icon:
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+      state: headcrab
+  - type: InstantAction
+    event: !type:GravityJumpEvent {}

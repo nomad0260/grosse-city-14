@@ -1,0 +1,8 @@
+- type: autoEmote
+  id: BarnacledGasp
+  emote: Gasp
+  interval: 4
+  chance: 1
+  ignoreActionBlocker: true
+  force: true
+  hiddenFromChatWindow: true

@@ -1,0 +1,299 @@
+- type: entity
+  name: барнакл
+  id: MobBarnacle
+  description: Барнакл, весь слизиться, еще его мерзкий язык, фу.
+  parent: BaseBarricade
+  suffix: Xen
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/mobs/barnacle.rsi
+    drawdepth: Mobs
+    offset: "0, 1"
+    layers:
+    - state: barnacle
+    - state: barnacle_tongue_only
+    - state: barnacle_tongue_only
+  - type: Physics
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MobBarnacleDead:
+            min: 1
+            max: 1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.1
+        hard: false
+        layer:
+          - MidImpassable
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,1.3,0.3,1.8"
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Transform
+    noRot: true
+  - type: Stealth
+  - type: StealthOnMove
+  - type: Appearance
+  - type: DeleteOnTrigger
+  - type: TriggerOnCollide
+    fixtureID: fix1
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      components:
+      - HumanoidProfile
+    userBlacklist:
+      components:
+      - TransferMindOnGib
+      - ZombieImmune
+  - type: PolymorphOnTrigger
+    targetUser: true
+    polymorph: BarnacleHit
+  - type: DamageOnTrigger
+    targetUser: true
+    damage:
+      types:
+        Asphyxiation: 20
+  - type: EmitSoundOnSpawn
+    sound:
+      path: _Grosse/audio/blackmesa/mob/barnacle/latch.ogg
+      params:
+        volume: 2
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  name: мертвый барнакл
+  id: MobBarnacleDead
+  description: Какой ужас.
+  parent: BaseBarricade
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/mobs/barnacle.rsi
+    drawdepth: Mobs
+    offset: "0, 1.1"
+    layers:
+    - state: barnacle_dead
+  - type: Physics
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,1.3,0.3,1.8"
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: EmitSoundOnSpawn
+    sound:
+      path: _Grosse/audio/blackmesa/mob/barnacle/die.ogg
+      params:
+        volume: 2
+
+- type: polymorph
+  id: BarnacleHit
+  configuration:
+    entity: BaseBarnacledHumanoid
+    transferName: true
+    forced: true
+    inventory: Transfer
+    transferDamage: false
+    revertOnDeath: false
+    revertOnCrit: true
+    revertOnDelete: false
+    transferHumanoidAppearance: true
+    duration: null
+    polymorphSound: _Grosse/audio/blackmesa/mob/barnacle/attack.ogg
+    exitPolymorphSound: _Grosse/audio/blackmesa/mob/barnacle/digest.ogg
+    polymorphPopup: Вы попали в щупальца барнакла!
+    exitPolymorphPopup: Вы спаслись из щупалец барнакла!
+
+- type: entity
+  id: BaseBarnacledHumanoid
+  parent: MobHuman
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/hlstaff/mobs/barnacle.rsi
+    layers:
+    - state: barnacle
+      offset: "0, 1"
+    - state: barnacle_tongue_only
+      offset: "0, 1"
+    - map: [ "enum.HumanoidVisualLayers.Chest" ]
+    - map: [ "enum.HumanoidVisualLayers.Head" ]
+    - map: [ "enum.HumanoidVisualLayers.Snout" ]
+    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
+    - map: [ "enum.HumanoidVisualLayers.RArm" ]
+    - map: [ "enum.HumanoidVisualLayers.LArm" ]
+    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+    - map: [ "underwearb" ]
+    - map: [ "underweart" ]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: [ "socks" ]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: [ "gloves" ]
+    - map: [ "shoes" ]
+    - map: [ "ears" ]
+    - map: [ "outerClothing" ]
+    - map: [ "eyes" ]
+    - map: [ "belt" ]
+    - map: [ "id" ]
+    - map: [ "back" ]
+    - map: [ "neck" ]
+    - map: [ "enum.HumanoidVisualLayers.SnoutCover" ]
+    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
+    - map: [ "enum.HumanoidVisualLayers.Hair" ]
+    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
+    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
+    - map: [ "enum.HumanoidVisualLayers.Tail" ]
+    - map: [ "mask" ]
+    - map: [ "head" ]
+    - map: [ "pocket1" ]
+    - map: [ "pocket2" ]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+    - map: [ "clownedon" ]
+      sprite: "Effects/creampie.rsi"
+      state: "creampie_human"
+      visible: false
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  #- type: TriggerOnMobstateChange
+  #  keyOut: Escaped
+  #  mobState:
+  #  - Critical
+  - type: TriggerOnSpawn
+    keyOut: Crawl
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - Crawl
+    components:
+    - type: Crawler
+  #- type: SpawnOnTrigger
+  #  keysIn:
+  #  - GotRemoved
+  #  - Escaped
+  #  proto: MobBarnacle
+  #- type: TimerTrigger
+  #  keysIn:
+  #  - GotRemoved
+  #  delay: 0.05
+  #  keyOut: timedtrigger
+  #- type: GibOnTrigger
+  #  keysIn:
+  #  - timedtrigger
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damageCap: 0
+    damage:
+      types:
+        Asphyxiation: 2
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Critical
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      50: Critical
+      56: Dead
+  - type: AutoEmote
+    emotes:
+    - BarnacledGasp
+  - type: Pacified
+    disallowAllCombat: true
+  - type: SolutionRegeneration
+    solution: chemicals
+    generated:
+      reagents:
+      - ReagentId: MuteToxin
+        Quantity: 1
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Asphyxiation
+        damage: 30
+      behaviors:
+      - !type:GibBehavior { }
+      #- !type:TriggerBehavior
+      #  keyOut: GotRemoved
+      #- !type:DoActsBehavior
+      #  acts: ["Destruction"]
+      #- !type:PlaySoundBehavior
+      #  sound:
+      #    collection: gib
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          SpawnerBarnacle:
+            min: 1
+            max: 1
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MobBarnacleDead:
+            min: 1
+            max: 1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 300
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,1.3,0.3,1.8"
+        mask:
+        - MobMask
+        layer:
+        - MobLayer

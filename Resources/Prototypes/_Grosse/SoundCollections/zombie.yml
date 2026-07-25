@@ -1,0 +1,16 @@
+- type: soundCollection
+  id: ZombiePain
+  files:
+    - _Grosse/audio/blackmesa/mob/zombies/pain1.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/pain2.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/pain3.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/pain4.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/pain5.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/pain6.ogg
+
+- type: soundCollection
+  id: ZombieScreemAlert
+  files:
+    - _Grosse/audio/blackmesa/mob/zombies/alert1.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/alert2.ogg
+    - _Grosse/audio/blackmesa/mob/zombies/alert3.ogg

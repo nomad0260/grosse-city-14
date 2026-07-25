@@ -1,0 +1,93 @@
+- type: entity
+  parent: SalvageHumanCorpse
+  suffix: Труп города 17
+  id: SalvageHumanCorpseC17
+  name: неизвестный труп
+  description: Выглядит очень мертво.
+  components:
+  - type: TriggerOnSpawn
+    keyOut: GotRemoved
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - GotRemoved
+    components:
+    - type: Perishable
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomCitizenCorpseC17
+  suffix: Труп города 17, Гражданский
+  components:
+  - type: Loadout
+    prototypes:
+    - CitizenGear
+    - CitizenGear2
+    - CitizenGear3
+    - CitizenGear4
+    - CitizenGear5
+    - CitizenGear6
+    - CitizenGear7
+    - CitizenGear8
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomWorkerCorpseC17
+  suffix: Труп города 17, Рабочий
+  components:
+  - type: Loadout
+    prototypes:
+    - CMBWorkerGear
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomRefugeeCorpseC17
+  suffix: Труп города 17, Беженец, Вооруженый
+  components:
+  - type: Loadout
+    prototypes:
+      - RefugeeGear
+      - RefugeeGear2
+      - RefugeeGear3
+      - RefugeeGear4
+      - RefugeeGear5
+      - RefugeeGear6
+      - RefugeeGear7
+      - RefugeeGear8
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomRefugeeHeavyCorpseC17
+  suffix: Труп города 17, Повстанец, Легко вооруженый
+  components:
+  - type: Loadout
+    prototypes:
+      - RefugeeHeavyGear
+      - RefugeeHeavyGear2
+      - RefugeeHeavyGear3
+      - RefugeeHeavyGear4
+      - RefugeeHeavyGear5
+      - RefugeeHeavyGear6
+      - RefugeeHeavyGear7
+      - RefugeeHeavyGear8
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomRebelCorpseC17
+  suffix: Труп города 17, Повстанец, Вооруженый
+  components:
+  - type: Loadout
+    prototypes:
+      - RebelGear
+      - RebelGear2
+      - RebelGear3
+      - RebelGearShotgun
+
+- type: entity
+  parent: SalvageHumanCorpseC17
+  id: MobRandomCivilProtectionCorpseC17
+  suffix: Труп города 17, Гражданская Оборона
+  components:
+  - type: Loadout
+    prototypes:
+      - CivilProtectionGear

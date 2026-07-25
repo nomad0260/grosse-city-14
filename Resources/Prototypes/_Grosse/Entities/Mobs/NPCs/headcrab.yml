@@ -1,0 +1,89 @@
+- type: entity
+  id: MobHeadcrabNPC
+  name: headcrab
+  suffix: suppa Zombie
+  parent: SimpleSpaceMobBase
+  components:
+    - type: ZombieImmune
+    - type: TriggerOnMobstateChange
+      mobState:
+        - Dead
+    - type: EmitSoundOnTrigger
+      sound:
+        collection: HeadcrabDeath
+        params:
+          volume: 1
+    - type: ClothingSpeedModifier
+      walkModifier: 0.6
+      sprintModifier: 0.6
+    - type: IngestionBlocker
+    - type: IdentityBlocker
+    - type: HTN
+      rootTask:
+        task: HeadCrabCompound
+    - type: CombatMode
+    - type: NpcFactionMember
+      factions:
+        - Zombie
+    - type: MeleeWeapon
+      hidden: true
+      soundHit:
+        path: _Grosse/audio/blackmesa/mob/headcrab/headbite.ogg
+      angle: 0
+      animation: WeaponArcSmash
+      damage:
+        types:
+          Slash: 5
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeCircle
+            radius: 0.2
+          density: 100
+          mask:
+          - SmallMobMask
+          layer:
+          - SmallMobLayer
+    - type: Destructible
+      thresholds:
+        - trigger:
+            !type:DamageTrigger
+            damage: 300
+          behaviors:
+            - !type:DoActsBehavior
+              acts: [ "Destruction" ]
+    - type: Butcherable
+      butcheringType: Knife
+      spawned:
+      - id: FoodMeatChicken
+        amount: 2
+    - type: DamageStateVisuals
+      rotate: false
+      states:
+        Alive:
+          Base: headcrab
+        Dead:
+          Base: headcrab_dead
+    - type: MobThresholds
+      thresholds:
+        0: Alive
+        50: Dead
+    - type: MovementSpeedModifier
+      baseWalkSpeed: 3
+      baseSprintSpeed: 4.5
+    - type: Sprite
+      offset: "0, 0.25"
+      drawdepth: Mobs
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+      layers:
+      - map: [ "enum.DamageStateVisualLayers.Base" ]
+        state: headcrab
+    - type: NPCUseActionOnTarget
+      actionId: ActionHeadcrabJump
+    - type: JumpAbility
+      action: ActionHeadcrabJump
+      jumpDistance: 4
+      jumpThrowSpeed: 10
+      jumpSound: _Grosse/audio/blackmesa/mob/headcrab/attack2.ogg
+      canCollide: false

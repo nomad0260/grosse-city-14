@@ -1,0 +1,6 @@
+- type: emote
+  id: PainZombie
+  name: painZombie
+  available: false
+  chatTriggers:
+   - painZombie

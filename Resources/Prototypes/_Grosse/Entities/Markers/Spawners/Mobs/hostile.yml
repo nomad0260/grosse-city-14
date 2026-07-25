@@ -1,0 +1,139 @@
+- type: entity
+  name: спавнер муравьиного льва
+  id: SpawnerMobAntlion
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
+      state: antlion
+  - type: RandomSpawner
+    prototypes:
+    - MobAntlion
+
+- type: entity
+  name: спавнер муравьиного рабочего
+  id: SpawnerMobAntlionWorker
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
+      state: antlionworker
+  - type: RandomSpawner
+    prototypes:
+    - MobAntlionWorker
+
+- type: entity
+  name: спавнер молодого муравьиного льва
+  id: SpawnerMobYoungAntlion
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
+      scale: 0.7, 0.7
+      state: antlionworker
+  - type: RandomSpawner
+    prototypes:
+    - MobYoungAntlion
+
+- type: entity
+  name: спавнер муравьиного стража
+  id: SpawnerMobAntlionGuardian
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+      scale: 1.5, 1.5
+    - sprite: _Grosse/rsi/hlstaff/mobs/guardian.rsi
+      state: guard
+  - type: RandomSpawner
+    prototypes:
+    - MobAntlionGuardian
+
+- type: entity
+  name: спавнер муравьиной личинки
+  id: SpawnerMobAntlionLarva
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
+      state: grub
+  - type: RandomSpawner
+    prototypes:
+    - MobAntlionLarva
+
+- type: entity
+  name: спавнер зомби
+  id: SpawnerMobHeadcrabedZombie
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - state: human-template
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/citizen.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/color.rsi
+    - state: zombieoverlay
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+  - type: RandomSpawner
+    prototypes:
+    - MobHeadcrabedZombie
+
+#- type: entity
+#  name: спавнер спящего зомби
+#  id: SpawnerMobHeadcrabedZombieSleep
+#  parent: SpawnerVehicleMoskvich17
+#  components:
+#  - type: Sprite
+#    layers:
+#    - state: red
+#    - state: human-template
+#      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+#    - state: equipped-INNERCLOTHING
+#      sprite: _Grosse/rsi/hlstaff/suit/citizen.rsi
+#    - state: equipped-FEET
+#      sprite: Clothing/Shoes/color.rsi
+#    - state: zombieoverlay
+#      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+#  - type: RandomSpawner
+#    prototypes:
+#    - MobHeadcrabedZombieSleep
+
+- type: entity
+  name: спавнер хедкраба
+  id: SpawnerMobHeadcrabNPC
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - state: headcrab
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+  - type: RandomSpawner
+    prototypes:
+    - MobHeadcrabNPC
+
+- type: entity
+  id: SpawnerBarnacle
+  parent: MarkerBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: RepeatingTrigger
+    delay: 0.05
+  - type: SpawnOnTrigger
+    proto: MobBarnacle
+  - type: DeleteOnTrigger

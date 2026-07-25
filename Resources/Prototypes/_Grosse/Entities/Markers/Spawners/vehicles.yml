@@ -1,0 +1,33 @@
+- type: entity
+  name: спавнер машины
+  id: SpawnerVehicleMoskvich17
+  parent: MarkerBase
+  suffix: City Spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+      scale: 3, 3
+    - sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
+      state: m1
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - VehicleMoskvich17
+    chance: 1
+
+- type: entity
+  name: спавнер грузовика
+  id: SpawnerVehicleZIL17
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+      scale: 3, 3
+    - sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+      scale: 1.1, 1.1
+      state: z2
+  - type: RandomSpawner
+    prototypes:
+    - VehicleZIL17

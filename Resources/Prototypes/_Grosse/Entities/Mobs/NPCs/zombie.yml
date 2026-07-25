@@ -1,0 +1,146 @@
+- type: entity
+  id: MobBaseHeadcrabedZombie
+  parent: MobBaseNpcDungeon
+  categories: [ HideSpawnMenu ]
+  suffix: suppa Zombie
+  components:
+  - type: EmoteOnDamage
+    emotes:
+    - PainZombie
+    emoteChance: 1
+  - type: Emoting
+  - type: ZombieImmune
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2
+    baseSprintSpeed: 4
+  - type: Vocal
+    sounds:
+      Male: ZombieHeadcrabed
+      Female: ZombieHeadcrabed
+      Unsexed: ZombieHeadcrabed
+  - type: Speech
+    speechSounds: ZombieScreemAlert
+    soundCooldownTime: 0.1
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: Prying
+    pryPowered: !type:Bool
+        true
+    force: !type:Bool
+      true
+    useSound:
+      path: /Audio/Items/crowbar.ogg
+  - type: Reactive
+  - type: MeleeWeapon
+    angle: 0
+    animation: WeaponArcClaw
+    soundHit:
+        path: _Grosse/audio/blackmesa/mob/zombies/claw_strike.ogg
+        params:
+          volume: 1
+    damage:
+        types:
+          Slash: 12
+          Structural: 15
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: NpcFactionMember
+    factions:
+      - Zombie
+  - type: TriggerOnMobstateChange
+    mobState:
+    - Dead
+  - type: EmitSoundOnTrigger
+    sound:
+      collection: HeadcrabDeath
+      params:
+        volume: 3
+  - type: TemperatureProtection
+  - type: Temperature
+    damageCap: 0
+  - type: ReplacementAccent
+    accent: zombie
+
+#- type: entity
+#  id: HeadcrabedZombieSleep
+#  abstract: true
+#  components:
+#  - type: DamageOnTrigger
+#    damage:
+#      types:
+#        Slash: -100
+#  - type: MobThresholds
+#    thresholds:
+#      0: Alive
+#      100: Critical
+#      125: Dead
+#  - type: MobState
+#    allowedStates:
+#      - Alive
+#      - Critical
+#      - Dead
+#  - type: Damageable
+#    damage:
+#      types:
+#        Slash: 100
+#  - type: TriggerOnCollide
+#    fixtureID: fix2
+#    maxTriggers: 1
+#  - type: WhitelistTriggerCondition
+#    userWhitelist:
+#      components:
+#      - HumanoidProfile
+#    userBlacklist:
+#      components:
+#      - TransferMindOnGib
+#      - ZombieImmune
+#  - type: Fixtures
+#    fixtures:
+#      fix1:
+#        shape:
+#          !type:PhysShapeCircle
+#          radius: 0.35
+#        density: 300
+#        mask:
+#        - MobMask
+#        layer:
+#        - MobLayer
+#      fix2:
+#        shape:
+#          !type:PhysShapeCircle
+#          radius: 2
+#        hard: false
+#        layer:
+#        - MidImpassable
+
+- type: entity
+  name: зомбированный
+  id: MobHeadcrabedZombie
+  parent: MobBaseHeadcrabedZombie
+  suffix: suppa Zombie
+  components:
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      125: Dead
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: human-template
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/citizen.rsi
+    - state: soles-equipped-FEET
+      sprite: Clothing/Shoes/color.rsi
+    - state: zombieoverlay
+      sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
+
+#- type: entity
+#  id: MobHeadcrabedZombieSleep
+#  parent: 
+#  - HeadcrabedZombieSleep
+#  - MobHeadcrabedZombie
+#  suffix: suppa Zombie Sleep
