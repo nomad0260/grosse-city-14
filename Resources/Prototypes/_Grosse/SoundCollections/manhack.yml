@@ -1,0 +1,12 @@
+- type: soundCollection
+  id: Manhackloop
+  files:
+  - /Audio/_Grosse/audio/manhack/engine_loop1.ogg
+  - /Audio/_Grosse/audio/manhack/engine_loop2.ogg
+
+- type: soundCollection
+  id: Manhackattack
+  files:
+  - /Audio/_Grosse/audio/manhack/grind_flesh1.ogg
+  - /Audio/_Grosse/audio/manhack/grind_flesh2.ogg
+  - /Audio/_Grosse/audio/manhack/grind_flesh3.ogg

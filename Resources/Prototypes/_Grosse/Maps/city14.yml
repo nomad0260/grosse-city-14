@@ -1,7 +1,7 @@
 - type: gameMap
   id: City14
   mapName: 'City 14'
-  mapPath: /eventMasters/no_mad/maps/city14.yml
+  mapPath: _Grosse/Maps/city14.yml
   minPlayers: 0
   maxPlayers: 140
   maxRandomOffset: 0

@@ -1,0 +1,125 @@
+
+- type: entity
+  name: AKMS
+  parent: BaseWeaponRifle
+  id: WeaponAKMSRifleResistance
+  suffix: Resistens, Автомат
+  description: An iconic weapon of war. Uses 7.62x39 ammo.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/big.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
+  - type: Item
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: 0
+    angleIncrease: -3
+  - type: Gun
+    angleDecay: 30
+    angleIncrease: 5
+    minAngle: 24
+    maxAngle: 35
+    fireRate: 5
+    soundGunshot:
+      path: /Audio/_Grosse/audio/Guns64/ak47.ogg
+  - type: ChamberMagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineLightRifle
+        insertSound: /Audio/_Grosse/audio/Guns64/ak47_reload.ogg
+        ejectSound: /Audio/_Grosse/audio/Guns64/ak47_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineLightRifle
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeLightRifle
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeLightRifle
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+  - type: UseDelay
+    delay: 0.5
+
+- type: entity
+  name: AK74-U
+  parent: BaseWeaponRifle
+  id: WeaponRifleAKSUResistance
+  suffix: Resistens, Автомат
+  description: An iconic weapon of war. Uses 7.62x39 ammo.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+  - type: Item
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+    size: Large
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: 0
+    angleIncrease: -2
+  - type: Gun
+    angleDecay: 25
+    angleIncrease: 6
+    minAngle: 24
+    maxAngle: 45
+    fireRate: 5
+    soundGunshot:
+      path: /Audio/_Grosse/audio/Guns64/ak47.ogg
+  - type: ChamberMagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineLightRifle
+        insertSound: /Audio/_Grosse/audio/Guns64/ak47_reload.ogg
+        ejectSound: /Audio/_Grosse/audio/Guns64/ak47_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineLightRifle
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeLightRifle
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeLightRifle
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+  - type: UseDelay
+    delay: 0.5

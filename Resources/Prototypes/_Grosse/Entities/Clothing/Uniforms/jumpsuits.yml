@@ -47,3 +47,73 @@
     sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
+
+- type: entity
+  id: CombineArmyFollower17
+  name: CMB фоловер
+  parent: BaseItem
+  components:
+  - type: Physics
+    bodyType: Dynamic
+  - type: Marker
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
+  - type: Tag
+    tags:
+      - CombineElite
+      - CombineLeader
+
+- type: entity
+  parent: 
+  - BaseFoldable
+  - ClothingUniformBase
+  id: ClothingUniformJumpsuitCitizenC17
+  name: citizen jumpsuit
+  description: Jumpsuit for city 17 citizens, looks like prisoner suit.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/citizen.rsi
+    layers:
+    - state: icon
+      map: [ "unfoldedLayer" ]
+    - state: open-icon
+      map: ["foldedLayer"]
+      visible: false
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/citizen.rsi
+  - type: SuitSensor
+    controlsLocked: true
+    randomMode: false
+    mode: SensorCords
+  - type: Foldable
+    canFoldInsideContainer: true
+    unfoldVerbText: fold-zip-verb
+    foldVerbText: fold-unzip-verb
+  - type: Appearance
+  - type: FoldableClothing
+    foldedEquippedPrefix: open
+    foldedHeldPrefix: open
+
+- type: entity
+  parent: ClothingUniformJumpsuitCitizenC17
+  id: ClothingUniformJumpsuitRefugeeC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/refugee.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/refugee.rsi
+  - type: SuitSensor
+    mode: SensorOff
+
+- type: entity
+  parent: UnsensoredClothingUniformBase
+  id: ClothingUniformMilitaryRU
+  name: армейская одежда
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi

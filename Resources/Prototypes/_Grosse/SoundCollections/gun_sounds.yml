@@ -1,26 +1,26 @@
 - type: soundCollection
   id: ShellLand
   files:
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell1.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell2.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell3.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell1.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell2.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell3.ogg
 
 - type: soundCollection
   id: ShotgunshotCMB
   files:
-  - _Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire6.ogg
-  - _Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire7.ogg
+  - /Audio/_Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire6.ogg
+  - /Audio/_Grosse/audio/Weapon/Guns/Gunshots/shotgun_fire7.ogg
 
 - type: soundCollection
   id: ShotgunReloadSpas12
   files:
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_reload1.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_reload2.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_reload3.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_reload1.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_reload2.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_reload3.ogg
 
 - type: soundCollection
   id: ShellShotgunOnLand
   files:
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell1.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell2.ogg
-  - _Grosse/audio/blackmesa/hl2/weapon/shotgun_shell3.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell1.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell2.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/weapon/shotgun_shell3.ogg

@@ -1,0 +1,243 @@
+
+- type: entity
+  name: рацион
+  parent: FoodSnackBase
+  id: FoodC17Ration
+  description: Пакет с питательной массой для работы на весь день, необходимые человеческой форме жизни.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - nutriment
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: standard_ration
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: trash-inhand-left
+        color: "white"
+      right:
+      - state: trash-inhand-right
+        color: "white"
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 30
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 20
+        - ReagentId: Vitamin
+          Quantity: 10
+  - type: Edible
+    trash:
+    - FoodC17RationTrash
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: FoodPacketTrash
+  id: FoodC17RationTrash
+  name: пустой рацион
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: standard_ration_open
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: trash-inhand-left
+        color: "white"
+      right:
+      - state: trash-inhand-right
+        color: "white"
+
+- type: entity
+  parent: FoodSnackChocolate
+  id: FoodC17WaterBarPacket
+  name: плитка воды
+  description: Сублимированная и спрессованная вода в удобной и очень вредной для окружающей среды обертке.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package
+  - type: Item
+    heldPrefix: susjerky
+    storedOffset: 0,-1
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodC17WaterBarPacketTrash
+      - id: FoodC17WaterBar
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackBase
+  id: FoodC17WaterBar
+  name: плитка воды
+  description: Сублимированная и спрессованная вода в виде плитки. Технологии Альянса удивительны.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - mopwata
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: water_bar
+  - type: Item
+    heldPrefix: energybar-open
+    storedOffset: 0,-2
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: FoodPacketTrash
+  id: FoodC17WaterBarPacketTrash
+  name: обертка
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_crumpled
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: trash-inhand-left
+      right:
+      - state: trash-inhand-right
+
+- type: entity
+  parent: FoodSnackChocolate
+  id: FoodC17PorkBarPacket
+  name: батончик свинины
+  description: Сублимированная и спрессованная свинина в удобной и очень вредной для окружающей среды обертке.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_2
+  - type: Item
+    heldPrefix: energybar
+    storedOffset: 0,-1
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodC17PorkBarPacketTrash
+      - id: FoodC17PorkBar
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackBase
+  id: FoodC17PorkBar
+  name: плитка свинины
+  description: Сублимированная и спрессованная свинина в виде плитки. Отличная альтернатива безвуксным рационам.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - meaty
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: pork_bar
+  - type: Item
+    heldPrefix: chocolatebar-open
+    storedOffset: 1,-2
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: FoodPacketTrash
+  id: FoodC17PorkBarPacketTrash
+  name: обертка
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_2_crumpled
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: trash-inhand-left
+        color: "#990033"
+      right:
+      - state: trash-inhand-right
+        color: "#990033"
+
+- type: entity
+  parent: FoodSnackChocolate
+  id: FoodC17EggPastaPacketCMB
+  name: яичный рацион Альянса
+  description: Рацион для работников Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_3
+  - type: Item
+    heldPrefix: energybar
+    storedOffset: 0,-1
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodC17PacketTrashCMB
+      - id: FoodC17EggPasta
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackBase
+  id: FoodC17EggPasta
+  name: яичная паста
+  description: Сублимированное и спрессованное куриное яицо в виде питательной пасты, выглядит монолитно. Отличная альтернатива безвуксным рационам.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - egg
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: egg_paste
+  - type: Item
+    heldPrefix: energybar-open
+    storedOffset: 0,-2
+
+- type: entity
+  parent: FoodSnackChocolate
+  id: FoodC17ChikenPastaPacketCMB
+  name: куриный рацион Альянса
+  description: Рацион для работников Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_3
+  - type: Item
+    heldPrefix: energybar
+    storedOffset: 0,-1
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodC17PacketTrashCMB
+      - id: FoodC17ChikenPasta
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackBase
+  id: FoodC17ChikenPasta
+  name: куриная паста
+  description: Сублимированное и спрессованное курица виде питательной пасты, выглядит монолитно. Отличная альтернатива безвуксным рационам.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - chicken
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: chicken_paste
+  - type: Item
+    heldPrefix: energybar-open
+    storedOffset: 0,-2
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: FoodPacketTrash
+  id: FoodC17PacketTrashCMB
+  name: обертка
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: bar_package_3_crumpled
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: trash-inhand-left
+        color: "#990033"
+      right:
+      - state: trash-inhand-right
+        color: "#990033"

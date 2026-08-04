@@ -8,7 +8,8 @@
     highPressureMultiplier: 0.1
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
-    coefficient: 0.01
+    heatingCoefficient: 0.1
+    coolingCoefficient: 0.1
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -31,7 +32,7 @@
     sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
-  - type: Armor 
+  - type: Armor
     modifiers:
       coefficients:
         Blunt: 0.6
@@ -64,7 +65,7 @@
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
-        Stun: 0.2
+        Shock: 0.2
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -91,7 +92,7 @@
         Slash: 0.6
         Piercing: 0.4
         Heat: 0.5
-        Stun: 0.5
+        Shock: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
@@ -129,7 +130,7 @@
         Heat: 0.2
         Radiation: 0.1
         Caustic: 0.1
-        Stun: 0.1
+        Shock: 0.1
   - type: ExplosionResistance
     damageCoefficient: 0.2
   - type: ClothingSpeedModifier
@@ -146,3 +147,58 @@
     sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
+
+- type: entity
+  parent: ClothingOuterEVASuitBaseC17
+  id: ClothingOuterWorkerCMBC17
+  name: CMB worker suit
+  description: На форме присутствует маркировка «CMB Worker Group 6». На груди заметна крупная «6», а под ней написано — «Бригада».
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/vests/cmbworker.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: icon-shaded
+      shader: shaded
+    - state: icon-shaded
+      shader: shaded
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/vests/cmbworker.rsi
+    stripDelay: 5
+    unequipDelay: 5
+    equipDelay: 5
+    clothingVisuals:
+      outerClothing:
+      - state: equipped-OUTERCLOTHING
+      - state: unshaded
+        shader: unshaded
+      - state: shaded
+        shader: shaded
+      - state: shaded
+        shader: shaded
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.8
+        Heat: 0.5
+        Shock: 0.5
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,5,1
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95

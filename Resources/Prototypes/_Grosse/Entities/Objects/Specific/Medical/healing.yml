@@ -1,0 +1,65 @@
+- type: entity
+  parent: BaseHealingItem
+  id: HealthvialC17
+  name: healthvial
+  description: Healthvial for C17 overwatch units, based on antlion seem.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/medical.rsi
+    state: aptejka-mini
+  - type: Healing
+    damageContainers:
+    - Biological
+    damage:
+      types: # these are all split across multiple types
+        Blunt: -50
+        Heat: -50
+        Poison: -50
+    bloodlossModifier: -20
+    delay: 1
+    selfHealPenaltyMultiplier: 0
+    modifyBloodLevel: 50
+    healingBeginSound:
+      collection: Medkituse
+      params:
+        volume: 4
+        pitch: 1
+        variation: 0
+    healingEndSound:
+      path: "/Audio/Items/Medical/ointment_end.ogg"
+
+- type: entity
+  parent: BaseHealingItem
+  id: MedkitC17
+  name: medkit
+  description: Medkit for C17 overwatch units, based on antlion seem.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/medical.rsi
+    state: aptejka
+  - type: Item
+    size: Normal
+  - type: Healing
+    damageContainers:
+    - Biological
+    damage:
+      types: # these are all split across multiple types
+        Blunt: -150
+        Heat: -150
+        Poison: -150
+    bloodlossModifier: -20
+    delay: 1
+    selfHealPenaltyMultiplier: 0
+    modifyBloodLevel: 150
+    healingBeginSound:
+      collection: Medkituse
+      params:
+        volume: 4
+        pitch: 1
+        variation: 0
+    healingEndSound:
+      path: "/Audio/Items/Medical/ointment_end.ogg"
+  - type: Tag
+    tags:
+      - CMBMedkit
+

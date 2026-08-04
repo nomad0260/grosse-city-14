@@ -1,0 +1,80 @@
+- type: entity
+  name: скамейка
+  suffix: Левая часть
+  id: BenchC17LeftSide
+  parent: SeatBase
+  description: Большой диван, на котором хочется выплакать все проблемы.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/misc/publicbench.rsi
+    state: publicbench1
+
+- type: entity
+  suffix: Правая часть
+  id: BenchC17RightSide
+  parent: BenchC17LeftSide
+  components:
+  - type: Sprite
+    state: publicbench2
+
+- type: entity
+  id: ChairWoodC17
+  parent: ChairWood
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/chairs.rsi
+    state: wooden_chair
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 125
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 1
+            max: 1
+
+# Честно я хз зачем тут дубликат, поэтому временно оставлю так.
+#- type: entity
+#  id: ChairWood2C17
+#  parent: ChairWoodC17
+#  components:
+#  - type: Sprite
+#    state: wooden_chair_2
+
+- type: entity
+  id: ChairWood2C17
+  parent: WoodenBench
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/chairs.rsi
+    state: woodenbench
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 125
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 1
+            max: 1

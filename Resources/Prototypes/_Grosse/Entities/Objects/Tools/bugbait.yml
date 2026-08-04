@@ -1,0 +1,15 @@
+- type: entity
+  id: BugBait
+  name: антлион фоловер
+  parent: BaseItem
+  suffix: Antlion
+  components:
+  - type: Physics
+    bodyType: Dynamic
+  - type: Marker
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
+    state: grub_nugget
+  - type: Tag
+    tags:
+      - AntlionFollower

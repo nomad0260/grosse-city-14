@@ -1,0 +1,24 @@
+- type: entity
+  id: StatueLenin
+  parent: StatueVenusRed
+  name: довоенная статуя
+  description: Довоенная статуя какого-то лидера, все надписи уже давно стерлись, оставив лишь непонятные царапины.
+  suffix: pered, Mono
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/lenin.rsi
+    layers:
+    - state: lenin
+    drawdepth: Mobs
+    offset: "0.0, 2.5"
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1,-1,1,1"
+        density: 55
+        mask:
+        - Impassable
+        layer:
+        - Impassable

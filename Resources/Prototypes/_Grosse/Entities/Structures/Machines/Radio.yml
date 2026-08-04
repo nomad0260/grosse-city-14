@@ -1,0 +1,29 @@
+- type: entity
+  parent: BaseMachinePowered
+  id: RebelRadio
+  name: radio
+  description: Electronics technologies on the application of communication.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/radio.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: icon
+    - state: off
+      shader: unshaded
+  - type: Icon
+    sprite: _Grosse/rsi/hlstaff/structure/radio.rsi
+    state: icon
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 25
+        mask:
+        - TabletopMachineMask
+        layer:
+        - TabletopMachineLayer

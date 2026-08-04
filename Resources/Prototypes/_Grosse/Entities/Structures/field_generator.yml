@@ -1,0 +1,98 @@
+- type: entity
+  id: ForceHoloWallC17
+  name: force field generator
+  description: The words flicker as if they mean nothing.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: AmbientSound
+    volume: -12
+    range: 2
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/hl2/forcefield/force_field_loop1.ogg
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: buttom-layer
+      shader: unshaded
+    - state: generator
+    - state: generator-layer
+      shader: unshaded
+    - state: up-layer
+      shader: unshaded
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.5"
+        #mask:
+        #- TableMask
+        layer:
+        - LowImpassable
+  - type: PointLight
+    enabled: true
+    radius: 3
+    color: blue
+  - type: Clickable
+  - type: ContainmentField
+    throwForce: 0
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: Tag
+    tags:
+      - CombineStructure
+
+- type: entity
+  id: HoloWallC17
+  parent: ForceHoloWallC17
+  name: force field
+  description: The words flicker as if they mean nothing.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: full
+      shader: unshaded
+
+- type: entity
+  id: ForceHoloWallC17CannotCollide
+  parent: ForceHoloWallC17
+  suffix: collider
+  description: The words flicker as if they mean nothing.
+  components:
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+
+- type: entity
+  id: HoloWallC17CannotCollide
+  parent: ForceHoloWallC17
+  suffix: collider
+  components:
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: full
+      shader: unshaded
+
+- type: entity
+  id: ForceHoloWallC17Disabled
+  parent: ForceHoloWallC17CannotCollide
+  suffix: disabled
+  components:
+  - type: Sprite
+    layers:
+    - state: generator
+  - type: PointLight
+    enabled: false
+  - type: AmbientSound
+    volume: -100

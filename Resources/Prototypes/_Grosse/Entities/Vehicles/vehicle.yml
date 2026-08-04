@@ -1,0 +1,354 @@
+- type: entity
+  id: BaseVehicle
+  save: false
+  abstract: true
+  suffix: Vehicle
+  components:
+  - type: TriggerOnInsertedIntoContainer
+    keyOut: Insert
+  - type: TriggerOnRemovedFromContainer
+    keyOut: Removed
+  - type: AddComponentsOnTrigger
+    removeExisting: true
+    targetUser: false
+    keysIn:
+    - Insert
+    components:
+    - type: MobState
+    - type: NpcFactionMember
+      factions:
+        - Xenoborg
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - Removed
+    components:
+    - type: MobState
+    - type: NpcFactionMember
+      factions:
+        - Xenoborg
+  - type: MobMover
+  - type: Mech
+    integrity: 100000
+    maxIntegrity: 100000
+    mechToPilotDamageMultiplier: 0
+    baseState: icon
+    openState: icon
+    brokenState: icon
+    airtight: false
+    pilotWhitelist:
+      tags:
+        - CanPilot
+    batteryRemovalDelay: 10
+  - type: MechAir
+  - type: AirFilter
+    gases:
+    - CarbonDioxide
+    - Plasma
+    - Tritium
+    - WaterVapor
+    - Ammonia
+    - NitrousOxide
+    - Frezon
+    overflowGases:
+    - Nitrogen
+    - CarbonDioxide
+    - Plasma
+    - Tritium
+    - WaterVapor
+    - Ammonia
+    - NitrousOxide
+    - Frezon
+  - type: AirIntake
+  - type: AtmosDevice
+    requireAnchored: false
+    joinSystem: true
+  - type: DoAfter
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 10
+  - type: UserInterface
+    interfaces:
+      enum.MechUiKey.Key:
+        type: MechBoundUserInterface
+  - type: InputMover
+  - type: InteractionOutline
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1
+    baseSprintSpeed: 2
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+  - type: Pullable
+  - type: Physics
+    bodyType: Dynamic
+  - type: GravityAffected
+  - type: Clickable
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 1000
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      mech-pilot-slot: !type:ContainerSlot
+      mech-equipment-container: !type:Container
+      mech-battery-slot: !type:ContainerSlot
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: MovementSound
+    sound:
+      path: /Audio/_Grosse/audio/vehicle/hummer_vehicle_drive_mono.ogg
+      params:
+        loop: True
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 16
+    energy: 4
+    netsync: true
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  id: VehicleMoskvich17
+  name: модифицированный довоенный автомобиль
+  parent: BaseVehicle
+  description: Модифицированная Альянсом авто для использование его в сложных условиях.
+  components:
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 5
+    baseSprintSpeed : 8
+    baseFriction: 0.6
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
+    scale: 0.8, 0.8
+    layers:
+    - state: m1
+      map: [ "enum.MechVisualLayers.Base" ]
+    drawdepth: OverMobs
+    noRot: true
+  - type: Mech
+    baseState: m1
+    openState: m1
+    brokenState: m1
+    mechToPilotDamageMultiplier: 0.75
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      1000: Dead
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - mech-pilot-slot
+        - layer
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          SpawnerExplosionInstant:
+            min: 1
+            max: 1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.7,-1.4,0.7,1.2"
+        density: 500
+        mask:
+        - MobMask
+        layer:
+        - MachineLayer
+  - type: ContainerContainer
+    containers:
+      mech-pilot-slot:
+        !type:ContainerSlot
+        showEnts: false
+      layer:
+        !type:ContainerSlot
+        occludes: false
+        showEnts: true
+      storagebase: !type:Container
+        ents: [ ]
+      mech-battery-slot: !type:ContainerSlot { }
+      borg_module: !type:Container { }
+      part-container: !type:Container
+  - type: ContainerFill
+    containers:
+      layer:
+      - MoskvichLayer
+      #layer2:
+      #- MoskvichLayerBagajnik
+      mech-battery-slot:
+      - PowerCellCombineUnion17
+  #- type: DamageOnHighSpeedImpact
+  #  minimumSpeed: 8
+  #  damage:
+  #    types:
+  #      Blunt: 20
+  #  soundHit:
+  #    path: /Audio/Effects/hit_kick.ogg
+  - type: Storage
+    grid:
+    - 0,0,5,5
+    maxItemSize: Normal
+    storageOpenSound: /Audio/Effects/closetopen.ogg
+    storageCloseSound: /Audio/Effects/closetclose.ogg
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+
+- type: entity
+  id: MoskvichLayer
+  name: передняя пассажирская дверь
+  parent: BaseStructure
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
+    drawdepth: Doors
+    scale: 0.8, 0.8
+    noRot: true
+    layers:
+    - state: copilotdoor
+  - type: InteractionOutline
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:EmptyContainersBehaviour
+        containers:
+        - scanner-body
+  - type: DragInsertContainer
+    containerId: scanner-body
+    entryDelay: 2
+  - type: ExitContainerOnMove
+    containerId: scanner-body
+  - type: ContainerContainer
+    containers:
+      scanner-body: !type:Container
+
+- type: entity
+  id: VehicleZIL17
+  name: грузовик
+  parent: BaseVehicle
+  description: Довоенный тяжелый транспорт для транспортировки множества вещей.
+  components:
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 4
+    baseSprintSpeed : 6
+    baseFriction: 0.6
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+    scale: 1.1, 1.1
+    layers:
+    - state: z2
+      map: [ "enum.MechVisualLayers.Base" ]
+    drawdepth: OverMobs
+    noRot: true
+  - type: Mech
+    baseState: z2
+    openState: z2
+    brokenState: z2
+    mechToPilotDamageMultiplier: 0.2
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      1500: Dead
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - mech-pilot-slot
+        - storagebase
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          ExplosionInstant:
+            min: 1
+            max: 1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.7,0.8,1.7"
+        density: 500
+        mask:
+        - MobMask
+        layer:
+        - MachineLayer
+  - type: ContainerContainer
+    containers:
+      mech-pilot-slot:
+        !type:ContainerSlot
+        showEnts: false
+      storagebase: !type:Container
+        ents: [ ]
+      mech-battery-slot: !type:ContainerSlot { }
+      part-container: !type:Container
+  - type: ContainerFill
+    containers:
+      mech-battery-slot:
+      - PowerCellCombineUnion17
+  #- type: DamageOnHighSpeedImpact
+  #  minimumSpeed: 8
+  #  damage:
+  #    types:
+  #      Blunt: 20
+  #  soundHit:
+  #    path: /Audio/Effects/hit_kick.ogg
+  - type: Storage
+    grid:
+    - 0,0,11,11
+    maxItemSize: Ginormous
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface

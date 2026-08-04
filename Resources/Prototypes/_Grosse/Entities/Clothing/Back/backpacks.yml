@@ -5,7 +5,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+    sprite: _Grosse/rsi/backpacks/mvd.rsi
     color: black
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/field.rsi
@@ -14,8 +14,8 @@
     - 0,0,10,5
 
 - type: entity
-  parent: ClothingBackpackCombineEliteC17
-  id: ClothingBackpackCombineEliteC17Filled
+  parent: ClothingBackpackCombineC17
+  id: ClothingBackpackCombineC17AR2Filled
   categories: [ HideSpawnMenu ]
   components:
     - type: StorageFill
@@ -24,11 +24,11 @@
         - id: CombineGrenadeC17
           amount: 4
         - id: MagazinePulseRifleC17
-          amount: 12
-        - id: HealthvialC17
-          amount: 5
-        - id: MedkitC17
           amount: 8
+        - id: HealthvialC17
+          amount: 7
+        - id: MedkitC17
+          amount: 4
 
 - type: entity
   parent: ClothingBackpackCombineC17
@@ -37,7 +37,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+    sprite: _Grosse/rsi/backpacks/mvd.rsi
   - type: Storage
     grid:
     - 0,0,14,5
@@ -50,4 +50,87 @@
   name: satchel
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Backpacks/mvd.rsi
+    sprite: _Grosse/rsi/backpacks/mvd.rsi
+
+- type: entity
+  parent: ClothingBackpackDuffelSyndicate
+  id: ClothingBackpackDuffelSyndicateFilledHopperMine
+  name: набор мин Альянса
+  components:
+    - type: StorageFill
+      contents:
+        - id: MultitoolCombineC17
+        - id: HopperMineInactiveC17
+          amount: 8
+
+- type: entity
+  id: CombineSoldierElite
+  parent: BaseItem
+  name: сумка снаряжение альянса
+  suffix: Elite
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: ActivatedCombineGrenadeC17
+      prob: 1
+
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackRefugeeC17
+  name: сумка из тряпок
+  description: Сумка созданная из подручных матераилов, вполне сносно, если не учитывать вон ту дырку на дне.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/backpacks/duffel.rsi
+  - type: Storage
+    grid:
+    - 0,0,2,3
+
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackArmyC17
+  name: армейский ранец
+  description: Довоенный армейский рюкзак, использовалась армиями многих стран еще до захвата Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/backpacks/ataka.rsi
+  - type: Storage
+    grid:
+    - 0,0,3,6
+
+- type: entity
+  id: SaboteurBackpackEquip
+  name: сумка снаряжения диверсанта
+  description: This is where your favorite thief's supplies lie. Try to remember which ones.
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/backpacks/ataka.rsi
+    state: icon
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - RebelTechSet
+    - RebelAssaulterSet
+    - RebelSupperterSet
+    maxSelectedSets: 1
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+#- type: construction
+#  id: BackpackRefugeeC17
+#  graph: constructBackpackRefugee
+#  startNode: start
+#  targetNode: icon
+#  category: construction-category-clothing
+#  objectType: Item
+#

@@ -1,0 +1,101 @@
+- type: entity
+  name: hopper mine
+  parent: BaseLandMine
+  id: HopperMineExplosiveC17
+  description: Противопехотная мина близкого действия, подлетающая в воздух перед взрывом подобно S-минам.
+  components:
+  - type: ItemToggle
+    activated: true
+    onActivate: false
+  - type: Armable
+  - type: ExplodeOnTrigger
+  - type: StepTrigger
+    requiredTriggeredSpeed: 0
+    stepOn: false
+  - type: WhitelistTriggerCondition
+    userBlacklist:
+      tags:
+      - CombineUnit
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 10
+    intensitySlope: 3
+    totalIntensity: 120 # about a ~4 tile radius
+    canCreateVacuum: false
+  - type: DeleteOnTrigger
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/hoppermine/blade_in.ogg
+      params:
+        volume: 3
+  - type: ExplosionResistance
+    damageCoefficient: 0
+  - type: AmbientSound
+    volume: 2
+    range: 4
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/hoppermine/active_loop.ogg
+  - type: Sprite
+    drawdepth: Items
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
+    layers:
+    - state: landmine
+    - state: landmine-unshaded
+      shader: unshaded
+  - type: Construction
+    graph: HopperMinePulsing
+    node: start
+  - type: Tag
+    tags:
+      - CombineStructure
+
+- type: entity
+  name: resistance hopper mine
+  parent: HopperMineExplosiveC17
+  id: HopperMineExplosiveResistanceC17
+  components:
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      tags:
+      - CombineUnit
+  - type: Sprite
+    layers:
+    - state: landmine
+    - state: landmine-unshaded
+      color: yellow
+      shader: unshaded
+
+- type: entity
+  parent: BaseItem
+  id: HopperMineInactiveC17
+  name: hopper mine inactive
+  description: Деактивированная мина.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
+    state: landmine-inactive
+  - type: Construction
+    graph: HopperMinePulsing
+    node: CMBBaseMachine
+  - type: Tag
+    tags:
+      - CMBHopperMine
+
+- type: entity
+  parent: HopperMineInactiveC17
+  id: HopperMineInactiveResistanceC17
+  name: resistance hopper mine inactive
+  description: Деактивированная мина.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
+    state: landmine-inactive
+  - type: Construction
+    graph: HopperMinePulsing
+    node: CMBBaseMachine

@@ -7,13 +7,13 @@
   flavor: medicine
   color: "#00ff44"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:ModifyBloodLevel
         amount: 10
       - !type:HealthChange
         damage:
-          groups:
+          types:
             Burn: -10
             Toxin: -10
             Airloss: -10

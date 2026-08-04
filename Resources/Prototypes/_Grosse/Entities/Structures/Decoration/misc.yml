@@ -1,0 +1,104 @@
+- type: entity
+  id: PaletteC17
+  parent: BaseStructure
+  name: поддон с плиткой
+  description: Платформа, на которую уложена керамическая плитка для удобства транспортировки.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/palette.rsi
+    layers:
+    - state: p1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        p1: ""
+        p2: ""
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.4,0.3,0.4"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  id: RadiatorC17
+  parent: GroundClockC17
+  name: радиатор
+  description: Радиатор центрального отопления, отопляет жил площадь для того чтобы жители не замерзли. Удобненько.
+  components:
+  - type: Transform
+    noRot: false
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
+    state: radiator
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,0.4,0.5,0.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+
+- type: entity
+  id: GroundClockC17
+  parent: BaseStructure
+  name: наземные часы
+  description: Часы которые давно сбились и вроде как, перестали двигаться.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/rsi/hlstaff/structure/clock.rsi
+    state: station_clock
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "0.17,0.25,-0.17,-0.30"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  id: GroundPhoneC17
+  parent: GroundClockC17
+  name: стационнарный телефон
+  description: Телефон без телефона, как бы странно это не звучало.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
+    state: public_phone

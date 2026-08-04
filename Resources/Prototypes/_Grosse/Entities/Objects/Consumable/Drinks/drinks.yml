@@ -1,0 +1,63 @@
+- type: entity
+  parent: DrinkCanBaseFull
+  id: DrinkC17DrBreenPrivateReserve
+  name: Dr>Breen Private Reserve
+  description: Банка из под воды, поговаривают что вода вызывает побочные эффекты, но никто не помнит какой именно.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Water
+          Quantity: 30
+  - type: Item
+    sprite: Objects/Consumable/Drinks/ice_tea_can.rsi
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          True: {state: "breen_can_open"} # lid off
+          False: {state: "breen_can"} # lid on
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    layers:
+    - state: breen_can
+      map: ["enum.OpenableVisuals.Layer"]
+  - type: Edible
+    solution: drink
+    destroyOnEmpty: true
+    trash:
+    - DrinkC17DrBreenPrivateReserveOpened
+
+- type: entity
+  parent: DrinkC17DrBreenPrivateReserve
+  id: DrinkC17DrBreenPrivateReserveOpened
+  suffix: Empty
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Water
+          Quantity: 0
+  - type: Openable
+    opened: true
+  - type: Sealable
+    sealed: false
+  - type: Edible
+    solution: drink
+    destroyOnEmpty: true
+    trash:
+    - DrinkC17DrBreenPrivateReserveTrash
+
+- type: entity
+  parent: FoodPacketTrash
+  id: DrinkC17DrBreenPrivateReserveTrash
+  name: Dr>Breen Private Reserve
+  description: Банка из под воды, поговаривают что вода вызывает побочные эффекты, но никто не помнит какой именно.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/food.rsi
+    state: breen_can_crushed

@@ -1,0 +1,51 @@
+- type: entity
+  id: CombineLightPostC17
+  name: combine post light
+  description: "An always powered light."
+  suffix: Always Powered
+  parent: BaseStructure
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/postlight.rsi
+    snapCardinals: false
+    drawdepth: Objects
+    noRot: true
+    layers:
+    - map: ["enum.PoweredLightLayers.Base"]
+      state: icon
+    - map: ["enum.PoweredLightLayers.Glow"]
+      state: unshaded
+      shader: unshaded
+  - type: PointLight
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    netsync: false
+    radius: 12
+    energy: 3
+    softness: 0.4
+    color: "#00ffff"
+  - type: Anchorable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlasteel1:
+            min: 2
+            max: 4
+      - !type:EmptyAllContainersBehaviour
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+  - type: StaticPrice
+    price: 1575
+  - type: RequireProjectileTarget
+    active: true
+  - type: Tag
+    tags:
+      - CombineStructure

@@ -1,0 +1,218 @@
+
+- type: entity
+  id: TrashPile117
+  parent: BaseStructure
+  name: куча мусора
+  description: Куча старого, ржавого металлолома.
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/trash.rsi
+    state: trash1
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.2,-1.0,1.5,0.3"
+        density: 5000
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+  - type: Appearance
+  - type: Occluder
+    boundingBox: "-1.5,-1.0,1.4,-0.25"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 25
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 50
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 150
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 200
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 350
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 400
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 450
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 500
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 550
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 600
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 650
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 700
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 750
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 800
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 850
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Structural
+        damage: 900
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: TrashPile217
+  parent: TrashPile117
+  components:
+  - type: Sprite
+    state: trash2
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.6,-1.1,1.6,1.05"
+        density: 5000
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+  - type: Occluder
+    boundingBox: "-1.2,-1.2,1.2,0.6"

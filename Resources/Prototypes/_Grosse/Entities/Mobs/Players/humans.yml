@@ -1,168 +1,393 @@
-#- type: entity
-#  name: CP unit
-#  parent: MobHuman
-#  suffix: Альянс Civil Protection unit
-#  id: MobHumanCPC17
-#  components:
-#  - type: NameIdentifier
-#    group: GenericNumber
-#  - type: Icon
-#    sprite: Markers/jobs.rsi
-#    state: ertmedicaleva
-#  - type: Speech
-#    speechSounds: Metrocop
-#    soundCooldownTime: 0.1
-#  - type: Tag
-#    tags:
-#      - CombineUnit
-#      - CanPilot
-#      - FootstepSound
-#      - DoorBumpOpener
-#  - type: TriggerOnMobstateChange
-#    mobState:
-#    - Critical
-#  - type: EmitSoundOnTrigger
-#    sound:
-#      collection: SoldierDeath
-#  - type: Loadout
-#    prototypes: [CivilProtectionGear]
-#  - type: NpcFactionMember
-#    factions:
-#      - Xenoborg
-#  - type: RandomHumanoidAppearance
-#    randomizeName: false
-#  - type: MindShield
-#  - type: ShowJobIcons
-#  - type: ShowMindShieldIcons
-#  - type: TriggerOnSpawn
-#    keyOut: GotRemoved
-#  - type: RemoveComponentsOnTrigger
-#    targetUser: false
-#    keysIn:
-#    - GotRemoved
-#    components:
-#    - type: Crawler
-#  #  - type: SleepOnSSD
-#  - type: Fixtures
-#    fixtures:
-#      fix1:
-#        shape:
-#          !type:PhysShapeCircle
-#          radius: 0.35
-#        density: 300
-#        mask:
-#        - MobMask
-#        layer:
-#        - MobLayer
-#
-#- type: entity
-#  name: unit
-#  parent: MobHumanCombine
-#  suffix: Альянс
-#  id: MobHumanCombineC17
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: NameIdentifier
-#    group: GenericNumber
-#  - type: MindShield
-#  - type: NpcFactionMember
-#    factions:
-#      - Xenoborg
-#  - type: ShowJobIcons
-#  - type: ShowMindShieldIcons
-#  - type: Tag
-#    tags:
-#      - CombineUnit
-#      - CanPilot
-#      - FootstepSound
-#      - DoorBumpOpener
-#
-#- type: entity
-#  name: unit
-#  suffix: Альянс
-#  parent: MobHumanCombineC17
-#  description: Жалкая кучка спецназа.
-#  id: MobHumanCombineOTAC17
-#  components:
-#  - type: Loadout
-#    prototypes: [OTAGear]
-#
-#- type: entity
-#  name: unit
-#  suffix: Альянс AR2
-#  parent: MobHumanCombineC17
-#  description: Жалкая кучка спецназа.
-#  id: MobHumanCombineOTAC17AR2
-#  components:
-#  - type: Loadout
-#    prototypes: [OTAAR2Gear]
-#
-#- type: entity
-#  name: leader
-#  suffix: Альянс Leader
-#  parent: MobHumanCombineC17
-#  description: Жалкая кучка спецназа.
-#  id: MobHumanCombineOTAC17Leader
-#  components:
-#  - type: NameIdentifier
-#    group: GenericNumber
-#  - type: Loadout
-#    prototypes: [OTAAR2Gear]
-#  - type: MindShield
-#  - type: Tag
-#    tags:
-#      - CannotSuicide
-#      - DoorBumpOpener
-#      - FootstepSound
-#      - CanPilot
-#      - CombineLeader
-#
-#- type: entity
-#  name: unit
-#  suffix: Альянс Shotgun
-#  parent: MobHumanCombineC17
-#  description: Жалкая кучка спецназа.
-#  id: MobHumanCombineOTAC17Shotgun
-#  components:
-#  - type: Loadout
-#    prototypes: [OTAShotgunGear]
-#
-#- type: entity
-#  name: elite
-#  suffix: Альянс Elite unit
-#  parent: MobHumanCombineC17
-#  description: Жалкая кучка спецназа.
-#  id: MobHumanCombineEliteOTAC17
-#  components:
-#  - type: NameIdentifier
-#    group: GenericNumber
-#  - type: Loadout
-#    prototypes: [OTAEliteGear]
-#  - type: MindShield
-#
-#- type: entity
-#  name: CP unit
-#  parent: MobHumanCPC17
-#  suffix: Альянс SMG
-#  id: MobHumanCPC17SMG
-#  components:
-#  - type: Loadout
-#    prototypes: [CivilProtectionSMGGear]
-#
-#- type: entity
-#  name: CP unit
-#  parent: MobHumanCPC17
-#  suffix: Альянс Officer
-#  id: MobHumanCPC17Officer
-#  components:
-#  - type: Loadout
-#    prototypes: [CivilProtectionOfficerGear]
-#- type: entity
-#  name: CP Sectorial Commander
-#  parent: MobHumanCPC17
-#  suffix: Альянс SeC
-#  id: MobHumanCPC17SeC
-#  components:
-#  - type: Loadout
-#    prototypes: [SectorialCommanderGear]
-#
+- type: entity
+  name: CP unit
+  parent: MobHuman
+  suffix: Альянс Civil Protection unit
+  id: MobHumanCPC17
+  components:
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: Icon
+    sprite: Markers/jobs.rsi
+    state: ertmedicaleva
+  - type: Speech
+    speechSounds: Metrocop
+    soundCooldownTime: 0.1
+  - type: Tag
+    tags:
+      - CombineUnit
+      - CanPilot
+      - FootstepSound
+      - DoorBumpOpener
+  - type: TriggerOnMobstateChange
+    mobState:
+    - Critical
+  - type: EmitSoundOnTrigger
+    sound:
+      collection: SoldierDeath
+  - type: Loadout
+    prototypes: [CivilProtectionGear]
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
+  - type: RandomHumanoidAppearance
+    randomizeName: false
+  - type: MindShield
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Temperature
+  - type: TemperatureDamage
+    damageCap: 0
+  - type: TriggerOnSpawn
+    keyOut: GotRemoved
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - GotRemoved
+    components:
+    - type: Crawler
+  #  - type: SleepOnSSD
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 300
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+
+- type: entity
+  name: unit
+  parent: MobHumanCombine
+  suffix: Альянс
+  id: MobHumanCombineC17
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: MindShield
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+      - CombineUnit
+      - CanPilot
+      - FootstepSound
+      - DoorBumpOpener
+
+- type: entity
+  name: unit
+  suffix: Альянс
+  parent: MobHumanCombineC17
+  description: Жалкая кучка спецназа.
+  id: MobHumanCombineOTAC17
+  components:
+  - type: Loadout
+    prototypes: [OTAGear]
+
+- type: entity
+  name: unit
+  suffix: Альянс AR2
+  parent: MobHumanCombineC17
+  description: Жалкая кучка спецназа.
+  id: MobHumanCombineOTAC17AR2
+  components:
+  - type: Loadout
+    prototypes: [OTAAR2Gear]
+
+- type: entity
+  name: leader
+  suffix: Альянс Leader
+  parent: MobHumanCombineC17
+  description: Жалкая кучка спецназа.
+  id: MobHumanCombineOTAC17Leader
+  components:
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: Loadout
+    prototypes: [OTAAR2Gear]
+  - type: MindShield
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - DoorBumpOpener
+      - FootstepSound
+      - CanPilot
+      - CombineLeader
+
+- type: entity
+  name: unit
+  suffix: Альянс Shotgun
+  parent: MobHumanCombineC17
+  description: Жалкая кучка спецназа.
+  id: MobHumanCombineOTAC17Shotgun
+  components:
+  - type: Loadout
+    prototypes: [OTAShotgunGear]
+
+- type: entity
+  name: elite
+  suffix: Альянс Elite unit
+  parent: MobHumanCombineC17
+  description: Жалкая кучка спецназа.
+  id: MobHumanCombineEliteOTAC17
+  components:
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: Loadout
+    prototypes: [OTAEliteGear]
+  - type: MindShield
+
+- type: entity
+  name: CP unit
+  parent: MobHumanCPC17
+  suffix: Альянс SMG
+  id: MobHumanCPC17SMG
+  components:
+  - type: Loadout
+    prototypes: [CivilProtectionSMGGear]
+
+- type: entity
+  name: CP unit
+  parent: MobHumanCPC17
+  suffix: Альянс Officer
+  id: MobHumanCPC17Officer
+  components:
+  - type: Loadout
+    prototypes: [CivilProtectionOfficerGear]
+- type: entity
+  name: CP Sectorial Commander
+  parent: MobHumanCPC17
+  suffix: Альянс SeC
+  id: MobHumanCPC17SeC
+  components:
+  - type: Loadout
+    prototypes: [SectorialCommanderGear]
+
+- type: entity
+  name: Референт Администрации
+  parent: MobHuman
+  id: MobHumanAdministrationReferentC17
+  suffix: Citizen
+  components:
+  - type: TriggerOnSpawn
+    keyOut: GotRemoved
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - GotRemoved
+    components:
+    - type: Crawler
+  #  - type: SleepOnSSD
+  - type: RandomMetadata
+  - type: RandomHumanoidAppearance
+  - type: Loadout
+    prototypes:
+      - ReferentGear
+
+- type: entity
+  name: Глава ГСР
+  parent: MobHumanAdministrationReferentC17
+  id: MobHumanUnionWorkerHeadC17
+  components:
+  - type: Loadout
+    prototypes:
+      - HeadUnionWorker
+
+- type: entity
+  name: Начальник Завода
+  parent: MobHumanAdministrationReferentC17
+  id: MobHumanUnionFactoryHeadC17
+  components:
+  - type: Loadout
+    prototypes:
+      - UnionFactoryHead
+
+- type: entity
+  name: Рабочий
+  parent: MobHumanCitizenC17
+  id: MobHumanCMBWorkerC17
+  suffix: Citizen
+  components:
+  - type: GhostRole
+    name: Рабочий
+    description: Рабочий города 17, выполняет задачи Галактического Альянса.
+  - type: Loadout
+    prototypes:
+      - CMBWorkerGear
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 300
+        mask:
+        - Impassable
+        - HighImpassable
+        - MidImpassable
+        #- BlobImpassable
+        layer:
+        - MobLayer
+
+- type: entity
+  name: Гражданский
+  parent: MobHuman
+  id: MobHumanCitizenC17
+  suffix: Citizen
+  components:
+  - type: TriggerOnSpawn
+    keyOut: GotRemoved
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - GotRemoved
+    components:
+    - type: Crawler
+  #  - type: SleepOnSSD
+  - type: RandomMetadata
+  - type: RandomHumanoidAppearance
+  - type: GhostTakeoverAvailable
+  - type: GhostRole
+    raffle:
+      settings: short
+    name: Гражданин
+    description: Гражданский города 17, не имеет при себе почти ничего.
+  - type: Loadout
+    prototypes:
+      - CitizenGear
+      - CitizenGear2
+      - CitizenGear3
+      - CitizenGear4
+      - CitizenGear5
+      - CitizenGear6
+      - CitizenGear7
+      - CitizenGear8
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCitizenRefugeeCivilianC17
+  suffix: Citizen Беженец
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobHumanCitizenRefugeeCivilianC17
+  - type: GhostRole
+    name: Беженец
+    description: Беженец что пытается выжить в мире где все представляет угрозу.
+
+- type: entity
+  name: Беженец
+  parent: MobHuman
+  id: MobHumanCitizenRefugeeCivilianC17
+  suffix: Citizen
+  components:
+  - type: TriggerOnSpawn
+    keyOut: GotRemoved
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - GotRemoved
+    components:
+    - type: Crawler
+  #  - type: SleepOnSSD
+  - type: RandomMetadata
+  - type: RandomHumanoidAppearance
+  - type: Loadout
+    prototypes:
+      - RefugeeCivilGear
+
+- type: entity
+  name: Повстанец
+  parent: MobHumanCitizenC17
+  id: MobHumanCitizenRefugeeC17
+  suffix: Refugee
+  components:
+  - type: GhostRole
+    name: Беженец
+    description: Один из тех кто только начал путь сопротивления, не имеет тяжелого вооружения, но уже носит с собой оружие.
+  - type: Loadout
+    prototypes:
+      - RefugeeGear
+      - RefugeeGear2
+      - RefugeeGear3
+      - RefugeeGear4
+      - RefugeeGear5
+      - RefugeeGear6
+      - RefugeeGear7
+      - RefugeeGear8
+
+- type: entity
+  name: Повстанец
+  parent: MobHumanCitizenC17
+  id: MobHumanCitizenRefugeeHeavyC17
+  suffix: Refugee Heavy
+  components:
+  - type: GhostRole
+    name: Беженец
+    description: Один из тех кто только начал путь сопротивления, не имеет тяжелого вооружения, но уже носит с собой оружие.
+  - type: Loadout
+    prototypes:
+      - RefugeeHeavyGear
+      - RefugeeHeavyGear2
+      - RefugeeHeavyGear3
+      - RefugeeHeavyGear4
+      - RefugeeHeavyGear5
+      - RefugeeHeavyGear6
+      - RefugeeHeavyGear7
+      - RefugeeHeavyGear8
+
+- type: entity
+  parent: MobHumanRebelC17
+  id: MobHumanRebelShotgunC17
+  suffix: Повстанец, Дробовик
+  components:
+  - type: Loadout
+    prototypes:
+      - RebelGearShotgun
+      - RebelGearShotgun2
+      - RebelGearShotgun3
+
+- type: entity
+  parent: MobHumanRebelC17
+  id: MobHumanRebelAR2C17
+  suffix: Повстанец, AR2
+  components:
+  - type: Loadout
+    prototypes:
+      - RebelGearAR
+      - RebelGearAR2
+      - RebelGearAR3
+
+- type: entity
+  name: Диверсант
+  parent: MobHumanCitizenC17
+  id: MobHumanRebelSaboteurTechC17
+  suffix: Повстанец
+  components:
+  - type: GhostRole
+    name: Диверсант сопротивления
+    description: Боец спец назначения сопротивления, в отличии от местных боевиков, вы являетесь профессионалом, по крайней мере так думают все остальные.
+  - type: Loadout
+    prototypes:
+      - SaboteurGear
+      - Saboteur2Gear
+
+- type: entity
+  name: Повстанец
+  parent: MobHumanCitizenC17
+  id: MobHumanRebelC17
+  suffix: Повстанец
+  components:
+  - type: GhostRole
+    name: Повстанец
+    description: Солдат Сопротивления, отлично вооружен для того, кто работает на террорристическую группировку.
+  - type: Loadout
+    prototypes:
+      - RebelGear
+      - RebelGear2
+      - RebelGear3

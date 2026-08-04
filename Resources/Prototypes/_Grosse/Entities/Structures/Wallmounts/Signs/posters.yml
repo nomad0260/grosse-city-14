@@ -1,0 +1,29 @@
+- type: entity
+  parent: PosterBase
+  id: PosterCMBUnion17
+  name: плакат Альянса
+  description: Плакат с рисунком Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/posters.rsi
+    state: poster_1
+
+- type: entity
+  parent: PosterBase
+  id: PosterCMBUnion217
+  name: плакат Альянса
+  description: Плакат с рисунком Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/posters.rsi
+    state: poster_2
+
+- type: entity
+  parent: PosterBase
+  id: PosterCMBUnion517
+  name: плакат Альянса
+  description: Плакат с рисунком Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/posters.rsi
+    state: poster_5

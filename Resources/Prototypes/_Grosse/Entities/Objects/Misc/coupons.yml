@@ -1,0 +1,45 @@
+
+- type: entity
+  id: CouponC17
+  name: талон рациона
+  description: Талон для получения рациона в специальном автомате. Ценная штука в нынешних реалиях.
+  parent: BaseItem
+  components:
+  - type: Tag
+    tags:
+      - CouponC17
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/misc/coupon.rsi
+    state: icon
+    layers:
+    - state: icon
+  - type: Stack
+    stackType: CouponC17
+    count: 1
+  - type: Currency
+    price:
+      CouponC17: 1
+
+- type: stack
+  id: CouponC17
+  name: coupon
+  icon: { sprite: "_Grosse/rsi/hlstaff/misc/coupon.rsi", state: icon }
+  spawn: CouponC17
+  maxCount: 10
+
+- type: currency
+  id: CouponC17
+  displayName: Талоны
+  cash:
+    1: CouponC17
+  canWithdraw: true
+
+- type: entity
+  parent: CouponC17
+  id: CouponC1710
+  suffix: 10
+  components:
+  - type: Stack
+    count: 10

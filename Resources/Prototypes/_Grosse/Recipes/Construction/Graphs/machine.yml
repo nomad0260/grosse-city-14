@@ -201,9 +201,8 @@
             prototype: ManhackInactiveC17
             amount: 1
           - !type:PlaySound
-            sound: _Grosse/audio/blackmesa/hoppermine/blade_loop1.ogg
-            params:
-              volume: 2
+            sound: /Audio/_Grosse/audio/blackmesa/hoppermine/blade_loop1.ogg
+            volume: 2
           - !type:DeleteEntity
         steps:
           - tool: PulsingCombine
@@ -214,10 +213,9 @@
             prototype: ManhackInactiveResistanceC17
             amount: 1
           - !type:PlaySound
-            sound: 
+            sound:
               collection: sparks
-              params:
-                volume: 10
+              volume: 10
           - !type:DeleteEntity
         steps:
           - tool: PulsingResistance
@@ -236,9 +234,8 @@
             prototype: HopperMineInactiveC17
             amount: 1
           - !type:PlaySound
-            sound: _Grosse/audio/blackmesa/hoppermine/deactivate1.ogg
-            params:
-              volume: 10
+            sound: /Audio/_Grosse/audio/blackmesa/hoppermine/deactivate1.ogg
+            volume: 10
           - !type:DeleteEntity
         steps:
           - tool: PulsingCombine
@@ -249,10 +246,9 @@
             prototype: HopperMineInactiveResistanceC17
             amount: 1
           - !type:PlaySound
-            sound: 
+            sound:
               collection: sparks
-              params:
-                volume: 12
+              volume: 12
           - !type:DeleteEntity
         steps:
           - tool: PulsingResistance
@@ -265,9 +261,8 @@
             prototype: HopperMineExplosiveC17
             amount: 1
           - !type:PlaySound
-            sound: _Grosse/audio/blackmesa/hoppermine/blade_loop1.ogg
-            params:
-              volume: 10
+            sound: /Audio/_Grosse/audio/blackmesa/hoppermine/blade_loop1.ogg
+            volume: 10
           - !type:DeleteEntity
         steps:
           - tool: PulsingCombine
@@ -278,10 +273,9 @@
             prototype: HopperMineExplosiveResistanceC17
             amount: 1
           - !type:PlaySound
-            sound: 
+            sound:
               collection: sparks
-              params:
-                volume: 12
+              volume: 12
           - !type:DeleteEntity
         steps:
           - tool: PulsingResistance

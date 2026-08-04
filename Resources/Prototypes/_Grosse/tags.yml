@@ -96,3 +96,6 @@
 
 - type: Tag
   id: GrubCore
+
+- type: Tag
+  id: PulseBullet

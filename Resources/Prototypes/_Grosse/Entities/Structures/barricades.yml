@@ -1,0 +1,106 @@
+- type: entity
+  id: BarricadaCMBC17
+  parent: BaseStructure
+  name: баррикада Альянса
+  description: Армированный баррьер Альянса, который защищает того кто стоит за ним.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/baricada.rsi
+    layers:
+    - state: combine
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.2,0.5,0.2"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: Climbable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: RequireProjectileTarget
+    active: true
+  - type: PointLight
+    radius: 2
+    energy: 3
+    falloff: 12
+    enabled: true
+    color: "#00ffff"
+
+- type: entity
+  id: BarricadaC17
+  parent: BarricadaCMBC17
+  name: баррикада
+  description: Бетонное сооружение для препятсвию прохода, довольно прочная.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/baricada.rsi
+    layers:
+    - state: concrete_barrier
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        concrete_barrier: ""
+        concrete_barrier_1: ""
+        concrete_barrier_2: ""
+        concrete_barrier_3: ""
+        concrete_barrier_4: ""
+        concrete_barrier_5: ""
+  - type: PointLight
+    enabled: false
+
+- type: entity
+  id: BarricadaAltC17
+  parent: BarricadaC17
+  components:
+  - type: Sprite
+    layers:
+    - state: concrete_barrier_alt
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        concrete_barrier_alt: ""
+        concrete_barrier_alt_1: ""
+
+- type: entity
+  id: BarricadaRoadC17
+  parent: BaseStructureDynamic
+  components:
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/baricada.rsi
+    layers:
+    - state: road_barrier
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.2,0.5,0.2"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

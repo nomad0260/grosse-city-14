@@ -1,0 +1,24 @@
+- type: entity
+  name: мультитул Альянса
+  parent: Multitool
+  id: MultitoolCombineC17
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    layers:
+    - state: icon
+    - state: green-unlit
+      shader: unshaded
+  - type: Item
+    size: Small
+  - type: Clothing
+    sprite: Objects/Tools/multitool.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: Tool
+    qualities:
+      - PulsingCombine

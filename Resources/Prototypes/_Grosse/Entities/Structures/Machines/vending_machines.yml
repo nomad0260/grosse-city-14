@@ -1,0 +1,94 @@
+- type: entity
+  parent: VendingMachine
+  id: VendingMachineDrBreenPrivateReserve17
+  name: Dr>Breen Private Reserve Vending Machine
+  description: A softdrink vendor provided by Reserve Dr. Breen, LLC.
+  components:
+  - type: VendingMachine
+    pack: DrBreenPrivateReserveInventory
+    dispenseOnHitChance: 0.25
+    dispenseOnHitThreshold: 2
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+    ejectDelay: 1.9
+    initialStockQuality: 0.33
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/water-vendor.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#3c5eb5"
+
+- type: entity
+  id: RationDispenserC17
+  parent: BaseStructure
+  name: пункт выдачи рационов
+  description: Пункт установленный Альянсом для выдачи питательных рационов.
+  components:
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/rsi/hlstaff/structure/ration-dispenser.rsi
+    layers:
+    - state: "rationdispenser"
+  - type: InteractionOutline
+  - type: Physics
+  - type: RequireProjectileTarget
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,0.3,0.5,0.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+  #- type: BuyStoreBank
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+    singleUser: true
+  #- type: Store
+  #  categories:
+  #  - RationDispenserC17Inventory
+  #  currencyWhitelist:
+  #  - CouponC17
+  #  balance:
+  #    CouponC17: 0
+  - type: VendingMachine
+    pack: RationDispenserC17Inventory
+    dispenseOnHitChance: 0
+    dispenseOnHitThreshold: 0
+    offState: rationdispenser-off
+    brokenState: rationdispenser
+    normalState: rationdispenser
+    initialStockQuality: 0
+  - type: WiresPanel
+  - type: Wires
+    boardName: wires-board-name-vendingmachine
+    layoutId: Vending

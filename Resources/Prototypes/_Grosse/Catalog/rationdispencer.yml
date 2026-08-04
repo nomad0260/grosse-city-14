@@ -1,0 +1,10 @@
+- type: listing
+  id: RationDispenserC17Inventory1
+  productEntity: FoodC17Ration
+  cost:
+    CouponC17: 1
+  categories:
+    - RationDispenserC17Inventory
+  conditions:
+    - !type:ListingLimitedStockCondition
+      stock: 15

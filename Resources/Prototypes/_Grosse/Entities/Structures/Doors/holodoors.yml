@@ -1,0 +1,67 @@
+- type: entity
+  id: ForceFieldHoloDoorC17
+  parent: ForceHoloDoorC17
+  name: force field
+  description: The words flicker as if they mean nothing.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: full
+      shader: unshaded
+  - type: Airlock
+    openingSpriteState: full
+    openingPanelSpriteState: full
+    closingSpriteState: full
+    closingPanelSpriteState: full
+    openSpriteState: full
+    closedSpriteState: full
+    denySpriteState: full
+
+- type: entity
+  id: ForceHoloDoorOTAC17
+  parent: ForceHoloDoorC17
+  suffix: OTA доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionOTA" ] ]
+
+- type: entity
+  id: ForceFieldHoloDoorOTAC17
+  parent: ForceFieldHoloDoorC17
+  suffix: OTA доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionOTA" ] ]
+
+- type: entity
+  id: ForceHoloDoorBaseC17
+  parent: ForceHoloDoorC17
+  suffix: Base доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionBase" ] ]
+
+- type: entity
+  id: ForceFieldHoloDoorBaseC17
+  parent: ForceFieldHoloDoorC17
+  suffix: Base доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionBase" ] ]
+
+- type: entity
+  id: ForceHoloDoorAdminC17
+  parent: ForceHoloDoorC17
+  suffix: Админ доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionAdmin" ] ]
+
+- type: entity
+  id: ForceFieldHoloDoorAdminC17
+  parent: ForceFieldHoloDoorC17
+  suffix: Админ доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionAdmin" ] ]

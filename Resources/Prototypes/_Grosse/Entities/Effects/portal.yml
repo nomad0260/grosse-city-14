@@ -1,0 +1,53 @@
+
+- type: entity
+  id: HandTeleporterCity17Teleporter
+  suffix: Город 14, перемещение
+  parent: BaseItem
+  name: телепортер между мирами
+  description: Allows you to open stable portal gates that are not limited by distance.
+  components:
+  - type: Sprite
+    sprite: /Textures/Objects/Devices/hand_teleporter.rsi
+    layers:
+    - state: icon
+      color: green
+  - type: HandTeleporter
+    allowPortalsOnDifferentGrids: true
+    allowPortalsOnDifferentMaps: true
+    firstPortalPrototype: PortalCity17
+    secondPortalPrototype: PortalCity17
+
+- type: entity
+  id: PortalCity17
+  parent: BasePortal
+  description: This one looks more like a redspace portal.
+  components:
+  - type: Rotatable
+    rotateWhileAnchored: true
+  - type: Sprite
+    layers:
+    - state: portal-red
+  - type: Marker
+  - type: PointLight
+    enabled: false
+  - type: Fixtures
+    fixtures:
+      portalFixture:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        hard: false
+  - type: Portal
+    arrivalSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+    departureSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+    canTeleportToOtherMaps: true

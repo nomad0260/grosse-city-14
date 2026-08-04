@@ -1,0 +1,142 @@
+- type: entity
+  id: UAZStructureC17
+  parent: BaseShippingContainer
+  name: старый фургон
+  description: Семейство полноприводных внедорожных фургонов и легких грузовиков с кузовом на раме и кабиной над двигателем.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/uaz.rsi
+    scale: 0.8, 0.8
+    state: base
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-0.9,1.5,0.9"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: UAZStructureRustedC17
+  parent: UAZStructureC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/uaz.rsi
+    state: rusted
+
+- type: entity
+  id: OldCarGreenC17
+  parent: BaseShippingContainer
+  name: старая машина
+  description: Довоенная машина, время не щадит никого, поэтому она в таком плохом состоянии. К сожалению, невозможно различить марку машины.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/old_cars.rsi
+    scale: 0.8, 0.8
+    state: old_car_green
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.6,-1.1,0.6,1.1"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  id: OldCarRedC17
+  parent: OldCarGreenC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/old_cars.rsi
+    scale: 0.8, 0.8
+    state: old_car_red
+
+- type: entity
+  id: ZILC17
+  parent: BaseShippingContainer
+  name: старый грузовик
+  description: Довоенный тяжелый транспорт для транспортировки множества вещей.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+    scale: 1.1, 1.1
+    state: z1
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-1.5,0.5,1.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: ZIL2C17
+  parent: ZILC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+    scale: 1.1, 1.1
+    state: z2
+
+- type: entity
+  id: KrazC17
+  name: старый военный транспорт
+  description: Военный транспорт используемый военными, смотря на него, вспоминаются времена войны, так или иначе, войска Земли проиграли. Останки прошлого величия
+  parent: ZILC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/kraz.rsi
+    state: kraz1
+
+- type: entity
+  id: Kraz2C17
+  parent: KrazC17
+  components:
+  - type: Sprite
+    state: kraz2
+
+- type: entity
+  id: MoskvichC17
+  parent: BaseShippingContainer
+  name: старая машина
+  description: Довоенная машина, время не щадит никого, поэтому она в таком плохом состоянии. К сожалению, невозможно различить марку машины.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
+    scale: 0.8, 0.8
+    state: m1
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.7,-1.2,0.8,1.0"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: RequireProjectileTarget
+    active: true

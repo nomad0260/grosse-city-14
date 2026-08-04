@@ -1,0 +1,72 @@
+- type: entity
+  id: TrashCanisterC17
+  parent: GroundClockC17
+  name: мусорная урна
+  description: Емкость для мусора, чтобы складировать мусор.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
+    state: trash_can
+    offset: "0, -0.25"
+  - type: Storage
+    grid:
+    - 0,0,9,5
+    maxItemSize: Normal
+    storageOpenSound:
+      collection: trashBagRustle
+    storageInsertSound:
+      collection: trashBagRustle
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+
+- type: entity
+  id: TrashCanC17
+  parent: GroundClockC17
+  name: мусорный бак
+  description: Емкость для мусора, чтобы складировать много мусор.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/trashcan.rsi
+    layers:
+    - state: tc1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        tc1: ""
+        tc2: ""
+        tc3: ""
+        tc4: ""
+  - type: Storage
+    grid:
+    - 0,0,15,15
+    maxItemSize: Normal
+    storageOpenSound:
+      collection: trashBagRustle
+    storageInsertSound:
+      collection: trashBagRustle
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 80
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer

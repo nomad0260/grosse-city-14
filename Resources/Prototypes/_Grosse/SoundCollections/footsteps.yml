@@ -1,9 +1,9 @@
 - type: soundCollection
   id: FootstepSoldier
   files:
-  - _Grosse/audio/Effects/Footsteps/gear1.ogg
-  - _Grosse/audio/Effects/Footsteps/gear2.ogg
-  - _Grosse/audio/Effects/Footsteps/gear3.ogg
-  - _Grosse/audio/Effects/Footsteps/gear4.ogg
-  - _Grosse/audio/Effects/Footsteps/gear5.ogg
-  - _Grosse/audio/Effects/Footsteps/gear6.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear1.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear2.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear3.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear4.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear5.ogg
+  - /Audio/_Grosse/audio/Effects/Footsteps/gear6.ogg

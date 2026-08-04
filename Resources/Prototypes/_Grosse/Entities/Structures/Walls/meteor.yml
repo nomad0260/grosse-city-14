@@ -1,0 +1,9 @@
+- type: entity
+  parent: MeteorRock
+  id: MeteorRockIndestructibleOccluded
+  name: обломки
+  description: Куски бетона.
+  components:
+  - type: Godmode
+  - type: Occluder
+    enabled: false

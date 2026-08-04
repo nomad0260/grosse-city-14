@@ -1,0 +1,72 @@
+
+- type: entity
+  parent: BaseRock
+  id: Rock0217
+  name: валун
+  description: Крупный окатанный обломок горной породы.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/rocks.rsi
+    state: rock2
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.6
+        density: 1000
+        layer:
+        - HalfWallLayer
+        - Opaque
+  - type: Climbable
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+
+- type: entity
+  parent: Rock0217
+  id: Rock0117
+  components:
+  - type: Sprite
+    state: rock1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.8
+        density: 1000
+        layer:
+        - HalfWallLayer
+        - Opaque
+
+- type: entity
+  parent: Rock0217
+  id: Rock0317
+  components:
+  - type: Sprite
+    state: rock3
+
+- type: entity
+  parent: Rock0217
+  id: Rock0417
+  components:
+  - type: Sprite
+    state: rock4
+
+- type: entity
+  parent: Rock0217
+  id: Rock0517
+  components:
+  - type: Sprite
+    state: rock5
+
+- type: entity
+  parent: Rock0217
+  id: Rock0617
+  components:
+  - type: Sprite
+    state: rock6

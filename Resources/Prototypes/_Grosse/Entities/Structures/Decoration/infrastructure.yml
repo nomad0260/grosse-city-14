@@ -1,0 +1,75 @@
+- type: entity
+  id: RoadLightC17
+  parent: GroundClockC17
+  name: светофор
+  description: Городской светофор, лампочки давно сгорели и видимо никто не собирается его чинить.
+  components:
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/rsi/hlstaff/misc/greenlight.rsi
+    offset: "0, 1.5"
+    state: trafficlightleft
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.3"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+
+- type: entity
+  id: RoadBlockerC17
+  parent: BaseShippingContainer
+  name: шлагбаум
+  description: Штука для остановки движения.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/barrier.rsi
+    scale: 0.8, 0.8
+    state: b1
+  - type: InteractionOutline
+  - type: Climbable
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.2,-0.3,1.2,0.3"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  id: PoleC17
+  parent: GroundClockC17
+  name: столб
+  description: Столб ограничивающий проезд автомобилей и еще показывает пост-советскую эстетику.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
+    offset: "0.45, -0.2"
+    state: pedestrian_pole
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.2"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable

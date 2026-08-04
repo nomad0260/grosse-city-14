@@ -1,0 +1,74 @@
+- type: entity
+  id: BaseBrokenMachineC17
+  parent: BaseStructure
+  name: сломанное устройство
+  description: Довоенное устройство, по идее можно починить, только толку то?
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/broken_machine.rsi
+    layers:
+    - state: b1
+  - type: InteractionOutline
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 6000
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: RequireProjectileTarget
+    active: true
+  - type: Tag
+    tags:
+      - Structure
+
+- type: entity
+  id: BrokenMachineC17
+  parent: BaseBrokenMachineC17
+  components:
+  - type: Sprite
+    layers:
+    - state: b1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        b1: ""
+        b2: ""
+        b3: ""
+
+- type: entity
+  id: BrokenMachineb5C17
+  parent: BaseBrokenMachineC17
+  components:
+  - type: Sprite
+    layers:
+    - state: b5
+
+- type: entity
+  id: GasStoveC17
+  parent: BaseBrokenMachineC17
+  name: газовая плита
+  description: Кухонная плита, использующая в качестве топлива горючий газ. Может использоваться природный газ из городской газовой сети или сжиженный газ.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/gas_stove.rsi
+    layers:
+    - state: gs1
+
+- type: entity
+  id: RustyGasStoveC17
+  parent: GasStoveC17
+  components:
+  - type: Sprite
+    layers:
+    - state: gs3

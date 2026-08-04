@@ -1,0 +1,16 @@
+- type: entityTable
+  id: GenericCMBTrashItems
+  table: !type:GroupSelector
+    children:
+    - !type:GroupSelector
+      weight: 80
+      children:
+      - id: FoodC17WaterBarPacketTrash
+      - id: FoodC17PorkBarPacketTrash
+      - id: FoodC17PacketTrashCMB
+      - id: DrinkC17DrBreenPrivateReserveTrash
+    - !type:GroupSelector
+      weight: 20
+      children:
+      - id: FoodC17RationTrash
+      - id: DrinkC17DrBreenPrivateReserveOpened

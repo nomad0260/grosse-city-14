@@ -1,0 +1,188 @@
+
+- type: entity
+  id: CargoTankC17
+  parent: BaseStructure
+  name: вагон с цистерной
+  description: Вид подвижного состава железных дорог для перевозки жидкостей, в том числе нефти и продуктов её переработки, химически активных и агрессивных жидких веществ.
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Railroad/Train.rsi
+    drawdepth: HighFloorObjects
+    layers:
+      - state: cargo_tank
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.25,-0.75,1.25,0.75"
+        density: 5000
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+  - type: Appearance
+
+- type: entity
+  id: TrainCargoTank1C17
+  parent: CargoTankC17
+  components:
+  - type: Sprite
+    layers:
+      - state: cargo_tank1
+
+- type: entity
+  id: TrainPassHeadC17
+  parent: CargoTankC17
+  name: Тепловоз М62
+  description: Советский магистральный шестиосный тепловоз, изначально разработанный для эксплуатации в странах СЭВ. Выпускался Луганским тепловозостроительным заводом с 1965 года.
+  components:
+  - type: Sprite
+    layers:
+      - state: passenger_head
+
+- type: entity
+  id: TrainCargoHeadC17
+  parent: CargoTankC17
+  name: Тепловоз ТЭМ6-001
+  description: Советский шестиосный маневровый тепловоз, производства Брянского завода. Создавался как универсальный локомотив, который после замены тележек или колёсных пар мог работать на железных дорогах с шириной колеи 1000, 1067, 1435 и 1520 мм, причём в условиях как умеренного, так и тропического климата.
+  components:
+  - type: Sprite
+    layers:
+      - state: head_cargo
+
+- type: entity
+  id: TrainCargoHead1C17
+  parent: CargoTankC17
+  name: Тепловоз М62
+  description: Советский магистральный шестиосный тепловоз, изначально разработанный для эксплуатации в странах СЭВ. Выпускался Луганским тепловозостроительным заводом с 1965 года.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo_head
+
+- type: entity
+  id: TrainCargoHead2C17
+  parent: CargoTankC17
+  name: Тепловоз ТЭМ6-001
+  description: Советский шестиосный маневровый тепловоз, производства Брянского завода. Создавался как универсальный локомотив, который после замены тележек или колёсных пар мог работать на железных дорогах с шириной колеи 1000, 1067, 1435 и 1520 мм, причём в условиях как умеренного, так и тропического климата.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo_head2
+
+- type: entity
+  id: TrainPassTrainC17
+  parent: CargoTankC17
+  name: пассажирский вагон
+  description: Единица подвижного состава, предназначенная для перевозки пассажиров.
+  components:
+  - type: Sprite
+    layers:
+      - state: passenger_train
+
+- type: entity
+  id: TrainPassTrain1C17
+  parent: CargoTankC17
+  name: пассажирский вагон
+  description: Единица подвижного состава, предназначенная для перевозки пассажиров.
+  components:
+  - type: Sprite
+    layers:
+      - state: passenger_train1
+
+- type: entity
+  id: TrainPassTrain2C17
+  parent: CargoTankC17
+  name: пассажирский вагон
+  description: Единица подвижного состава, предназначенная для перевозки пассажиров.
+  components:
+  - type: Sprite
+    layers:
+      - state: passenger_train3
+
+- type: entity
+  id: TrainCargoC17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo
+
+- type: entity
+  id: TrainCargo1C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo1
+
+- type: entity
+  id: TrainCargo2C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo2
+
+- type: entity
+  id: TrainCargo3C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo3
+
+- type: entity
+  id: TrainCargo4C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo4
+
+- type: entity
+  id: TrainCargo5C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo5
+
+- type: entity
+  id: TrainCargo6C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo6
+
+- type: entity
+  id: TrainCargo7C17
+  parent: CargoTankC17
+  name: грузовой вагон
+  description: Представляет собой железнодорожное транспортное средство без двигателя, которое использовалось для перевозки грузов.
+  components:
+  - type: Sprite
+    layers:
+      - state: сargo7

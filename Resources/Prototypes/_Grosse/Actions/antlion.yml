@@ -4,6 +4,7 @@
   name: прыгнуть
   description: Ускориться, а затем взмыть в небеса на своих крыльях.
   components:
+  - type: TargetAction
   - type: Action
     useDelay: 30
     icon:
@@ -18,6 +19,7 @@
   name: начать крушить
   description: Ускориться, сбивая все на своем пути
   components:
+  - type: TargetAction
   - type: Action
     useDelay: 37
     icon:

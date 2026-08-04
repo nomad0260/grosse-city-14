@@ -1,0 +1,11 @@
+
+- type: entity
+  id: FloorDeadWaterEntity
+  parent: FloorWaterEntity
+  name: мёртвое море
+  description: Когда-то тут была жизнь, а теперь тут живут лишь плотоядные паразиты.
+  components:
+  - type: DamageContacts
+    damage:
+      types:
+        Piercing: 5

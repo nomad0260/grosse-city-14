@@ -2,19 +2,19 @@
   parent: MindShieldIcon
   id: UnionFaction
   icon:
-    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    sprite: _Grosse/rsi/Interface/Misc/jobicon.rsi
     state: union
 
 - type: securityIcon
   id: UnionCommandFaction
   parent: MindShieldIcon
   icon:
-    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    sprite: _Grosse/rsi/Interface/Misc/jobicon.rsi
     state: unioncom
 
 - type: securityIcon
   id: UnionEliteFaction
   parent: MindShieldIcon
   icon:
-    sprite: _Grosse/rsi/Interface/Misc/obicon.rsi
+    sprite: _Grosse/rsi/Interface/Misc/jobicon.rsi
     state: unionelite

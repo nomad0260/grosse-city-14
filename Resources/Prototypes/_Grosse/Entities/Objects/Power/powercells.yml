@@ -1,0 +1,18 @@
+- type: entity
+  parent: BasePowerCell
+  id: PowerCellCombineUnion17
+  name: union power cell
+  description: Батарейка Альянса.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/power_cells.rsi
+    layers:
+    - map: [ "enum.PowerCellVisualLayers.Base" ]
+      state: battery
+    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+      state: o2
+      shader: unshaded
+  - type: Battery
+    maxCharge: 6000
+    startingCharge: 6000

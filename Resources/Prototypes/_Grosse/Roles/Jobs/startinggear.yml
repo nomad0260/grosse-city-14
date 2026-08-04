@@ -1,998 +1,969 @@
-#- type: startingGear
-#  id: OTAGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOTAC17
-#    back: ClothingBackpackCombineC17Filled
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorOTAC17
-#    suitstorage: WeaponSubMachineGunC17
-#    id: UnionIDCardOTASoldier
-#    head: ClothingHeadOTAC17
-#    belt: WeaponPistolC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#    neck: CombatKnifeSpetsnaz
-#
-#- type: startingGear
-#  id: OTAAR2Gear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOTAC17
-#    back: ClothingBackpackCombineC17AR2Filled
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorOTAC17
-#    suitstorage: WeaponPulseRifleAR2C17
-#    id: UnionIDCardOTASoldier
-#    head: ClothingHeadOTAC17
-#    belt: WeaponPistolC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#    neck: CombatKnifeSpetsnaz
-#
-#- type: startingGear
-#  id: OTAShotgunGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOTAC17Shotgunner
-#    back: ClothingBackpackCombineC17ShotgunFilled
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorOTAC17Shotgunner
-#    suitstorage: WeaponShotgun12CombineC17
-#    id: UnionIDCardOTASoldier
-#    head: ClothingHeadOTAC17Shotgunner
-#    belt: WeaponPistolC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#    neck: CombatKnifeSpetsnaz
-#- type: startingGear
-#  id: OTAEliteGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOTAEliteC17
-#    back: ClothingBackpackCombineEliteC17Filled
-#    shoes: ClothingShoesBootsSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorOTAEliteC17
-#    suitstorage: WeaponPulseRifleAR2C17
-#    id: UnionIDCardOTASoldierElite
-#    belt: WeaponPistolC17
-#    head: ClothingHeadOTAEliteC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#    neck: CombatKnifeSpetsnaz
-#
-#- type: startingGear
-#  id: CivilProtectionGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCPC17
-#    back: ClothingBackpackCPC17
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorCPC17
-#    id: UnionIDCardCivilProtection
-#    belt: WeaponPistolC17
-#    head: ClothingHeadCPC17
-#    mask: ClothingMaskCPC17
-#    pocket1: MagazinePistol
-#    pocket2: HealthvialC17
-#  storage:
-#    back:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - Handcuffs
-#    - Handcuffs
-#    - Handcuffs
-#    - Stunbaton
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - PaperCity14Rules
-#  inhand:
-#    - PaperCPUnit03
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: CivilProtectionSMGGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCPC17
-#    back: ClothingBackpackCPC17
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBC17
-#    outerClothing: ClothingOuterArmorCPC17
-#    id: UnionIDCardCivilProtection
-#    suitstorage: WeaponSubMachineGunC17
-#    belt: WeaponPistolC17
-#    head: ClothingHeadCPC17
-#    mask: ClothingMaskCPC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#  storage:
-#    back:
-#    - MagazinePistol
-#    - Stunbaton
-#    - Handcuffs
-#    - Handcuffs
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#
-#- type: startingGear
-#  id: CivilProtectionOfficerGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCPOfficerC17
-#    back: ClothingBackpackCPC17
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBLeaderC17
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    id: UnionIDCardCivilProtectionOfficer
-#    belt: WeaponPistolC17
-#    head: ClothingHeadCPC17
-#    mask: ClothingMaskCPC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#  storage:
-#    back:
-#    - MagazinePistol
-#    - Stunbaton
-#    - Handcuffs
-#    - Handcuffs
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - PaperCity14Rules
-#    - PaperCity14BlockPosts
-#  inhand:
-#    - PaperCPUnit01
-#    - HandheldStationMapUnpowered
-#- type: startingGear
-#  id: SectorialCommanderGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCPOfficerC17
-#    back: ClothingBackpackCPC17
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBLeaderC17
-#    outerClothing: ClothingOuterArmorCPSeCC17
-#    id: UnionIDCardSectorialCommander
-#    belt: WeaponPistolC17
-#    head: ClothingHeadCPC17
-#    mask: ClothingMaskCPSeCC17
-#    pocket1: MagazinePistol
-#    pocket2: MagazinePistol
-#  storage:
-#    back:
-#    - MagazinePistol
-#    - Stunbaton
-#    - Handcuffs
-#    - Handcuffs
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - PaperCity14Rules
-#  inhand:
-#    - PaperCPUnitSeC
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: CivilProtection02Gear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCPC17
-#    back: ClothingBackpackCPC17
-#    shoes: ClothingShoesBootsNedoSpetsnaz
-#    gloves: ClothingHandsGlovesCombat
-#    ears: ClothingHeadsetCMBLeaderC17
-#    outerClothing: ClothingOuterArmorCPC17
-#    id: UnionIDCardCivilProtectionLocalCommander
-#    belt: WeaponPistolC17
-#    head: ClothingHeadCPC17
-#    mask: ClothingMaskCPC17
-#    pocket1: MagazinePistol
-#    pocket2: HealthvialC17
-#  storage:
-#    back:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - Handcuffs
-#    - Handcuffs
-#    - Handcuffs
-#    - Stunbaton
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - GrenadeFlashBang
-#    - HealthvialC17
-#    - HealthvialC17
-#    - HealthvialC17
-#    - PaperCity14Rules
-#  inhand:
-#    - PaperCPUnit02
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: CityScanner
-#  inhand:
-#    - FlashCityScanner
-#    - BinocularsScanner
-#
-#- type: startingGear
-#  id: Gunship
-#  inhand:
-#    - DesantPod
-#    - DrobshipPod
-#
-#- type: startingGear
-#  id: NPCCombineSoldierElite
-#  equipment:
-#    pocket1: CombineSoldierElite
-#
-#- type: startingGear
-#  id: NPCCombineSoldier
-#  equipment:
-#    pocket1: CombineSoldierLoot
-#
-#- type: startingGear
-#  id: NPCCombineMedic
-#  equipment:
-#    pocket1: CombineMedicLoot
-#
-#
-#- type: startingGear
-#  id: NPCCombineSoldierAR2
-#  equipment:
-#    pocket1: CombineSoldierAR2Loot
-#
-#- type: startingGear
-#  id: NPCCombineSoldierShotgun
-#  equipment:
-#    pocket1: CombineSoldierShotgunLoot
-#
-#- type: startingGear
-#  id: NPCCombinePatrolUnitSMG
-#  equipment:
-#    pocket1: CombinePatrolUnitSMGLoot
-#
-#- type: startingGear
-#  id: NPCCombinePatrolUnitRange
-#  equipment:
-#    pocket1: CombinePatrolUnitRangeLoot
-#
-#- type: startingGear
-#  id: ReferentGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitLawyerBlack
-#    ears: ClothingHeadsetCMBHeadsC17
-#    shoes: ClothingShoesBootsLaceup
-#    id: UnionIDCardAdministrationReferent
-#    pocket1: EncryptionKeyCMBC17
-#    pocket2: CouponC17
-#
-#- type: startingGear
-#  id: HeadUnionWorker
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitQM
-#    ears: ClothingHeadsetCMBHeadsC17
-#    shoes: ClothingShoesBootsLaceup
-#    id: UnionIDCardUnionWorkersHead
-#    pocket1: CouponC17
-#    pocket2: Pen
-#  inhand:
-#    - PaperGSRHead
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: HeadUnionWorker
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitQM
-#    ears: ClothingHeadsetCMBHeadsC17
-#    shoes: ClothingShoesBootsLaceup
-#    id: UnionIDCardUnionWorkersHead
-#    pocket1: CouponC17
-#    pocket2: Pen
-#  inhand:
-#    - PaperGSRHead
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: UnionFactoryHead
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitQMTurtleneck
-#    ears: ClothingHeadsetCMBHeadsC17
-#    shoes: ClothingShoesBootsLaceup
-#    outerClothing: ClothingOuterVestHazard
-#    head: ClothingHeadHatHardhatWhite
-#    id: UnionIDCardUnionFactoryHead
-#    pocket1: CouponC17
-#    pocket2: Pen
-#  inhand:
-#    - PaperFactoryHead
-#    - HandheldStationMapUnpowered
-#
-#- type: startingGear
-#  id: CMBWorkerGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesBootsWork
-#    id: UnionIDCardWorker
-#    outerClothing: ClothingOuterWorkerCMBC17
-#    head: ClothingHeadWorkerC17
-#    gloves: ClothingHandsGlovesJanitor
-#    pocket1: SprayBottleSpaceCleaner
-#    pocket2: CouponC17
-#  storage:
-#    outerClothing:
-#    - FlashlightLantern
-#    - LightReplacer
-#
-#- type: startingGear
-#  id: CMBWorkerNotReadyGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    ears: ClothingHeadsetCargo
-#    shoes: ClothingShoesBootsWork
-#    id: UnionIDCardWorker
-#    pocket2: CouponC17
-#  inhand:
-#    - PaperWorker
-#
-#- type: startingGear
-#  id: CMBWorkerResearcherGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    ears: ClothingHeadsetService
-#    shoes: ClothingShoesBootsWork
-#    id: UnionIDCardResearcher
-#    pocket2: CouponC17
-#  inhand:
-#    - PaperResearcher
-#
-#- type: startingGear
-#  id: CMBWorkerMinerGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    ears: ClothingHeadsetService
-#    shoes: ClothingShoesBootsWork
-#    id: UnionIDCardMiner
-#    pocket2: CouponC17
-#  inhand:
-#    - PaperMiner
-#
-#- type: startingGear
-#  id: CitizenGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    pocket2: CouponC17
-#
-#- type: startingGear
-#  id: CitizenGear2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#
-#- type: startingGear
-#  id: CitizenGear3
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    belt: CrowbarRed
-#    pocket2: CouponC17
-#
-#- type: startingGear
-#  id: CitizenGear4
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    pocket2: CouponC17
-#
-#- type: startingGear
-#  id: CitizenGear5
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    pocket2: CouponC17
-#
-#- type: startingGear
-#  id: CitizenGear6
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    outerClothing: ClothingOuterCoatGentle
-#
-#- type: startingGear
-#  id: CitizenGear7
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    outerClothing: ClothingOuterCoatBomber
-#
-#- type: startingGear
-#  id: CitizenGear8
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    id: UnionIDCardCivil
-#    pocket1: DrinkWhiskeyBottleFull
-#
-#- type: startingGear
-#  id: RefugeeCivilGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#
-#- type: startingGear
-#  id: RefugeeGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    pocket1: WeaponRevolverInspector
-#    pocket2: CombatKnife
-#
-#- type: startingGear
-#  id: RefugeeGear2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    pocket1: WeaponPistolC17
-#    pocket2: MagazinePistol
-#
-#- type: startingGear
-#  id: RefugeeGear3
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesBootsWork
-#    belt: CrowbarRed
-#    pocket1: WeaponPistolC17
-#    pocket2: SurvivalKnife
-#  storage:
-#    outerClothing:
-#    - MagazinePistol
-#    - MagazinePistol
-#
-#- type: startingGear
-#  id: RefugeeGear4
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    pocket1: SurvivalKnife
-#    pocket2: WeaponPistolC17
-#
-#- type: startingGear
-#  id: RefugeeGear5
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    suitstorage: WeaponSubMachineGunC17
-#    pocket1: WeaponPistolC17
-#
-#- type: startingGear
-#  id: RefugeeGear6
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    outerClothing: ClothingOuterCoatGentle
-#    pocket1: WeaponPistolC17
-#    pocket2: KitchenKnife
-#  storage:
-#    outerClothing:
-#    - MagazinePistol
-#    - MagazinePistol
-#
-#- type: startingGear
-#  id: RefugeeGear7
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    outerClothing: ClothingOuterCoatBomber
-#    pocket1: WeaponPistolC17
-#    pocket2: KitchenKnife
-#  storage:
-#    outerClothing:
-#    - MagazinePistol
-#
-#- type: startingGear
-#  id: RefugeeGear8
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    pocket1: DrinkWhiskeyBottleFull
-#    pocket2: WeaponPistolC17
-#  storage:
-#    outerClothing:
-#    - MagazinePistol
-#    - MagazinePistol
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    mask: ClothingMaskBandBlack
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponRevolverInspector
-#    pocket2: CombatKnife
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: MagazinePistol
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear3
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    mask: ClothingMaskBandBlack
-#    pocket1: WeaponPistolC17
-#    pocket2: SurvivalKnife
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear4
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: SurvivalKnife
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear5
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitRefugeeC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: HealthvialC17
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear6
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: HealthvialC17
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear7
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorCPC17
-#    suitstorage: WeaponSubMachineGunC17
-#    mask: ClothingMaskBandBlack
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: HealthvialC17
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RefugeeHeavyGear8
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitAerostatic
-#    shoes: ClothingShoesColorBlack
-#    neck: ClothingNeckRebelBand
-#    suitstorage: WeaponSubMachineGunC17
-#    back: ClothingBackpackRefugeeC17
-#    pocket1: WeaponPistolC17
-#    pocket2: DrinkWhiskeyBottleFull
-#  storage:
-#    back:
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistolSubMachineGun
-#    - MagazinePistol
-#    - MagazinePistol
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: entity
-#  name: Повстанец
-#  parent: MobHumanCitizenC17
-#  id: MobHumanRebelC17
-#  suffix: Повстанец
-#  components:
-#  - type: GhostRole
-#    name: Повстанец
-#    description: Солдат Сопротивления, отлично вооружен для того, кто работает на террорристическую группировку.
-#  - type: Loadout
-#    prototypes:
-#      - RebelGear
-#      - RebelGear2
-#      - RebelGear3
-#
-#- type: startingGear
-#  id: RebelGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorBulletproof
-#    suitstorage: WeaponAKMSRifleResistance
-#    head: ClothingHeadHelmetMerc
-#    mask: ClothingMaskBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGear2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOperative
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorBulletproof
-#    suitstorage: WeaponAKMSRifleResistance
-#    head: ClothingHeadBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGear3
-#  equipment:
-#    jumpsuit: ClothingUniformMilitaryRU
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorBulletproof
-#    suitstorage: WeaponRifleAKSUResistance
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    - MagazineLightRifle
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearShotgun
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponShotgun12CombineC17
-#    head: ClothingHeadHelmetMerc
-#    mask: ClothingMaskBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearShotgun2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOperative
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponShotgun12CombineC17
-#    head: ClothingHeadBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearShotgun3
-#  equipment:
-#    jumpsuit: ClothingUniformMilitaryRU
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponShotgun12CombineC17
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    - AmmoBox12magnum
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearAR
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitCitizenC17
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponPulseRifleAR2C17
-#    head: ClothingHeadHelmetMerc
-#    mask: ClothingMaskBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearAR2
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitOperative
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponPulseRifleAR2C17
-#    head: ClothingHeadBandBlack
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: RebelGearAR3
-#  equipment:
-#    jumpsuit: ClothingUniformMilitaryRU
-#    shoes: ClothingShoesBootsWork
-#    neck: ClothingNeckRebelBand
-#    outerClothing: ClothingOuterArmorResistenceC17
-#    suitstorage: WeaponPulseRifleAR2C17
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    pocket1: WeaponPistolC17
-#    pocket2: CombatKnife
-#  storage:
-#    belt:
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePistol
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    - MagazinePulseRifleC17
-#    back:
-#    - MedkitC17
-#    - MedkitC17
-#    - MedkitC17
-#    - HealthvialC17
-#    - HealthvialC17
-#
-#- type: startingGear
-#  id: SaboteurGear
-#  equipment:
-#    jumpsuit: ClothingUniformJumpsuitlaziclas
-#    shoes: ClothingShoesBootsWork
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    neck: ClothingNeckRebelBand
-#    pocket1: SaboteurBackpackEquip
-#    pocket2: CombatKnife
-#
-#- type: startingGear
-#  id: Saboteur2Gear
-#  equipment:
-#    jumpsuit: ClothingUniformMilitaryRU
-#    shoes: ClothingShoesBootsWork
-#    belt: ClothingBeltSalvageWebbing
-#    back: ClothingBackpackArmyC17
-#    neck: ClothingNeckRebelBand
-#    pocket1: SaboteurBackpackEquip
-#    pocket2: CombatKnife
-#
+- type: startingGear
+  id: OTAGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOTAC17
+    back: ClothingBackpackCombineC17Filled
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorOTAC17
+    suitstorage: WeaponSubMachineGunC17
+    id: UnionIDCardOTASoldier
+    head: ClothingHeadOTAC17
+    belt: WeaponPistolC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+    neck: CombatKnifeSpetsnaz
+
+- type: startingGear
+  id: OTAAR2Gear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOTAC17
+    back: ClothingBackpackCombineC17AR2Filled
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorOTAC17
+    suitstorage: WeaponPulseRifleAR2C17
+    id: UnionIDCardOTASoldier
+    head: ClothingHeadOTAC17
+    belt: WeaponPistolC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+    neck: CombatKnifeSpetsnaz
+
+- type: startingGear
+  id: OTAShotgunGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOTAC17Shotgunner
+    back: ClothingBackpackCombineC17ShotgunFilled
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorOTAC17Shotgunner
+    suitstorage: WeaponShotgun12CombineC17
+    id: UnionIDCardOTASoldier
+    head: ClothingHeadOTAC17Shotgunner
+    belt: WeaponPistolC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+    neck: CombatKnifeSpetsnaz
+- type: startingGear
+  id: OTAEliteGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOTAEliteC17
+    back: ClothingBackpackCombineEliteC17Filled
+    shoes: ClothingShoesBootsSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorOTAEliteC17
+    suitstorage: WeaponPulseRifleAR2C17
+    id: UnionIDCardOTASoldierElite
+    belt: WeaponPistolC17
+    head: ClothingHeadOTAEliteC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+    neck: CombatKnifeSpetsnaz
+
+- type: startingGear
+  id: CivilProtectionGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPC17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorCPC17
+    id: UnionIDCardCivilProtection
+    belt: WeaponPistolC17
+    head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: HealthvialC17
+  storage:
+    back:
+    - MagazinePistol
+    - MagazinePistol
+    - Handcuffs
+    - Handcuffs
+    - Handcuffs
+    - Stunbaton
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - PaperCity14Rules
+  inhand:
+    - PaperCPUnit03
+    - HandheldStationMapUnpowered
+
+- type: startingGear
+  id: CivilProtectionSMGGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPC17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorCPC17
+    id: UnionIDCardCivilProtection
+    suitstorage: WeaponSubMachineGunC17
+    belt: WeaponPistolC17
+    head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+  storage:
+    back:
+    - MagazinePistol
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+
+- type: startingGear
+  id: CivilProtectionOfficerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPOfficerC17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBLeaderC17
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    id: UnionIDCardCivilProtectionOfficer
+    belt: WeaponPistolC17
+    head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+  storage:
+    back:
+    - MagazinePistol
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - PaperCity14Rules
+    - PaperCity14BlockPosts
+  inhand:
+    - PaperCPUnit01
+    - HandheldStationMapUnpowered
+- type: startingGear
+  id: SectorialCommanderGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPOfficerC17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBLeaderC17
+    outerClothing: ClothingOuterArmorCPSeCC17
+    id: UnionIDCardSectorialCommander
+    belt: WeaponPistolC17
+    head: ClothingHeadCPC17
+    mask: ClothingMaskCPSeCC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
+  storage:
+    back:
+    - MagazinePistol
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - PaperCity14Rules
+  inhand:
+    - PaperCPUnitSeC
+    - HandheldStationMapUnpowered
+
+- type: startingGear
+  id: CivilProtection02Gear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPC17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBLeaderC17
+    outerClothing: ClothingOuterArmorCPC17
+    id: UnionIDCardCivilProtectionLocalCommander
+    belt: WeaponPistolC17
+    head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: HealthvialC17
+  storage:
+    back:
+    - MagazinePistol
+    - MagazinePistol
+    - Handcuffs
+    - Handcuffs
+    - Handcuffs
+    - Stunbaton
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - PaperCity14Rules
+  inhand:
+    - PaperCPUnit02
+    - HandheldStationMapUnpowered
+
+- type: startingGear
+  id: CityScanner
+  inhand:
+    - FlashCityScanner
+    - BinocularsScanner
+
+- type: startingGear
+  id: Gunship
+  inhand:
+    - DesantPod
+    - DrobshipPod
+
+- type: startingGear
+  id: NPCCombineSoldierElite
+  equipment:
+    pocket1: CombineSoldierElite
+
+- type: startingGear
+  id: NPCCombineSoldier
+  equipment:
+    pocket1: CombineSoldierLoot
+
+- type: startingGear
+  id: NPCCombineMedic
+  equipment:
+    pocket1: CombineMedicLoot
+
+
+- type: startingGear
+  id: NPCCombineSoldierAR2
+  equipment:
+    pocket1: CombineSoldierAR2Loot
+
+- type: startingGear
+  id: NPCCombineSoldierShotgun
+  equipment:
+    pocket1: CombineSoldierShotgunLoot
+
+- type: startingGear
+  id: NPCCombinePatrolUnitSMG
+  equipment:
+    pocket1: CombinePatrolUnitSMGLoot
+
+- type: startingGear
+  id: NPCCombinePatrolUnitRange
+  equipment:
+    pocket1: CombinePatrolUnitRangeLoot
+
+- type: startingGear
+  id: ReferentGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitLawyerBlack
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    id: UnionIDCardAdministrationReferent
+    pocket1: EncryptionKeyCMBC17
+    pocket2: CouponC17
+
+- type: startingGear
+  id: HeadUnionWorker
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitQM
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    id: UnionIDCardUnionWorkersHead
+    pocket1: CouponC17
+    pocket2: Pen
+  inhand:
+    - PaperGSRHead
+    - HandheldStationMapUnpowered
+
+- type: startingGear
+  id: UnionFactoryHead
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitQMTurtleneck
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    outerClothing: ClothingOuterVestHazard
+    head: ClothingHeadHatHardhatWhite
+    id: UnionIDCardUnionFactoryHead
+    pocket1: CouponC17
+    pocket2: Pen
+  inhand:
+    - PaperFactoryHead
+    - HandheldStationMapUnpowered
+
+- type: startingGear
+  id: CMBWorkerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardWorker
+    outerClothing: ClothingOuterWorkerCMBC17
+    head: ClothingHeadWorkerC17
+    gloves: ClothingHandsGlovesJanitor
+    pocket1: SprayBottleSpaceCleaner
+    pocket2: CouponC17
+  storage:
+    outerClothing:
+    - FlashlightLantern
+    - LightReplacer
+
+- type: startingGear
+  id: CMBWorkerNotReadyGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetCargo
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardWorker
+    pocket2: CouponC17
+  inhand:
+    - PaperWorker
+
+- type: startingGear
+  id: CMBWorkerResearcherGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardResearcher
+    pocket2: CouponC17
+  inhand:
+    - PaperResearcher
+
+- type: startingGear
+  id: CMBWorkerMinerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardMiner
+    pocket2: CouponC17
+  inhand:
+    - PaperMiner
+
+- type: startingGear
+  id: CitizenGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+
+- type: startingGear
+  id: CitizenGear3
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    belt: CrowbarRed
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear4
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear5
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear6
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    outerClothing: ClothingOuterCoatGentle
+
+- type: startingGear
+  id: CitizenGear7
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    outerClothing: ClothingOuterCoatBomber
+
+- type: startingGear
+  id: CitizenGear8
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket1: DrinkWhiskeyBottleFull
+
+- type: startingGear
+  id: RefugeeCivilGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+
+- type: startingGear
+  id: RefugeeGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    pocket1: WeaponRevolverInspector
+    pocket2: CombatKnife
+
+- type: startingGear
+  id: RefugeeGear2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    pocket1: WeaponPistolC17
+    pocket2: MagazinePistol
+
+- type: startingGear
+  id: RefugeeGear3
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    belt: CrowbarRed
+    pocket1: WeaponPistolC17
+    pocket2: SurvivalKnife
+  storage:
+    outerClothing:
+    - MagazinePistol
+    - MagazinePistol
+
+- type: startingGear
+  id: RefugeeGear4
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    pocket1: SurvivalKnife
+    pocket2: WeaponPistolC17
+
+- type: startingGear
+  id: RefugeeGear5
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    suitstorage: WeaponSubMachineGunC17
+    pocket1: WeaponPistolC17
+
+- type: startingGear
+  id: RefugeeGear6
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    outerClothing: ClothingOuterCoatGentle
+    pocket1: WeaponPistolC17
+    pocket2: KitchenKnife
+  storage:
+    outerClothing:
+    - MagazinePistol
+    - MagazinePistol
+
+- type: startingGear
+  id: RefugeeGear7
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    outerClothing: ClothingOuterCoatBomber
+    pocket1: WeaponPistolC17
+    pocket2: KitchenKnife
+  storage:
+    outerClothing:
+    - MagazinePistol
+
+- type: startingGear
+  id: RefugeeGear8
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    pocket1: DrinkWhiskeyBottleFull
+    pocket2: WeaponPistolC17
+  storage:
+    outerClothing:
+    - MagazinePistol
+    - MagazinePistol
+
+- type: startingGear
+  id: RefugeeHeavyGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    mask: ClothingMaskBandBlack
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponRevolverInspector
+    pocket2: CombatKnife
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: MagazinePistol
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear3
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    mask: ClothingMaskBandBlack
+    pocket1: WeaponPistolC17
+    pocket2: SurvivalKnife
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear4
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: SurvivalKnife
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear5
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: HealthvialC17
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear6
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: HealthvialC17
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear7
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorCPC17
+    suitstorage: WeaponSubMachineGunC17
+    mask: ClothingMaskBandBlack
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: HealthvialC17
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RefugeeHeavyGear8
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAerostatic
+    shoes: ClothingShoesColorBlack
+    neck: ClothingNeckRebelBand
+    suitstorage: WeaponSubMachineGunC17
+    back: ClothingBackpackRefugeeC17
+    pocket1: WeaponPistolC17
+    pocket2: DrinkWhiskeyBottleFull
+  storage:
+    back:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistol
+    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponAKMSRifleResistance
+    head: ClothingHeadHelmetMerc
+    mask: ClothingMaskBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGear2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOperative
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponAKMSRifleResistance
+    head: ClothingHeadBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGear3
+  equipment:
+    jumpsuit: ClothingUniformMilitaryRU
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponRifleAKSUResistance
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearShotgun
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponShotgun12CombineC17
+    head: ClothingHeadHelmetMerc
+    mask: ClothingMaskBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearShotgun2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOperative
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponShotgun12CombineC17
+    head: ClothingHeadBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearShotgun3
+  equipment:
+    jumpsuit: ClothingUniformMilitaryRU
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponShotgun12CombineC17
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    - AmmoBox12magnum
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearAR
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponPulseRifleAR2C17
+    head: ClothingHeadHelmetMerc
+    mask: ClothingMaskBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearAR2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitOperative
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponPulseRifleAR2C17
+    head: ClothingHeadBandBlack
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: RebelGearAR3
+  equipment:
+    jumpsuit: ClothingUniformMilitaryRU
+    shoes: ClothingShoesBootsWork
+    neck: ClothingNeckRebelBand
+    outerClothing: ClothingOuterArmorResistenceC17
+    suitstorage: WeaponPulseRifleAR2C17
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    pocket1: WeaponPistolC17
+    pocket2: CombatKnife
+  storage:
+    belt:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    - MagazinePulseRifleC17
+    back:
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+
+- type: startingGear
+  id: SaboteurGear
+  equipment:
+    jumpsuit: ClothingUniformMilitaryRU
+    shoes: ClothingShoesBootsWork
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    neck: ClothingNeckRebelBand
+    pocket1: SaboteurBackpackEquip
+    pocket2: CombatKnife
+
+- type: startingGear
+  id: Saboteur2Gear
+  equipment:
+    jumpsuit: ClothingUniformMilitaryRU
+    shoes: ClothingShoesBootsWork
+    belt: ClothingBeltSalvageWebbing
+    back: ClothingBackpackArmyC17
+    neck: ClothingNeckRebelBand
+    pocket1: SaboteurBackpackEquip
+    pocket2: CombatKnife

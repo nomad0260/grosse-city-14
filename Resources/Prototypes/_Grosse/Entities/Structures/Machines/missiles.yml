@@ -1,0 +1,77 @@
+- type: entity
+  id: MissileDropUnexploded17
+  parent: BaseStructure
+  name: неразорвавшийся снаряд
+  description: Очень опасная штука, может взорваться в любой момент, я бы не стал к ней подходить...
+  components:
+  - type: Appearance
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: PlaceableSurface
+    placeCentered: true
+    isPlaceable: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.48,0.25,0.48"
+        density: 75
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/rsi/Structures/Decoration/supplypod.rsi
+    layers:
+    - state: missilepod
+    - state: missilepod_door
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -6
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ExplosionInstant:
+            min: 1
+            max: 1
+
+- type: entity
+  id: MissileHeadCrabCanister
+  parent: MissileDropUnexploded17
+  name: снаряд с био-оружием
+  description: Очень опасная штука, переносит в себе био-оружие Альянса, я бы не стал к ней подходить...
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/cannister.rsi
+    offset: "0, 0.25"
+    layers:
+    - state: cannister
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -6

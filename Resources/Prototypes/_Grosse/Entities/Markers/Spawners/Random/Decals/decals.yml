@@ -1,0 +1,134 @@
+- type: entity
+  parent: DecalSpawnerBase
+  id: DecalSpawnerFloraMedivalBase
+  abstract: true
+  components:
+  - type: RandomDecalSpawner
+    maxDecalsPerTile: 1
+    radius: 0.5
+    maxDecals: 1
+    zIndex: 5
+    deleteSpawnerAfterSpawn: true
+    tileWhitelist:
+    - FloorAstroGrass
+    - FloorMowedAstroGrass
+    - FloorJungleAstroGrass
+    - FloorDarkAstroGrass
+    - FloorLightAstroGrass
+    - FloorDesertAstroSand
+    - FloorAstroIce
+    - FloorAstroSnow
+    - FloorAstroAsteroidSand
+    - FloorAsteroidSandUnvariantized
+    - FloorAsteroidIronsandUnvariantized
+    - FloorCave
+    - FloorAsteroidIronsand
+    - FloorAsteroidTile
+    - FloorAsteroidSandDug
+    - FloorAsteroidSand
+#    - FloorDirt
+    - FloorGrassLight
+    - FloorGrassDark
+    - FloorGrassJungle
+    - FloorGrass
+    - FloorPlanetGrass
+
+- type: entity
+  parent: DecalSpawnerFloraMedivalBase
+  id: DecalSpawnerBushesACMedival
+  suffix: Bushes (Medival)
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: decal
+    - sprite: Decals/Flora/flora_bushes.rsi
+      state: busha1
+  - type: RandomDecalSpawner
+    radius: 10
+    maxDecals: 5
+    decals:
+    - Busha1
+    - Busha2
+    - Busha3
+    - Bushb1
+    - Bushb2
+    - Bushb3
+    - Bushc1
+    - Bushc2
+    - Bushc3
+
+- type: entity
+  parent: DecalSpawnerFloraMedivalBase
+  id: DecalSpawnerFlowersMedival
+  suffix: Flowers (Medival)
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: decal
+    - sprite: Decals/Flora/flora_flowers.rsi
+      state: flowersbr1
+  - type: RandomDecalSpawner
+    radius: 4
+    maxDecals: 10
+    decals:
+    - Flowersbr1
+    - Flowersbr2
+    - Flowersbr3
+    - Flowerspv1
+    - Flowerspv2
+    - Flowerspv3
+    - Flowersy1
+    - Flowersy2
+    - Flowersy3
+    - Flowersy4
+
+- type: entity
+  parent: DecalSpawnerFloraMedivalBase
+  id: DecalSpawnerGrassyRockMedival
+  suffix: Grassy Rock (Medival)
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: decal
+    - sprite: Decals/Flora/flora_rocks.rsi
+      state: rock01
+  - type: RandomDecalSpawner
+    radius: 10
+    maxDecals: 5
+    decals:
+    - Rock01
+    - Rock02
+    - Rock03
+    - Rock04
+    - Rock05
+    - Rock06
+    - Rock07
+
+- type: entity
+  parent: DecalSpawnerFloraMedivalBase
+  id: DecalSpawnerGrassABMedival
+  suffix: Grass (Medival)
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: decal
+    - sprite: Decals/Flora/flora_grass.rsi
+      state: grassa1
+  - type: RandomDecalSpawner
+    radius: 10
+    maxDecals: 15
+    decals:
+    - Grassa1
+    - Grassa2
+    - Grassa3
+    - Grassa4
+    - Grassa5
+    - Grassb1
+    - Grassb2
+    - Grassb3
+    - Grassb4
+    - Grassb5

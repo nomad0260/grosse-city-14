@@ -1,0 +1,127 @@
+- type: entity
+  id: MobCityScannerC17
+  name: city scanner
+  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  description: Городской сканер, также известный как Сканер типа I — легкобронированный робот (дрон), снабженный камерой для фото-видео съемки. Используется Альянсом для контроля над городом Сити 14.
+  components:
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Blood
+        Quantity: 50
+  - type: FlashImmunity
+  - type: ZombieImmune
+  - type: CombatMode
+  - type: MeleeWeapon
+    hidden: true
+    damage:
+      types:
+        Piercing: 0
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
+  - type: IntrinsicRadioReceiver
+  - type: ActiveRadio
+    channels:
+    - CMB
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - CMB
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.30
+        density: 80
+        mask:
+          - FlyingMobMask
+        layer:
+          - FlyingMobLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound: !type:SoundSpecifier
+          path: /Audio/_Grosse/audio/blackmesa/mob/scanner/explode_crash.ogg
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      50: Dead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 5.5
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/Misc/Egg.rsi
+    layers:
+    - state: icon
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: open
+      shader: unshaded
+  - type: UnpoweredFlashlight
+    toggleFlashlightSound: /Audio/_Grosse/audio/blackmesa/mob/scanner/blip1.ogg
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 6
+    energy: 2
+    netsync: true
+  - type: AmbientSound
+    volume: -8
+    range: 9
+    sound: !type:SoundSpecifier
+      path: /Audio/_Grosse/audio/blackmesa/mob/scanner/fly_loop.ogg
+  - type: Hands
+    hands:
+      hand1:
+        location: Right
+      hand2:
+        location: Left
+    sortedHands:
+    - hand1
+    - hand2
+    showInHands: false
+#  - type: LanguageSpeaker
+#    currentLanguage: TauCetiBasic
+#  - type: LanguageKnowledge
+#    speaks:
+#    - TauCetiBasic
+#    understands:
+#    - TauCetiBasic
+  - type: ComplexInteraction
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionAdmin
+  - type: Loadout
+    prototypes:
+      - CityScanner
+
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: SurveillanceCameraService
+    transmitFrequencyId: SurveillanceCamera
+  - type: WirelessNetworkConnection
+    range: 500
+  - type: SurveillanceCamera
+    networkSet: true
+
+- type: entity
+  parent: ReinforcementRadioCombineC17
+  id: ReinforcementRadioCityScannerC17
+  suffix: city scanner
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobCityScannerC17
+  - type: GhostRole
+    name: Городской сканер
+    description: Городской сканер, также известный как Сканер типа I — легкобронированный робот (дрон), снабженный камерой для фото-видео съемки. Используется Альянсом для контроля над городом Сити 14.

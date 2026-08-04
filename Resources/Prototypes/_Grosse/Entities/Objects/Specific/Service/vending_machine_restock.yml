@@ -1,0 +1,38 @@
+- type: entity
+  parent: BaseVendingMachineRestock
+  id: DrBreenPrivateReserveC17Restock
+  name: ящик пополнение Личных Запасов Доктора Брина
+  description: Запечатанная коробка пополнения баночек, чтобы никто не оставался без воды!
+  components:
+  - type: VendingMachineRestock
+    canRestock:
+    - DrBreenPrivateReserveInventory
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: Objects/Specific/Service/vending_machine_restock.rsi
+    layers:
+    - state: base
+    - state: green_bit
+      shader: unshaded
+
+- type: entity
+  parent: BaseVendingMachineRestock
+  id: RationDispenserC17Restock
+  name: ящик пополнение пункта выдачи рационов
+  description: Запечатанная коробка пополнения рационов, чтобы никто не оставался голодным!
+  components:
+  - type: VendingMachineRestock
+    canRestock:
+    - RationDispenserC17Inventory
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: Objects/Specific/Service/vending_machine_restock.rsi
+    layers:
+    - state: base
+    - state: green_bit
+      shader: unshaded
+  - type: Tag
+    tags:
+    - CMBDispencer

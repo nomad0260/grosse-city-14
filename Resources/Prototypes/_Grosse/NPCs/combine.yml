@@ -1,0 +1,34 @@
+- type: htnCompound
+  id: CombineSoldierCompound
+  branches:
+  - tasks:
+      - !type:HTNCompoundTask
+        task: RunAndGunCombatCompound
+  - tasks:
+      - !type:HTNCompoundTask
+        task: FollowCompound
+  - tasks:
+      - !type:HTNCompoundTask
+        task: InnateRangedCombatCompound
+  - tasks:
+      - !type:HTNCompoundTask
+        task: IdleCompound
+
+#- type: htnCompound
+#  id: MediCombineCompound
+#  branches:
+#    - tasks:
+#        - !type:HTNCompoundTask
+#          task: InjectNearbyCompound
+#    - tasks:
+#        - !type:HTNCompoundTask
+#          task: RunAndGunCombatCompound
+#    - tasks:
+#        - !type:HTNCompoundTask
+#          task: FollowCompound
+#    - tasks:
+#        - !type:HTNCompoundTask
+#          task: InnateRangedCombatCompound
+#    - tasks:
+#        - !type:HTNCompoundTask
+#          task: IdleCompound

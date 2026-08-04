@@ -15,7 +15,6 @@
   - type: GhostRole
     raffle:
       settings: short
-    category: Ивенты
     allowMovement: true
     allowSpeech: true
     makeSentient: true

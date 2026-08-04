@@ -1,0 +1,42 @@
+#- type: body
+#  id: Gunship
+#  name: "gunship"
+#  root: torso
+#  slots:
+#    torso:
+#      part: TorsoReptilian
+#      connections:
+#      - hand 1
+#      - hand 2
+#    hand 1:
+#      part: RightHandHuman
+#    hand 2:
+#      part: LeftHandHuman
+
+#- type: body
+#  id: AnimalHuman
+#  name: "animal"
+#  root: torso
+#  slots:
+#    torso:
+#      part: TorsoBorg
+#      connections:
+#      - legs
+#      - right hand
+#      - left hand
+#      organs:
+#        lungs: OrganAnimalLungs
+#        stomach: OrganAnimalStomach
+#        liver: OrganAnimalLiver
+#        heart: OrganAnimalHeart
+#        kidneys: OrganAnimalKidneys
+#    legs:
+#      part: LegsAnimal
+#      connections:
+#      - feet
+#    feet:
+#      part: FeetAnimal
+#    right hand:
+#      part: RightHandHuman
+#    left hand:
+#      part: LeftHandHuman

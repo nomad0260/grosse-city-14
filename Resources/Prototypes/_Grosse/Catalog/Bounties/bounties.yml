@@ -8,7 +8,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/structure/console.rsi
+    sprite: _Grosse/rsi/hlstaff/structure/console.rsi
     state: console1
   entries:
   - name: консоль Альянса
@@ -29,7 +29,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/medical.rsi
+    sprite: _Grosse/rsi/hlstaff/medical.rsi
     state: aptejka
   entries:
   - name: аптечки
@@ -45,7 +45,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/manhack.rsi
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
     state: manhack
   entries:
   - name: Мэнхеки
@@ -61,7 +61,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/food.rsi
+    sprite: _Grosse/rsi/hlstaff/food.rsi
     state: standard_ration
   entries:
   - name: ящики пополнения рационов
@@ -77,7 +77,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/misc/material.rsi
+    sprite: _Grosse/rsi/hlstaff/misc/material.rsi
     state: sheet-resin
   entries:
   - name: черная смола
@@ -93,7 +93,7 @@
   group: CombineJob
   idPrefix: CMB
   sprite:
-    sprite: /Uploaded/combine/rsi/hlstaff/hoppermine.rsi
+    sprite: _Grosse/rsi/hlstaff/hoppermine.rsi
     state: landmine
   entries:
   - name: прыгающие мины

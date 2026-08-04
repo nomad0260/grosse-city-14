@@ -21,6 +21,7 @@
     availableModes:
       - FullAuto
     soundGunshot:
+    sound: !type:SoundSpecifier
       path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
   - type: ItemSlots
     slots:
@@ -72,9 +73,10 @@
     minAngle: 24
     maxAngle: 45
     fireRate: 8
-    soundEmpty: /_Grosse/audio/blackmesa/hl2/weapon/ar2_empty.ogg
+    soundEmpty: /Audio/_Grosse/audio/blackmesa/hl2/weapon/ar2_empty.ogg
     soundGunshot:
-      path: /_Grosse/audio/blackmesa/hl2/weapon/ar2_fire.ogg
+    sound: !type:SoundSpecifier
+      path: /Audio/_Grosse/audio/blackmesa/hl2/weapon/ar2_fire.ogg
   - type: MagazineAmmoProvider
     autoEject: false
   - type: ItemSlots
@@ -82,8 +84,8 @@
       gun_magazine:
         name: Magazine
         startingItem: MagazinePulseRifleC17
-        insertSound: /_Grosse/audio/blackmesa/hl2/weapon/ar2_reload.ogg
-        ejectSound: /_Grosse/audio/Weapon/Magout/divet_magout.ogg
+        insertSound: /Audio/_Grosse/audio/blackmesa/hl2/weapon/ar2_reload.ogg
+        ejectSound: /Audio/_Grosse/audio/Weapon/Magout/divet_magout.ogg
         priority: 1
         whitelist:
           tags:
@@ -92,3 +94,74 @@
     magState: mag
     steps: 1
     zeroVisible: true
+
+- type: entity
+  name: энергетический ускоритель частиц
+  description: Энергетическая установка по разгону маленьких частиц в воздухе, по сути небольшой рельсотрон.
+  id: WeaponCMBKineticAccelerator17
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/weapon/jackhummer.rsi
+    layers:
+    - state: jackhammer_on
+    - state: jackhammer_smash_stop
+      visible: false
+      map: [ "empty-icon" ]
+  - type: Item
+    sprite: _Grosse/rsi/hlstaff/weapon/jackhummer.rsi
+    size: Large
+    shape:
+    - 0,0,3,2
+  - type: GunWieldBonus
+    minAngle: -43
+    maxAngle: -43
+  - type: Wieldable
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    angleDecay: 45
+    minAngle: 44
+    maxAngle: 45
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+    sound: !type:SoundSpecifier
+      path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg
+    projectileSpeed: 25
+  - type: AmmoCounter
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.AmmoVisuals.HasAmmo:
+        empty-icon:
+          True: { visible: False }
+          False: { visible: True }
+        #todo: add other 'empty' animations
+  - type: BatteryAmmoProvider
+    proto: BulletCMBKinetic
+    fireCost: 450
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: Magazine
+        startingItem: PowerCellCombineUnion17
+        insertSound: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags:
+            - PowerCell
+            - PowerCellSmall
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/weapon/jackhummer.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt
+  - type: UseDelay
+    delay: 1

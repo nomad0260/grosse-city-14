@@ -1,13 +1,13 @@
 - type: soundCollection
   id: SoldierDeath
   files:
-  - _Grosse/audio/combine/die1.ogg
-  - _Grosse/audio/combine/die2.ogg
-  - _Grosse/audio/combine/die3.ogg
-  - _Grosse/audio/combine/die4.ogg
+  - /Audio/_Grosse/audio/combine/die1.ogg
+  - /Audio/_Grosse/audio/combine/die2.ogg
+  - /Audio/_Grosse/audio/combine/die3.ogg
+  - /Audio/_Grosse/audio/combine/die4.ogg
 
 - type: soundCollection
   id: HeadcrabDeath
   files:
-    - _Grosse/audio/blackmesa/mob/headcrab/die1.ogg
-    - _Grosse/audio/blackmesa/mob/headcrab/die2.ogg
+    - /Audio/_Grosse/audio/blackmesa/mob/headcrab/die1.ogg
+    - /Audio/_Grosse/audio/blackmesa/mob/headcrab/die2.ogg

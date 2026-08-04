@@ -1,0 +1,104 @@
+- type: entity
+  id: MobManhackc17
+  name: manhack
+  suffix: suppa manhack
+  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  description: Мэнхэк, в терминологии Альянса — потрошитель, иногда именуемый повстанцами как хэк — небольшой робот, используемый Альянсом для сканирования и зачистки территории.
+  components:
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Blood
+        Quantity: 50
+  - type: ZombieImmune
+  - type: CombatMode
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      collection: Manhackattack
+      params:
+        volume: -6
+    angle: 0
+    animation: WeaponArcSmash
+    damage:
+      types:
+        Piercing: 10
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
+  - type: MindShield
+    mindShieldStatusIcon: UnionFaction
+  - type: InputMover
+  - type: MobMover
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+    blackboard:
+      VisionRadius: !type:Single
+        86
+      AggroVisionRadius: !type:Single
+        80
+      NavClimb: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.30
+        density: 80
+        mask:
+          - FlyingMobMask
+        layer:
+          - FlyingMobLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/_Grosse/audio/manhack/die.ogg
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      50: Dead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 5
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
+    layers:
+    - state: manhack
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: AmbientSound
+    volume: -8
+    range: 9
+    sound:
+      collection: Manhackloop
+  #- type: Flatpack
+  #  entity: ManhackInactiveC17
+  #  qualityNeeded: PulsingCombine
+  #  unpackSound:
+  #    path: /Audio/_Grosse/audio/blackmesa/hoppermine/blade_loop1.ogg
+  #    params:
+  #      volume: 2
+  - type: Construction
+    graph: ManhackPulsing
+    node: start
+
+- type: entity
+  id: MobManhackResistancec17
+  name: manhack
+  suffix: suppa resistance manhack
+  parent: MobManhackc17
+  components:
+  - type: NpcFactionMember
+    factions:
+      - NanoTrasen

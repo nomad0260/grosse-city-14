@@ -1,0 +1,14 @@
+- type: soundCollection
+  id: AmbienceInCity17
+  files:
+    - /Audio/_Grosse/audio/ambience/wind_moan2.ogg
+    - /Audio/_Grosse/audio/ambience/wind_snippet1.ogg
+    - /Audio/_Grosse/audio/ambience/wind_snippet2.ogg
+    - /Audio/_Grosse/audio/ambience/town_ambience.ogg
+    - /Audio/_Grosse/audio/ambience/city_skypass1.ogg
+
+- type: soundCollection
+  id: AmbienceCity17
+  files:
+    - /Audio/_Grosse/audio/ambience/apc_alarm_pass1.ogg
+    - /Audio/_Grosse/audio/ambience/scanner_alert_pass1.ogg

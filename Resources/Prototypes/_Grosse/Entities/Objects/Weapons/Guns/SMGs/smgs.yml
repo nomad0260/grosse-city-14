@@ -19,14 +19,14 @@
   - type: GunRequiresWield
   - type: Gun
     soundGunshot:
-      path: _Grosse/audio/blackmesa/hl2/weapon/smg1_fire1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/hl2/weapon/smg1_fire1.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
         startingItem: MagazinePistolSubMachineGun
-        insertSound: _Grosse/audio/blackmesa/hl2/weapon/smg1_reload.ogg
-        ejectSound: _Grosse/audio/Weapon/Magout/mp5_unload.ogg
+        insertSound: /Audio/_Grosse/audio/blackmesa/hl2/weapon/smg1_reload.ogg
+        ejectSound: /Audio/_Grosse/audio/Weapon/Magout/mp5_unload.ogg
         priority: 2
         whitelist:
           tags:

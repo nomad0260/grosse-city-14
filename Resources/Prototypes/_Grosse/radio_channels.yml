@@ -5,3 +5,11 @@
   frequency: 1725
   color: "#fc0303"
   longRange: true
+
+- type: radioChannel
+  id: Hivemind
+  name: Коллективный разум
+  keycode: 'у'
+  frequency: 2009
+  color: "#d4d104"
+  longRange: true

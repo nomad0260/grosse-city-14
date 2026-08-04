@@ -1,91 +1,199 @@
-#- type: entity
-#  name: Советник Альянса
-#  parent: [ SimpleMobBase, FlyingMobBase ]
-#  id: MobAdvisor
-#  description: Советует.
-#  components:
-#  - type: ComplexInteraction
-#  #- type: RespiratorImmunity
-#  - type: PressureImmunity
-#  - type: ShowJobIcons
-#  - type: ShowMindShieldIcons
-#  - type: Body
-#    prototype: Gunship
-#  - type: Hands
-#    showInHands: false
-#  - type: MovementSpeedModifier
-#    baseWalkSpeed : 2.5
-#    baseSprintSpeed : 4.5
-#  - type: Sprite
-#    sprite: _Grosse/rsi/hlstaff/mobs/advisor.rsi
-#    drawdepth: Mobs
-#    layers:
-#    - map: ["enum.DamageStateVisualLayers.Base"]
-#      state: advisor
-#    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-#      state: advisor-unshaded
-#      shader: unshaded
-#  - type: Fixtures
-#    fixtures:
-#      fix1:
-#        shape:
-#          !type:PhysShapeCircle
-#          radius: 0.35
-#        density: 10
-#        mask:
-#        - FlyingMobMask
-#        layer:
-#        - FlyingMobLayer
-#  - type: DamageStateVisuals
-#    states:
-#      Alive:
-#        Base: advisor
-#        BaseUnshaded: advisor-unshaded
-#      Dead:
-#        Base: advisor_dead
-#        BaseUnshaded: advisor_dead-unshaded
-#  - type: Bloodstream
-#    bloodMaxVolume: 50
-#  - type: MeleeWeapon
-#    soundHit:
-#        path: /Audio/Effects/bite.ogg
-#    angle: 0
-#    animation: WeaponArcBite
-#    damage:
-#      types:
-#        Piercing: 15
-#  - type: MobThresholds
-#    thresholds:
-#      0: Alive
-#      260: Dead
-#  - type: Destructible
-#    thresholds:
-#    - trigger:
-#        !type:DamageTrigger
-#        damage: 260
-#      behaviors:
-#      - !type:PlaySoundBehavior
-#        sound:
-#          path: /Uploaded/combine/audio/blackmesa/mob/advisor/advisor_scream.ogg
-#  - type: IntrinsicRadioReceiver
-#  - type: ActiveRadio
-#    channels:
-#    - CMB
-#  - type: IntrinsicRadioTransmitter
-#    channels:
-#    - CMB
-#  #- type: LanguageSpeaker
-#  #  currentLanguage: TauCetiBasic
-#  #- type: LanguageKnowledge
-#  #  speaks:
-#  #  - TauCetiBasic
-#  #  understands:
-#  #  - TauCetiBasic
-#  #- type: Access
-#  #  tags:
-#  #  - UnionBase
-#  #  - Engineering
-#  #  - UnionCP
-#  #  - UnionOTA
-#  #  - UnionAdmin
-#
+- type: entity
+  name: Советник Альянса
+  parent: [ SimpleMobBase, FlyingMobBase ]
+  id: MobAdvisor
+  description: Советует.
+  components:
+  - type: ComplexInteraction
+  #- type: RespiratorImmunity
+  - type: PressureImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Body
+  - type: Hands
+    showInHands: false
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 2.5
+    baseSprintSpeed : 4.5
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/mobs/advisor.rsi
+    drawdepth: Mobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: advisor
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: advisor-unshaded
+      shader: unshaded
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 10
+        mask:
+        - FlyingMobMask
+        layer:
+        - FlyingMobLayer
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: advisor
+        BaseUnshaded: advisor-unshaded
+      Dead:
+        Base: advisor_dead
+        BaseUnshaded: advisor_dead-unshaded
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Blood
+        Quantity: 50
+  - type: MeleeWeapon
+    soundHit:
+        path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcBite
+    damage:
+      types:
+        Piercing: 15
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      260: Dead
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 260
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/_Grosse/audio/blackmesa/mob/advisor/advisor_scream.ogg
+  - type: IntrinsicRadioReceiver
+  - type: ActiveRadio
+    channels:
+    - CMB
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - CMB
+  #- type: LanguageSpeaker
+  #  currentLanguage: TauCetiBasic
+  #- type: LanguageKnowledge
+  #  speaks:
+  #  - TauCetiBasic
+  #  understands:
+  #  - TauCetiBasic
+  #- type: Access
+  #  tags:
+  #  - UnionBase
+  #  - Engineering
+  #  - UnionCP
+  #  - UnionOTA
+  #  - UnionAdmin
+
+- type: entity
+  parent: BaseMob
+  id: MobCombineAirTransportC17
+  name: транспортник Альянса
+  description: Брбрбрбрббрбрбрбрбрбрбрбрбрб.
+  components:
+  - type: AmbientSound
+    volume: 1
+    range: 5
+    sound:
+      path: /Audio/_Grosse/audio/gunship/engine_near_loop1.ogg
+  - type: CargoSellBlacklist
+  - type: Input
+    context: "human"
+  - type: Body
+  - type: Hands
+    hands:
+      hand1:
+        location: Right
+      hand2:
+        location: Left
+    sortedHands:
+    - hand1
+    - hand2
+    showInHands: false
+  - type: ComplexInteraction
+  #- type: InnateTool
+  #  tools:
+  #    - id: DrobshipPod
+  #    - id: DesantPod
+  - type: Sprite
+    drawdepth: Ghosts
+    sprite: _Grosse/rsi/Misc/gunship.rsi
+    noRot: false
+    state: gunship
+  - type: ContentEye
+    targetZoom: 1.5, 1.5
+    maxZoom: 9, 9
+  - type: GhostHearing
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 15
+        hard: false
+        mask:
+        - GhostImpassable
+  - type: Eye
+    drawFov: false
+  - type: MovementSpeedModifier
+    baseSprintSpeed: 8
+    baseWalkSpeed: 8
+  - type: MovementIgnoreGravity
+  - type: Physics
+    bodyType: KinematicController
+    bodyStatus: InAir
+    canCollide: false
+  - type: CanMoveInAir
+  - type: Loadout
+    prototypes: [Gunship]
+
+- type: entity
+  id: DrobshipPod
+  name: pod
+  parent: LockerBaseSecure
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: syndicate
+    stateDoorOpen: syndicate_open
+    stateDoorClosed: syndicate_door
+  - type: Item
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 25
+        mask:
+        - SmallMobMask
+        layer:
+        - MachineLayer
+  - type: EntityStorage
+    openOnMove: false
+    capacity: 16
+    enteringRange: 1.5
+    airtight: false
+    whitelist:
+      tags:
+        - CombineUnit
+        - CombineLeader
+        - CombineElite
+  - type: ResistLocker
+  - type: PlaceableSurface
+    isPlaceable: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

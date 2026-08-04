@@ -1,0 +1,36 @@
+- type: entity
+  name: основы CQC
+  parent: BaseItem
+  id: BookOfBaseCQC
+  suffix: Resistens
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/books.rsi
+    layers:
+    - state: paper
+    - state: cover_base
+      color: "#332d27"
+      map: [ "cover" ]
+    - state: decor_wingette
+      color: "#453f3a"
+      map: [ "decor" ]
+    - state: icon_text
+      map: [ "icon" ]
+    - state: overlay_null
+      map: [ "overlay" ]
+  - type: TriggerOnUse
+  - type: DeleteOnTrigger
+  #- type: EmitSoundOnTrigger
+    #sound:
+      #collection: LearnBook
+      #params:
+        #volume: 1
+  - type: AddComponentsOnTrigger
+    removeExisting: true
+    targetUser: true
+    components:
+    - type: Crawler
+    - type: StaminaDamageOnHit
+      damage: 20
+    - type: Stamina
+      baseCritThreshold: 300

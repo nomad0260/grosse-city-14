@@ -1,0 +1,38 @@
+- type: ambientMusic
+  id: NearCity17
+  sound:
+    params:
+      volume: -15
+    collection: AmbienceCity17
+  rules: NearCity17
+  priority: 1
+
+- type: ambientMusic
+  id: City17
+  sound:
+    params:
+      volume: -15
+    collection: AmbienceInCity17
+  rules: InCity17
+  priority: 2
+
+- type: rules
+  id: NearCity17
+  rules:
+    - !type:NearbyEntitiesRule
+      count: 1
+      whitelist:
+        tags:
+          - CombineUnit
+          - CombineStructure
+      range: 20
+
+- type: rules
+  id: InCity17
+  rules:
+    - !type:NearbyEntitiesRule
+      count: 1
+      whitelist:
+        tags:
+          - City17Structure
+      range: 20

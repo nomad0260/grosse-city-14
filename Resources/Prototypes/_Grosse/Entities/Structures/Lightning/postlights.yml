@@ -1,0 +1,61 @@
+- type: entity
+  id: PoweredLightPostLargeC17Empty
+  name: large post light
+  description: "A large light post."
+  suffix: Empty
+  parent: LightPostSmall
+  components:
+  - type: Transform
+    noRot: false
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/misc/postlight.rsi
+    offset: "0, 1"
+    drawdepth: Mobs
+    noRot: true
+    layers:
+    - map: ["enum.PoweredLightLayers.Base"]
+      state: base
+  - type: PointLight
+    enabled: false
+  - type: ApcPowerReceiver
+  - type: ExtensionCableReceiver
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: SmartLight
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: Appearance
+  - type: Tag
+    tags:
+      - City17Structure
+  - type: RequireProjectileTarget
+    active: true
+
+- type: entity
+  id: PoweredLightPostLargeC17
+  name: large post light
+  description: "A light fixture. Draws power and produces light when equipped with a light tube."
+  suffix: ""
+  parent: PoweredLightPostLargeC17Empty
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PoweredLightLayers.Base"]
+      state: base
+    - map: ["enum.PoweredLightLayers.Glow"]
+      state: glow
+      shader: unshaded
+  - type: LitOnPowered
+  - type: PointLight
+    enabled: true
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -15
+    range: 3
+    sound:
+      path: /Audio/Ambience/Objects/light_hum.ogg

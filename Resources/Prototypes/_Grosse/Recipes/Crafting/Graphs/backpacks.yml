@@ -1,0 +1,13 @@
+#- type: constructionGraph
+#  id: constructBackpackRefugee
+#  start: start
+#  graph:
+#  - node: start
+#    edges:
+#    - to: icon
+#      steps:
+#      - material: Cloth
+#        amount: 15
+#        doAfter: 10
+#  - node: icon
+#    entity: ClothingBackpackRefugeeC17

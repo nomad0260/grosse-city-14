@@ -1,36 +1,4 @@
 - type: entity
-  id: MobBaseNpcDungeon
-  parent:
-  - MobBaseNpcSalvage
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: MeleeWeapon
-    range: 1.5
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.35
-        density: 300
-        mask:
-        - Impassable
-        - HighImpassable
-        - MidImpassable
-        #- BlobImpassable
-        layer:
-        - MobLayer
-      fix2:
-        shape:
-          !type:PhysShapeCircle
-          radius: 1
-        hard: false
-        mask:
-        - HighImpassable
-        layer:
-        - MobLayer
-
-- type: entity
   id: MobBaseHeadcrabedZombie
   parent: MobBaseNpcDungeon
   categories: [ HideSpawnMenu ]
@@ -68,7 +36,7 @@
     angle: 0
     animation: WeaponArcClaw
     soundHit:
-        path: _Grosse/audio/blackmesa/mob/zombies/claw_strike.ogg
+        path: /Audio/_Grosse/audio/blackmesa/mob/zombies/claw_strike.ogg
         params:
           volume: 1
     damage:
@@ -92,6 +60,7 @@
         volume: 3
   - type: TemperatureProtection
   - type: Temperature
+  - type: TemperatureDamage
     damageCap: 0
   - type: ReplacementAccent
     accent: zombie
@@ -172,7 +141,7 @@
 
 #- type: entity
 #  id: MobHeadcrabedZombieSleep
-#  parent: 
+#  parent:
 #  - HeadcrabedZombieSleep
 #  - MobHeadcrabedZombie
 #  suffix: suppa Zombie Sleep

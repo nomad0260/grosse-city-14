@@ -1,0 +1,36 @@
+- type: entity
+  name: взломщик шифров Альянса
+  parent: Multitool
+  id: MultitoolResistancecC17
+  suffix: Resistens
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    layers:
+    - state: icon
+    - state: green-unlit
+      shader: unshaded
+  - type: Item
+    size: Small
+  - type: Clothing
+    sprite: Objects/Tools/multitool.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: Tool
+    qualities:
+      - PulsingResistance
+  - type: Emag
+    emagType: Access
+  - type: LimitedCharges
+  - type: AutoRecharge
+
+- type: tool
+  id: PulsingResistance
+  name: взлом шифрования Альянса
+  toolName: Взломщик шифров Альянса
+  spawn: MultitoolResistancecC17
+  icon: { sprite: Objects/Tools/multitool.rsi, state: icon }

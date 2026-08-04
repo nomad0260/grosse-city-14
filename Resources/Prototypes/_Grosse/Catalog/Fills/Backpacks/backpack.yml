@@ -31,3 +31,282 @@
           amount: 7
         - id: MedkitC17
           amount: 4
+
+- type: entity
+  parent: ClothingBackpackCombineEliteC17
+  id: ClothingBackpackCombineEliteC17Filled
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: StorageFill
+      contents:
+        - id: BoxFlare
+        - id: CombineGrenadeC17
+          amount: 4
+        - id: MagazinePulseRifleC17
+          amount: 12
+        - id: HealthvialC17
+          amount: 5
+        - id: MedkitC17
+          amount: 8
+
+- type: entity
+  id: CombineMedicLoot
+  parent: BaseItem
+  name: сумка снаряжение альянса
+  suffix: Medic
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: WeaponPistolC17
+      prob: 0.4
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: HealthvialC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.5
+    - id: HealthvialC17
+      prob: 0.5
+    - id: HealthvialC17
+      prob: 0.5
+    - id: MedkitC17
+      prob: 0.9
+    - id: MedkitC17
+      prob: 0.7
+    - id: MedkitC17
+      prob: 0.6
+    - id: MedkitC17
+      prob: 0.2
+    - id: MedkitC17
+      prob: 0.3
+
+- type: entity
+  id: CombineSoldierAR2Loot
+  parent: BaseItem
+  name: сумка снаряжение альянса
+  suffix: AR2
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: WeaponPulseRifleAR2C17
+      prob: 0.5
+    - id: MagazinePulseRifleC17
+      prob: 0.9
+    - id: MagazinePulseRifleC17
+      prob: 0.7
+    - id: CombineGrenadeC17
+      prob: 0.2
+    - id: ActivatedCombineGrenadeC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.3
+    - id: MedkitC17
+      prob: 0.2
+    - id: MedkitC17
+      prob: 0.3
+
+- type: entity
+  id: CombineSoldierShotgunLoot
+  parent: BaseItem
+  name: сумка снаряжение альянса
+  suffix: ShotGun
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: WeaponShotgun12CombineC17
+      prob: 0.3
+    - id: AmmoBox12magnum
+      prob: 0.4
+    - id: AmmoBox12magnum
+      prob: 0.4
+    - id: CombineGrenadeC17
+      prob: 0.2
+    - id: ActivatedCombineGrenadeC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+    - id: MedkitC17
+      prob: 0.4
+    - id: MedkitC17
+      prob: 0.2
+    - id: MedkitC17
+      prob: 0.3
+
+- type: entity
+  id: CombinePatrolUnitSMGLoot
+  parent: BaseItem
+  name: сумка снаряжение ГэО
+  suffix: SMG
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/security.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: ClothingOuterArmorCPC17
+      prob: 0.5
+    - id: WeaponPistolC17
+      prob: 0.4
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: WeaponSubMachineGunC17
+      prob: 0.2
+    - id: MagazinePistolSubMachineGun
+      prob: 0.3
+    - id: MagazinePistolSubMachineGun
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+
+- type: entity
+  id: CombinePatrolUnitRangeLoot
+  parent: BaseItem
+  name: сумка снаряжение ГэО
+  suffix: Pistol
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/security.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: ClothingOuterArmorCPC17
+      prob: 0.3
+    - id: WeaponPistolC17
+      prob: 0.4
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+    - id: HealthvialC17
+      prob: 0.3
+
+- type: thiefBackpackSet
+  id: RebelTechSet
+  name: Набор техника
+  description: Набор техника сопротивления, не обладает достаточной огневой мощью, но является незаменимым членом команды диверсантов, оснащен устройством взлома шифровок Альянса.
+  sprite:
+    sprite: Objects/Devices/communication.rsi
+    state: old-radio
+  content:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MedkitC17
+    - MedkitC17
+    - HealthvialC17
+    - HealthvialC17
+    - MultitoolResistancecC17
+    - WeaponPistolC17
+    - C4
+    - C4
+    - C4
+    - C4
+    - WeaponSubMachineGunC17
+    - ClothingOuterArmorCPC17
+
+- type: thiefBackpackSet
+  id: RebelAssaulterSet
+  name: Набор штурмовика
+  description: Набор штурмовика сопротивления, в отличии от остальных бойцов сопротивления, обладает базовыми знаниями CQC.
+  sprite:
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/big.rsi
+    state: icon
+  content:
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - HealthvialC17
+    - HealthvialC17
+    - MedkitCombatFilled
+    - MedkitCombatFilled
+    - MedkitCombatFilled
+    - MedkitCombatFilled
+    - BookOfBaseCQC
+    - CombineGrenadeC17
+    - CombineGrenadeC17
+    - CombineGrenadeC17
+    - WeaponPistolC17
+    - WeaponAKMSRifleResistance
+    - ClothingOuterArmorBulletproof
+    - ClothingHeadHelmetMerc
+
+- type: thiefBackpackSet
+  id: RebelSupperterSet
+  name: Набор бойца поддержки
+  description: Набор бойца поддержки сопротивления, огромная огневая поддержка.
+  sprite:
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/big.rsi
+    state: icon
+  content:
+    - MagazineLightMachineGun762x39
+    - MagazineLightMachineGun762x39
+    - MagazineLightMachineGun762x39
+    - MagazineLightMachineGun762x39
+    - MagazineBoxMagnum
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - MedkitC17
+    - MedkitCombatFilled
+    - MedkitCombatFilled
+    - WeaponRevolverInspector
+    - WeaponLightMachineGunRPD
+    - ClothingOuterArmorResistenceC17
+    - ClothingHeadjuggernautHelmetArmored

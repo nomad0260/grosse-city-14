@@ -36,9 +36,9 @@
       types:
         Slash: 25
     soundHit:
-      path: _Grosse/audio/blackmesa/mob/antlion/attack_single1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion/attack_single1.ogg
   - type: Stamina
-    critThreshold: 300
+    baseCritThreshold: 300
   - type: SlowOnDamage
     speedModifierThresholds:
       100: 0.8
@@ -48,16 +48,16 @@
     action: ActionAntlionJump
     jumpDistance: 10
     jumpThrowSpeed: 15
-    jumpSound: _Grosse/audio/blackmesa/mob/antlion/fly1.ogg
+    jumpSound: /Audio/_Grosse/audio/blackmesa/mob/antlion/fly1.ogg
     canCollide: false
   - type: EmitSoundOnLand
     sound:
-      path: _Grosse/audio/blackmesa/mob/antlion/land1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion/land1.ogg
       params:
         volume: 1
   - type: EmitSoundOnSpawn
     sound:
-      path: _Grosse/audio/blackmesa/mob/antlion/digup1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion/digup1.ogg
       params:
         volume: -12
   - type: RemoveComponentsOnTrigger
@@ -136,11 +136,11 @@
     availableModes:
       - SemiAuto
     soundGunshot:
-      path: _Grosse/audio/blackmesa/mob/antlion_worker/antlion_shoot.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion_worker/antlion_shoot.ogg
       params:
         volume: -2
   - type: Stamina
-    critThreshold: 300
+    baseCritThreshold: 300
   - type: SlowOnDamage
     speedModifierThresholds:
       70: 0.8
@@ -232,13 +232,13 @@
       types:
         Blunt: 20
     soundHit:
-      path: _Grosse/audio/blackmesa/mob/antlion_guard/shove1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion_guard/shove1.ogg
   - type: MovementSpeedModifier
     baseWalkSpeed : 3
     baseSprintSpeed : 4.5
   - type: EmitSoundOnTrigger
     sound:
-      path: _Grosse/audio/blackmesa/mob/antlion_guard/antlion_guard_die1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion_guard/antlion_guard_die1.ogg
       params:
         volume: 2
   - type: DamageOnHighSpeedImpact
@@ -260,7 +260,7 @@
     action: ActionChargGuardian
     jumpDistance: 20
     jumpThrowSpeed: 15
-    jumpSound: _Grosse/audio/blackmesa/mob/antlion_guard/angry3.ogg
+    jumpSound: /Audio/_Grosse/audio/blackmesa/mob/antlion_guard/angry3.ogg
     canCollide: true
     collideKnockdown: 5
 
@@ -303,15 +303,15 @@
       types:
         Slash: 10
     soundHit:
-      path: _Grosse/audio/blackmesa/mob/antlion/attack_single1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion/attack_single1.ogg
   - type: Stamina
-    critThreshold: 300
+    baseCritThreshold: 300
   - type: SlowOnDamage
     speedModifierThresholds:
       100: 0.8
   - type: EmitSoundOnLand
     sound:
-      path: _Grosse/audio/blackmesa/mob/antlion/land1.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/antlion/land1.ogg
       params:
         volume: 1
   - type: RemoveComponentsOnTrigger
@@ -364,8 +364,8 @@
     baseSprintSpeed : 2
   - type: MeleeWeapon
     damage:
-      groups:
-        Brute: 0
+      types:
+        Blunt: 0
   - type: Puller
     needsHands: true
   - type: Tag
@@ -380,7 +380,7 @@
       behaviors:
       - !type:PlaySoundBehavior
         sound:
-          path: _Grosse/audio/blackmesa/mob/grub/agrub_squish.ogg
+          path: /Audio/_Grosse/audio/blackmesa/mob/grub/agrub_squish.ogg
           params:
             volume: -1
       - !type:SpawnEntitiesBehavior
@@ -409,10 +409,10 @@
   - type: InteractionPopup
     successChance: 1
     interactSuccessString: вы погладили личинку!
-    interactSuccessSound: _Grosse/audio/blackmesa/mob/grub/agrub_die.ogg
+    interactSuccessSound: /Audio/_Grosse/audio/blackmesa/mob/grub/agrub_die.ogg
   - type: EmitSoundOnTrigger
     sound:
-      path: _Grosse/audio/blackmesa/mob/grub/agrub_die.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/grub/agrub_die.ogg
       params:
         volume: 1
   - type: Emoting

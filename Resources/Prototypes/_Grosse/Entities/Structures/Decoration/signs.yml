@@ -1,0 +1,148 @@
+
+- type: entity
+  parent: BaseSign
+  id: RadSignC17
+  name: знак "Радиация"
+  description: На знаке изображён символ радиоактивной опасности, который информирует о радиоактивной опасности за знаком. Может, не стоит туда идти?
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Furniture/RadSigns.rsi
+    layers:
+    - state: radioactive_sign1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: Physics
+    canCollide: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.10,-0.5,0.10,0.5"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - TableLayer
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        radioactive_sign1: ""
+        radioactive_sign2: ""
+        radioactive_sign3: ""
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      #- !type:PlaySoundBehavior
+        #sound:
+          #path: /Audio/Effects/metalbreak.ogg #Нету звука
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: RadSignC17
+  id: CheSignC17
+  name: знак "Химическая опасность"
+  description: На знаке изображён символ химической опасности, который информирует о химической опасности за знаком. Может, не стоит туда идти?
+  suffix:
+  components:
+  - type: Sprite
+    layers:
+    - state: chemical_sign1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        chemical_sign1: ""
+        chemical_sign2: ""
+        chemical_sign3: ""
+
+- type: entity
+  parent: BaseSign
+  id: RoadSignC17
+  name: автобусная остановка
+  description: Знак обозначающий автобусную остановку.
+  suffix: Дорожный знак
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/Structures/Decoration/road_sign.rsi
+    offset: "0, 0.25"
+    layers:
+    - state: busstop
+  - type: Physics
+    canCollide: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.10,-0.5,0.10,0.5"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - TableLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      #- !type:PlaySoundBehavior
+        #sound:
+          #path: /Audio/Effects/metalbreak.ogg #Нету звука
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: RoadSignC17
+  id: RoadSign2C17
+  name: знак "Стоп"
+  description: Знак обозначающий остановку.
+  components:
+  - type: Sprite
+    layers:
+    - state: stop
+
+- type: entity
+  parent: RoadSignC17
+  id: RoadSign3C17
+  name: знак "Одно Направление"
+  description: Знак обозначающий что тут одно направление.
+  components:
+  - type: Sprite
+    layers:
+    - state: direction
+
+- type: entity
+  parent: RoadSignC17
+  id: RoadSign4C17
+  name: знак "Нет Пешеходного прохода"
+  description: Знак обозначающий что тут нет проходов для пешеходов.
+  components:
+  - type: Sprite
+    layers:
+    - state: nopedestrian
+
+- type: entity
+  parent: RoadSignC17
+  id: RoadSign5C17
+  name: знак "Не Поворачивать"
+  description: Знак обозначающий что тут нельзя поворачивать.
+  components:
+  - type: Sprite
+    layers:
+    - state: noturn
+
+- type: entity
+  parent: RoadSignC17
+  id: RoadSign6C17
+  name: "Улица"
+  description: Знак обозначающий что тут такая-то улица.
+  components:
+  - type: Sprite
+    layers:
+    - state: street

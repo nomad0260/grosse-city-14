@@ -1,52 +1,72 @@
 - type: entity
-  name: Урист Макбайн
-  parent: MobHuman
-  description: Жалкая кучка спецназа.
-  id: MobHumanCombine
+  name: Базированная База НПЦ
+  id: MobBaseNpc
+  parent:
+  - BaseSimpleMob
+  - MobCombat
+  - StripableInventoryBase
+  - MobPolymorphable
+  description: Just a body, be calm.
+  abstract: true
   components:
-  - type: Icon
-    sprite: Markers/jobs.rsi
-    state: cyborg
-  - type: ProtectedFromStepTriggers
-  - type: Speech
-    speechSounds: Combine
-    soundCooldownTime: 0.1
-  - type: Stamina
-    critThreshold: 250
-  - type: Bloodstream
-    bloodMaxVolume: 20
-    bloodlossThreshold: 0
-  #- type: RespiratorImmunity
-  - type: PressureImmunity
-  - type: TemperatureProtection
-  - type: Temperature
-    damageCap: 0
-  - type: TemperatureSpeed
-    thresholds:
-      100: 1
-  - type: MobState
-  - type: MobThresholds
-    thresholds:
-      0: Alive
-      200: Critical
-      250: Dead
-  - type: TriggerOnMobstateChange
-    mobState:
-    - Critical
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: Crawler
-  #  - type: SleepOnSSD
-  - type: EmitSoundOnTrigger
-    sound:
-      collection: SoldierDeath
-      params:
-        volume: 3
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: CombatMode
+  - type: Stripping
+  - type: Strippable
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+  - type: ComplexInteraction
+  - type: StatusEffects
+    allowed:
+    - Stutter
+  - type: HealthExaminable
+    examinableTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Shock
+    - Cold
+    - Caustic
+    - Asphyxiation
+    - Radiation
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      path: /Audio/Effects/hit_kick.ogg
+  - type: Pullable
+  - type: LightningTarget
+    priority: 2
+    lightningExplode: false
+  - type: ZombieImmune
+  - type: Rotatable
+  - type: InputMover
+  - type: MobMover
+  - type: Body
+  - type: Climbing
+  - type: MeleeWeapon
+    angle: 0
+    animation: WeaponArcFist
+    soundHit:
+        collection: Punch
+    damage:
+        types:
+          Blunt: 5
+  - type: NPCRetaliation
+    attackMemoryLength: 10
+  - type: NpcFactionMember
+    factions:
+      - SimpleNeutral
+  - type: Inventory
+  - type: Hands
+  - type: RotationVisuals
+    defaultRotation: 90
+    horizontalRotation: 90
   - type: Fixtures
     fixtures:
       fix1:
@@ -58,6 +78,34 @@
         - MobMask
         layer:
         - MobLayer
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      50: 0.5
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:ExplodeBehavior
+  - type: Injurable
+    damageContainer: Biological
+  - type: Puller
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - DoorBumpOpener
+      - FootstepSound
 
 - type: entity
   abstract: true
@@ -98,19 +146,15 @@
       300: Dead
   - type: Internals
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Antlion
+  - type: Injurable
+    damageContainer: Biological
   - type: Body
-    prototype: Bloodsucker
-    requiredLegs: 0
   - type: Metabolizer
     solutionOnBody: false
     updateInterval: 0.25
     metabolizerTypes: [ Bloodsucker ]
-    groups:
-    - id: Medicine
-    - id: Poison
-    - id: Biological
+    stages: [ Digestion, Bloodstream, Metabolites ]
   - type: Actions
   - type: DoAfter
   - type: Polymorphable
@@ -125,16 +169,19 @@
     baseWalkSpeed : 2.5
     baseSprintSpeed : 4
   - type: Stamina
-    critThreshold: 500
+    baseCritThreshold: 500
   - type: Appearance
   - type: Bloodstream
-    bloodMaxVolume: 0
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Blood
+        Quantity: 50
   - type: Puller
     needsHands: false
   - type: NoSlip
   - type: IgnoreSpiderWeb
   - type: IntrinsicRadioReceiver
-  - type: ActiveRadio
+  - type: ActiveRadio 
     channels:
     - Hivemind
   - type: IntrinsicRadioTransmitter
@@ -167,3 +214,35 @@
       collection: AntlionDeath
       params:
         volume: 1
+
+- type: entity
+  id: MobBaseNpcDungeon
+  parent:
+  - MobBaseNpcSalvage
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: MeleeWeapon
+    range: 1.5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 300
+        mask:
+        - Impassable
+        - HighImpassable
+        - MidImpassable
+        #- BlobImpassable
+        layer:
+        - MobLayer
+      fix2:
+        shape:
+          !type:PhysShapeCircle
+          radius: 1
+        hard: false
+        mask:
+        - HighImpassable
+        layer:
+        - MobLayer

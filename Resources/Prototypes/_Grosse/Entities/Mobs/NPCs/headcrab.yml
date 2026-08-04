@@ -28,7 +28,7 @@
     - type: MeleeWeapon
       hidden: true
       soundHit:
-        path: _Grosse/audio/blackmesa/mob/headcrab/headbite.ogg
+        path: /Audio/_Grosse/audio/blackmesa/mob/headcrab/headbite.ogg
       angle: 0
       animation: WeaponArcSmash
       damage:
@@ -54,12 +54,10 @@
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
     - type: Butcherable
-      butcheringType: Knife
       spawned:
       - id: FoodMeatChicken
         amount: 2
     - type: DamageStateVisuals
-      rotate: false
       states:
         Alive:
           Base: headcrab
@@ -79,11 +77,12 @@
       layers:
       - map: [ "enum.DamageStateVisualLayers.Base" ]
         state: headcrab
+        sprite: _Grosse/rsi/hlstaff/mobs/zombie.rsi
     - type: NPCUseActionOnTarget
       actionId: ActionHeadcrabJump
     - type: JumpAbility
       action: ActionHeadcrabJump
       jumpDistance: 4
       jumpThrowSpeed: 10
-      jumpSound: _Grosse/audio/blackmesa/mob/headcrab/attack2.ogg
+      jumpSound: /Audio/_Grosse/audio/blackmesa/mob/headcrab/attack2.ogg
       canCollide: false

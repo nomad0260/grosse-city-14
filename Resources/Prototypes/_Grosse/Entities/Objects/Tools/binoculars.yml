@@ -1,0 +1,33 @@
+- type: entity
+  name: binoculars
+  parent: BaseItem
+  id: BinocularsScanner
+  description: Used for long-distance surveillance.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/binoculars.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: Wieldable
+    freeHandsRequired: 0
+  - type: UseDelay
+    delay: 1.0
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 7
+    pvsIncrease: 1
+  - type: EmitSoundOnUse
+    sound:
+      collection: CityScannerloop
+      params:
+        volume: 1
+
+- type: entity
+  parent: Binoculars
+  id: BinocularsRebels
+  suffix: Resistens
+  components:
+  - type: EyeCursorOffset
+    maxOffset: 20
+    pvsIncrease: 1.5

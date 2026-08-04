@@ -1,0 +1,34 @@
+- type: entity
+  id: CombineWallRechargerC17
+  name: combine wall charger
+  parent: [ BaseRecharger, BaseWallmount ]
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/wallmount.rsi
+    layers:
+    - map: ["enum.PowerChargerVisualLayers.Base"]
+      state: suitcharger_03
+    - map: ["enum.PowerChargerVisualLayers.Light"]
+      state: suitcharger
+  - type: PowerChargerVisuals
+    emptyState: suitcharger_03
+    occupiedState: suitcharger
+    lightStates:
+      off: suitcharger_03
+      empty: suitcharger_03
+      charging: suitcharger
+      charged: suitcharger
+  - type: Charger
+    chargeRate: 100
+  - type: ItemSlots
+    slots:
+      charger_slot:
+        ejectOnInteract: true
+        whitelist:
+          components:
+          - BatteryAmmoProvider
+          - Stunbaton
+          - PowerCell
+        blacklist:
+          tags:
+          - PotatoBattery

@@ -9,9 +9,9 @@
       prob: 0.05
       orGroup: puddleMess
     - id: BasicDecalDirtVariationPass
-    - id: BasicDecalBrunsVariationPass
-      prob: 0.50
-      orGroup: monospaceDecals
+    #- id: BasicDecalBrunsVariationPass
+      #prob: 0.50
+      #orGroup: monospaceDecals #МКшная хрень?
     - id: BasicDecalDirtMonospaceVariationPass
       prob: 0.50
       orGroup: monospaceDecals

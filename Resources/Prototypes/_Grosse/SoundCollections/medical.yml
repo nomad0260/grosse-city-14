@@ -1,0 +1,5 @@
+- type: soundCollection
+  id: Medkituse
+  files:
+  - /Audio/_Grosse/audio/blackmesa/hl2/medkit.ogg
+  - /Audio/_Grosse/audio/blackmesa/hl2/medkit1.ogg

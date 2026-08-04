@@ -71,7 +71,7 @@
         Asphyxiation: 20
   - type: EmitSoundOnSpawn
     sound:
-      path: _Grosse/audio/blackmesa/mob/barnacle/latch.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/barnacle/latch.ogg
       params:
         volume: 2
   - type: RequireProjectileTarget
@@ -110,7 +110,7 @@
         - MobLayer
   - type: EmitSoundOnSpawn
     sound:
-      path: _Grosse/audio/blackmesa/mob/barnacle/die.ogg
+      path: /Audio/_Grosse/audio/blackmesa/mob/barnacle/die.ogg
       params:
         volume: 2
 
@@ -127,10 +127,10 @@
     revertOnDelete: false
     transferHumanoidAppearance: true
     duration: null
-    polymorphSound: _Grosse/audio/blackmesa/mob/barnacle/attack.ogg
-    exitPolymorphSound: _Grosse/audio/blackmesa/mob/barnacle/digest.ogg
-    polymorphPopup: Вы попали в щупальца барнакла!
-    exitPolymorphPopup: Вы спаслись из щупалец барнакла!
+    polymorphSound: /Audio/_Grosse/audio/blackmesa/mob/barnacle/attack.ogg
+    exitPolymorphSound: /Audio/_Grosse/audio/blackmesa/mob/barnacle/digest.ogg
+    polymorphPopup: "Вы попали в щупальца барнакла!"
+    exitPolymorphPopup: "Вы спаслись из щупалец барнакла!"
 
 - type: entity
   id: BaseBarnacledHumanoid
@@ -222,7 +222,6 @@
   - type: PassiveDamage
     allowedStates:
     - Alive
-    damageCap: 0
     damage:
       types:
         Asphyxiation: 2
@@ -242,7 +241,6 @@
   - type: Pacified
     disallowAllCombat: true
   - type: SolutionRegeneration
-    solution: chemicals
     generated:
       reagents:
       - ReagentId: MuteToxin

@@ -1,0 +1,36 @@
+- type: entity
+  name: MK3A2
+  description: Стандартная граната Альянса, на кожухе нарисован символ Альянса и надпись "M-83 FRAG".
+  parent: TimerGrenadeBase
+  id: CombineGrenadeC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/MK3A2.rsi
+    scale: 0.7, 0.7
+    layers:
+    - state: icon
+      map: ["enum.TriggerVisualLayers.Base"]
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 10
+    intensitySlope: 3
+    totalIntensity: 120
+    canCreateVacuum: false
+  - type: ExplodeOnTrigger
+    keysIn:
+    - timer
+  - type: TimerTrigger
+    beepSound:
+      path: "/Audio/_Grosse/audio/blackmesa/grenade/grenadetick.ogg"
+      params:
+        volume: 5
+    delay: 2.5
+    initialBeepDelay: 0
+    beepInterval: 3
+
+- type: entity
+  suffix: Activated
+  parent: CombineGrenadeC17
+  id: ActivatedCombineGrenadeC17
+  components:
+  - type: TriggerOnSpawn

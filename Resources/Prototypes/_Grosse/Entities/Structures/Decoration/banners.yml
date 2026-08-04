@@ -1,0 +1,37 @@
+- type: entity
+  id: CMBFlagC17
+  parent: GroundClockC17
+  name: флаг Галактического Альянса
+  description: Флаг меж-галакитческого Альянса, выглядит гордо.
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/Structures/Decoration/Flags/tall_flag.rsi
+    offset: "0, 2"
+    state: combine
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.3"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+        - BulletImpassable
+
+- type: entity
+  id: CMBBannerFlagC17
+  parent: BannerBase
+  name: флаг Галактического Альянса
+  description: Флаг меж-галакитческого Альянса, выглядит гордо.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/rsi/Structures/Decoration/Flags/flag.rsi
+    state: flagpole_combine
+    offset: "0, 0.5"

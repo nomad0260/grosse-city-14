@@ -1,0 +1,438 @@
+
+- type: entity
+  name: Элитный Солдат Альянса
+  id: MobCombineEliteSoldier
+  parent: MobBaseCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+  - type: MindShield
+    mindShieldStatusIcon: UnionEliteFaction
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.75
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+  - type: BasicEntityAmmoProvider
+    proto: PulseBulletCombine
+    capacity: 25
+    count: 25
+  - type: Damageable
+    damageModifierSet: CombineArmorElite
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+  - type: Gun
+    fireRate: 4
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot: /Audio/_Grosse/audio/blackmesa/hl2/weapon/ar2_fire.ogg
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/otaking.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/otaking.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/otaking.rsi
+    - state: wielded-inhand-left
+      sprite: _Grosse/rsi/hlstaff/weapon/ar2/tiny.rsi
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - DoorBumpOpener
+      - FootstepSound
+      - CanPilot
+      - CombineElite
+      - CombineLeader
+  - type: Loadout
+    prototypes: [NPCCombineSoldierElite]
+
+- type: entity
+  name: Squad leader
+  id: MobCombineSoldierLeader
+  parent: MobCombineSoldierAR2
+  suffix: suppa Leader Патруль Альянса 17
+  components:
+  - type: MindShield
+    mindShieldStatusIcon: UnionCommandFaction
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineElite
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - DoorBumpOpener
+      - FootstepSound
+      - CanPilot
+      - CombineLeader
+
+- type: entity
+  id: CombineSoldierLoot
+  parent: BaseItem
+  name: сумка снаряжение альянса
+  suffix: Soldier
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+    layers:
+      - state: icon
+  - type: SpawnItemsOnUse
+    sound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    items:
+    - id: ClothingHeadOTAC17
+      prob: 0.1
+    - id: WeaponPistolC17
+      prob: 0.4
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: MagazinePistol
+      prob: 0.6
+    - id: WeaponSubMachineGunC17
+      prob: 0.6
+    - id: MagazinePistolSubMachineGun
+      prob: 0.7
+    - id: MagazinePistolSubMachineGun
+      prob: 0.8
+    - id: CombineGrenadeC17
+      prob: 0.2
+    - id: ActivatedCombineGrenadeC17
+      prob: 0.2
+    - id: HealthvialC17
+      prob: 0.3
+    - id: MedkitC17
+      prob: 0.4
+    - id: MedkitC17
+      prob: 0.2
+    - id: MedkitC17
+      prob: 0.3
+
+- type: entity
+  name: Медик Альянса
+  id: MobCombineMedicSoldier
+  parent: MobBaseCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: HTN
+    rootTask:
+      task: CombineSoldierCompound
+ # - type: Medibot
+ #   treatments:
+ #     Alive:
+ #       reagent: AntlionGrubCore
+ #       quantity: 30
+ #       minDamage: 10
+ #     Critical:
+ #       reagent: AntlionGrubCore
+ #       quantity: 30
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineLeader
+  - type: ReplacementAccent
+    accent: CombineRadioMedic
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.5
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+  - type: BasicEntityAmmoProvider
+    proto: BulletPistol
+    capacity: 17
+    count: 17
+  - type: Gun
+    minAngle: 1
+    maxAngle: 2
+    fireRate: 1.5
+    angleIncrease: 7
+    angleDecay: 16
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot:
+      path: /Audio/_Grosse/audio/blackmesa/hl2/weapon/pistol_fire2.ogg
+      params:
+        volume: -2
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/ota.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+    - state: inhand-right
+      sprite: _Grosse/rsi/hlstaff/weapon/pistol.rsi
+  - type: Loadout
+    prototypes: [NPCCombineMedic]
+
+- type: entity
+  name: Солдат Альянса
+  id: MobCombineSoldier
+  parent: MobBaseCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineLeader
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.5
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+  - type: BasicEntityAmmoProvider
+    proto: BulletPistol
+    capacity: 30
+    count: 30
+  - type: Gun
+    minAngle: 4
+    maxAngle: 32
+    fireRate: 4
+    angleIncrease: 12
+    angleDecay: 20
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot: /Audio/_Grosse/audio/blackmesa/hl2/weapon/smg1_fire1.ogg
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/ota.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+    - state: wielded-inhand-left
+      sprite: _Grosse/rsi/hlstaff/weapon/smg/tiny.rsi
+  - type: Loadout
+    prototypes: [NPCCombineSoldier]
+
+- type: entity
+  name: Сотрудник ГО
+  id: MobCombinePatrolUnitMelee
+  parent: MobBaseHumanCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: MeleeWeapon
+    angle: 0
+    animation: WeaponArcSlash
+    soundHit:
+        path: /Audio/Weapons/egloves.ogg
+    damage:
+        types:
+          Blunt: 2
+  - type: StaminaDamageOnHit
+    damage: 10
+    sound: /Audio/Weapons/egloves.ogg
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
+  - type: MindShield
+    mindShieldStatusIcon: UnionFaction
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/cp.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+    - state: on-inhand-right
+      sprite: Objects/Weapons/Melee/stunbaton.rsi
+
+- type: entity
+  name: Сотрудник ГО
+  id: MobCombinePatrolUnitRangeSMG
+  parent: MobBaseHumanCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: HTN
+    rootTask:
+      task: CombineSoldierCompound
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineLeader
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.5
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+  - type: BasicEntityAmmoProvider
+    proto: BulletPistol
+    capacity: 15
+    count: 15
+  - type: Gun
+    minAngle: 4
+    maxAngle: 64
+    fireRate: 6
+    angleIncrease: 18
+    angleDecay: 7
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot: /Audio/_Grosse/audio/blackmesa/hl2/weapon/smg1_fire1.ogg
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/cp.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+    - state: wielded-inhand-left
+      sprite: _Grosse/rsi/hlstaff/weapon/smg/tiny.rsi
+  - type: Loadout
+    prototypes: [NPCCombinePatrolUnitSMG]
+
+- type: entity
+  name: Сотрудник ГО
+  id: MobCombinePatrolUnitRange
+  parent: MobBaseHumanCombine
+  suffix: suppa Патруль Альянса 17
+  components:
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineLeader
+  - type: HTN
+    rootTask:
+      task: CombineSoldierCompound
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.5
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+      params:
+        volume: -100
+  - type: BasicEntityAmmoProvider
+    proto: BulletPistol
+    capacity: 1
+    count: 1
+  - type: Gun
+    minAngle: 2
+    maxAngle: 32
+    fireRate: 1
+    angleIncrease: 7
+    angleDecay: 16
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot:
+      path: /Audio/_Grosse/audio/blackmesa/hl2/weapon/pistol_fire2.ogg
+      params:
+        volume: -2
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/cp.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+    - state: inhand-right
+      sprite: _Grosse/rsi/hlstaff/weapon/pistol.rsi
+  - type: Loadout
+    prototypes: [NPCCombinePatrolUnitRange]
+
+- type: entity
+  name: Солдат Альянса
+  id: MobCombineSoldierShotgun
+  parent: MobBaseCombine
+  suffix: suppa Shotgun Патруль Альянса 17
+  components:
+  - type: HTN
+    rootTask:
+      task: CombineSoldierCompound
+  - type: NPCImprintingOnSpawnBehaviour
+    whitelist:
+      tags:
+      - CombineLeader
+  - type: BallisticAmmoProvider
+    proto: ShellShotgun
+    capacity: 500
+    cycleable: false
+  - type: Gun
+    fireRate: 1
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot:
+      collection: ShotgunshotCMB
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - state: equipped-INNERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
+    - state: equipped-HAND
+      sprite: Clothing/Hands/Gloves/Color/black.rsi
+    - state: equipped-FEET
+      sprite: Clothing/Shoes/Boots/combatboots.rsi
+    - state: equipped-MASK
+      sprite: _Grosse/rsi/hlstaff/gasmask/shotgunner.rsi
+    - state: equipped-HELMET
+      sprite: _Grosse/rsi/hlstaff/helmets/shotgunner.rsi
+    - state: equipped-OUTERCLOTHING
+      sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
+    - state: wielded-inhand-left
+      sprite: _Grosse/rsi/Objects/Weapons/Guns/spas-16/tiny.rsi
+  - type: Loadout
+    prototypes: [NPCCombineSoldierShotgun]

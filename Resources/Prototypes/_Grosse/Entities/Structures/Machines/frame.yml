@@ -24,8 +24,9 @@
   - type: Rotatable
   - type: Pullable
   - type: Damageable
-    damageContainer: StructuralInorganic
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Sprite
     sprite: Structures/Machines/parts.rsi
     state: box_0
@@ -96,11 +97,11 @@
           radius: 0.35
         density: 300
         mask:
-        - Impassable 
-        - LowImpassable 
+        - Impassable
+        - LowImpassable
 #       - BlobImpassable
         layer:
-        - Opaque 
+        - Opaque
         - BulletImpassable
         - MidImpassable
   - type: RequireProjectileTarget

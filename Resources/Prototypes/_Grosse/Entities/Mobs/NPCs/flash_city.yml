@@ -1,0 +1,35 @@
+- type: entity
+  name: flash
+  parent: BaseItem
+  id: FlashCityScanner
+  description: An ultrabright flashbulb with a trigger, which causes the victim to be dazed and lose their eyesight for a moment. Useless when burnt out.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/flash.rsi
+    layers:
+    - state: flash
+      map: [ "enum.FlashVisualLayers.BaseLayer" ]
+    - state: flashing
+      map: [ "enum.FlashVisualLayers.LightLayer" ]
+      visible: false
+      shader: unshaded
+  - type: UseDelay
+    delay: 5.0
+  - type: Flash
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/mob/scanner/photo1.ogg
+      params:
+        volume: 2
+  - type: Item
+    size: Small
+    sprite: Objects/Weapons/Melee/flash.rsi
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.FlashVisuals.Burnt:
+        enum.FlashVisualLayers.BaseLayer:
+          True: {state: burnt}
+      enum.FlashVisuals.Flashing:
+        enum.FlashVisualLayers.LightLayer:
+          True: {visible: true}
+          False: {visible: false}

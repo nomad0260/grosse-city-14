@@ -1,0 +1,24 @@
+- type: entity
+  id: TrainRailC17
+  name: рельсы
+  description: Старые ЖД пути, шпалы которых уже прогнили, а метал проржавел.
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: InteractionOutline
+  - type: Appearance
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Railroad/rails.rsi
+    drawdepth: FloorTiles
+    layers:
+      - state: rail
+        scale: 0.6, 0.6
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepCatwalk
+      params:
+        volume: 8

@@ -1,0 +1,71 @@
+
+- type: entity
+  name: RPD
+  parent: BaseWeaponLightMachineGun
+  id: WeaponLightMachineGunRPD
+  suffix: Resistens, Пулемёт
+  description: A cheap and robust machinegun, sometimes better known as an 'RPD'. Despite lacking attachment points beyond its underbarrel, remains a popular product on the black market with its cheap cost, high capacity and higher than usual caliber rounds.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+    clothingVisuals:
+      suitstorage:
+      - sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+        state: equipped-BACKPACK
+      Back:
+      - sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+        state: equipped-BACKPACK
+  - type: Item
+    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+  - type: GunWieldBonus
+    minAngle: -30
+    maxAngle: -50
+  - type: Gun
+    minAngle: 34
+    maxAngle: 55
+    cameraRecoilScalar: 2
+    fireRate: 5
+    soundGunshot:
+      path: /Audio/_Grosse/audio/Guns64/ak47.ogg
+  - type: ChamberMagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineLightMachineGun762x39
+        insertSound: /Audio/_Grosse/audio/Guns64/ak47_reload.ogg
+        ejectSound: /Audio/_Grosse/audio/Guns64/ak47_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineLightMachineGunRPD
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeLightRifle
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeLightRifle
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+  - type: UseDelay
+    delay: 1.9
+  - type: ClothingSpeedModifier
+    walkModifier: 0.7
+    sprintModifier: 0.7
+  - type: HeldSpeedModifier

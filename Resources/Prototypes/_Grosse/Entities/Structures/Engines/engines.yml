@@ -1,0 +1,194 @@
+- type: entity
+  name: двигатель
+  parent: BaseItem
+  id: DesantPod
+  components:
+  - type: AmbientSound
+    volume: 2
+    range: 45
+    sound:
+      path: /Audio/_Grosse/audio/gunship/engine_distant_loop1.ogg
+  - type: ItemToggleActiveSound
+    activeSound:
+      path: /Audio/_Grosse/audio/gunship/dropping_pod_loop1.ogg
+      params:
+        volume: 3
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: generator
+  - type: ItemToggle
+
+- type: entity
+  parent: DebugSubstationRecharging
+  id: CombineGenerator17
+  name: генератор Альянса
+  suffix: Подстанция и генератор
+  components:
+  - type: Battery
+    maxCharge: 2500000
+    startingCharge: 2500000
+  - type: BatterySelfRecharger
+    autoRechargeRate: 2500000
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/energygenerator.rsi
+    layers:
+    - state: GenTurnOnEyeMovement
+    - state: CoreV2
+      shader: unshaded
+    - state: FieldAnimation
+      shader: unshaded
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [ [ "UnionBase" ] ]
+  - type: PointLight
+    radius: 1.5
+    energy: 1
+    color: blue
+    castShadows: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          CMBGeneratorDestroyed17:
+            min: 1
+            max: 1
+
+- type: entity
+  parent: MachineFrameDestroyed
+  id: CMBGeneratorDestroyed17
+  name: отключенный генератор Альянса
+  components:
+  - type: Construction
+    graph: GeneratorRepair
+    node: start
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/structure/energygenerator.rsi
+    layers:
+    - state: GenTurnOnEyeMovement
+
+- type: constructionGraph
+  id: GeneratorRepair
+  start: start
+  graph:
+    - node: start
+      edges:
+      - to: sword
+        completed:
+          - !type:SpawnPrototype
+            prototype: CombineGenerator17
+          - !type:DeleteEntity
+        steps:
+          - tool: Screwing
+            doAfter: 2
+          - tool: Anchoring
+            doAfter: 5
+          - tool: Prying
+            doAfter: 2
+    - node: sword
+      entity: CombineGenerator17
+
+- type: entity
+  id: ForceHoloDoorC17
+  name: force field generator
+  description: The words flicker as if they mean nothing.
+  suffix: CP доступ
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: AmbientSound
+    volume: -12
+    range: 2
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/hl2/forcefield/force_field_loop1.ogg
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: buttom-layer
+      shader: unshaded
+    - state: generator
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: generator-layer
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      shader: unshaded
+    - state: up-layer
+      shader: unshaded
+    - state: generator
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+      visible: false
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: AnimationPlayer
+  - type: Airlock
+    powered: true
+    openUnlitVisible: true
+    emergencyAccessLayer: false
+    animatePanel: false
+    autoCloseDelay: 0.01
+    openingSpriteState: generator
+    openingPanelSpriteState: generator
+    closingSpriteState: generator
+    closingPanelSpriteState: generator
+    openSpriteState: generator
+    closedSpriteState: generator
+    denySpriteState: generator
+  - type: DoorBolt
+  - type: Door
+    bumpOpen: true
+    clickOpen: true
+    canCrush: false
+    canPry: false
+    closeTimeOne: 0.01
+    closeTimeTwo: 0.01
+    openTimeOne: 0.01
+    openTimeTwo: 0.01
+    openSound: null
+    closeSound: null
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.5"
+        layer:
+        - LowImpassable
+        - Impassable
+        - MidImpassable
+  #- type: LitOnPowered
+  #- type: AmbientOnPowered
+  - type: PointLight
+    enabled: true
+    radius: 3
+    color: blue
+  - type: Clickable
+  - type: ContainmentField
+    throwForce: 0
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: AccessReader
+    access: [ [ "UnionCP" ] ]
+  - type: Tag
+    tags:
+      - CombineStructure

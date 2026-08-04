@@ -1,0 +1,9 @@
+#- type: listing
+#  id: UplinkHopperMineBundle
+#  name: набор мин альянса
+#  description: Поставь, активируй и наблюдай как передовые технологии Альянса выполняют свою работу.
+#  productEntity: ClothingBackpackDuffelSyndicateFilledHopperMine
+#  cost:
+#    Telecrystal: 10
+#  categories:
+#  - UplinkExplosives

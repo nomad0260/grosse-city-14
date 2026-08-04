@@ -1,0 +1,49 @@
+- type: entity
+  parent: BaseItem
+  id: ManhackInactiveC17
+  name: manhack inactive
+  description: Деактивированный мэнхэк.
+  components:
+  - type: Item
+    size: Small
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
+    state: manhack-inactive
+  - type: SpawnItemsOnUse
+    items:
+      - id: MobManhackc17
+    sound:
+      path: /Audio/_Grosse/audio/blackmesa/hoppermine/deploy1.ogg
+  - type: Construction
+    graph: ManhackPulsing
+    node: start
+
+- type: entity
+  parent: ManhackInactiveC17
+  id: ManhackInactiveResistanceC17
+  name: manhack inactive
+  description: Деактивированный мэнхэк.
+  suffix: resistance
+  components:
+  - type: SpawnItemsOnUse
+    items:
+      - id: MobManhackResistancec17
+
+- type: entity
+  parent: BaseItem
+  id: ManhackConstructionInactiveC17
+  name: manhack inactive
+  description: Деактивированный мэнхэк.
+  suffix: decor
+  components:
+  - type: Item
+    size: Small
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
+    state: manhack-inactive
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/manhack.rsi
+    state: manhack-inactive
+  - type: Tag
+    tags:
+    - CMBManhack
