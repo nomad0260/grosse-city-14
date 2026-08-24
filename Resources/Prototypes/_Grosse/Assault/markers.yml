@@ -9,7 +9,6 @@
     radius: 3
     captureTime: 20
   - type: Sprite
-    sprite: Markers/jobs.rsi
     state: red
 
 - type: entity
@@ -22,7 +21,6 @@
     team: Attackers
     zoneIndex: 0
   - type: Sprite
-    sprite: Markers/jobs.rsi
     state: green
 
 - type: entity
@@ -35,7 +33,6 @@
     team: Defenders
     zoneIndex: 0
   - type: Sprite
-    sprite: Markers/jobs.rsi
     state: blue
 
 - type: entity
