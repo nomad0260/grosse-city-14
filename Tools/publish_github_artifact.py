@@ -9,7 +9,7 @@ PUBLISH_TOKEN = os.environ["PUBLISH_TOKEN"]
 ARTIFACT_ID = os.environ["ARTIFACT_ID"]
 GITHUB_REPOSITORY = os.environ["GITHUB_REPOSITORY"]
 VERSION = os.environ['GITHUB_SHA']
-FORK_ID = os.environ['FORK_ID']
+FORK_ID = os.environ.get("FORK_ID", "grosse")
 
 #
 # CONFIGURATION PARAMETERS

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grosse Mapping</title>
+  <style>
+    :root {
+      --bg: #101218;
+      --card: #1a1e28;
+      --text: #e8ecf4;
+      --muted: #8b93a7;
+      --accent: #6ee7b7;
+      --line: #2a3140;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem;
+    }
+    h1 { font-size: 1.6rem; margin: 0 0 .35rem; }
+    .sub { color: var(--muted); margin-bottom: 1.5rem; }
+    .grid { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    .card h2 {
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 .7rem;
+    }
+    .stat { display: flex; justify-content: space-between; gap: 1rem; margin: .25rem 0; }
+    .stat span:last-child { color: var(--accent); font-variant-numeric: tabular-nums; word-break: break-all; text-align: right; }
+    .wide { grid-column: 1 / -1; }
+    a.btn {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: .7rem 1rem;
+      background: var(--accent);
+      color: #062016;
+      text-decoration: none;
+      font-weight: 650;
+      border-radius: 8px;
+    }
+    .err { color: #f87171; }
+    code { font-size: .85em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="name">Grosse Mapping</h1>
+    <p class="sub" id="desc">Мапперский сервер</p>
+    <div class="grid">
+      <section class="card">
+        <h2>Игра</h2>
+        <div class="stat"><span>Онлайн</span><span id="players">…</span></div>
+        <div class="stat"><span>Статус</span><span id="game-ok">…</span></div>
+      </section>
+      <section class="card">
+        <h2>nginx</h2>
+        <div class="stat"><span>Active</span><span id="ngx-active">…</span></div>
+        <div class="stat"><span>Reading / writing / waiting</span><span id="ngx-rww">…</span></div>
+        <div class="stat"><span>Accepts / handled / requests</span><span id="ngx-ahr">…</span></div>
+      </section>
+      <section class="card wide">
+        <h2>Сборка</h2>
+        <div class="stat"><span>fork_id</span><span id="fork">…</span></div>
+        <div class="stat"><span>engine</span><span id="engine">…</span></div>
+        <div class="stat"><span>version</span><span id="version">…</span></div>
+        <div class="stat"><span>manifest hash</span><span id="mhash">…</span></div>
+        <div class="stat"><span>manifest.txt</span><span id="manifest">…</span></div>
+      </section>
+    </div>
+    <a class="btn" href="/files/">Файлы для мапперов</a>
+  </main>
+  <script>
+    async function loadJson(url) {
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) throw new Error(url + " " + r.status);
+      return r.json();
+    }
+    async function loadText(url) {
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) throw new Error(url + " " + r.status);
+      return r.text();
+    }
+    function set(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+    let manifestLoaded = false;
+    async function refresh() {
+      try {
+        const status = await loadJson("/status");
+        set("name", status.name || "Grosse Mapping");
+        document.title = status.name || "Grosse Mapping";
+        set("players", String(status.players ?? "—"));
+        set("game-ok", "online");
+      } catch {
+        set("game-ok", "offline");
+        set("players", "—");
+        document.getElementById("game-ok").classList.add("err");
+      }
+      try {
+        const info = await loadJson("/info");
+        set("desc", info.desc || "");
+        const b = info.build || {};
+        set("fork", b.fork_id || "—");
+        set("engine", b.engine_version || "—");
+        set("version", b.version || "—");
+        set("mhash", b.manifest_hash || "—");
+      } catch {
+        set("fork", "—");
+      }
+      try {
+        const ngx = await loadText("/nginx_status");
+        const active = /Active connections:\s+(\d+)/.exec(ngx);
+        const trio = ngx.match(/(\d+)\s+(\d+)\s+(\d+)/);
+        const rww = /Reading:\s+(\d+)\s+Writing:\s+(\d+)\s+Waiting:\s+(\d+)/.exec(ngx);
+        set("ngx-active", active ? active[1] : "—");
+        set("ngx-ahr", trio ? trio[1] + " / " + trio[2] + " / " + trio[3] : "—");
+        set("ngx-rww", rww ? rww[1] + " / " + rww[2] + " / " + rww[3] : "—");
+      } catch {
+        set("ngx-active", "—");
+      }
+      if (!manifestLoaded) {
+        try {
+          const txt = await loadText("/manifest.txt");
+          const lines = txt.split(/\r?\n/).filter(Boolean);
+          const header = lines[0] || "";
+          const files = Math.max(0, lines.length - 1);
+          set("manifest", header + " · " + files + " files");
+          manifestLoaded = true;
+        } catch {
+          set("manifest", "не готов");
+        }
+      }
+    }
+    refresh();
+    setInterval(refresh, 10000);
+  </script>
+</body>
+</html>
