@@ -8,6 +8,14 @@
   rules:
   - CombineCityRoundstartVariation
 
+- type: gamePreset
+  id: City14Assault
+  name: assault-preset-title
+  showInVote: true
+  description: assault-preset-description
+  rules:
+  - City14AssaultRule
+
 #- type: gamePreset
   #id: City14Rebellion
   #name: Восстание

@@ -1,0 +1,9 @@
+- type: npcFaction
+  id: AssaultAttackers
+  hostile:
+  - AssaultDefenders
+
+- type: npcFaction
+  id: AssaultDefenders
+  hostile:
+  - AssaultAttackers

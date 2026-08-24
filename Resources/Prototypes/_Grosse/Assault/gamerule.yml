@@ -1,0 +1,14 @@
+- type: entity
+  id: City14AssaultRule
+  parent: BaseGameRule
+  components:
+  - type: AssaultRule
+    prepTime: 180
+    roundTime: 1200
+    waveThreshold: 0.5
+    waveTimeout: 45
+    gateOpenDelay: 20
+    startingTickets: 200
+    attackersCaptureReward: 50
+    defendersCaptureReward: 40
+    restartDelay: 15

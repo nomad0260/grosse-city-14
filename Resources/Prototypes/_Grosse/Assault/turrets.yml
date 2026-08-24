@@ -1,0 +1,17 @@
+- type: entity
+  parent: BaseWeaponBallisticTurret
+  id: WeaponTurretAssaultAttackers
+  suffix: Штурм, Атака
+  components:
+  - type: NpcFactionMember
+    factions:
+    - AssaultAttackers
+
+- type: entity
+  parent: BaseWeaponBallisticTurret
+  id: WeaponTurretAssaultDefenders
+  suffix: Штурм, Защита
+  components:
+  - type: NpcFactionMember
+    factions:
+    - AssaultDefenders

@@ -173,6 +173,14 @@ namespace Content.Server.GameTicking
                 return;
             }
 
+            if (ready)
+            {
+                var attempt = new ToggleReadyAttemptEvent(player);
+                RaiseLocalEvent(attempt);
+                if (attempt.Cancelled)
+                    return;
+            }
+
             _playerGameStatuses[player.UserId] = ready ? PlayerGameStatus.ReadyToPlay : PlayerGameStatus.NotReadyToPlay;
             RaiseNetworkEvent(GetStatusMsg(player), player.Channel);
             // update server info to reflect new ready count

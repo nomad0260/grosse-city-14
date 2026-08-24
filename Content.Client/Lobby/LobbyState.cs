@@ -1,3 +1,4 @@
+using Content.Client._Grosse.Assault;
 using Content.Client.Audio;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
@@ -33,6 +34,7 @@ namespace Content.Client.Lobby
 
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;
+        private AssaultClientSystem _assault = default!;
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -49,6 +51,7 @@ namespace Content.Client.Lobby
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
             _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
+            _assault = _entityManager.System<AssaultClientSystem>();
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
 
             chatController.SetMainChat(true);
@@ -71,6 +74,8 @@ namespace Content.Client.Lobby
             Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
+            Lobby.AssaultLoadout.LoadoutSelected += OnAssaultLoadoutSelected;
+            _assault.LobbyStateChanged += OnAssaultLobbyState;
 
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;
@@ -91,6 +96,8 @@ namespace Content.Client.Lobby
             Lobby!.CharacterPreview.CharacterSetupButton.OnPressed -= OnSetupPressed;
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
+            Lobby!.AssaultLoadout.LoadoutSelected -= OnAssaultLoadoutSelected;
+            _assault.LobbyStateChanged -= OnAssaultLobbyState;
 
             Lobby = null;
         }
@@ -111,6 +118,12 @@ namespace Content.Client.Lobby
         {
             if (!_gameTicker.IsGameStarted)
             {
+                return;
+            }
+
+            if (_assault.LobbyEnabled)
+            {
+                _assault.RequestLateJoin();
                 return;
             }
 
@@ -193,6 +206,9 @@ namespace Content.Client.Lobby
                 Lobby!.ReadyButton.ToggleMode = true;
                 Lobby!.ReadyButton.Disabled = false;
                 Lobby!.ObserveButton.Disabled = true;
+
+                if (_assault.LobbyEnabled)
+                    Lobby.ReadyButton.Disabled = !_assault.CanReady;
             }
 
             if (_gameTicker.ServerInfoBlob != null)
@@ -268,6 +284,17 @@ namespace Content.Client.Lobby
 
                 Lobby!.LobbyBackground.SetMarkup(Loc.GetString("lobby-state-background-no-background-text"));
             }
+        }
+
+        private void OnAssaultLoadoutSelected(bool random, Content.Shared._Grosse.Assault.AssaultTeam? team, string? classId)
+        {
+            _assault.SelectLoadout(random, team, classId);
+        }
+
+        private void OnAssaultLobbyState(Content.Shared._Grosse.Assault.AssaultLobbyStateEvent state)
+        {
+            Lobby?.AssaultLoadout.UpdateState(state);
+            UpdateLobbyUi();
         }
 
         private void SetReady(bool newReady)

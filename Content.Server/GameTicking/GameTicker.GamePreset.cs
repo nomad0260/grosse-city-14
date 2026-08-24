@@ -131,6 +131,7 @@ public sealed partial class GameTicker
         Decoy = decoy;
         ValidateMap();
         UpdateInfoText();
+        RaiseLocalEvent(new GamePresetChangedEvent(preset));
 
         if (force)
         {
@@ -280,5 +281,15 @@ public sealed partial class GameTicker
         _taskManager.BlockWaitOnTask(task);
         RoundId = task.GetAwaiter().GetResult();
         _sawmill.Info($"Created round {RoundId} in database");
+    }
+}
+
+public sealed class GamePresetChangedEvent : EntityEventArgs
+{
+    public GamePresetPrototype? Preset { get; }
+
+    public GamePresetChangedEvent(GamePresetPrototype? preset)
+    {
+        Preset = preset;
     }
 }

@@ -1,0 +1,55 @@
+- type: assaultClass
+  id: AssaultRebelRifle
+  name: assault-class-rebel-rifle
+  description: assault-class-rebel-rifle-desc
+  team: Attackers
+  cost: 1
+  startingGear: RebelGear
+
+- type: assaultClass
+  id: AssaultRebelShotgun
+  name: assault-class-rebel-shotgun
+  description: assault-class-rebel-shotgun-desc
+  team: Attackers
+  cost: 2
+  startingGear: RebelGearShotgun
+
+- type: assaultClass
+  id: AssaultRebelAr2
+  name: assault-class-rebel-ar2
+  description: assault-class-rebel-ar2-desc
+  team: Attackers
+  cost: 3
+  startingGear: RebelGearAR
+
+- type: assaultClass
+  id: AssaultCp
+  name: assault-class-cp
+  description: assault-class-cp-desc
+  team: Defenders
+  cost: 1
+  startingGear: CivilProtectionGear
+
+- type: assaultClass
+  id: AssaultCpSmg
+  name: assault-class-cp-smg
+  description: assault-class-cp-smg-desc
+  team: Defenders
+  cost: 2
+  startingGear: CivilProtectionSMGGear
+
+- type: assaultClass
+  id: AssaultOta
+  name: assault-class-ota
+  description: assault-class-ota-desc
+  team: Defenders
+  cost: 3
+  startingGear: OTAGear
+
+- type: assaultClass
+  id: AssaultOtaElite
+  name: assault-class-ota-elite
+  description: assault-class-ota-elite-desc
+  team: Defenders
+  cost: 5
+  startingGear: OTAEliteGear
