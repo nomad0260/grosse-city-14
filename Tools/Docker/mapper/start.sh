@@ -36,6 +36,11 @@ set -- ./Robust.Server \
     --cvar database.engine=sqlite \
     --cvar "chat.motd=${MOTD}" \
     --cvar whitelist.enabled=true \
+    --cvar net.log_late_msg=false \
+    --cvar admin.admins_count_in_playercount=true \
+    --cvar game.role_timers=false \
+    --cvar game.role_loadout_timers=false \
+    --cvar ooc.enable_during_round=true \
     --cvar "admin.api_token=${ADMIN_API_TOKEN}"
 
 if [ -n "${LOGIN_HOST_USER:-}" ]; then

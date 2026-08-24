@@ -22,6 +22,18 @@ public sealed partial class ServerApi
         });
     }
 
+    private void RegisterPublicHandler(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Task> handler)
+    {
+        _statusHost.AddHandler(async context =>
+        {
+            if (context.RequestMethod != method || context.Url.AbsolutePath != exactPath)
+                return false;
+
+            await handler(context);
+            return true;
+        });
+    }
+
     private void RegisterActorHandler(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Actor, Task> handler)
     {
         RegisterHandler(method, exactPath, async context =>

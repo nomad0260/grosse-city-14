@@ -49,6 +49,7 @@
     a.btn {
       display: inline-block;
       margin-top: 1.25rem;
+      margin-right: .6rem;
       padding: .7rem 1rem;
       background: var(--accent);
       color: #062016;
@@ -58,6 +59,15 @@
     }
     .err { color: #f87171; }
     code { font-size: .85em; }
+    ul.players {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+    ul.players.empty {
+      list-style: none;
+      padding-left: 0;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -75,6 +85,16 @@
         <div class="stat"><span>Active</span><span id="ngx-active">…</span></div>
         <div class="stat"><span>Reading / writing / waiting</span><span id="ngx-rww">…</span></div>
         <div class="stat"><span>Accepts / handled / requests</span><span id="ngx-ahr">…</span></div>
+      </section>
+      <section class="card wide">
+        <h2>Игроки</h2>
+        <ul class="players" id="player-list"><li>…</li></ul>
+      </section>
+      <section class="card wide">
+        <h2>Подключение</h2>
+        <p class="sub" style="margin-bottom:.5rem">Добавьте сервер в лаунчер SS14 или откройте ссылку:</p>
+        <div class="stat"><span>Адрес</span><span><code id="ss14-uri">…</code></span></div>
+        <a class="btn" id="ss14-link" href="#">Подключиться</a>
       </section>
       <section class="card wide">
         <h2>Сборка</h2>
@@ -116,6 +136,35 @@
         document.getElementById("game-ok").classList.add("err");
       }
       try {
+        const data = await loadJson("/players");
+        const names = Array.isArray(data.players) ? data.players : [];
+        const list = document.getElementById("player-list");
+        if (list) {
+          list.replaceChildren();
+          list.classList.toggle("empty", names.length === 0);
+          if (names.length === 0) {
+            const li = document.createElement("li");
+            li.textContent = "никого нет";
+            list.appendChild(li);
+          } else {
+            for (const name of names) {
+              const li = document.createElement("li");
+              li.textContent = name;
+              list.appendChild(li);
+            }
+          }
+        }
+      } catch {
+        const list = document.getElementById("player-list");
+        if (list) {
+          list.replaceChildren();
+          list.classList.add("empty");
+          const li = document.createElement("li");
+          li.textContent = "недоступно";
+          list.appendChild(li);
+        }
+      }
+      try {
         const info = await loadJson("/info");
         set("desc", info.desc || "");
         const b = info.build || {};
@@ -150,6 +199,15 @@
         }
       }
     }
+    function connectUri() {
+      const host = location.hostname;
+      const port = location.port || (location.protocol === "https:" ? "443" : "80");
+      return "ss14://" + host + ":" + port + "/";
+    }
+    const uri = connectUri();
+    set("ss14-uri", uri);
+    const link = document.getElementById("ss14-link");
+    if (link) link.href = uri;
     refresh();
     setInterval(refresh, 10000);
   </script>

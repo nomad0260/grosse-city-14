@@ -91,6 +91,7 @@ public sealed partial class ServerApi : IPostInjectInit
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/force_preset", ActionForcePreset);
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/set_motd", ActionForceMotd);
         RegisterHandler(HttpMethod.Post, "/admin/actions/ooc", ActionOoc);
+        RegisterPublicHandler(HttpMethod.Get, "/players", PlayersHandler);
         RegisterActorHandler(HttpMethod.Patch, "/admin/actions/panic_bunker", ActionPanicPunker);
     }
 
@@ -552,6 +553,20 @@ public sealed partial class ServerApi : IPostInjectInit
 
 
     /// <summary>
+    ///     Public list of connected players' OOC names.
+    /// </summary>
+    private async Task PlayersHandler(IStatusHandlerContext context)
+    {
+        var players = await RunOnMainThread(() =>
+            _playerManager.Sessions
+                .Select(session => session.Name)
+                .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+                .ToList());
+
+        await context.RespondJsonAsync(new PlayersResponse { Players = players });
+    }
+
+    /// <summary>
     ///     Handles fetching information.
     /// </summary>
     private async Task InfoHandler(IStatusHandlerContext context, Actor actor)
@@ -826,6 +841,12 @@ public sealed partial class ServerApi : IPostInjectInit
     private sealed class GameruleResponse
     {
         public required List<string> GameRules { get; init; }
+    }
+
+    private sealed class PlayersResponse
+    {
+        [JsonPropertyName("players")]
+        public required List<string> Players { get; init; }
     }
 
     #endregion
