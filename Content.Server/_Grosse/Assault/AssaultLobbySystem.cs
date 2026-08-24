@@ -11,7 +11,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Grosse.Assault;
 
-public sealed class AssaultLobbySystem : EntitySystem
+public sealed partial class AssaultLobbySystem : EntitySystem
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IChatManager _chat = default!;

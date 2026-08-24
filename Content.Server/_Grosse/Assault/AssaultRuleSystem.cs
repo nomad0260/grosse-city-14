@@ -33,7 +33,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Grosse.Assault;
 
-public sealed class AssaultRuleSystem : GameRuleSystem<AssaultRuleComponent>
+public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleComponent>
 {
     [Dependency] private AssaultLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
@@ -47,7 +47,6 @@ public sealed class AssaultRuleSystem : GameRuleSystem<AssaultRuleComponent>
     [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private SharedDoorSystem _doors = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
-    [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private StationSpawningSystem _spawning = default!;
     [Dependency] private StationSystem _station = default!;
 

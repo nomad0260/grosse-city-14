@@ -5,7 +5,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Grosse.Assault;
 
-public sealed class AssaultClientSystem : EntitySystem
+public sealed partial class AssaultClientSystem : EntitySystem
 {
     [Dependency] private IUserInterfaceManager _ui = default!;
 

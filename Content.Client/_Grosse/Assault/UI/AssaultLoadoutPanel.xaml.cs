@@ -30,7 +30,7 @@ public sealed partial class AssaultLoadoutPanel : Control
 
     public void SetVisibleEnabled(bool enabled)
     {
-        Root.Visible = enabled;
+        Contents.Visible = enabled;
         Visible = enabled;
     }
 

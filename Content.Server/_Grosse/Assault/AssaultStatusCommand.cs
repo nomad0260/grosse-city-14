@@ -6,7 +6,7 @@ using Robust.Shared.Console;
 namespace Content.Server._Grosse.Assault;
 
 [AdminCommand(AdminFlags.Admin)]
-public sealed class AssaultStatusCommand : LocalizedEntityCommands
+public sealed partial class AssaultStatusCommand : LocalizedEntityCommands
 {
     [Dependency] private AssaultRuleSystem _assault = default!;
 
