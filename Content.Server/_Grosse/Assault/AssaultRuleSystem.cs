@@ -23,6 +23,7 @@ using Content.Shared.NPC.Systems;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
@@ -46,6 +47,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private OutfitSystem _outfit = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private SharedDoorSystem _doors = default!;
+    [Dependency] private SharedMapSystem _maps = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private StationSpawningSystem _spawning = default!;
     [Dependency] private StationSystem _station = default!;
@@ -554,25 +556,58 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     private void OpenGates(int zone)
     {
-        var query = EntityQueryEnumerator<AssaultGateComponent>();
-        while (query.MoveNext(out var uid, out var gate))
+        var query = EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var gate, out var xform))
         {
             if (gate.Opened || gate.UnlocksForZone != zone)
                 continue;
 
-            if (TryComp<DoorBoltComponent>(uid, out var bolt))
-                _doors.SetBoltsDown((uid, bolt), false);
+            // Mapper may put AssaultGate on the door itself, or as a marker on the same tile.
+            if (HasComp<DoorComponent>(uid))
+            {
+                TryOpenGateDoor(uid);
+            }
+            else if (xform.GridUid is { } grid && TryComp<MapGridComponent>(grid, out var gridComp))
+            {
+                var openedAny = false;
+                var tile = _maps.CoordinatesToTile(grid, gridComp, xform.Coordinates);
+                foreach (var ent in _maps.GetAnchoredEntities(grid, gridComp, tile))
+                {
+                    if (ent == uid || !HasComp<DoorComponent>(ent))
+                        continue;
 
-            _doors.TryOpen(uid);
+                    TryOpenGateDoor(ent);
+                    openedAny = true;
+                }
+
+                if (!openedAny)
+                {
+                    foreach (var ent in _lookup.GetEntitiesInRange(xform.Coordinates, 0.6f, LookupFlags.Static | LookupFlags.Sundries))
+                    {
+                        if (ent != uid && HasComp<DoorComponent>(ent))
+                            TryOpenGateDoor(ent);
+                    }
+                }
+            }
+
             gate.Opened = true;
         }
+    }
+
+    private void TryOpenGateDoor(EntityUid uid)
+    {
+        if (TryComp<DoorBoltComponent>(uid, out var bolt))
+            _doors.SetBoltsDown((uid, bolt), false);
+
+        _doors.TryOpen(uid);
     }
 
     private void UpdateSpawnBlockers(AssaultRuleComponent rule)
     {
         var atkZone = Math.Max(0, rule.CurrentZone - 1);
         var defZone = rule.CurrentZone;
-        var query = EntityQueryEnumerator<AssaultSpawnBlockerComponent, PhysicsComponent>();
+        // Maps are still paused when the rule starts (before MapInit).
+        var query = AllEntityQuery<AssaultSpawnBlockerComponent, PhysicsComponent>();
         while (query.MoveNext(out var uid, out var blocker, out var physics))
         {
             var active = blocker.Team == AssaultTeam.Attackers
@@ -768,7 +803,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     private int GetMaxZone()
     {
         var max = -1;
-        var query = EntityQueryEnumerator<AssaultCapturePointComponent>();
+        var query = AllEntityQuery<AssaultCapturePointComponent>();
         while (query.MoveNext(out _, out var point))
         {
             max = Math.Max(max, point.ZoneIndex);
@@ -779,14 +814,14 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     private void ResetCapturePoints()
     {
-        var query = EntityQueryEnumerator<AssaultCapturePointComponent>();
+        var query = AllEntityQuery<AssaultCapturePointComponent>();
         while (query.MoveNext(out _, out var point))
         {
             point.Progress = 0f;
             point.Captured = false;
         }
 
-        var gates = EntityQueryEnumerator<AssaultGateComponent>();
+        var gates = AllEntityQuery<AssaultGateComponent>();
         while (gates.MoveNext(out _, out var gate))
         {
             gate.Opened = false;

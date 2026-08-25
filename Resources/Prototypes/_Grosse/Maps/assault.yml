@@ -1,0 +1,22 @@
+- type: entity
+  id: StandardAssaultArena
+  parent:
+  - BaseStation
+  - BaseStationJobsSpawning
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+
+- type: gameMap
+  id: AssaultTestMisterNobody1
+  mapName: 'Assault Test (MisterNobody1)'
+  mapPath: /Maps/_Grosse/Assault/assault_test_MisterNobody1.yml
+  minPlayers: 0
+  maxRandomOffset: 0
+  randomRotation: false
+  stations:
+    AssaultTest:
+      stationProto: StandardAssaultArena
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'Assault Test'

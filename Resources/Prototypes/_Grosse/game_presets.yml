@@ -13,6 +13,7 @@
   name: assault-preset-title
   showInVote: true
   description: assault-preset-description
+  supportedMaps: AssaultMapPool
   rules:
   - City14AssaultRule
 

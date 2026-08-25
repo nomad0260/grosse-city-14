@@ -1,0 +1,4 @@
+- type: gameMapPool
+  id: AssaultMapPool
+  maps:
+  - AssaultTestMisterNobody1
