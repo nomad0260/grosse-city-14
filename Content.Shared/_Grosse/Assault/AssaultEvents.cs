@@ -73,3 +73,6 @@ public sealed class AssaultHudUpdateEvent : EntityEventArgs
     public float WaveThreshold;
     public float CaptureProgress;
 }
+
+[ByRefEvent]
+public readonly record struct AssaultZoneCapturedEvent(int ZoneIndex);

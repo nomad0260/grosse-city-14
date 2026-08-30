@@ -26,6 +26,9 @@ public enum CollisionGroup
     DoorPassable       = 1 << 8, // 256 Allows door to close over top, Like blast doors over conveyors for disposals rooms/cargo.
     // Present on a handful of City14 fixtures saved from an older fork. Name must exist for FlagSerializer.
     BlobImpassable     = 1 << 9, // 512
+    // Assault spawn blockers: enemy team has this in MobMask, friendlies strip their own layer.
+    AssaultAttackersImpassable = 1 << 10, // 1024 Blocks assault attackers from defender-owned volumes
+    AssaultDefendersImpassable = 1 << 11, // 2048 Blocks assault defenders from attacker-owned volumes
 
     MapGrid = MapGridHelpers.CollisionGroup, // Map grids, like shuttles. This is the actual grid itself, not the walls or other entities connected to the grid.
 
@@ -36,7 +39,7 @@ public enum CollisionGroup
     SingularityLayer = Opaque | Impassable | MidImpassable | HighImpassable | LowImpassable | BulletImpassable | InteractImpassable | DoorPassable,
 
     // Humanoids, etc.
-    MobMask = Impassable | HighImpassable | MidImpassable | LowImpassable,
+    MobMask = Impassable | HighImpassable | MidImpassable | LowImpassable | AssaultAttackersImpassable | AssaultDefendersImpassable,
     MobLayer = Opaque | BulletImpassable,
     // Mice, drones
     SmallMobMask = Impassable | LowImpassable,
@@ -46,7 +49,7 @@ public enum CollisionGroup
     FlyingMobLayer = Opaque | BulletImpassable,
 
     // Mechs
-    LargeMobMask = Impassable | HighImpassable | MidImpassable | LowImpassable,
+    LargeMobMask = Impassable | HighImpassable | MidImpassable | LowImpassable | AssaultAttackersImpassable | AssaultDefendersImpassable,
     LargeMobLayer = Opaque | HighImpassable | MidImpassable | LowImpassable | BulletImpassable,
 
     // Machines, computers

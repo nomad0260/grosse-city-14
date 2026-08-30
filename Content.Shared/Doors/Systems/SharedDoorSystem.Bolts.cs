@@ -80,6 +80,22 @@ public abstract partial class SharedDoorSystem
         TrySetBoltDown(ent, value, user, predicted);
     }
 
+    /// <summary>
+    /// Sets bolt state without requiring power. Used by map-scripted gates after MapInit.
+    /// </summary>
+    public void ForceSetBoltsDown(Entity<DoorBoltComponent> ent, bool value)
+    {
+        if (ent.Comp.BoltsDown == value)
+            return;
+
+        ent.Comp.BoltsDown = value;
+        Dirty(ent, ent.Comp);
+        UpdateBoltLightStatus(ent);
+
+        var ev = new DoorBoltsChangedEvent(value);
+        RaiseLocalEvent(ent.Owner, ev);
+    }
+
     public bool TrySetBoltDown(
         Entity<DoorBoltComponent> ent,
         bool value,

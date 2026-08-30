@@ -65,3 +65,7 @@ cmd-assaultstatus-help = Использование: assaultstatus
 assault-cmd-inactive = Режим Штурм сейчас не активен.
 assault-cmd-status = Фаза: { $phase }; зона { $zone }/{ $total }; очки А { $atk } З { $def }; игроков { $players }
 assault-cmd-queue = В очереди волны: { $queued }
+
+assault-capture-examined = Зона { $zone }: захват { $percent }%
+assault-capture-examined-captured = Зона { $zone } захвачена
+assault-gate-tools-blocked = Этот затвор заблокирован на время штурма.

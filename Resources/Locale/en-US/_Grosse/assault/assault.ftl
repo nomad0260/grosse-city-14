@@ -65,3 +65,7 @@ cmd-assaultstatus-help = Usage: assaultstatus
 assault-cmd-inactive = Assault mode is not active.
 assault-cmd-status = Phase: { $phase }; zone { $zone }/{ $total }; tickets A { $atk } D { $def }; players { $players }
 assault-cmd-queue = Wave queue: { $queued }
+
+assault-capture-examined = Zone { $zone }: { $percent }% captured
+assault-capture-examined-captured = Zone { $zone } captured
+assault-gate-tools-blocked = This gate is locked for the assault.

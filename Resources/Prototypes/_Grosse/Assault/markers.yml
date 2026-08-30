@@ -11,6 +11,24 @@
   - type: Sprite
     state: red
 
+# In-round overlay spawned from the marker on MapInit. Not a marker: MarkerSystem would hide it.
+- type: entity
+  id: AssaultCapturePointVisual
+  name: assault capture zone
+  categories: [ HideSpawnMenu ]
+  save: false
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - texture: Interface/NavMap/beveled_circle.png
+      map: [ "enum.AssaultCaptureVisualLayers.Zone" ]
+      color: "#88888866"
+      shader: unshaded
+
 - type: entity
   parent: MarkerBase
   id: AssaultSpawnPointAttackers
@@ -77,5 +95,5 @@
           !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 1000
-        layer:
-        - MidImpassable
+        hard: true
+        # Collision layer is set at runtime from team + current zone (AssaultAttackers/DefendersImpassable).

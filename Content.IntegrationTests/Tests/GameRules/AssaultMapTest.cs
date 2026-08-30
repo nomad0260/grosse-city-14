@@ -10,13 +10,17 @@ using Content.Server.Maps;
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Assault.Components;
 using Content.Shared.CCVar;
+using Content.Shared.Damage.Components;
 using Content.Shared.Doors.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Maps;
+using Content.Shared.Physics;
+using Content.Shared.Tools.Components;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -165,6 +169,10 @@ public sealed class AssaultMapTest : GameTest
                 Assert.That(door!.Value.Door.State,
                     Is.AnyOf(DoorState.Opening, DoorState.Open),
                     $"Door {entMan.ToPrettyString(door.Value.Uid)} for zone 1 is {door.Value.Door.State}");
+                Assert.That(entMan.HasComponent<GodmodeComponent>(door.Value.Uid),
+                    $"Opened gate door {entMan.ToPrettyString(door.Value.Uid)} lost Godmode");
+                Assert.That(entMan.TryGetComponent(door.Value.Uid, out AssaultGateSealComponent? seal) && seal.Unlocked,
+                    $"Opened gate door {entMan.ToPrettyString(door.Value.Uid)} should stay sealed but unlocked");
                 opened++;
             }
 
@@ -174,12 +182,13 @@ public sealed class AssaultMapTest : GameTest
 
     private static void AssertAssaultLayout(IEntityManager entMan, string context)
     {
+        AssertCapturePointsPresent(entMan, context);
+
         var captures = new Dictionary<int, int>();
         var capQuery = entMan.EntityQueryEnumerator<AssaultCapturePointComponent>();
         while (capQuery.MoveNext(out _, out var point))
             captures[point.ZoneIndex] = captures.GetValueOrDefault(point.ZoneIndex) + 1;
 
-        Assert.That(captures, Is.Not.Empty, $"{context}: no AssaultCapturePoint markers");
         var maxZone = captures.Keys.Max();
         Assert.That(maxZone, Is.GreaterThanOrEqualTo(0));
         for (var zone = 0; zone <= maxZone; zone++)
@@ -226,6 +235,61 @@ public sealed class AssaultMapTest : GameTest
 
         if (maxZone >= 1)
             Assert.That(zone1Gates, Is.GreaterThan(0), $"{context}: two-zone maps need a gate that unlocks zone 1");
+
+        AssertGatesSealed(entMan, context);
+    }
+
+    private static void AssertCapturePointsPresent(IEntityManager entMan, string context)
+    {
+        var found = 0;
+        var query = entMan.EntityQueryEnumerator<AssaultCapturePointComponent, MetaDataComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var point, out var meta, out _))
+        {
+            found++;
+            Assert.That(meta.EntityPrototype?.ID, Is.EqualTo("AssaultCapturePoint"),
+                $"{context}: capture entity {entMan.ToPrettyString(uid)} zone {point.ZoneIndex} is not prototype AssaultCapturePoint");
+            Assert.That(point.Visual, Is.Not.Null,
+                $"{context}: {entMan.ToPrettyString(uid)} did not spawn a capture visual from the marker");
+            Assert.That(entMan.EntityExists(point.Visual!.Value),
+                $"{context}: capture visual for {entMan.ToPrettyString(uid)} is missing");
+            Assert.That(entMan.GetComponent<MetaDataComponent>(point.Visual.Value).EntityPrototype?.ID,
+                Is.EqualTo(AssaultConstants.CaptureVisualPrototypeId),
+                $"{context}: overlay for {entMan.ToPrettyString(uid)} is not {AssaultConstants.CaptureVisualPrototypeId}");
+            Assert.That(entMan.HasComponent<PhysicsComponent>(uid),
+                $"{context}: {entMan.ToPrettyString(uid)} is missing Physics (capture zone fixture)");
+            Assert.That(entMan.TryGetComponent(uid, out FixturesComponent? fixtures)
+                        && fixtures.Fixtures.ContainsKey(AssaultConstants.CaptureFixtureId),
+                $"{context}: {entMan.ToPrettyString(uid)} has no {AssaultConstants.CaptureFixtureId} fixture after MapInit");
+        }
+
+        Assert.That(found, Is.GreaterThan(0), $"{context}: map has no AssaultCapturePoint entities");
+    }
+
+    private static void AssertGatesSealed(IEntityManager entMan, string context)
+    {
+        var doors = new List<(EntityUid Uid, TransformComponent Xform, DoorComponent Door)>();
+        var doorQuery = entMan.EntityQueryEnumerator<DoorComponent, TransformComponent>();
+        while (doorQuery.MoveNext(out var uid, out var door, out var xform))
+            doors.Add((uid, xform, door));
+
+        var gateQuery = entMan.EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
+        while (gateQuery.MoveNext(out var uid, out _, out var xform))
+        {
+            var door = FindGateDoor(entMan, uid, xform, doors);
+            Assert.That(door, Is.Not.Null, $"{context}: gate {entMan.ToPrettyString(uid)} has no door to seal");
+            var doorUid = door!.Value.Uid;
+            Assert.That(entMan.HasComponent<GodmodeComponent>(doorUid),
+                $"{context}: door {entMan.ToPrettyString(doorUid)} is not Godmode after MapInit");
+            Assert.That(entMan.TryGetComponent(doorUid, out AssaultGateSealComponent? seal) && !seal.Unlocked,
+                $"{context}: door {entMan.ToPrettyString(doorUid)} was not sealed after MapInit");
+            Assert.That(entMan.TryGetComponent(doorUid, out DoorBoltComponent? bolt) && bolt.BoltsDown,
+                $"{context}: door {entMan.ToPrettyString(doorUid)} is not bolted after MapInit");
+
+            var toolEv = new ToolUseAttemptEvent(doorUid, 0f);
+            entMan.EventBus.RaiseLocalEvent(doorUid, toolEv);
+            Assert.That(toolEv.Cancelled, Is.True,
+                $"{context}: tools still work on sealed door {entMan.ToPrettyString(doorUid)}");
+        }
     }
 
     private static void AssertNearTeamSpawn(
@@ -255,14 +319,21 @@ public sealed class AssaultMapTest : GameTest
     private static void AssertBlockersMatchCurrentSpawns(IEntityManager entMan, int currentZone)
     {
         var atkZone = Math.Max(0, currentZone - 1);
-        var query = entMan.EntityQueryEnumerator<AssaultSpawnBlockerComponent, PhysicsComponent>();
-        while (query.MoveNext(out var uid, out var blocker, out var physics))
+        var query = entMan.EntityQueryEnumerator<AssaultSpawnBlockerComponent, PhysicsComponent, FixturesComponent>();
+        while (query.MoveNext(out var uid, out var blocker, out var physics, out var fixtures))
         {
-            var expected = blocker.Team == AssaultTeam.Attackers
+            Assert.That(physics.CanCollide, Is.True,
+                $"{entMan.ToPrettyString(uid)} blocker must keep CanCollide; toggle the collision layer instead");
+
+            Assert.That(fixtures.Fixtures.TryGetValue(AssaultConstants.BlockerFixtureId, out var fixture),
+                $"{entMan.ToPrettyString(uid)} missing {AssaultConstants.BlockerFixtureId} fixture");
+
+            var expectedActive = blocker.Team == AssaultTeam.Attackers
                 ? blocker.ZoneIndex == atkZone
                 : blocker.ZoneIndex == currentZone;
-            Assert.That(physics.CanCollide, Is.EqualTo(expected),
-                $"{entMan.ToPrettyString(uid)} blocker team={blocker.Team} zone={blocker.ZoneIndex} collide={physics.CanCollide}, expected {expected}");
+            var expectedLayer = expectedActive ? (int) AssaultConstants.GetBlockerLayer(blocker.Team) : 0;
+            Assert.That(fixture!.CollisionLayer, Is.EqualTo(expectedLayer),
+                $"{entMan.ToPrettyString(uid)} blocker team={blocker.Team} zone={blocker.ZoneIndex} layer={fixture.CollisionLayer}, expected {expectedLayer}");
         }
     }
 

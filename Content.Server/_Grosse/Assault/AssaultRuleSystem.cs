@@ -12,20 +12,18 @@ using Content.Server._Grosse.Assault.UI;
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Assault.Components;
 using Content.Shared._Grosse.Assault.UI;
-using Content.Shared.Doors.Components;
-using Content.Shared.Doors.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mind;
 using Content.Shared.NPC.Systems;
+using Content.Shared.Physics;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
-using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -38,7 +36,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 {
     [Dependency] private AssaultLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
-    [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -46,8 +43,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private NpcFactionSystem _factions = default!;
     [Dependency] private OutfitSystem _outfit = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
-    [Dependency] private SharedDoorSystem _doors = default!;
-    [Dependency] private SharedMapSystem _maps = default!;
+    [Dependency] private SharedAssaultGateSystem _gates = default!;
+    [Dependency] private SharedAssaultSpawnBlockerSystem _blockers = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private StationSpawningSystem _spawning = default!;
     [Dependency] private StationSystem _station = default!;
@@ -60,6 +57,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         SubscribeLocalEvent<RulePlayerSpawningEvent>(OnPlayerSpawning);
         SubscribeLocalEvent<AssaultPlayerComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<AssaultCapturePointComponent, AssaultZoneCapturedEvent>(OnZoneCapturedEvent);
         SubscribeNetworkEvent<AssaultLateJoinRequestEvent>(OnLateJoin);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
     }
@@ -86,7 +84,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         component.Players.Clear();
 
         ResetCapturePoints();
-        UpdateSpawnBlockers(component);
+        _blockers.UpdateForZone(component.CurrentZone);
         Announce("assault-announce-prep", ("time", (int) component.PrepTime.TotalSeconds));
         BroadcastHud(component);
     }
@@ -141,12 +139,9 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 Announce("assault-announce-attack");
                 break;
             case AssaultPhase.Intermission when now >= component.IntermissionEndsAt:
-                OpenGates(component.CurrentZone);
+                _gates.UnlockForZone(component.CurrentZone);
                 component.Phase = AssaultPhase.Attack;
                 Announce("assault-announce-gates", ("zone", component.CurrentZone + 1));
-                break;
-            case AssaultPhase.Attack:
-                UpdateCapture(component);
                 break;
         }
 
@@ -437,6 +432,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 ? AssaultConstants.AttackersFaction
                 : AssaultConstants.DefendersFaction);
 
+        ApplyTeamCollisionMask(mob, slot.Team);
+
         var playerComp = EnsureComp<AssaultPlayerComponent>(mob);
         playerComp.Team = slot.Team;
         playerComp.Class = proto.ID;
@@ -486,48 +483,27 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return true;
     }
 
-    private void UpdateCapture(AssaultRuleComponent rule)
+    private void ApplyTeamCollisionMask(EntityUid mob, AssaultTeam team)
     {
-        var query = EntityQueryEnumerator<AssaultCapturePointComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var point, out var xform))
-        {
-            if (point.Captured || point.ZoneIndex != rule.CurrentZone)
-                continue;
-
-            var (attackers, defenders) = CountInRange(xform, point.Radius);
-            if (attackers > 0 && defenders == 0)
-                point.Progress = Math.Min(1f, point.Progress + (1f / Math.Max(0.1f, point.CaptureTime)) * (float) Timing.TickPeriod.TotalSeconds);
-            else if (attackers == 0)
-                point.Progress = Math.Max(0f, point.Progress - (1f / Math.Max(0.1f, point.CaptureTime)) * (float) Timing.TickPeriod.TotalSeconds);
-
-            if (point.Progress < 1f)
-                continue;
-
-            point.Captured = true;
-            OnZoneCaptured(rule);
+        if (!TryComp<FixturesComponent>(mob, out var fixtures))
             return;
+
+        var remove = (int) (team == AssaultTeam.Attackers
+            ? CollisionGroup.AssaultAttackersImpassable
+            : CollisionGroup.AssaultDefendersImpassable);
+
+        foreach (var (id, fixture) in fixtures.Fixtures)
+        {
+            _physics.SetCollisionMask(mob, id, fixture, fixture.CollisionMask & ~remove, fixtures);
         }
     }
 
-    private (int Attackers, int Defenders) CountInRange(TransformComponent xform, float radius)
+    private void OnZoneCapturedEvent(Entity<AssaultCapturePointComponent> ent, ref AssaultZoneCapturedEvent args)
     {
-        var atk = 0;
-        var def = 0;
-        foreach (var other in _lookup.GetEntitiesInRange(xform.Coordinates, radius, LookupFlags.Dynamic))
-        {
-            if (!TryComp<AssaultPlayerComponent>(other, out var player))
-                continue;
+        if (!TryGetActiveRule(out var rule) || args.ZoneIndex != rule.CurrentZone)
+            return;
 
-            if (!TryComp<MobStateComponent>(other, out var mob) || mob.CurrentState != MobState.Alive)
-                continue;
-
-            if (player.Team == AssaultTeam.Attackers)
-                atk++;
-            else
-                def++;
-        }
-
-        return (atk, def);
+        OnZoneCaptured(rule);
     }
 
     private void OnZoneCaptured(AssaultRuleComponent rule)
@@ -544,7 +520,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         rule.CurrentZone++;
         rule.Phase = AssaultPhase.Intermission;
         rule.IntermissionEndsAt = Timing.CurTime + rule.GateOpenDelay;
-        UpdateSpawnBlockers(rule);
+        _blockers.UpdateForZone(rule.CurrentZone);
         Announce("assault-announce-captured",
             ("zone", rule.CurrentZone),
             ("next", rule.CurrentZone + 1),
@@ -552,69 +528,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             ("atk", rule.AttackersCaptureReward),
             ("def", rule.DefendersCaptureReward));
         BroadcastHud(rule);
-    }
-
-    private void OpenGates(int zone)
-    {
-        var query = EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var gate, out var xform))
-        {
-            if (gate.Opened || gate.UnlocksForZone != zone)
-                continue;
-
-            // Mapper may put AssaultGate on the door itself, or as a marker on the same tile.
-            if (HasComp<DoorComponent>(uid))
-            {
-                TryOpenGateDoor(uid);
-            }
-            else if (xform.GridUid is { } grid && TryComp<MapGridComponent>(grid, out var gridComp))
-            {
-                var openedAny = false;
-                var tile = _maps.CoordinatesToTile(grid, gridComp, xform.Coordinates);
-                foreach (var ent in _maps.GetAnchoredEntities(grid, gridComp, tile))
-                {
-                    if (ent == uid || !HasComp<DoorComponent>(ent))
-                        continue;
-
-                    TryOpenGateDoor(ent);
-                    openedAny = true;
-                }
-
-                if (!openedAny)
-                {
-                    foreach (var ent in _lookup.GetEntitiesInRange(xform.Coordinates, 0.6f, LookupFlags.Static | LookupFlags.Sundries))
-                    {
-                        if (ent != uid && HasComp<DoorComponent>(ent))
-                            TryOpenGateDoor(ent);
-                    }
-                }
-            }
-
-            gate.Opened = true;
-        }
-    }
-
-    private void TryOpenGateDoor(EntityUid uid)
-    {
-        if (TryComp<DoorBoltComponent>(uid, out var bolt))
-            _doors.SetBoltsDown((uid, bolt), false);
-
-        _doors.TryOpen(uid);
-    }
-
-    private void UpdateSpawnBlockers(AssaultRuleComponent rule)
-    {
-        var atkZone = Math.Max(0, rule.CurrentZone - 1);
-        var defZone = rule.CurrentZone;
-        // Maps are still paused when the rule starts (before MapInit).
-        var query = AllEntityQuery<AssaultSpawnBlockerComponent, PhysicsComponent>();
-        while (query.MoveNext(out var uid, out var blocker, out var physics))
-        {
-            var active = blocker.Team == AssaultTeam.Attackers
-                ? blocker.ZoneIndex == atkZone
-                : blocker.ZoneIndex == defZone;
-            _physics.SetCanCollide(uid, active, body: physics);
-        }
     }
 
     private void TryEndIfAttackersDepleted(AssaultRuleComponent rule)
@@ -815,10 +728,13 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     private void ResetCapturePoints()
     {
         var query = AllEntityQuery<AssaultCapturePointComponent>();
-        while (query.MoveNext(out _, out var point))
+        while (query.MoveNext(out var uid, out var point))
         {
             point.Progress = 0f;
             point.Captured = false;
+            point.VisualState = AssaultCaptureState.Idle;
+            point.Occupants.Clear();
+            Dirty(uid, point);
         }
 
         var gates = AllEntityQuery<AssaultGateComponent>();
