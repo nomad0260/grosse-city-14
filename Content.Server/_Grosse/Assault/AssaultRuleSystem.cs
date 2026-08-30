@@ -135,6 +135,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         switch (component.Phase)
         {
             case AssaultPhase.Prep when now >= component.PrepEndsAt:
+                _gates.UnlockForZone(0);
                 component.Phase = AssaultPhase.Attack;
                 Announce("assault-announce-attack");
                 break;

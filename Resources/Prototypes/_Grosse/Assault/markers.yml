@@ -66,6 +66,18 @@
     state: red
 
 - type: entity
+  parent: AssaultGate
+  id: AssaultGatePrep
+  name: assault gate (prep)
+  suffix: Штурм, Подготовка
+  components:
+  - type: AssaultGate
+    unlocksForZone: 0
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+
+- type: entity
   id: AssaultSpawnBlocker
   name: assault spawn blocker
   suffix: Штурм

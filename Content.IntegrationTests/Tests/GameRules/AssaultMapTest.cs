@@ -124,7 +124,7 @@ public sealed class AssaultMapTest : GameTest
             rule = started;
             Assert.That(started.Phase, Is.EqualTo(AssaultPhase.Prep));
             Assert.That(started.CurrentZone, Is.EqualTo(0));
-            Assert.That(started.TotalZones, Is.EqualTo(2), "MisterNobody1 test map is two sequential zones");
+            Assert.That(started.TotalZones, Is.EqualTo(3), "MisterNobody1 test map is three sequential zones");
 
             Assert.That(entMan.TryGetComponent(player, out AssaultPlayerComponent? playerComp));
             Assert.That(entMan.TryGetComponent(dummyEnt.Value, out AssaultPlayerComponent? dummyComp));
@@ -134,10 +134,30 @@ public sealed class AssaultMapTest : GameTest
             AssertNearTeamSpawn(entMan, xformSys, dummyEnt.Value, dummyComp.Team, 0);
             AssertBlockersMatchCurrentSpawns(entMan, 0);
 
-            // Advance to the intermission that opens zone-1 gates.
-            started.CurrentZone = 1;
-            started.Phase = AssaultPhase.Intermission;
-            started.IntermissionEndsAt = timing.CurTime;
+            var prepCoords = entMan.GetComponent<TransformComponent>(player).Coordinates;
+            var prepDoor = entMan.SpawnEntity("ShuttersNormal", prepCoords);
+            var prepGate = entMan.AddComponent<AssaultGateComponent>(prepDoor);
+            prepGate.UnlocksForZone = 0;
+            server.System<SharedAssaultGateSystem>().SealDoor(prepDoor);
+            Assert.That(prepGate.Opened, Is.False);
+            Assert.That(entMan.TryGetComponent(prepDoor, out AssaultGateSealComponent? prepSeal) && !prepSeal.Unlocked,
+                "Prep spawn gate must stay sealed during prep");
+
+            started.PrepEndsAt = timing.CurTime;
+        });
+
+        await pair.RunTicksSync(20);
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(rule, Is.Not.Null);
+            Assert.That(rule!.Phase, Is.EqualTo(AssaultPhase.Attack));
+            Assert.That(rule.CurrentZone, Is.EqualTo(0));
+            AssertGatesUnlocked(entMan, 0, "prep spawn lock");
+
+            rule.CurrentZone = 1;
+            rule.Phase = AssaultPhase.Intermission;
+            rule.IntermissionEndsAt = timing.CurTime;
         });
 
         await pair.RunTicksSync(20);
@@ -147,36 +167,7 @@ public sealed class AssaultMapTest : GameTest
             Assert.That(rule, Is.Not.Null);
             Assert.That(rule!.Phase, Is.EqualTo(AssaultPhase.Attack));
             Assert.That(rule.CurrentZone, Is.EqualTo(1));
-
-            var opened = 0;
-            var doors = new List<(EntityUid Uid, TransformComponent Xform, DoorComponent Door)>();
-            var doorQuery = entMan.EntityQueryEnumerator<DoorComponent, TransformComponent>();
-            while (doorQuery.MoveNext(out var uid, out var door, out var xform))
-            {
-                doors.Add((uid, xform, door));
-            }
-
-            var gateQuery = entMan.EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
-            while (gateQuery.MoveNext(out var gateUid, out var gate, out var gateXform))
-            {
-                if (gate.UnlocksForZone != 1)
-                    continue;
-
-                Assert.That(gate.Opened, Is.True, $"Gate {entMan.ToPrettyString(gateUid)} for zone 1 did not open");
-
-                var door = FindGateDoor(entMan, gateUid, gateXform, doors);
-                Assert.That(door, Is.Not.Null, $"No door found for opened gate {entMan.ToPrettyString(gateUid)}");
-                Assert.That(door!.Value.Door.State,
-                    Is.AnyOf(DoorState.Opening, DoorState.Open),
-                    $"Door {entMan.ToPrettyString(door.Value.Uid)} for zone 1 is {door.Value.Door.State}");
-                Assert.That(entMan.HasComponent<GodmodeComponent>(door.Value.Uid),
-                    $"Opened gate door {entMan.ToPrettyString(door.Value.Uid)} lost Godmode");
-                Assert.That(entMan.TryGetComponent(door.Value.Uid, out AssaultGateSealComponent? seal) && seal.Unlocked,
-                    $"Opened gate door {entMan.ToPrettyString(door.Value.Uid)} should stay sealed but unlocked");
-                opened++;
-            }
-
-            Assert.That(opened, Is.GreaterThan(0), "No zone-1 gates opened");
+            AssertGatesUnlocked(entMan, 1, "zone 1");
         });
     }
 
@@ -223,8 +214,8 @@ public sealed class AssaultMapTest : GameTest
         var gateQuery = entMan.EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
         while (gateQuery.MoveNext(out var uid, out var gate, out var xform))
         {
-            Assert.That(gate.UnlocksForZone, Is.GreaterThan(0),
-                $"{context}: {entMan.ToPrettyString(uid)} unlocks zone 0, which must stay open at round start");
+            Assert.That(gate.UnlocksForZone, Is.GreaterThanOrEqualTo(0),
+                $"{context}: {entMan.ToPrettyString(uid)} has invalid unlocksForZone {gate.UnlocksForZone}");
             Assert.That(gate.UnlocksForZone, Is.LessThanOrEqualTo(maxZone),
                 $"{context}: {entMan.ToPrettyString(uid)} unlocks zone {gate.UnlocksForZone} but max zone is {maxZone}");
             Assert.That(FindGateDoor(entMan, uid, xform, doors), Is.Not.Null,
@@ -237,6 +228,37 @@ public sealed class AssaultMapTest : GameTest
             Assert.That(zone1Gates, Is.GreaterThan(0), $"{context}: two-zone maps need a gate that unlocks zone 1");
 
         AssertGatesSealed(entMan, context);
+    }
+
+    private static void AssertGatesUnlocked(IEntityManager entMan, int zone, string context)
+    {
+        var opened = 0;
+        var doors = new List<(EntityUid Uid, TransformComponent Xform, DoorComponent Door)>();
+        var doorQuery = entMan.EntityQueryEnumerator<DoorComponent, TransformComponent>();
+        while (doorQuery.MoveNext(out var uid, out var door, out var xform))
+            doors.Add((uid, xform, door));
+
+        var gateQuery = entMan.EntityQueryEnumerator<AssaultGateComponent, TransformComponent>();
+        while (gateQuery.MoveNext(out var gateUid, out var gate, out var gateXform))
+        {
+            if (gate.UnlocksForZone != zone)
+                continue;
+
+            Assert.That(gate.Opened, Is.True, $"{context}: gate {entMan.ToPrettyString(gateUid)} for zone {zone} did not open");
+
+            var door = FindGateDoor(entMan, gateUid, gateXform, doors);
+            Assert.That(door, Is.Not.Null, $"{context}: no door found for opened gate {entMan.ToPrettyString(gateUid)}");
+            Assert.That(door!.Value.Door.State,
+                Is.AnyOf(DoorState.Opening, DoorState.Open),
+                $"{context}: door {entMan.ToPrettyString(door.Value.Uid)} for zone {zone} is {door.Value.Door.State}");
+            Assert.That(entMan.HasComponent<GodmodeComponent>(door.Value.Uid),
+                $"{context}: opened gate door {entMan.ToPrettyString(door.Value.Uid)} lost Godmode");
+            Assert.That(entMan.TryGetComponent(door.Value.Uid, out AssaultGateSealComponent? seal) && seal.Unlocked,
+                $"{context}: opened gate door {entMan.ToPrettyString(door.Value.Uid)} should stay sealed but unlocked");
+            opened++;
+        }
+
+        Assert.That(opened, Is.GreaterThan(0), $"{context}: no zone-{zone} gates opened");
     }
 
     private static void AssertCapturePointsPresent(IEntityManager entMan, string context)
