@@ -115,10 +115,12 @@ public sealed class AssaultMapTest : GameTest
 
             var query = entMan.EntityQueryEnumerator<AssaultRuleComponent>();
             Assert.That(query.MoveNext(out _, out var foundRule), "City14Assault rule did not start");
-            rule = foundRule;
-            Assert.That(rule.Phase, Is.EqualTo(AssaultPhase.Prep));
-            Assert.That(rule.CurrentZone, Is.EqualTo(0));
-            Assert.That(rule.TotalZones, Is.EqualTo(2), "MisterNobody1 test map is two sequential zones");
+            Assert.That(foundRule, Is.Not.Null);
+            var started = foundRule!;
+            rule = started;
+            Assert.That(started.Phase, Is.EqualTo(AssaultPhase.Prep));
+            Assert.That(started.CurrentZone, Is.EqualTo(0));
+            Assert.That(started.TotalZones, Is.EqualTo(2), "MisterNobody1 test map is two sequential zones");
 
             Assert.That(entMan.TryGetComponent(player, out AssaultPlayerComponent? playerComp));
             Assert.That(entMan.TryGetComponent(dummyEnt.Value, out AssaultPlayerComponent? dummyComp));
@@ -129,9 +131,9 @@ public sealed class AssaultMapTest : GameTest
             AssertBlockersMatchCurrentSpawns(entMan, 0);
 
             // Advance to the intermission that opens zone-1 gates.
-            rule.CurrentZone = 1;
-            rule.Phase = AssaultPhase.Intermission;
-            rule.IntermissionEndsAt = timing.CurTime;
+            started.CurrentZone = 1;
+            started.Phase = AssaultPhase.Intermission;
+            started.IntermissionEndsAt = timing.CurTime;
         });
 
         await pair.RunTicksSync(20);
