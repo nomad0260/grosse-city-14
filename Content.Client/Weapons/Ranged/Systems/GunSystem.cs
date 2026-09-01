@@ -7,6 +7,7 @@ using Content.Client.Weapons.Ranged.Components;
 using Content.Shared.Camera;
 using Content.Shared.CCVar;
 using Content.Shared.CombatMode;
+using Content.Shared.Cover;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Physics;
@@ -444,6 +445,31 @@ public sealed partial class GunSystem : SharedGunSystem
         // Do drawdepth & y-sorting. First index is the top-most sprite (opposite of normal render order).
         foundEntities.Sort(_comparer);
         var (target, alive, occluded, _, _, _, _) = foundEntities.FirstOrDefault();
+
+        EntityUid? occludedCover = null;
+        var coverInQuery = false;
+        foreach (var entry in foundEntities)
+        {
+            if (!HasComp<CoverComponent>(entry.Item1))
+                continue;
+
+            coverInQuery = true;
+            if (entry.Item3)
+                occludedCover ??= entry.Item1;
+        }
+
+        // Cover in the cursor box: only pick a living target if the cursor is actually on their sprite
+        // (snipers can still click people behind cover). Otherwise hit the cover, not a nearby mob.
+        if (coverInQuery)
+        {
+            if (alive && occluded)
+                return GetNetEntity(target);
+
+            if (occludedCover != null)
+                return GetNetEntity(occludedCover.Value);
+
+            return null;
+        }
 
         // Prevents us from just selecting a random target nearby our cursor. It must either be alive, or our cursor must be on top of it!
         if (!occluded && !alive)
