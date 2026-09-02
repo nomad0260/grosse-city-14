@@ -31,6 +31,3 @@ changecvar-simple-playtest_stamina_damage_modifier = Multiplier affecting stamin
 changecvar-full-playtest_stamina_damage_modifier = Multiplier affecting all stamina damage dealt.
 changecvar-simple-playtest_mob_damage_modifier = Multiplier affecting all damage dealt to mobs.
 changecvar-full-playtest_mob_damage_modifier = Multiplier affecting all damage dealt to entities with MobStateComponent.
-
-changecvar-simple-assault_max_per_class = Лимит игроков на класс в Штурме.
-changecvar-full-assault_max_per_class = Максимум игроков с одним классом в режиме Штурм одновременно. 0 отключает лимит. 1 — каждый класс может занять только один игрок.

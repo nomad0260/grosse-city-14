@@ -1,11 +1,9 @@
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Shared._Grosse.Assault;
-using Content.Shared._Grosse.CCVars;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Robust.Server.Player;
-using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -17,7 +15,6 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IChatManager _chat = default!;
-    [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IPrototypeManager _proto = default!;
 
@@ -36,7 +33,6 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         SubscribeLocalEvent<ToggleReadyAttemptEvent>(OnReadyAttempt);
         SubscribeNetworkEvent<AssaultSelectLoadoutEvent>(OnSelectLoadout);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
-        Subs.CVar(_cfg, GCCVars.AssaultMaxPerClass, _ => BroadcastAll());
 
         RefreshEnabled();
     }
@@ -80,18 +76,15 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         return (atk, def);
     }
 
-    public int GetMaxPerClass()
-    {
-        return _cfg.GetCVar(GCCVars.AssaultMaxPerClass);
-    }
-
     public bool CanSelectClass(NetUserId user, string classId, bool includeUnassignedLobby = true)
     {
-        var max = GetMaxPerClass();
-        if (max <= 0)
+        if (!_proto.TryIndex<AssaultClassPrototype>(classId, out var proto))
+            return false;
+
+        if (proto.MaxCount <= 0)
             return true;
 
-        return CountClassOccupants(classId, user, includeUnassignedLobby) < max;
+        return CountClassOccupants(classId, user, includeUnassignedLobby) < proto.MaxCount;
     }
 
     public int CountClassOccupants(string classId, NetUserId? exclude = null, bool includeUnassignedLobby = true)
@@ -222,8 +215,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             choice?.Class,
             choice != null && IsValid(choice),
             inQueue,
-            GetClassCounts(),
-            GetMaxPerClass()), session.Channel);
+            GetClassCounts()), session.Channel);
     }
 
     private void OnPresetChanged(GamePresetChangedEvent ev)

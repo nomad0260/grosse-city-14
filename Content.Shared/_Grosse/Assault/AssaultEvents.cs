@@ -14,7 +14,6 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
     public bool CanReady;
     public bool InWaveQueue;
     public Dictionary<string, int> ClassCounts = new();
-    public int MaxPerClass;
 
     public AssaultLobbyStateEvent(
         bool enabled,
@@ -25,8 +24,7 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
         string? selectedClass,
         bool canReady,
         bool inWaveQueue,
-        Dictionary<string, int>? classCounts = null,
-        int maxPerClass = 0)
+        Dictionary<string, int>? classCounts = null)
     {
         Enabled = enabled;
         AttackersCount = attackersCount;
@@ -37,7 +35,6 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
         CanReady = canReady;
         InWaveQueue = inWaveQueue;
         ClassCounts = classCounts ?? new();
-        MaxPerClass = maxPerClass;
     }
 }
 

@@ -18,7 +18,6 @@ public sealed partial class AssaultLoadoutPanel : Control
     private string? _classId;
     private bool _random;
     private Dictionary<string, int> _classCounts = new();
-    private int _maxPerClass;
 
     public AssaultLoadoutPanel()
     {
@@ -50,7 +49,6 @@ public sealed partial class AssaultLoadoutPanel : Control
         _team = state.SelectedTeam;
         _classId = state.SelectedClass;
         _classCounts = new Dictionary<string, int>(state.ClassCounts);
-        _maxPerClass = state.MaxPerClass;
 
         AttackersButton.Pressed = !_random && _team == AssaultTeam.Attackers;
         DefendersButton.Pressed = !_random && _team == AssaultTeam.Defenders;
@@ -105,7 +103,7 @@ public sealed partial class AssaultLoadoutPanel : Control
                 continue;
 
             var id = proto.ID;
-            var available = IsClassAvailable(id);
+            var available = IsClassAvailable(id, proto.MaxCount);
             var button = new Button
             {
                 Text = $"{Loc.GetString(proto.Name)}  ({Loc.GetString("assault-lobby-cost", ("cost", proto.Cost))})",
@@ -122,14 +120,14 @@ public sealed partial class AssaultLoadoutPanel : Control
         }
     }
 
-    private bool IsClassAvailable(string id)
+    private bool IsClassAvailable(string id, int maxCount)
     {
-        if (_maxPerClass <= 0)
+        if (maxCount <= 0)
             return true;
 
         if (_classId == id)
             return true;
 
-        return _classCounts.GetValueOrDefault(id) < _maxPerClass;
+        return _classCounts.GetValueOrDefault(id) < maxCount;
     }
 }

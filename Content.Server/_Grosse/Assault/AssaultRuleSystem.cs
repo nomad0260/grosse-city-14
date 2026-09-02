@@ -12,7 +12,6 @@ using Content.Server._Grosse.Assault.UI;
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Assault.Components;
 using Content.Shared._Grosse.Assault.UI;
-using Content.Shared._Grosse.CCVars;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs;
@@ -21,7 +20,6 @@ using Content.Shared.Mind;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Physics;
 using Robust.Server.Player;
-using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -39,7 +37,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private AssaultLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
     [Dependency] private IChatManager _chat = default!;
-    [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private MindSystem _mind = default!;
@@ -63,11 +60,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         SubscribeLocalEvent<AssaultCapturePointComponent, AssaultZoneCapturedEvent>(OnZoneCapturedEvent);
         SubscribeNetworkEvent<AssaultLateJoinRequestEvent>(OnLateJoin);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
-        Subs.CVar(_cfg, GCCVars.AssaultMaxPerClass, _ =>
-        {
-            if (TryGetActiveRule(out var rule))
-                RefreshAllClassUis(rule);
-        });
     }
 
     public override void Shutdown()
