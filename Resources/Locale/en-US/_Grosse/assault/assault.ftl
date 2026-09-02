@@ -12,6 +12,7 @@ assault-lobby-select-class = Class
 assault-lobby-cost = { $cost } pts
 assault-lobby-need-loadout = Pick a team and class, or Random, before Ready.
 assault-lobby-team-full = That team is full. Pick the other team or Random.
+assault-lobby-class-full = That class is already taken. Pick another.
 assault-lobby-queued = You are in the respawn wave queue.
 assault-lobby-selected-random = Random loadout selected
 assault-lobby-ready-hint = Team and class or Random required

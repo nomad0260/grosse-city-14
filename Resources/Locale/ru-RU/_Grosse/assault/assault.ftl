@@ -12,6 +12,7 @@ assault-lobby-select-class = Класс
 assault-lobby-cost = { $cost } очк.
 assault-lobby-need-loadout = Выберите команду и класс или нажмите «Рандом», затем Ready.
 assault-lobby-team-full = Эта команда переполнена. Выберите другую или «Рандом».
+assault-lobby-class-full = Этот класс уже занят. Выберите другой.
 assault-lobby-queued = Вы в очереди волны. Ждите респауна.
 assault-lobby-selected-random = Выбран случайный набор
 assault-lobby-ready-hint = Нужны команда и класс или «Рандом»

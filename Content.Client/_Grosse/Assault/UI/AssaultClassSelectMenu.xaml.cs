@@ -28,11 +28,13 @@ public sealed partial class AssaultClassSelectMenu : FancyWindow
             {
                 Text = $"{cls.Name}  ({Loc.GetString("assault-lobby-cost", ("cost", cls.Cost))})",
                 ToolTip = cls.Description,
-                Disabled = !cls.Affordable,
+                Disabled = !cls.Affordable || !cls.Available,
                 ToggleMode = true,
                 Pressed = state.SelectedClass == id,
                 HorizontalExpand = true,
             };
+            if (!cls.Available)
+                button.ToolTip = Loc.GetString("assault-lobby-class-full");
             button.OnPressed += _ => ClassPicked?.Invoke(id);
             ClassList.AddChild(button);
         }

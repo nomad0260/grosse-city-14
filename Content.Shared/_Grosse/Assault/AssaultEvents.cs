@@ -13,6 +13,7 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
     public string? SelectedClass;
     public bool CanReady;
     public bool InWaveQueue;
+    public Dictionary<string, int> ClassCounts = new();
 
     public AssaultLobbyStateEvent(
         bool enabled,
@@ -22,7 +23,8 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
         AssaultTeam? selectedTeam,
         string? selectedClass,
         bool canReady,
-        bool inWaveQueue)
+        bool inWaveQueue,
+        Dictionary<string, int>? classCounts = null)
     {
         Enabled = enabled;
         AttackersCount = attackersCount;
@@ -32,6 +34,7 @@ public sealed class AssaultLobbyStateEvent : EntityEventArgs
         SelectedClass = selectedClass;
         CanReady = canReady;
         InWaveQueue = inWaveQueue;
+        ClassCounts = classCounts ?? new();
     }
 }
 
