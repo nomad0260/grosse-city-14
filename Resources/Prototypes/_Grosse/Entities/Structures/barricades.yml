@@ -22,6 +22,10 @@
         layer:
         - WallLayer
   - type: Climbable
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
     - trigger:
@@ -30,8 +34,8 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-  - type: RequireProjectileTarget
-    active: true
+  - type: Cover
+    shootThroughRadius: 3
   - type: PointLight
     radius: 2
     energy: 3
