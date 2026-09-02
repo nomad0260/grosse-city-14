@@ -31,3 +31,6 @@ changecvar-simple-playtest_stamina_damage_modifier = Multiplier affecting stamin
 changecvar-full-playtest_stamina_damage_modifier = Multiplier affecting all stamina damage dealt.
 changecvar-simple-playtest_mob_damage_modifier = Multiplier affecting all damage dealt to mobs.
 changecvar-full-playtest_mob_damage_modifier = Multiplier affecting all damage dealt to entities with MobStateComponent.
+
+changecvar-simple-assault_max_per_class = Max players per Assault class.
+changecvar-full-assault_max_per_class = Maximum number of players that can occupy the same Assault class at once. 0 disables the limit. 1 means each class can only be taken by one player.

@@ -20,6 +20,7 @@ public sealed class AssaultClassSelectInfo
     public string Description = string.Empty;
     public int Cost;
     public bool Affordable;
+    public bool Available = true;
 }
 
 [Serializable, NetSerializable]

@@ -12,6 +12,7 @@ using Content.Server._Grosse.Assault.UI;
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Assault.Components;
 using Content.Shared._Grosse.Assault.UI;
+using Content.Shared._Grosse.CCVars;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs;
@@ -20,6 +21,7 @@ using Content.Shared.Mind;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Physics;
 using Robust.Server.Player;
+using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -37,6 +39,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private AssaultLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
     [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private MindSystem _mind = default!;
@@ -60,6 +63,11 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         SubscribeLocalEvent<AssaultCapturePointComponent, AssaultZoneCapturedEvent>(OnZoneCapturedEvent);
         SubscribeNetworkEvent<AssaultLateJoinRequestEvent>(OnLateJoin);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
+        Subs.CVar(_cfg, GCCVars.AssaultMaxPerClass, _ =>
+        {
+            if (TryGetActiveRule(out var rule))
+                RefreshAllClassUis(rule);
+        });
     }
 
     public override void Shutdown()
@@ -182,6 +190,16 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         SpawnWave(rule, AssaultTeam.Attackers, chargeTickets: true);
         SpawnWave(rule, AssaultTeam.Defenders, chargeTickets: true);
+
+        foreach (var (user, slot) in rule.Players)
+        {
+            if (slot.Class != null || !slot.InWaveQueue)
+                continue;
+
+            if (_players.TryGetSessionById(user, out var session))
+                OpenClassSelect(session, rule, slot);
+        }
+
         _lobby.BroadcastAll();
     }
 
@@ -189,7 +207,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     {
         _lobby.TryGetChoice(session.UserId, out var choice);
         var team = ResolveTeam(rule, choice);
-        var cls = ResolveClass(team, choice, GetTickets(rule, team));
+        var cls = ResolveClass(team, choice, GetTickets(rule, team), session.UserId);
 
         rule.Players[session.UserId] = new AssaultPlayerSlot
         {
@@ -214,29 +232,35 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return atk <= def ? AssaultTeam.Attackers : AssaultTeam.Defenders;
     }
 
-    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultTeam team, AssaultLobbyChoice? choice, int tickets)
+    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultTeam team, AssaultLobbyChoice? choice, int tickets, NetUserId user)
     {
         if (choice is { Random: false, Class: { } selected }
             && Proto.TryIndex(selected, out AssaultClassPrototype? proto)
             && proto.Team == team
-            && proto.Cost <= tickets)
+            && proto.Cost <= tickets
+            && CanAssignClass(user, selected))
         {
             return selected;
         }
 
-        return PickRandomClass(team, tickets);
+        return PickRandomClass(team, tickets, user);
     }
 
-    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultTeam team, int tickets)
+    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultTeam team, int tickets, NetUserId user)
     {
         var options = Proto.EnumeratePrototypes<AssaultClassPrototype>()
-            .Where(c => c.Team == team && c.Cost <= tickets)
+            .Where(c => c.Team == team && c.Cost <= tickets && CanAssignClass(user, c.ID))
             .ToList();
 
         if (options.Count == 0)
             return null;
 
         return _random.Pick(options).ID;
+    }
+
+    private bool CanAssignClass(NetUserId user, string classId)
+    {
+        return _lobby.CanSelectClass(user, classId, includeUnassignedLobby: false);
     }
 
     private int CountTeam(AssaultRuleComponent rule, AssaultTeam team)
@@ -259,8 +283,16 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (!Proto.TryIndex<AssaultClassPrototype>(classId, out var proto) || proto.Team != slot.Team)
             return;
 
+        if (!_lobby.CanSelectClass(user, proto.ID))
+        {
+            if (_players.TryGetSessionById(user, out var session))
+                _chat.DispatchServerMessage(session, Loc.GetString("assault-lobby-class-full"));
+            RefreshClassUi(user, rule, slot);
+            return;
+        }
+
         slot.Class = proto.ID;
-        RefreshClassUi(user, rule, slot);
+        NotifyClassOccupancy(rule);
     }
 
     public void OnClassSelectClosed(NetUserId user)
@@ -287,7 +319,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (rule.Players.TryGetValue(session.UserId, out var slot))
             OpenClassSelect(session, rule, slot);
 
-        _lobby.BroadcastAll();
+        NotifyClassOccupancy(rule);
         BroadcastHud(rule);
         _chat.DispatchServerMessage(session, Loc.GetString("assault-lobby-queued"));
     }
@@ -326,6 +358,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (_classUis.Remove(args.Session.UserId, out var eui))
             eui.Close();
 
+        NotifyClassOccupancy(rule);
         BroadcastHud(rule);
     }
 
@@ -376,9 +409,14 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 continue;
 
             var tickets = GetTickets(rule, team);
-            slot.Class ??= PickRandomClass(team, tickets);
+            if (slot.Class == null || !CanAssignClass(user, slot.Class.Value))
+                slot.Class = PickRandomClass(team, tickets, user);
+
             if (slot.Class == null || !Proto.TryIndex(slot.Class.Value, out AssaultClassPrototype? proto))
+            {
+                OpenClassSelect(session, rule, slot);
                 continue;
+            }
 
             if (chargeTickets && proto.Cost > tickets)
                 continue;
@@ -393,7 +431,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         }
 
         BroadcastHud(rule);
-        _lobby.BroadcastAll();
+        NotifyClassOccupancy(rule);
     }
 
     private void SpawnPlayer(
@@ -588,7 +626,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     private void OpenClassSelect(ICommonSession session, AssaultRuleComponent rule, AssaultPlayerSlot slot)
     {
-        var state = BuildClassState(rule, slot);
+        var state = BuildClassState(rule, slot, session.UserId);
         if (_classUis.TryGetValue(session.UserId, out var existing))
         {
             existing.UpdateState(state);
@@ -606,10 +644,27 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (!_classUis.TryGetValue(user, out var eui))
             return;
 
-        eui.UpdateState(BuildClassState(rule, slot));
+        eui.UpdateState(BuildClassState(rule, slot, user));
     }
 
-    private AssaultClassSelectEuiState BuildClassState(AssaultRuleComponent rule, AssaultPlayerSlot slot)
+    private void RefreshAllClassUis(AssaultRuleComponent rule)
+    {
+        foreach (var (user, eui) in _classUis.ToList())
+        {
+            if (!rule.Players.TryGetValue(user, out var slot))
+                continue;
+
+            eui.UpdateState(BuildClassState(rule, slot, user));
+        }
+    }
+
+    private void NotifyClassOccupancy(AssaultRuleComponent rule)
+    {
+        RefreshAllClassUis(rule);
+        _lobby.BroadcastAll();
+    }
+
+    private AssaultClassSelectEuiState BuildClassState(AssaultRuleComponent rule, AssaultPlayerSlot slot, NetUserId user)
     {
         var tickets = GetTickets(rule, slot.Team);
         var state = new AssaultClassSelectEuiState
@@ -631,6 +686,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 Description = Loc.GetString(proto.Description),
                 Cost = proto.Cost,
                 Affordable = proto.Cost <= tickets,
+                Available = _lobby.CanSelectClass(user, proto.ID),
             });
         }
 
