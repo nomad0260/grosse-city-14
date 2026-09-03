@@ -47,7 +47,7 @@ namespace Content.IntegrationTests.Tests.GameRules
                 maxTime.RoundMaxTime = TimeSpan.FromSeconds(3);
                 // Don't start the default Secret preset: it adds a pile of extra game rules
                 // (variation passes, schedulers, etc.) and this test only cares about MaxTimeRestart.
-                sGameTicker.SetGamePreset((GamePresetPrototype?) null);
+                sGameTicker.SetGamePreset((GamePresetPrototype) null);
                 sGameTicker.StartRound(force: true);
             });
 
