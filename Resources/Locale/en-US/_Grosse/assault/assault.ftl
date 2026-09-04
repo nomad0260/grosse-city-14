@@ -3,7 +3,9 @@ assault-preset-description = Attackers capture zones in sequence. Wave spawns, r
 
 assault-team-attackers = Attack
 assault-team-defenders = Defense
-assault-team-counts = Attack { $attackers } / Defense { $defenders }
+assault-team-rebels = Rebels
+assault-team-combine = Combine
+assault-team-counts = { $attackersName } { $attackers } / { $defendersName } { $defenders }
 
 assault-lobby-header = Assault
 assault-lobby-random = Random
@@ -36,11 +38,11 @@ assault-hud-phase-prep = Prep: { $time }
 assault-hud-phase-attack = Attack
 assault-hud-phase-intermission = Gates: { $time }
 assault-hud-phase-ended = Round over
-assault-hud-tickets = Tickets  A { $attackers }  /  D { $defenders }
+assault-hud-tickets = Tickets  { $attackersName } { $attackers }  /  { $defendersName } { $defenders }
 assault-hud-zone = Zone { $zone } / { $total }
 assault-hud-round = Round: { $time }
-assault-hud-wave-attackers = Attack dead { $dead }/{ $total }
-assault-hud-wave-defenders = Defense dead { $dead }/{ $total }
+assault-hud-wave-attackers = { $name } dead { $dead }/{ $total }
+assault-hud-wave-defenders = { $name } dead { $dead }/{ $total }
 assault-hud-capture = Capture: { $percent }%
 assault-hud-wave-hint = Respawn at { $percent }% casualties
 
@@ -49,22 +51,22 @@ assault-class-select-tickets = Respawn tickets: { $tickets }
 
 assault-announce-prep = Assault: { $time }s prep. Get into position.
 assault-announce-attack = Attack has started!
-assault-announce-captured = Zone { $zone } captured. Attack +{ $atk } tickets, defense +{ $def }. Gates open in { $delay }s. Next zone: { $next }.
+assault-announce-captured = Zone { $zone } captured. { $attackersName } +{ $atk } tickets, { $defendersName } +{ $def }. Gates open in { $delay }s. Next zone: { $next }.
 assault-announce-gates = Gates to zone { $zone } are open!
-assault-announce-last-point = Attackers captured the last point!
-assault-announce-tickets = Attackers are out of respawn tickets!
-assault-announce-timeout = Round time expired. Defense held the city.
+assault-announce-last-point = { $name } captured the last point!
+assault-announce-tickets = { $attackersName } are out of respawn tickets!
+assault-announce-timeout = Round time expired. { $name } held the city.
 
-assault-roundend-attackers = Attackers captured every zone.
-assault-roundend-defenders = Defenders held the assault.
+assault-roundend-attackers = { $name } captured every zone.
+assault-roundend-defenders = { $name } held the assault.
 assault-roundend-draw = Assault ended.
-assault-roundend-tickets = Tickets: attack { $attackers }, defense { $defenders }
+assault-roundend-tickets = Tickets: { $attackersName } { $attackers }, { $defendersName } { $defenders }
 assault-roundend-zone = Zone { $zone } / { $total }
 
 cmd-assaultstatus-desc = Show Assault mode status.
 cmd-assaultstatus-help = Usage: assaultstatus
 assault-cmd-inactive = Assault mode is not active.
-assault-cmd-status = Phase: { $phase }; zone { $zone }/{ $total }; tickets A { $atk } D { $def }; players { $players }
+assault-cmd-status = Phase: { $phase }; zone { $zone }/{ $total }; tickets { $attackersName } { $atk } { $defendersName } { $def }; players { $players }
 assault-cmd-queue = Wave queue: { $queued }
 
 assault-capture-examined = Zone { $zone }: { $percent }% captured

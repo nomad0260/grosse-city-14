@@ -65,6 +65,12 @@ public sealed partial class AssaultRuleComponent : Component
     public AssaultTeam? Winner;
 
     [ViewVariables]
+    public ProtoId<AssaultTeamPrototype> AttackersTeam = AssaultConstants.DefaultAttackersTeam;
+
+    [ViewVariables]
+    public ProtoId<AssaultTeamPrototype> DefendersTeam = AssaultConstants.DefaultDefendersTeam;
+
+    [ViewVariables]
     public Dictionary<NetUserId, AssaultPlayerSlot> Players = new();
 }
 

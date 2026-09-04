@@ -1,6 +1,8 @@
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
+using Content.Server.Maps;
 using Content.Shared._Grosse.Assault;
+using Content.Shared._Grosse.Assault.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Robust.Server.Player;
@@ -8,6 +10,7 @@ using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server._Grosse.Assault;
 
@@ -15,6 +18,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IGameMapManager _gameMap = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IPrototypeManager _proto = default!;
 
@@ -206,6 +210,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
                 inQueue = slot.InWaveQueue;
         }
 
+        var config = GetConfig();
         RaiseNetworkEvent(new AssaultLobbyStateEvent(
             LobbyEnabled,
             atk,
@@ -215,7 +220,9 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             choice?.Class,
             choice != null && IsValid(choice),
             inQueue,
-            GetClassCounts()), session.Channel);
+            GetClassCounts(),
+            AssaultTeamConfig.GetId(config, AssaultTeam.Attackers),
+            AssaultTeamConfig.GetId(config, AssaultTeam.Defenders)), session.Channel);
     }
 
     private void OnPresetChanged(GamePresetChangedEvent ev)
@@ -268,7 +275,9 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         ProtoId<AssaultClassPrototype>? classId = null;
         if (!string.IsNullOrEmpty(ev.ClassId))
         {
-            if (!_proto.TryIndex<AssaultClassPrototype>(ev.ClassId, out var proto) || proto.Team != team)
+            if (!_proto.TryIndex<AssaultClassPrototype>(ev.ClassId, out var proto)
+                || !TryGetTeamPrototype(team, out var teamProto)
+                || !teamProto.ContainsClass(proto.ID))
                 return;
 
             if (!CanSelectClass(user, proto.ID))
@@ -296,6 +305,20 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 
         if (_choices.Remove(args.Session.UserId))
             BroadcastAll();
+    }
+
+    public bool TryGetTeamPrototype(AssaultTeam team, [NotNullWhen(true)] out AssaultTeamPrototype? proto)
+    {
+        return AssaultTeamConfig.TryGetTeam(_proto, GetConfig(), team, out proto);
+    }
+
+    private StationAssaultConfigComponent? GetConfig()
+    {
+        var query = EntityQueryEnumerator<StationAssaultConfigComponent>();
+        if (query.MoveNext(out _, out var live))
+            return live;
+
+        return AssaultTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
     }
 
     private void RefreshEnabled()
