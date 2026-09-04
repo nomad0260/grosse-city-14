@@ -20,3 +20,6 @@
       components:
         - type: StationNameSetup
           mapNameTemplate: 'Assault Test'
+        - type: StationAssaultConfig
+          attackers: AssaultRebels
+          defenders: AssaultCombine

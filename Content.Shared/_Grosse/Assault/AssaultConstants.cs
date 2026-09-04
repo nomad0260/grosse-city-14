@@ -7,6 +7,8 @@ public static class AssaultConstants
     public const string RulePrototypeId = "City14AssaultRule";
     public const string AttackersFaction = "AssaultAttackers";
     public const string DefendersFaction = "AssaultDefenders";
+    public const string DefaultAttackersTeam = "AssaultAttackers";
+    public const string DefaultDefendersTeam = "AssaultDefenders";
     public const string CaptureFixtureId = "assault-ctp";
     public const string CaptureVisualPrototypeId = "AssaultCapturePointVisual";
     public const string BlockerFixtureId = "blocker";

@@ -3,7 +3,9 @@ assault-preset-description = Атакующие захватывают зоны 
 
 assault-team-attackers = Атака
 assault-team-defenders = Защита
-assault-team-counts = Атака { $attackers } / Защита { $defenders }
+assault-team-rebels = Повстанцы
+assault-team-combine = Альянс
+assault-team-counts = { $attackersName } { $attackers } / { $defendersName } { $defenders }
 
 assault-lobby-header = Штурм
 assault-lobby-random = Рандом
@@ -36,11 +38,11 @@ assault-hud-phase-prep = Подготовка: { $time }
 assault-hud-phase-attack = Атака
 assault-hud-phase-intermission = Затворы: { $time }
 assault-hud-phase-ended = Раунд окончен
-assault-hud-tickets = Очки  А { $attackers }  /  З { $defenders }
+assault-hud-tickets = Очки  { $attackersName } { $attackers }  /  { $defendersName } { $defenders }
 assault-hud-zone = Зона { $zone } / { $total }
 assault-hud-round = Раунд: { $time }
-assault-hud-wave-attackers = Атака мертвы { $dead }/{ $total }
-assault-hud-wave-defenders = Защита мертвы { $dead }/{ $total }
+assault-hud-wave-attackers = { $name } мертвы { $dead }/{ $total }
+assault-hud-wave-defenders = { $name } мертвы { $dead }/{ $total }
 assault-hud-capture = Захват: { $percent }%
 assault-hud-wave-hint = Респавн при { $percent }% потерь
 
@@ -49,22 +51,22 @@ assault-class-select-tickets = Очки возрождения: { $tickets }
 
 assault-announce-prep = Штурм: подготовка { $time } с. Выберите позиции.
 assault-announce-attack = Атака началась!
-assault-announce-captured = Зона { $zone } захвачена. Атака +{ $atk } очков, защита +{ $def }. Затворы откроются через { $delay } с. Следующая зона: { $next }.
+assault-announce-captured = Зона { $zone } захвачена. { $attackersName } +{ $atk } очков, { $defendersName } +{ $def }. Затворы откроются через { $delay } с. Следующая зона: { $next }.
 assault-announce-gates = Затворы на зону { $zone } открыты!
-assault-announce-last-point = Атакующие захватили последнюю точку!
-assault-announce-tickets = У атакующих кончились очки возрождения!
-assault-announce-timeout = Время раунда истекло. Защита удержала город.
+assault-announce-last-point = { $name } захватили последнюю точку!
+assault-announce-tickets = У команды { $attackersName } кончились очки возрождения!
+assault-announce-timeout = Время раунда истекло. { $name } удержали город.
 
-assault-roundend-attackers = Атакующие захватили все зоны.
-assault-roundend-defenders = Защитники отбили штурм.
+assault-roundend-attackers = { $name } захватили все зоны.
+assault-roundend-defenders = { $name } отбили штурм.
 assault-roundend-draw = Штурм завершён.
-assault-roundend-tickets = Очки: атака { $attackers }, защита { $defenders }
+assault-roundend-tickets = Очки: { $attackersName } { $attackers }, { $defendersName } { $defenders }
 assault-roundend-zone = Зона { $zone } / { $total }
 
 cmd-assaultstatus-desc = Показать состояние режима Штурм.
 cmd-assaultstatus-help = Использование: assaultstatus
 assault-cmd-inactive = Режим Штурм сейчас не активен.
-assault-cmd-status = Фаза: { $phase }; зона { $zone }/{ $total }; очки А { $atk } З { $def }; игроков { $players }
+assault-cmd-status = Фаза: { $phase }; зона { $zone }/{ $total }; очки { $attackersName } { $atk } { $defendersName } { $def }; игроков { $players }
 assault-cmd-queue = В очереди волны: { $queued }
 
 assault-capture-examined = Зона { $zone }: захват { $percent }%

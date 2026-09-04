@@ -1,0 +1,30 @@
+- type: assaultTeam
+  id: AssaultAttackers
+  name: assault-team-attackers
+  startingTickets: 200
+  captureReward: 50
+  classes:
+  - AssaultRebelRifle
+  - AssaultRebelShotgun
+  - AssaultRebelAr2
+
+- type: assaultTeam
+  id: AssaultDefenders
+  name: assault-team-defenders
+  startingTickets: 200
+  captureReward: 40
+  classes:
+  - AssaultCp
+  - AssaultCpSmg
+  - AssaultOta
+  - AssaultOtaElite
+
+- type: assaultTeam
+  id: AssaultRebels
+  parent: AssaultAttackers
+  name: assault-team-rebels
+
+- type: assaultTeam
+  id: AssaultCombine
+  parent: AssaultDefenders
+  name: assault-team-combine

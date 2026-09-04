@@ -5,6 +5,7 @@ using Content.Server.Clothing.Systems;
 using Content.Server.EUI;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
+using Content.Server.Maps;
 using Content.Server.Mind;
 using Content.Server.RoundEnd;
 using Content.Server.Station.Systems;
@@ -37,6 +38,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private AssaultLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
     [Dependency] private IChatManager _chat = default!;
+    [Dependency] private IGameMapManager _gameMap = default!;
     [Dependency] private IPlayerManager _players = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private MindSystem _mind = default!;
@@ -76,8 +78,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (component.TotalZones <= 0)
             component.TotalZones = 1;
 
-        component.AttackersTickets = component.StartingTickets;
-        component.DefendersTickets = component.StartingTickets;
+        ApplyTeamConfig(component);
         component.PrepEndsAt = Timing.CurTime + component.PrepTime;
         component.RoundEndsAt = Timing.CurTime + component.RoundTime;
         component.Winner = null;
@@ -105,13 +106,15 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     protected override void AppendRoundEndText(EntityUid uid, AssaultRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
     {
         if (component.Winner == AssaultTeam.Attackers)
-            args.AddLine(Loc.GetString("assault-roundend-attackers"));
+            args.AddLine(Loc.GetString("assault-roundend-attackers", ("name", TeamName(component, AssaultTeam.Attackers))));
         else if (component.Winner == AssaultTeam.Defenders)
-            args.AddLine(Loc.GetString("assault-roundend-defenders"));
+            args.AddLine(Loc.GetString("assault-roundend-defenders", ("name", TeamName(component, AssaultTeam.Defenders))));
         else
             args.AddLine(Loc.GetString("assault-roundend-draw"));
 
         args.AddLine(Loc.GetString("assault-roundend-tickets",
+            ("attackersName", TeamName(component, AssaultTeam.Attackers)),
+            ("defendersName", TeamName(component, AssaultTeam.Defenders)),
             ("attackers", component.AttackersTickets),
             ("defenders", component.DefendersTickets)));
         args.AddLine(Loc.GetString("assault-roundend-zone",
@@ -199,7 +202,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     {
         _lobby.TryGetChoice(session.UserId, out var choice);
         var team = ResolveTeam(rule, choice);
-        var cls = ResolveClass(team, choice, GetTickets(rule, team), session.UserId);
+        var cls = ResolveClass(rule, team, choice, GetTickets(rule, team), session.UserId);
 
         rule.Players[session.UserId] = new AssaultPlayerSlot
         {
@@ -224,25 +227,28 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return atk <= def ? AssaultTeam.Attackers : AssaultTeam.Defenders;
     }
 
-    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultTeam team, AssaultLobbyChoice? choice, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultRuleComponent rule, AssaultTeam team, AssaultLobbyChoice? choice, int tickets, NetUserId user)
     {
         if (choice is { Random: false, Class: { } selected }
             && Proto.TryIndex(selected, out AssaultClassPrototype? proto)
-            && proto.Team == team
+            && TeamHasClass(rule, team, selected)
             && proto.Cost <= tickets
             && CanAssignClass(user, selected))
         {
             return selected;
         }
 
-        return PickRandomClass(team, tickets, user);
+        return PickRandomClass(rule, team, tickets, user);
     }
 
-    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultTeam team, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultRuleComponent rule, AssaultTeam team, int tickets, NetUserId user)
     {
-        var options = Proto.EnumeratePrototypes<AssaultClassPrototype>()
-            .Where(c => c.Team == team && c.Cost <= tickets && CanAssignClass(user, c.ID))
-            .ToList();
+        var options = new List<AssaultClassPrototype>();
+        foreach (var proto in EnumerateTeamClasses(rule, team))
+        {
+            if (proto.Cost <= tickets && CanAssignClass(user, proto.ID))
+                options.Add(proto);
+        }
 
         if (options.Count == 0)
             return null;
@@ -272,7 +278,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (!TryGetActiveRule(out var rule) || !rule.Players.TryGetValue(user, out var slot))
             return;
 
-        if (!Proto.TryIndex<AssaultClassPrototype>(classId, out var proto) || proto.Team != slot.Team)
+        if (!Proto.TryIndex<AssaultClassPrototype>(classId, out var proto)
+            || !TeamHasClass(rule, slot.Team, proto.ID))
             return;
 
         if (!_lobby.CanSelectClass(user, proto.ID))
@@ -401,8 +408,10 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 continue;
 
             var tickets = GetTickets(rule, team);
-            if (slot.Class == null || !CanAssignClass(user, slot.Class.Value))
-                slot.Class = PickRandomClass(team, tickets, user);
+            if (slot.Class == null
+                || !TeamHasClass(rule, team, slot.Class.Value)
+                || !CanAssignClass(user, slot.Class.Value))
+                slot.Class = PickRandomClass(rule, team, tickets, user);
 
             if (slot.Class == null || !Proto.TryIndex(slot.Class.Value, out AssaultClassPrototype? proto))
             {
@@ -539,8 +548,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     private void OnZoneCaptured(AssaultRuleComponent rule)
     {
-        rule.AttackersTickets += rule.AttackersCaptureReward;
-        rule.DefendersTickets += rule.DefendersCaptureReward;
+        rule.AttackersTickets += GetCaptureReward(rule, AssaultTeam.Attackers);
+        rule.DefendersTickets += GetCaptureReward(rule, AssaultTeam.Defenders);
 
         if (rule.CurrentZone + 1 >= rule.TotalZones)
         {
@@ -556,8 +565,10 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             ("zone", rule.CurrentZone),
             ("next", rule.CurrentZone + 1),
             ("delay", (int) rule.GateOpenDelay.TotalSeconds),
-            ("atk", rule.AttackersCaptureReward),
-            ("def", rule.DefendersCaptureReward));
+            ("atk", GetCaptureReward(rule, AssaultTeam.Attackers)),
+            ("def", GetCaptureReward(rule, AssaultTeam.Defenders)),
+            ("attackersName", TeamName(rule, AssaultTeam.Attackers)),
+            ("defendersName", TeamName(rule, AssaultTeam.Defenders)));
         BroadcastHud(rule);
     }
 
@@ -566,7 +577,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (rule.Phase == AssaultPhase.Ended)
             return;
 
-        var minCost = GetMinCost(AssaultTeam.Attackers);
+        var minCost = GetMinCost(rule, AssaultTeam.Attackers);
         var living = 0;
         var queuedCanSpawn = false;
         foreach (var slot in rule.Players.Values)
@@ -591,13 +602,11 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             EndAs(rule, AssaultTeam.Defenders, "assault-announce-tickets");
     }
 
-    private int GetMinCost(AssaultTeam team)
+    private int GetMinCost(AssaultRuleComponent rule, AssaultTeam team)
     {
         var min = int.MaxValue;
-        foreach (var proto in Proto.EnumeratePrototypes<AssaultClassPrototype>())
+        foreach (var proto in EnumerateTeamClasses(rule, team))
         {
-            if (proto.Team != team)
-                continue;
             min = Math.Min(min, proto.Cost);
         }
 
@@ -611,7 +620,10 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         rule.Phase = AssaultPhase.Ended;
         rule.Winner = winner;
-        Announce(announce);
+        Announce(announce,
+            ("name", TeamName(rule, winner)),
+            ("attackersName", TeamName(rule, AssaultTeam.Attackers)),
+            ("defendersName", TeamName(rule, AssaultTeam.Defenders)));
         BroadcastHud(rule);
         _roundEnd.EndRound(rule.RestartDelay);
     }
@@ -666,11 +678,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             SelectedClass = slot.Class,
         };
 
-        foreach (var proto in Proto.EnumeratePrototypes<AssaultClassPrototype>())
+        foreach (var proto in EnumerateTeamClasses(rule, slot.Team))
         {
-            if (proto.Team != slot.Team)
-                continue;
-
             state.Classes.Add(new AssaultClassSelectInfo
             {
                 Id = proto.ID,
@@ -722,6 +731,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             DefendersTotal = defTotal,
             WaveThreshold = rule.WaveThreshold,
             CaptureProgress = progress,
+            AttackersTeam = rule.AttackersTeam,
+            DefendersTeam = rule.DefendersTeam,
         });
     }
 
@@ -809,6 +820,77 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     public bool TryGetRuleForStatus([NotNullWhen(true)] out AssaultRuleComponent? rule)
     {
         return TryGetActiveRule(out rule);
+    }
+
+    private void ApplyTeamConfig(AssaultRuleComponent rule)
+    {
+        StationAssaultConfigComponent? config = null;
+        foreach (var station in _station.GetStations())
+        {
+            if (TryComp(station, out config))
+                break;
+        }
+
+        config ??= AssaultTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
+        rule.AttackersTeam = AssaultTeamConfig.GetId(config, AssaultTeam.Attackers);
+        rule.DefendersTeam = AssaultTeamConfig.GetId(config, AssaultTeam.Defenders);
+
+        if (Proto.TryIndex(rule.AttackersTeam, out AssaultTeamPrototype? attackers))
+        {
+            rule.AttackersTickets = attackers.StartingTickets;
+            rule.AttackersCaptureReward = attackers.CaptureReward;
+        }
+        else
+        {
+            rule.AttackersTickets = rule.StartingTickets;
+        }
+
+        if (Proto.TryIndex(rule.DefendersTeam, out AssaultTeamPrototype? defenders))
+        {
+            rule.DefendersTickets = defenders.StartingTickets;
+            rule.DefendersCaptureReward = defenders.CaptureReward;
+        }
+        else
+        {
+            rule.DefendersTickets = rule.StartingTickets;
+        }
+    }
+
+    private ProtoId<AssaultTeamPrototype> GetTeamId(AssaultRuleComponent rule, AssaultTeam team)
+    {
+        return team == AssaultTeam.Attackers ? rule.AttackersTeam : rule.DefendersTeam;
+    }
+
+    private bool TryGetTeamPrototype(AssaultRuleComponent rule, AssaultTeam team, [NotNullWhen(true)] out AssaultTeamPrototype? proto)
+    {
+        return Proto.TryIndex(GetTeamId(rule, team), out proto);
+    }
+
+    private bool TeamHasClass(AssaultRuleComponent rule, AssaultTeam team, ProtoId<AssaultClassPrototype> classId)
+    {
+        return TryGetTeamPrototype(rule, team, out var proto) && proto.ContainsClass(classId);
+    }
+
+    private IEnumerable<AssaultClassPrototype> EnumerateTeamClasses(AssaultRuleComponent rule, AssaultTeam team)
+    {
+        if (!TryGetTeamPrototype(rule, team, out var teamProto))
+            yield break;
+
+        foreach (var classId in teamProto.Classes)
+        {
+            if (Proto.TryIndex(classId, out AssaultClassPrototype? proto))
+                yield return proto;
+        }
+    }
+
+    private int GetCaptureReward(AssaultRuleComponent rule, AssaultTeam team)
+    {
+        return team == AssaultTeam.Attackers ? rule.AttackersCaptureReward : rule.DefendersCaptureReward;
+    }
+
+    private string TeamName(AssaultRuleComponent rule, AssaultTeam team)
+    {
+        return Loc.GetString(AssaultTeamConfig.GetName(Proto, GetTeamId(rule, team), team));
     }
 
     private void Announce(string locId, params (string, object)[] args)

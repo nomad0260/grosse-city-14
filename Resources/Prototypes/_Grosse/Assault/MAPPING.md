@@ -6,6 +6,42 @@
 
 Индексы зон начинаются с **0**. Не пропускай номера: всего зон = максимальный `zoneIndex` + 1.
 
+## Команды на карте (`assaultTeam`)
+
+Слоты на маркерах — по-прежнему `Attackers` и `Defenders` (спавны, захват, барьеры). Кто в слоте (имя в лобби/HUD, классы, стартовые очки) задаётся прототипом `assaultTeam` и компонентом на `gameMap`, не маркером.
+
+Без компонента берутся `AssaultAttackers` / `AssaultDefenders` (имена «Атака»/«Защита», текущие классы повстанцев и ГО/OTA).
+
+В `Resources/Prototypes/_Grosse/Maps/assault.yml` у станции:
+
+```yaml
+- type: StationAssaultConfig
+  attackers: AssaultRebels
+  defenders: AssaultCombine
+```
+
+Прототипы команд — `Resources/Prototypes/_Grosse/Assault/teams.yml`. Есть `parent` и `abstract`, как у startingGear:
+
+```yaml
+- type: assaultTeam
+  id: AssaultRebels
+  parent: AssaultAttackers
+  name: assault-team-rebels
+```
+
+Поля `assaultTeam`:
+
+| Поле | Смысл |
+|------|--------|
+| `name` | `LocId` отображаемого имени. Строки в `Resources/Locale/en-US/_Grosse/assault/assault.ftl` и `ru-RU` |
+| `startingTickets` | стартовые очки возрождения |
+| `captureReward` | очки за захват зоны |
+| `classes` | список id `assaultClass` для лобби и респавна |
+
+`classes` наследуется с дописыванием (`AlwaysPushInheritance`): у ребёнка новые классы **добавляются** к родителю. Другой набор целиком — без `parent`. Имя и очки у ребёнка можно переопределить отдельно.
+
+Новая фракция: свой `assaultTeam` (+ классы при необходимости) и ссылка на него в `StationAssaultConfig`. Не копируй геймрул.
+
 ## Минимальная карта (одна зона)
 
 Хватит, чтобы проверить спавн и захват:
