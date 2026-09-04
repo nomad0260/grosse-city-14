@@ -4,8 +4,8 @@
 * @nomad0260
 
 # Maps
-/Resources/Prototypes/Maps/** @
-/Resources/Maps/** @
+# /Resources/Prototypes/Maps/** @
+# /Resources/Maps/** @
 
 # Sprites
-/Resources/Textures/** @
+# /Resources/Textures/** @
