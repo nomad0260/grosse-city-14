@@ -10,7 +10,7 @@ using Robust.Shared.Player;
 
 namespace Content.Server._Grosse.Pvp;
 
-public sealed class PvpLobbySystem : EntitySystem
+public sealed partial class PvpLobbySystem : EntitySystem
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IChatManager _chat = default!;

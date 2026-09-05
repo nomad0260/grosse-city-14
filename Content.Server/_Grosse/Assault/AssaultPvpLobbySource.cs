@@ -11,7 +11,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Grosse.Assault;
 
-public sealed class AssaultPvpLobbySource : EntitySystem, IPvpLobbySource
+public sealed partial class AssaultPvpLobbySource : EntitySystem, IPvpLobbySource
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IGameMapManager _gameMap = default!;

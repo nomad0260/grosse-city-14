@@ -12,7 +12,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Grosse.Control;
 
-public sealed class ControlPvpLobbySource : EntitySystem, IPvpLobbySource
+public sealed partial class ControlPvpLobbySource : EntitySystem, IPvpLobbySource
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IGameMapManager _gameMap = default!;
