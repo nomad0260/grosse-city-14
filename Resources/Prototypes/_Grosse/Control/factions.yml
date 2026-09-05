@@ -1,9 +1,9 @@
 - type: npcFaction
-  id: ControlAttackers
+  id: ControlTeamA
   hostile:
-  - ControlDefenders
+  - ControlTeamB
 
 - type: npcFaction
-  id: ControlDefenders
+  id: ControlTeamB
   hostile:
-  - ControlAttackers
+  - ControlTeamA

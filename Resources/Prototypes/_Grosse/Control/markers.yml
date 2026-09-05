@@ -39,23 +39,23 @@
 
 - type: entity
   parent: MarkerBase
-  id: ControlSpawnPointAttackers
-  name: control spawn (attackers)
-  suffix: Контроль, Атака
+  id: ControlSpawnPointTeamA
+  name: control spawn (team A)
+  suffix: Контроль, Команда A
   components:
   - type: ControlSpawnPoint
-    team: Attackers
+    team: TeamA
   - type: Sprite
     state: green
 
 - type: entity
   parent: MarkerBase
-  id: ControlSpawnPointDefenders
-  name: control spawn (defenders)
-  suffix: Контроль, Защита
+  id: ControlSpawnPointTeamB
+  name: control spawn (team B)
+  suffix: Контроль, Команда B
   components:
   - type: ControlSpawnPoint
-    team: Defenders
+    team: TeamB
   - type: Sprite
     state: blue
 
@@ -98,7 +98,7 @@
     state: blue
     color: "#5b9bd580"
   - type: ControlSpawnBlocker
-    team: Attackers
+    team: TeamA
   - type: Physics
     bodyType: Static
     canCollide: true
@@ -118,7 +118,7 @@
   suffix: Контроль
   components:
   - type: ControlComebackCrateSpawn
-    team: Attackers
+    team: TeamA
   - type: Sprite
     sprite: Markers/cross.rsi
     state: pink

@@ -1,8 +1,8 @@
 control-preset-title = Контроль
 control-preset-description = Команды захватывают и удерживают консоли. Победные очки за удержание, камбэк-ящик, отступление в конце.
 
-control-team-attackers = Атака
-control-team-defenders = Защита
+control-team-a = Команда A
+control-team-b = Команда B
 control-team-rebels = Повстанцы
 control-team-combine = Альянс
 
@@ -22,12 +22,12 @@ control-hud-phase-prep = Подготовка: { $time }
 control-hud-phase-fight = Бой
 control-hud-phase-laststand = Отступление: { $time }
 control-hud-phase-ended = Раунд окончен
-control-hud-score = Очки  { $attackersName } { $attackers }  /  { $defendersName } { $defenders }  (до { $cap })
+control-hud-score = Очки  { $teamAName } { $teamA }  /  { $teamBName } { $teamB }  (до { $cap })
 control-hud-round = Раунд: { $time }
 control-hud-point = { $name }: { $owner }
 control-hud-point-neutral = нейтрал
-control-hud-wave-attackers = { $name } мертвы { $dead }/{ $total }
-control-hud-wave-defenders = { $name } мертвы { $dead }/{ $total }
+control-hud-wave-team-a = { $name } мертвы { $dead }/{ $total }
+control-hud-wave-team-b = { $name } мертвы { $dead }/{ $total }
 control-hud-laststand-winners = { $name }: добейте противника. Проигравшие: доберитесь до базы.
 
 control-announce-prep = Контроль: подготовка { $time } с. С базы нельзя выйти.
@@ -37,13 +37,13 @@ control-announce-retreat = { $winner } победили по очкам. { $lose
 control-announce-end = Победа: { $name }.
 control-announce-draw = Ничья. Очки равны.
 
-control-roundend-attackers = { $name } набрали больше победных очков.
-control-roundend-defenders = { $name } набрали больше победных очков.
+control-roundend-team-a = { $name } набрали больше победных очков.
+control-roundend-team-b = { $name } набрали больше победных очков.
 control-roundend-draw = Контроль завершился вничью.
-control-roundend-score = Очки: { $attackersName } { $attackers }, { $defendersName } { $defenders } (предел { $cap })
+control-roundend-score = Очки: { $teamAName } { $teamA }, { $teamBName } { $teamB } (предел { $cap })
 
 cmd-controlstatus-desc = Показать состояние режима Контроль.
 cmd-controlstatus-help = Использование: controlstatus
 control-cmd-inactive = Режим Контроль сейчас не активен.
-control-cmd-status = Фаза: { $phase }; очки { $attackersName } { $atk } { $defendersName } { $def } / { $cap }; игроков { $players }
+control-cmd-status = Фаза: { $phase }; очки { $teamAName } { $teamA } { $teamBName } { $teamB } / { $cap }; игроков { $players }
 control-cmd-queue = В очереди волны: { $queued }

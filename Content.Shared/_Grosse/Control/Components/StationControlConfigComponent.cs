@@ -6,8 +6,8 @@ namespace Content.Shared._Grosse.Control.Components;
 public sealed partial class StationControlConfigComponent : Component
 {
     [DataField]
-    public ProtoId<ControlTeamPrototype> Attackers = ControlConstants.DefaultAttackersTeam;
+    public ProtoId<ControlTeamPrototype> TeamA = ControlConstants.DefaultTeamA;
 
     [DataField]
-    public ProtoId<ControlTeamPrototype> Defenders = ControlConstants.DefaultDefendersTeam;
+    public ProtoId<ControlTeamPrototype> TeamB = ControlConstants.DefaultTeamB;
 }

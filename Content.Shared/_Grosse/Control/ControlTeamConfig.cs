@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared._Grosse.Control.Components;
-using Content.Shared._Grosse.Pvp;
 using Content.Shared.Maps;
 using Robust.Shared.Prototypes;
 
@@ -25,36 +24,36 @@ public static class ControlTeamConfig
         return null;
     }
 
-    public static ProtoId<ControlTeamPrototype> GetId(StationControlConfigComponent? config, PvpTeam team)
+    public static ProtoId<ControlTeamPrototype> GetId(StationControlConfigComponent? config, ControlTeam team)
     {
         if (config != null)
         {
-            var id = team == PvpTeam.Attackers ? config.Attackers : config.Defenders;
+            var id = team == ControlTeam.TeamA ? config.TeamA : config.TeamB;
             if (!string.IsNullOrEmpty(id))
                 return id;
         }
 
-        return team == PvpTeam.Attackers
-            ? ControlConstants.DefaultAttackersTeam
-            : ControlConstants.DefaultDefendersTeam;
+        return team == ControlTeam.TeamA
+            ? ControlConstants.DefaultTeamA
+            : ControlConstants.DefaultTeamB;
     }
 
     public static bool TryGetTeam(
         IPrototypeManager proto,
         StationControlConfigComponent? config,
-        PvpTeam team,
+        ControlTeam team,
         [NotNullWhen(true)] out ControlTeamPrototype? teamProto)
     {
         return proto.TryIndex(GetId(config, team), out teamProto);
     }
 
-    public static LocId GetName(IPrototypeManager proto, ProtoId<ControlTeamPrototype> teamId, PvpTeam slot)
+    public static LocId GetName(IPrototypeManager proto, ProtoId<ControlTeamPrototype> teamId, ControlTeam slot)
     {
         if (proto.TryIndex(teamId, out ControlTeamPrototype? team) && !string.IsNullOrEmpty(team.Name))
             return team.Name;
 
-        return slot == PvpTeam.Attackers
-            ? "control-team-attackers"
-            : "control-team-defenders";
+        return slot == ControlTeam.TeamA
+            ? "control-team-a"
+            : "control-team-b";
     }
 }

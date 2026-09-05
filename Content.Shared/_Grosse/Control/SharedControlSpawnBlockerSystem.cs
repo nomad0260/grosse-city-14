@@ -1,5 +1,6 @@
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Control.Components;
+using Content.Shared._Grosse.Pvp;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
@@ -50,7 +51,7 @@ public sealed partial class SharedControlSpawnBlockerSystem : EntitySystem
             }
         }
 
-        var layer = active ? (int) AssaultConstants.GetBlockerLayer(ent.Comp.Team) : 0;
+        var layer = active ? (int) AssaultConstants.GetBlockerLayer(ent.Comp.Team.ToPvp()) : 0;
         _physics.SetCollisionLayer(ent, id, fixture, layer, fixtures, physics);
     }
 

@@ -1,7 +1,6 @@
 using System.Numerics;
 using Content.Shared._Grosse.Control;
 using Content.Shared._Grosse.Control.Components;
-using Content.Shared._Grosse.Pvp;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Utility;
@@ -125,12 +124,12 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
         _sprite.RemoveLayer(spriteEnt, layer);
     }
 
-    private static Color OwnerColor(PvpTeam? owner)
+    private static Color OwnerColor(ControlTeam? owner)
     {
         return owner switch
         {
-            PvpTeam.Attackers => Color.FromHex("#cc3333"),
-            PvpTeam.Defenders => Color.FromHex("#3377cc"),
+            ControlTeam.TeamA => Color.FromHex("#cc3333"),
+            ControlTeam.TeamB => Color.FromHex("#3377cc"),
             _ => Color.FromHex("#888888"),
         };
     }
@@ -142,8 +141,8 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
 
         return point.CapturingTeam switch
         {
-            PvpTeam.Attackers => Color.DarkRed,
-            PvpTeam.Defenders => Color.DarkBlue,
+            ControlTeam.TeamA => Color.DarkRed,
+            ControlTeam.TeamB => Color.DarkBlue,
             _ => OwnerColor(point.Owner),
         };
     }

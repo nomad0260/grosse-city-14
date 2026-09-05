@@ -77,10 +77,10 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         component.RoundEndsAt = Timing.CurTime + component.RoundTime;
         component.NextScoreTick = Timing.CurTime + component.PrepTime + component.ScoreInterval;
         component.Winner = null;
-        component.AttackersScore = 0;
-        component.DefendersScore = 0;
-        component.AttackersComebackGiven = false;
-        component.DefendersComebackGiven = false;
+        component.TeamAScore = 0;
+        component.TeamBScore = 0;
+        component.TeamAComebackGiven = false;
+        component.TeamBComebackGiven = false;
         component.Players.Clear();
 
         ResetCapturePoints();
@@ -104,18 +104,18 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
 
     protected override void AppendRoundEndText(EntityUid uid, ControlRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
     {
-        if (component.Winner == PvpTeam.Attackers)
-            args.AddLine(Loc.GetString("control-roundend-attackers", ("name", TeamName(component, PvpTeam.Attackers))));
-        else if (component.Winner == PvpTeam.Defenders)
-            args.AddLine(Loc.GetString("control-roundend-defenders", ("name", TeamName(component, PvpTeam.Defenders))));
+        if (component.Winner == ControlTeam.TeamA)
+            args.AddLine(Loc.GetString("control-roundend-team-a", ("name", TeamName(component, ControlTeam.TeamA))));
+        else if (component.Winner == ControlTeam.TeamB)
+            args.AddLine(Loc.GetString("control-roundend-team-b", ("name", TeamName(component, ControlTeam.TeamB))));
         else
             args.AddLine(Loc.GetString("control-roundend-draw"));
 
         args.AddLine(Loc.GetString("control-roundend-score",
-            ("attackersName", TeamName(component, PvpTeam.Attackers)),
-            ("defendersName", TeamName(component, PvpTeam.Defenders)),
-            ("attackers", component.AttackersScore),
-            ("defenders", component.DefendersScore),
+            ("teamAName", TeamName(component, ControlTeam.TeamA)),
+            ("teamBName", TeamName(component, ControlTeam.TeamB)),
+            ("teamA", component.TeamAScore),
+            ("teamB", component.TeamBScore),
             ("cap", component.ScoreCap)));
     }
 
@@ -144,7 +144,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
                 TickScore(component);
                 TryComebackCrate(component);
                 UpdateWaves(component);
-                if (component.AttackersScore >= component.ScoreCap || component.DefendersScore >= component.ScoreCap)
+                if (component.TeamAScore >= component.ScoreCap || component.TeamBScore >= component.ScoreCap)
                     TryStartLastStand(component);
                 break;
             case ControlPhase.LastStand:
@@ -184,8 +184,8 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
             AssignPlayer(rule, session);
         }
 
-        SpawnWave(rule, PvpTeam.Attackers);
-        SpawnWave(rule, PvpTeam.Defenders);
+        SpawnWave(rule, ControlTeam.TeamA);
+        SpawnWave(rule, ControlTeam.TeamB);
 
         foreach (var (user, slot) in rule.Players)
         {
@@ -214,21 +214,23 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         };
     }
 
-    private PvpTeam ResolveTeam(ControlRuleComponent rule, PvpLobbyChoice? choice)
+    private ControlTeam ResolveTeam(ControlRuleComponent rule, PvpLobbyChoice? choice)
     {
-        var atk = CountTeam(rule, PvpTeam.Attackers);
-        var def = CountTeam(rule, PvpTeam.Defenders);
-        var preferred = choice is { Random: false, Team: { } team } ? team : (PvpTeam?) null;
+        var teamA = CountTeam(rule, ControlTeam.TeamA);
+        var teamB = CountTeam(rule, ControlTeam.TeamB);
+        ControlTeam? preferred = choice is { Random: false, Team: { } lobbyTeam }
+            ? lobbyTeam.ToControl()
+            : null;
 
-        if (preferred == PvpTeam.Attackers && atk <= def)
-            return PvpTeam.Attackers;
-        if (preferred == PvpTeam.Defenders && def <= atk)
-            return PvpTeam.Defenders;
+        if (preferred == ControlTeam.TeamA && teamA <= teamB)
+            return ControlTeam.TeamA;
+        if (preferred == ControlTeam.TeamB && teamB <= teamA)
+            return ControlTeam.TeamB;
 
-        return atk <= def ? PvpTeam.Attackers : PvpTeam.Defenders;
+        return teamA <= teamB ? ControlTeam.TeamA : ControlTeam.TeamB;
     }
 
-    private ProtoId<AssaultClassPrototype>? ResolveClass(ControlRuleComponent rule, PvpTeam team, PvpLobbyChoice? choice, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? ResolveClass(ControlRuleComponent rule, ControlTeam team, PvpLobbyChoice? choice, NetUserId user)
     {
         if (choice is { Random: false, Class: { } selected }
             && Proto.TryIndex<AssaultClassPrototype>(selected, out _)
@@ -241,7 +243,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         return PickRandomClass(rule, team, user);
     }
 
-    private ProtoId<AssaultClassPrototype>? PickRandomClass(ControlRuleComponent rule, PvpTeam team, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? PickRandomClass(ControlRuleComponent rule, ControlTeam team, NetUserId user)
     {
         var options = new List<AssaultClassPrototype>();
         foreach (var proto in EnumerateTeamClasses(rule, team))
@@ -261,7 +263,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         return _lobby.CanSelectClass(user, classId, includeUnassignedLobby: false);
     }
 
-    private int CountTeam(ControlRuleComponent rule, PvpTeam team)
+    private int CountTeam(ControlRuleComponent rule, ControlTeam team)
     {
         var count = 0;
         foreach (var slot in rule.Players.Values)
@@ -368,11 +370,11 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
 
     private void UpdateWaves(ControlRuleComponent rule)
     {
-        TrySpawnWave(rule, PvpTeam.Attackers);
-        TrySpawnWave(rule, PvpTeam.Defenders);
+        TrySpawnWave(rule, ControlTeam.TeamA);
+        TrySpawnWave(rule, ControlTeam.TeamB);
     }
 
-    private void TrySpawnWave(ControlRuleComponent rule, PvpTeam team)
+    private void TrySpawnWave(ControlRuleComponent rule, ControlTeam team)
     {
         if (rule.Phase == ControlPhase.LastStand && team != rule.Winner)
             return;
@@ -405,7 +407,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         SpawnWave(rule, team);
     }
 
-    private void SpawnWave(ControlRuleComponent rule, PvpTeam team)
+    private void SpawnWave(ControlRuleComponent rule, ControlTeam team)
     {
         foreach (var (user, slot) in rule.Players.ToList())
         {
@@ -472,9 +474,9 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
 
         _factions.ClearFactions(mob);
         _factions.AddFaction(mob,
-            slot.Team == PvpTeam.Attackers
-                ? ControlConstants.AttackersFaction
-                : ControlConstants.DefendersFaction);
+            slot.Team == ControlTeam.TeamA
+                ? ControlConstants.TeamAFaction
+                : ControlConstants.TeamBFaction);
 
         ApplyTeamCollisionMask(mob, slot.Team);
 
@@ -493,7 +495,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         GameTicker.PlayerJoinGame(session, silent: true);
     }
 
-    private bool TryGetSpawnCoords(PvpTeam team, out EntityCoordinates coords)
+    private bool TryGetSpawnCoords(ControlTeam team, out EntityCoordinates coords)
     {
         var points = new List<EntityUid>();
         var query = EntityQueryEnumerator<ControlSpawnPointComponent, TransformComponent>();
@@ -513,12 +515,12 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         return true;
     }
 
-    private void ApplyTeamCollisionMask(EntityUid mob, PvpTeam team)
+    private void ApplyTeamCollisionMask(EntityUid mob, ControlTeam team)
     {
         if (!TryComp<FixturesComponent>(mob, out var fixtures))
             return;
 
-        var remove = (int) (team == PvpTeam.Attackers
+        var remove = (int) (team == ControlTeam.TeamA
             ? CollisionGroup.AssaultAttackersImpassable
             : CollisionGroup.AssaultDefendersImpassable);
 
@@ -539,38 +541,38 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         var query = EntityQueryEnumerator<ControlCapturePointComponent>();
         while (query.MoveNext(out _, out var point))
         {
-            if (point.Owner == PvpTeam.Attackers)
+            if (point.Owner == ControlTeam.TeamA)
                 atk++;
-            else if (point.Owner == PvpTeam.Defenders)
+            else if (point.Owner == ControlTeam.TeamB)
                 def++;
         }
 
-        rule.AttackersScore += atk * rule.AttackersScorePerPoint;
-        rule.DefendersScore += def * rule.DefendersScorePerPoint;
+        rule.TeamAScore += atk * rule.TeamAScorePerPoint;
+        rule.TeamBScore += def * rule.TeamBScorePerPoint;
     }
 
     private void TryComebackCrate(ControlRuleComponent rule)
     {
-        var diff = rule.AttackersScore - rule.DefendersScore;
-        if (diff <= -rule.ComebackDeficit && !rule.AttackersComebackGiven)
+        var diff = rule.TeamAScore - rule.TeamBScore;
+        if (diff <= -rule.ComebackDeficit && !rule.TeamAComebackGiven)
         {
-            if (SpawnComebackCrate(PvpTeam.Attackers))
+            if (SpawnComebackCrate(ControlTeam.TeamA))
             {
-                rule.AttackersComebackGiven = true;
-                Announce("control-announce-comeback", ("name", TeamName(rule, PvpTeam.Attackers)));
+                rule.TeamAComebackGiven = true;
+                Announce("control-announce-comeback", ("name", TeamName(rule, ControlTeam.TeamA)));
             }
         }
-        else if (diff >= rule.ComebackDeficit && !rule.DefendersComebackGiven)
+        else if (diff >= rule.ComebackDeficit && !rule.TeamBComebackGiven)
         {
-            if (SpawnComebackCrate(PvpTeam.Defenders))
+            if (SpawnComebackCrate(ControlTeam.TeamB))
             {
-                rule.DefendersComebackGiven = true;
-                Announce("control-announce-comeback", ("name", TeamName(rule, PvpTeam.Defenders)));
+                rule.TeamBComebackGiven = true;
+                Announce("control-announce-comeback", ("name", TeamName(rule, ControlTeam.TeamB)));
             }
         }
     }
 
-    private bool SpawnComebackCrate(PvpTeam team)
+    private bool SpawnComebackCrate(ControlTeam team)
     {
         var markers = new List<EntityUid>();
         var query = EntityQueryEnumerator<ControlComebackCrateSpawnComponent, TransformComponent>();
@@ -590,11 +592,11 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
 
     private void TryStartLastStand(ControlRuleComponent rule)
     {
-        PvpTeam? winner = null;
-        if (rule.AttackersScore > rule.DefendersScore)
-            winner = PvpTeam.Attackers;
-        else if (rule.DefendersScore > rule.AttackersScore)
-            winner = PvpTeam.Defenders;
+        ControlTeam? winner = null;
+        if (rule.TeamAScore > rule.TeamBScore)
+            winner = ControlTeam.TeamA;
+        else if (rule.TeamBScore > rule.TeamAScore)
+            winner = ControlTeam.TeamB;
 
         if (winner == null)
         {
@@ -607,7 +609,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         rule.LastStandEndsAt = Timing.CurTime + rule.LastStandTime;
         _blockers.SetAllActive(false);
 
-        var losers = winner == PvpTeam.Attackers ? PvpTeam.Defenders : PvpTeam.Attackers;
+        var losers = winner == ControlTeam.TeamA ? ControlTeam.TeamB : ControlTeam.TeamA;
         Announce("control-announce-retreat",
             ("winner", TeamName(rule, winner.Value)),
             ("loser", TeamName(rule, losers)),
@@ -636,7 +638,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         if (rule.Winner is not { } winner)
             return false;
 
-        var losers = winner == PvpTeam.Attackers ? PvpTeam.Defenders : PvpTeam.Attackers;
+        var losers = winner == ControlTeam.TeamA ? ControlTeam.TeamB : ControlTeam.TeamA;
         foreach (var slot in rule.Players.Values)
         {
             if (slot.Team != losers)
@@ -712,7 +714,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
     {
         var state = new PvpClassSelectEuiState
         {
-            Team = slot.Team,
+            Team = slot.Team.ToPvp(),
             ShowTickets = false,
             ShowClassCost = false,
             SelectedClass = slot.Class,
@@ -736,8 +738,8 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
 
     private void BroadcastHud(ControlRuleComponent rule)
     {
-        var (atkDead, atkTotal) = CountWave(rule, PvpTeam.Attackers);
-        var (defDead, defTotal) = CountWave(rule, PvpTeam.Defenders);
+        var (atkDead, atkTotal) = CountWave(rule, ControlTeam.TeamA);
+        var (defDead, defTotal) = CountWave(rule, ControlTeam.TeamB);
         var points = new List<ControlPointHudInfo>();
         var query = EntityQueryEnumerator<ControlCapturePointComponent>();
         while (query.MoveNext(out _, out var point))
@@ -763,24 +765,24 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         {
             Enabled = rule.Phase is not ControlPhase.Ended and not ControlPhase.Lobby,
             Phase = rule.Phase,
-            AttackersScore = rule.AttackersScore,
-            DefendersScore = rule.DefendersScore,
+            TeamAScore = rule.TeamAScore,
+            TeamBScore = rule.TeamBScore,
             ScoreCap = rule.ScoreCap,
             PhaseEndsAt = phaseEnd,
             RoundEndsAt = rule.RoundEndsAt,
-            AttackersDead = atkDead,
-            AttackersTotal = atkTotal,
-            DefendersDead = defDead,
-            DefendersTotal = defTotal,
+            TeamADead = atkDead,
+            TeamATotal = atkTotal,
+            TeamBDead = defDead,
+            TeamBTotal = defTotal,
             WaveThreshold = rule.WaveThreshold,
-            AttackersTeam = rule.AttackersTeam,
-            DefendersTeam = rule.DefendersTeam,
+            TeamAId = rule.TeamAId,
+            TeamBId = rule.TeamBId,
             Winner = rule.Winner,
             Points = points,
         });
     }
 
-    private (int Dead, int Total) CountWave(ControlRuleComponent rule, PvpTeam team)
+    private (int Dead, int Total) CountWave(ControlRuleComponent rule, ControlTeam team)
     {
         var dead = 0;
         var total = 0;
@@ -846,36 +848,36 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         }
 
         config ??= ControlTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
-        rule.AttackersTeam = ControlTeamConfig.GetId(config, PvpTeam.Attackers);
-        rule.DefendersTeam = ControlTeamConfig.GetId(config, PvpTeam.Defenders);
+        rule.TeamAId = ControlTeamConfig.GetId(config, ControlTeam.TeamA);
+        rule.TeamBId = ControlTeamConfig.GetId(config, ControlTeam.TeamB);
 
-        if (Proto.TryIndex(rule.AttackersTeam, out ControlTeamPrototype? attackers))
-            rule.AttackersScorePerPoint = attackers.ScorePerHeldPoint;
+        if (Proto.TryIndex(rule.TeamAId, out ControlTeamPrototype? teamAProto))
+            rule.TeamAScorePerPoint = teamAProto.ScorePerHeldPoint;
         else
-            rule.AttackersScorePerPoint = rule.ScorePerHeldPoint;
+            rule.TeamAScorePerPoint = rule.ScorePerHeldPoint;
 
-        if (Proto.TryIndex(rule.DefendersTeam, out ControlTeamPrototype? defenders))
-            rule.DefendersScorePerPoint = defenders.ScorePerHeldPoint;
+        if (Proto.TryIndex(rule.TeamBId, out ControlTeamPrototype? teamBProto))
+            rule.TeamBScorePerPoint = teamBProto.ScorePerHeldPoint;
         else
-            rule.DefendersScorePerPoint = rule.ScorePerHeldPoint;
+            rule.TeamBScorePerPoint = rule.ScorePerHeldPoint;
     }
 
-    private ProtoId<ControlTeamPrototype> GetTeamId(ControlRuleComponent rule, PvpTeam team)
+    private ProtoId<ControlTeamPrototype> GetTeamId(ControlRuleComponent rule, ControlTeam team)
     {
-        return team == PvpTeam.Attackers ? rule.AttackersTeam : rule.DefendersTeam;
+        return team == ControlTeam.TeamA ? rule.TeamAId : rule.TeamBId;
     }
 
-    private bool TryGetTeamPrototype(ControlRuleComponent rule, PvpTeam team, [NotNullWhen(true)] out ControlTeamPrototype? proto)
+    private bool TryGetTeamPrototype(ControlRuleComponent rule, ControlTeam team, [NotNullWhen(true)] out ControlTeamPrototype? proto)
     {
         return Proto.TryIndex(GetTeamId(rule, team), out proto);
     }
 
-    private bool TeamHasClass(ControlRuleComponent rule, PvpTeam team, ProtoId<AssaultClassPrototype> classId)
+    private bool TeamHasClass(ControlRuleComponent rule, ControlTeam team, ProtoId<AssaultClassPrototype> classId)
     {
         return TryGetTeamPrototype(rule, team, out var proto) && proto.ContainsClass(classId);
     }
 
-    private IEnumerable<AssaultClassPrototype> EnumerateTeamClasses(ControlRuleComponent rule, PvpTeam team)
+    private IEnumerable<AssaultClassPrototype> EnumerateTeamClasses(ControlRuleComponent rule, ControlTeam team)
     {
         if (!TryGetTeamPrototype(rule, team, out var teamProto))
             yield break;
@@ -887,7 +889,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         }
     }
 
-    private string TeamName(ControlRuleComponent rule, PvpTeam team)
+    private string TeamName(ControlRuleComponent rule, ControlTeam team)
     {
         return Loc.GetString(ControlTeamConfig.GetName(Proto, GetTeamId(rule, team), team));
     }

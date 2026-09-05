@@ -1,14 +1,14 @@
 - type: controlTeam
-  id: ControlAttackers
-  name: control-team-attackers
+  id: ControlTeamA
+  name: control-team-a
   scorePerHeldPoint: 10
   classes:
   - AssaultRebelRifle
   - AssaultRebelShotgun
 
 - type: controlTeam
-  id: ControlDefenders
-  name: control-team-defenders
+  id: ControlTeamB
+  name: control-team-b
   scorePerHeldPoint: 10
   classes:
   - AssaultCp
@@ -17,10 +17,10 @@
 
 - type: controlTeam
   id: ControlRebels
-  parent: ControlAttackers
+  parent: ControlTeamA
   name: control-team-rebels
 
 - type: controlTeam
   id: ControlCombine
-  parent: ControlDefenders
+  parent: ControlTeamB
   name: control-team-combine

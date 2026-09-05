@@ -1,6 +1,5 @@
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Control;
-using Content.Shared._Grosse.Pvp;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -25,10 +24,10 @@ public sealed partial class ControlRuleComponent : Component
     public int ScorePerHeldPoint = 10;
 
     [ViewVariables]
-    public int AttackersScorePerPoint = 10;
+    public int TeamAScorePerPoint = 10;
 
     [ViewVariables]
-    public int DefendersScorePerPoint = 10;
+    public int TeamBScorePerPoint = 10;
 
     [DataField]
     public float WaveThreshold = 0.5f;
@@ -49,10 +48,10 @@ public sealed partial class ControlRuleComponent : Component
     public ControlPhase Phase = ControlPhase.Lobby;
 
     [ViewVariables]
-    public int AttackersScore;
+    public int TeamAScore;
 
     [ViewVariables]
-    public int DefendersScore;
+    public int TeamBScore;
 
     [ViewVariables]
     public TimeSpan PrepEndsAt;
@@ -70,19 +69,19 @@ public sealed partial class ControlRuleComponent : Component
     public TimeSpan HudNextUpdate;
 
     [ViewVariables]
-    public PvpTeam? Winner;
+    public ControlTeam? Winner;
 
     [ViewVariables]
-    public bool AttackersComebackGiven;
+    public bool TeamAComebackGiven;
 
     [ViewVariables]
-    public bool DefendersComebackGiven;
+    public bool TeamBComebackGiven;
 
     [ViewVariables]
-    public ProtoId<ControlTeamPrototype> AttackersTeam = ControlConstants.DefaultAttackersTeam;
+    public ProtoId<ControlTeamPrototype> TeamAId = ControlConstants.DefaultTeamA;
 
     [ViewVariables]
-    public ProtoId<ControlTeamPrototype> DefendersTeam = ControlConstants.DefaultDefendersTeam;
+    public ProtoId<ControlTeamPrototype> TeamBId = ControlConstants.DefaultTeamB;
 
     [ViewVariables]
     public Dictionary<NetUserId, ControlPlayerSlot> Players = new();
@@ -90,7 +89,7 @@ public sealed partial class ControlRuleComponent : Component
 
 public sealed class ControlPlayerSlot
 {
-    public PvpTeam Team;
+    public ControlTeam Team;
     public ProtoId<AssaultClassPrototype>? Class;
     public bool InWaveQueue;
     public TimeSpan QueuedAt;

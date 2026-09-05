@@ -6,40 +6,47 @@
 
 ## Команды на карте (`controlTeam`)
 
-Слоты на маркерах — `Attackers` и `Defenders` (спавны, барьеры, ящик). Кто в слоте (имя в лобби/HUD, классы) задаётся прототипом `controlTeam` и компонентом на `gameMap`, не консолью.
+Слоты на маркерах — симметричные `TeamA` и `TeamB` (спавны, барьеры, ящик). **Attackers / Defenders в Контроле нет.** Кто в слоте (имя в лобби/HUD, классы, очки за удержание) задаётся прототипом `controlTeam` и компонентом на `gameMap`, не консолью.
 
-Без компонента берутся `ControlAttackers` / `ControlDefenders` (имена «Атака»/«Защита», классы без AR2 и OTA Elite).
+Без компонента берутся `ControlTeamA` / `ControlTeamB` (имена «Команда A»/«Команда B», классы без AR2 и OTA Elite).
 
 В `Resources/Prototypes/_Grosse/Maps/control.yml` у станции:
 
 ```yaml
 - type: StationControlConfig
-  attackers: ControlRebels
-  defenders: ControlCombine
+  teamA: ControlRebels
+  teamB: ControlCombine
 ```
 
-Прототипы команд — `Resources/Prototypes/_Grosse/Control/teams.yml`. Есть `parent` и `abstract`, как у `assaultTeam`.
+Прототипы команд — `Resources/Prototypes/_Grosse/Control/teams.yml`. Есть `parent` и `abstract`, как у `assaultTeam` / startingGear:
+
+```yaml
+- type: controlTeam
+  id: ControlRebels
+  parent: ControlTeamA
+  name: control-team-rebels
+```
 
 Поля `controlTeam`:
 
 | Поле | Смысл |
 |------|--------|
-| `name` | `LocId` отображаемого имени |
-| `scorePerHeldPoint` | победные очки за каждую удержанную точку за тик (как `captureReward` у Штурма) |
-| `classes` | список id существующих `assaultClass` |
+| `name` | `LocId` отображаемого имени. Строки в `Resources/Locale/en-US/_Grosse/control/control.ftl` и `ru-RU` |
+| `scorePerHeldPoint` | победные очки за каждую удержанную точку за тик (аналог `captureReward` у Штурма; билетов возрождения нет — респаун бесконечный) |
+| `classes` | список id существующих `assaultClass` для лобби и респавна |
 
-На старте раунда `ControlRuleSystem.ApplyTeamConfig` берёт с `StationControlConfig` id команд и подставляет с прототипа **классы** (лобби/спавн/EUI) и **очки за удержание**. Респаун в Контроле бесконечный — отдельных билетов нет.
+На старте раунда `ControlRuleSystem.ApplyTeamConfig` берёт с `StationControlConfig` id команд и подставляет с прототипа **классы** (лобби/спавн/EUI) и **очки за удержание**.
 
-`classes` наследуется с дописыванием (`AlwaysPushInheritance`). Другой набор целиком — без `parent`. Имя и `scorePerHeldPoint` у ребёнка можно переопределить отдельно.
+`classes` наследуется с дописыванием (`AlwaysPushInheritance`): у ребёнка новые классы **добавляются** к родителю. Другой набор целиком — без `parent`. Имя и `scorePerHeldPoint` у ребёнка можно переопределить отдельно.
 
 Новая фракция: свой `controlTeam` (+ классы при необходимости) и ссылка на него в `StationControlConfig`. Не копируй геймрул.
 
 ## Минимальная карта (одна точка)
 
 1. `ControlCaptureConsole` — хотя бы одна консоль
-2. Несколько `ControlSpawnPointAttackers` на базе атаки
-3. Несколько `ControlSpawnPointDefenders` на базе защиты
-4. `ControlSpawnBlocker` на входах **каждой** базы (`team` = хозяин базы)
+2. Несколько `ControlSpawnPointTeamA` на базе команды A
+3. Несколько `ControlSpawnPointTeamB` на базе команды B
+4. `ControlSpawnBlocker` на входах **каждой** базы (`team` = хозяин базы: `TeamA` или `TeamB`)
 5. Двери выходов с обеих баз + `ControlGatePrep` (или `ControlGate` на двери)
 6. `ControlComebackCrateSpawn` на каждой базе (`team` совпадает)
 7. На `gameMap` станции — `StationControlConfig` (или дефолтные команды)
@@ -68,7 +75,7 @@
 
 Не ставь крестик Штурма (`AssaultCapturePoint`).
 
-### Спавн — `ControlSpawnPointAttackers` / `ControlSpawnPointDefenders`
+### Спавн — `ControlSpawnPointTeamA` / `ControlSpawnPointTeamB`
 
 Только `team`. Респаун всегда на своей базе. Несколько точек — случайный выбор. Не ставь спавн внутри чужого барьера.
 
@@ -82,12 +89,12 @@
 
 Чужие пешком не заходят, свои проходят, пули сквозь. Дефолт коллизия 3×3.
 
-- `team` = команда, чью базу закрываешь
+- `team` = команда, чью базу закрываешь (`TeamA` / `TeamB`)
 - Активен всю подготовку и бой; в последнем бое проходят все
 
 Барьер должен закрывать **вход на респ**, не консоль и не весь проход карты.
 
-Для защиты смени `team` на `Defenders` (дефолт у прототипа — атака).
+Для команды B смени `team` на `TeamB` (дефолт у прототипа — `TeamA`).
 
 ### Ящик камбэка — `ControlComebackCrateSpawn`
 
@@ -95,12 +102,12 @@
 
 ### Турели (опционально)
 
-`WeaponTurretControlAttackers` / `WeaponTurretControlDefenders`. Ставь за барьером базы.
+`WeaponTurretControlTeamA` / `WeaponTurretControlTeamB`. Ставь за барьером базы.
 
 ## Чеклист
 
 - Есть хотя бы одна `ControlCaptureConsole` с понятным `pointName`
-- На `gameMap` проставлен `StationControlConfig` (или осознанно оставлены дефолты)
+- На `gameMap` проставлен `StationControlConfig` с `teamA` / `teamB` (или осознанно оставлены дефолты)
 - У каждой команды несколько спавнов на своей базе
 - Все входы на базы закрыты `ControlSpawnBlocker` с верным `team`
 - Все выходы с баз закрыты дверью + `ControlGatePrep`
@@ -111,6 +118,7 @@
 ## Чего нет (ошибки со Штурма)
 
 - Не ставь `Assault*` маркеры — Контроль их не читает
+- Не используй слоты `Attackers` / `Defenders` — в Контроле только `TeamA` / `TeamB`
 - Не нумеруй зоны `0…N` и не ставь стыковые `AssaultGate`
 - Не делай линейный коридор зон
 - Очки здесь за **удержание**, не за билеты

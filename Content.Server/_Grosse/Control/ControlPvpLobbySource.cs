@@ -35,21 +35,23 @@ public sealed class ControlPvpLobbySource : EntitySystem, IPvpLobbySource
     public (string AttackersId, string DefendersId) GetTeamIds()
     {
         var config = GetConfig();
+        // Shared PvP lobby slots map to Control TeamA / TeamB.
         return (
-            ControlTeamConfig.GetId(config, PvpTeam.Attackers),
-            ControlTeamConfig.GetId(config, PvpTeam.Defenders));
+            ControlTeamConfig.GetId(config, ControlTeam.TeamA),
+            ControlTeamConfig.GetId(config, ControlTeam.TeamB));
     }
 
     public string GetTeamName(PvpTeam team)
     {
-        var id = team == PvpTeam.Attackers ? GetTeamIds().AttackersId : GetTeamIds().DefendersId;
-        return Loc.GetString(ControlTeamConfig.GetName(_proto, id, team));
+        var controlTeam = team.ToControl();
+        var id = controlTeam == ControlTeam.TeamA ? GetTeamIds().AttackersId : GetTeamIds().DefendersId;
+        return Loc.GetString(ControlTeamConfig.GetName(_proto, id, controlTeam));
     }
 
     public IReadOnlyList<PvpClassInfo> GetClasses(PvpTeam team)
     {
         var list = new List<PvpClassInfo>();
-        if (!ControlTeamConfig.TryGetTeam(_proto, GetConfig(), team, out var teamProto))
+        if (!ControlTeamConfig.TryGetTeam(_proto, GetConfig(), team.ToControl(), out var teamProto))
             return list;
 
         foreach (var classId in teamProto.Classes)
@@ -72,7 +74,7 @@ public sealed class ControlPvpLobbySource : EntitySystem, IPvpLobbySource
 
     public bool ContainsClass(PvpTeam team, string classId)
     {
-        return ControlTeamConfig.TryGetTeam(_proto, GetConfig(), team, out var teamProto)
+        return ControlTeamConfig.TryGetTeam(_proto, GetConfig(), team.ToControl(), out var teamProto)
             && teamProto.ContainsClass(classId);
     }
 

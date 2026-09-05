@@ -1,4 +1,3 @@
-using Content.Shared._Grosse.Pvp;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._Grosse.Control.Components;
@@ -19,10 +18,10 @@ public sealed partial class ControlCapturePointComponent : Component
     public float Progress;
 
     [ViewVariables, AutoNetworkedField]
-    public PvpTeam? Owner;
+    public ControlTeam? Owner;
 
     [ViewVariables, AutoNetworkedField]
-    public PvpTeam? CapturingTeam;
+    public ControlTeam? CapturingTeam;
 
     [ViewVariables, AutoNetworkedField]
     public ControlCaptureState VisualState = ControlCaptureState.Neutral;

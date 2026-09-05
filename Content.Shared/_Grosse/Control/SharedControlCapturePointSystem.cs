@@ -49,9 +49,9 @@ public abstract partial class SharedControlCapturePointSystem : EntitySystem
         {
             args.PushMarkup(Loc.GetString("control-capture-examined-owned",
                 ("name", name),
-                ("owner", Loc.GetString(owner == Content.Shared._Grosse.Pvp.PvpTeam.Attackers
-                    ? "control-team-attackers"
-                    : "control-team-defenders")),
+                ("owner", Loc.GetString(owner == ControlTeam.TeamA
+                    ? "control-team-a"
+                    : "control-team-b")),
                 ("percent", percent)));
             return;
         }

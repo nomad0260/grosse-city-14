@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared._Grosse.Control;
 using Content.Shared._Grosse.Control.Components;
-using Content.Shared._Grosse.Pvp;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -52,19 +51,19 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
             if (Paused(uid, meta))
                 continue;
 
-            var (attackers, defenders) = CountOccupants(point);
+            var (teamA, teamB) = CountOccupants(point);
             var oldProgress = point.Progress;
             var oldState = point.VisualState;
             var oldOwner = point.Owner;
             var oldCapturing = point.CapturingTeam;
 
-            if (attackers > 0 && defenders > 0)
+            if (teamA > 0 && teamB > 0)
             {
                 point.VisualState = ControlCaptureState.Contested;
             }
-            else if (attackers > 0 || defenders > 0)
+            else if (teamA > 0 || teamB > 0)
             {
-                var team = attackers > 0 ? PvpTeam.Attackers : PvpTeam.Defenders;
+                var team = teamA > 0 ? ControlTeam.TeamA : ControlTeam.TeamB;
                 if (point.Owner == team)
                 {
                     point.Progress = Math.Max(0f, point.Progress - dt / Math.Max(0.1f, point.CaptureTime));
@@ -111,10 +110,10 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
         }
     }
 
-    private (int Attackers, int Defenders) CountOccupants(ControlCapturePointComponent point)
+    private (int TeamA, int TeamB) CountOccupants(ControlCapturePointComponent point)
     {
-        var atk = 0;
-        var def = 0;
+        var a = 0;
+        var b = 0;
         foreach (var uid in point.Occupants)
         {
             if (!TryComp<ControlPlayerComponent>(uid, out var player))
@@ -123,13 +122,13 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
             if (!TryComp<MobStateComponent>(uid, out var mob) || mob.CurrentState != MobState.Alive)
                 continue;
 
-            if (player.Team == PvpTeam.Attackers)
-                atk++;
+            if (player.Team == ControlTeam.TeamA)
+                a++;
             else
-                def++;
+                b++;
         }
 
-        return (atk, def);
+        return (a, b);
     }
 
     private bool TryGetActiveRule([NotNullWhen(true)] out ControlRuleComponent? rule)

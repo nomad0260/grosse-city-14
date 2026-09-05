@@ -1,5 +1,4 @@
 using Content.Shared._Grosse.Assault;
-using Content.Shared._Grosse.Pvp;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -9,7 +8,7 @@ namespace Content.Shared._Grosse.Control.Components;
 public sealed partial class ControlPlayerComponent : Component
 {
     [DataField]
-    public PvpTeam Team;
+    public ControlTeam Team;
 
     [DataField]
     public ProtoId<AssaultClassPrototype> Class;

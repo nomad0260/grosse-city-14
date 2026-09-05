@@ -1,17 +1,17 @@
 - type: entity
   parent: BaseWeaponBallisticTurret
-  id: WeaponTurretControlAttackers
-  suffix: Контроль, Атака
+  id: WeaponTurretControlTeamA
+  suffix: Контроль, Команда A
   components:
   - type: NpcFactionMember
     factions:
-    - ControlAttackers
+    - ControlTeamA
 
 - type: entity
   parent: BaseWeaponBallisticTurret
-  id: WeaponTurretControlDefenders
-  suffix: Контроль, Защита
+  id: WeaponTurretControlTeamB
+  suffix: Контроль, Команда B
   components:
   - type: NpcFactionMember
     factions:
-    - ControlDefenders
+    - ControlTeamB

@@ -1,6 +1,5 @@
 using Content.Server.Administration;
 using Content.Shared._Grosse.Control;
-using Content.Shared._Grosse.Pvp;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
@@ -32,10 +31,10 @@ public sealed partial class ControlStatusCommand : LocalizedEntityCommands
 
         shell.WriteLine(Loc.GetString("control-cmd-status",
             ("phase", rule.Phase),
-            ("attackersName", Loc.GetString(ControlTeamConfig.GetName(_proto, rule.AttackersTeam, PvpTeam.Attackers))),
-            ("defendersName", Loc.GetString(ControlTeamConfig.GetName(_proto, rule.DefendersTeam, PvpTeam.Defenders))),
-            ("atk", rule.AttackersScore),
-            ("def", rule.DefendersScore),
+            ("teamAName", Loc.GetString(ControlTeamConfig.GetName(_proto, rule.TeamAId, ControlTeam.TeamA))),
+            ("teamBName", Loc.GetString(ControlTeamConfig.GetName(_proto, rule.TeamBId, ControlTeam.TeamB))),
+            ("teamA", rule.TeamAScore),
+            ("teamB", rule.TeamBScore),
             ("cap", rule.ScoreCap),
             ("players", rule.Players.Count)));
         shell.WriteLine(Loc.GetString("control-cmd-queue", ("queued", queued)));

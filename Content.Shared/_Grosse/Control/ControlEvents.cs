@@ -1,4 +1,3 @@
-using Content.Shared._Grosse.Pvp;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Grosse.Control;
@@ -8,19 +7,19 @@ public sealed class ControlHudUpdateEvent : EntityEventArgs
 {
     public bool Enabled;
     public ControlPhase Phase;
-    public int AttackersScore;
-    public int DefendersScore;
+    public int TeamAScore;
+    public int TeamBScore;
     public int ScoreCap;
     public TimeSpan PhaseEndsAt;
     public TimeSpan RoundEndsAt;
-    public int AttackersDead;
-    public int AttackersTotal;
-    public int DefendersDead;
-    public int DefendersTotal;
+    public int TeamADead;
+    public int TeamATotal;
+    public int TeamBDead;
+    public int TeamBTotal;
     public float WaveThreshold;
-    public string AttackersTeam = ControlConstants.DefaultAttackersTeam;
-    public string DefendersTeam = ControlConstants.DefaultDefendersTeam;
-    public PvpTeam? Winner;
+    public string TeamAId = ControlConstants.DefaultTeamA;
+    public string TeamBId = ControlConstants.DefaultTeamB;
+    public ControlTeam? Winner;
     public List<ControlPointHudInfo> Points = new();
 }
 
@@ -28,7 +27,7 @@ public sealed class ControlHudUpdateEvent : EntityEventArgs
 public sealed class ControlPointHudInfo
 {
     public string Name = string.Empty;
-    public PvpTeam? Owner;
+    public ControlTeam? Owner;
     public ControlCaptureState VisualState;
 }
 
