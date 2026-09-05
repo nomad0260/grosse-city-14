@@ -15,6 +15,22 @@ namespace Content.IntegrationTests.Tests.GameRules;
 [TestFixture]
 public sealed class ControlMapTest : GameTest
 {
+    private static readonly EntProtoId ControlRuleId = "City14ControlRule";
+    private static readonly EntProtoId CaptureConsoleId = "ControlCaptureConsole";
+    private static readonly EntProtoId SpawnPointTeamAId = "ControlSpawnPointTeamA";
+    private static readonly EntProtoId SpawnPointTeamBId = "ControlSpawnPointTeamB";
+    private static readonly EntProtoId GatePrepId = "ControlGatePrep";
+    private static readonly EntProtoId SpawnBlockerId = "ControlSpawnBlocker";
+    private static readonly EntProtoId ComebackCrateSpawnId = "ControlComebackCrateSpawn";
+    private static readonly EntProtoId ComebackCrateId = "CrateControlComeback";
+    private static readonly ProtoId<ControlTeamPrototype> TeamAId = "ControlTeamA";
+    private static readonly ProtoId<ControlTeamPrototype> TeamBId = "ControlTeamB";
+    private static readonly ProtoId<ControlTeamPrototype> RebelsId = "ControlRebels";
+    private static readonly ProtoId<ControlTeamPrototype> CombineId = "ControlCombine";
+    private static readonly ProtoId<GamePresetPrototype> PresetId = "City14Control";
+    private static readonly ProtoId<GameMapPoolPrototype> PoolId = "ControlMapPool";
+    private static readonly ProtoId<GameMapPrototype> StubMapId = "ControlStub";
+
     public override PoolSettings PoolSettings => new()
     {
         Dirty = true,
@@ -33,26 +49,26 @@ public sealed class ControlMapTest : GameTest
         {
             var proto = server.ResolveDependency<IPrototypeManager>();
 
-            Assert.That(proto.HasIndex<EntityPrototype>("City14ControlRule"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlCaptureConsole"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlSpawnPointTeamA"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlSpawnPointTeamB"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlGatePrep"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlSpawnBlocker"));
-            Assert.That(proto.HasIndex<EntityPrototype>("ControlComebackCrateSpawn"));
-            Assert.That(proto.HasIndex<EntityPrototype>("CrateControlComeback"));
-            Assert.That(proto.HasIndex<ControlTeamPrototype>("ControlTeamA"));
-            Assert.That(proto.HasIndex<ControlTeamPrototype>("ControlTeamB"));
-            Assert.That(proto.HasIndex<ControlTeamPrototype>("ControlRebels"));
-            Assert.That(proto.HasIndex<ControlTeamPrototype>("ControlCombine"));
-            Assert.That(proto.HasIndex<GamePresetPrototype>("City14Control"));
-            Assert.That(proto.TryIndex<GameMapPoolPrototype>("ControlMapPool", out var pool));
-            Assert.That(pool!.Maps, Does.Contain("ControlStub"));
-            Assert.That(proto.TryIndex<GameMapPrototype>("ControlStub", out var map));
+            Assert.That(proto.HasIndex(ControlRuleId));
+            Assert.That(proto.HasIndex(CaptureConsoleId));
+            Assert.That(proto.HasIndex(SpawnPointTeamAId));
+            Assert.That(proto.HasIndex(SpawnPointTeamBId));
+            Assert.That(proto.HasIndex(GatePrepId));
+            Assert.That(proto.HasIndex(SpawnBlockerId));
+            Assert.That(proto.HasIndex(ComebackCrateSpawnId));
+            Assert.That(proto.HasIndex(ComebackCrateId));
+            Assert.That(proto.HasIndex(TeamAId));
+            Assert.That(proto.HasIndex(TeamBId));
+            Assert.That(proto.HasIndex(RebelsId));
+            Assert.That(proto.HasIndex(CombineId));
+            Assert.That(proto.HasIndex(PresetId));
+            Assert.That(proto.TryIndex(PoolId, out var pool));
+            Assert.That(pool!.Maps, Does.Contain(StubMapId.Id));
+            Assert.That(proto.TryIndex(StubMapId, out var map));
             var config = ControlTeamConfig.FromGameMap(map);
             Assert.That(config, Is.Not.Null);
-            Assert.That(config!.TeamA.Id, Is.EqualTo("ControlRebels"));
-            Assert.That(config.TeamB.Id, Is.EqualTo("ControlCombine"));
+            Assert.That(config!.TeamA, Is.EqualTo(RebelsId));
+            Assert.That(config.TeamB, Is.EqualTo(CombineId));
         });
     }
 
@@ -69,22 +85,22 @@ public sealed class ControlMapTest : GameTest
             mapSys.CreateMap(out var mapId);
             var grid = mapSys.CreateGridEntity(mapId);
 
-            var console = entMan.SpawnEntity("ControlCaptureConsole", new EntityCoordinates(grid, Vector2.Zero));
+            var console = entMan.SpawnEntity(CaptureConsoleId, new EntityCoordinates(grid, Vector2.Zero));
             Assert.That(entMan.HasComponent<ControlCapturePointComponent>(console));
 
-            var teamA = entMan.SpawnEntity("ControlSpawnPointTeamA", new EntityCoordinates(grid, new Vector2(2, 0)));
+            var teamA = entMan.SpawnEntity(SpawnPointTeamAId, new EntityCoordinates(grid, new Vector2(2, 0)));
             Assert.That(entMan.GetComponent<ControlSpawnPointComponent>(teamA).Team, Is.EqualTo(ControlTeam.TeamA));
 
-            var teamB = entMan.SpawnEntity("ControlSpawnPointTeamB", new EntityCoordinates(grid, new Vector2(-2, 0)));
+            var teamB = entMan.SpawnEntity(SpawnPointTeamBId, new EntityCoordinates(grid, new Vector2(-2, 0)));
             Assert.That(entMan.GetComponent<ControlSpawnPointComponent>(teamB).Team, Is.EqualTo(ControlTeam.TeamB));
 
-            var blocker = entMan.SpawnEntity("ControlSpawnBlocker", new EntityCoordinates(grid, new Vector2(4, 0)));
+            var blocker = entMan.SpawnEntity(SpawnBlockerId, new EntityCoordinates(grid, new Vector2(4, 0)));
             Assert.That(entMan.HasComponent<ControlSpawnBlockerComponent>(blocker));
 
-            var gate = entMan.SpawnEntity("ControlGatePrep", new EntityCoordinates(grid, new Vector2(6, 0)));
+            var gate = entMan.SpawnEntity(GatePrepId, new EntityCoordinates(grid, new Vector2(6, 0)));
             Assert.That(entMan.HasComponent<ControlGateComponent>(gate));
 
-            var crate = entMan.SpawnEntity("ControlComebackCrateSpawn", new EntityCoordinates(grid, new Vector2(8, 0)));
+            var crate = entMan.SpawnEntity(ComebackCrateSpawnId, new EntityCoordinates(grid, new Vector2(8, 0)));
             Assert.That(entMan.HasComponent<ControlComebackCrateSpawnComponent>(crate));
 
             mapSys.DeleteMap(mapId);
