@@ -1,0 +1,124 @@
+- type: entity
+  parent: BaseStructure
+  id: ControlCaptureConsole
+  name: control capture console
+  suffix: Контроль
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/rsi/hlstaff/structure/console.rsi
+    layers:
+    - state: console1
+    - state: console1-unshaded
+      shader: unshaded
+      map: [ "enum.ControlCaptureVisualLayers.Screen" ]
+  - type: InteractionOutline
+  - type: Clickable
+  - type: ControlCapturePoint
+    pointName: control-point-default
+    radius: 3
+    captureTime: 20
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.35,0.4,0.35"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: MarkerBase
+  id: ControlSpawnPointTeamA
+  name: control spawn (team A)
+  suffix: Контроль, Команда A
+  components:
+  - type: ControlSpawnPoint
+    team: TeamA
+  - type: Sprite
+    state: green
+
+- type: entity
+  parent: MarkerBase
+  id: ControlSpawnPointTeamB
+  name: control spawn (team B)
+  suffix: Контроль, Команда B
+  components:
+  - type: ControlSpawnPoint
+    team: TeamB
+  - type: Sprite
+    state: blue
+
+- type: entity
+  parent: MarkerBase
+  id: ControlGate
+  name: control gate
+  suffix: Контроль
+  components:
+  - type: ControlGate
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: red
+
+- type: entity
+  parent: ControlGate
+  id: ControlGatePrep
+  name: control gate (prep)
+  suffix: Контроль, Подготовка
+  components:
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: green
+
+- type: entity
+  id: ControlSpawnBlocker
+  name: control spawn blocker
+  suffix: Контроль
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/cross.rsi
+    state: blue
+    color: "#5b9bd580"
+  - type: ControlSpawnBlocker
+    team: TeamA
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Fixtures
+    fixtures:
+      blocker:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-1.5,1.5,1.5"
+        density: 1000
+        hard: true
+
+- type: entity
+  parent: MarkerBase
+  id: ControlComebackCrateSpawn
+  name: control comeback crate spawn
+  suffix: Контроль
+  components:
+  - type: ControlComebackCrateSpawn
+    team: TeamA
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: pink

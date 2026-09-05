@@ -2,15 +2,15 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls">
     <BoxContainer Name="Contents" Orientation="Vertical" Visible="False">
-        <controls:NanoHeading Text="{Loc 'assault-lobby-header'}" />
+        <controls:NanoHeading Name="Header" Text="{Loc 'pvp-lobby-header'}" />
         <Label Name="TeamCounts" HorizontalAlignment="Center" Margin="3 3" />
         <Label Name="StatusLabel" HorizontalAlignment="Center" Margin="3 0 3 3" />
         <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="6" Margin="0 0 0 4">
-            <Button Name="AttackersButton" Text="{Loc 'assault-team-attackers'}" ToggleMode="True" />
-            <Button Name="DefendersButton" Text="{Loc 'assault-team-defenders'}" ToggleMode="True" />
-            <Button Name="RandomButton" Text="{Loc 'assault-lobby-random'}" ToggleMode="True" />
+            <Button Name="AttackersButton" Text="{Loc 'pvp-team-attackers'}" ToggleMode="True" />
+            <Button Name="DefendersButton" Text="{Loc 'pvp-team-defenders'}" ToggleMode="True" />
+            <Button Name="RandomButton" Text="{Loc 'pvp-lobby-random'}" ToggleMode="True" />
         </BoxContainer>
-        <Label Text="{Loc 'assault-lobby-select-class'}" HorizontalAlignment="Center" />
+        <Label Text="{Loc 'pvp-lobby-select-class'}" HorizontalAlignment="Center" />
         <ScrollContainer MinHeight="140" MaxHeight="220" HorizontalExpand="True">
             <BoxContainer Name="ClassList" Orientation="Vertical" HorizontalExpand="True" />
         </ScrollContainer>

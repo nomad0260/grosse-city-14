@@ -1,18 +1,18 @@
 using Content.Client.Eui;
-using Content.Shared._Grosse.Assault.UI;
+using Content.Shared._Grosse.Pvp.UI;
 using Content.Shared.Eui;
 using JetBrains.Annotations;
 
-namespace Content.Client._Grosse.Assault.UI;
+namespace Content.Client._Grosse.Pvp.UI;
 
 [UsedImplicitly]
-public sealed class AssaultClassSelectEui : BaseEui
+public sealed class PvpClassSelectEui : BaseEui
 {
-    private readonly AssaultClassSelectMenu _menu = new();
+    private readonly PvpClassSelectMenu _menu = new();
 
-    public AssaultClassSelectEui()
+    public PvpClassSelectEui()
     {
-        _menu.ClassPicked += id => SendMessage(new AssaultClassSelectMessage(id));
+        _menu.ClassPicked += id => SendMessage(new PvpClassSelectMessage(id));
         _menu.OnClose += () => SendMessage(new CloseEuiMessage());
     }
 
@@ -29,7 +29,7 @@ public sealed class AssaultClassSelectEui : BaseEui
 
     public override void HandleState(EuiStateBase state)
     {
-        if (state is AssaultClassSelectEuiState assault)
-            _menu.Update(assault);
+        if (state is PvpClassSelectEuiState pvp)
+            _menu.Update(pvp);
     }
 }

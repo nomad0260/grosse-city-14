@@ -1,0 +1,15 @@
+- type: entity
+  id: City14ControlRule
+  parent: BaseGameRule
+  components:
+  - type: ControlRule
+    prepTime: 60
+    roundTime: 1200
+    scoreCap: 2000
+    scoreInterval: 5
+    scorePerHeldPoint: 10
+    waveThreshold: 0.5
+    waveTimeout: 45
+    comebackDeficit: 200
+    lastStandTime: 60
+    restartDelay: 15

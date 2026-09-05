@@ -1,23 +1,23 @@
-using Content.Client._Grosse.Assault.UI;
-using Content.Shared._Grosse.Assault;
+using Content.Client._Grosse.Control.UI;
+using Content.Shared._Grosse.Control;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Grosse.Assault;
+namespace Content.Client._Grosse.Control;
 
-public sealed partial class AssaultClientSystem : EntitySystem
+public sealed partial class ControlClientSystem : EntitySystem
 {
     [Dependency] private IUserInterfaceManager _ui = default!;
 
-    private AssaultHudControl? _hud;
+    private ControlHudControl? _hud;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeNetworkEvent<AssaultHudUpdateEvent>(OnHud);
+        SubscribeNetworkEvent<ControlHudUpdateEvent>(OnHud);
     }
 
-    private void OnHud(AssaultHudUpdateEvent ev)
+    private void OnHud(ControlHudUpdateEvent ev)
     {
         EnsureHud();
         _hud!.Update(ev);
@@ -30,7 +30,7 @@ public sealed partial class AssaultClientSystem : EntitySystem
         if (_hud != null)
             return;
 
-        _hud = new AssaultHudControl();
+        _hud = new ControlHudControl();
         LayoutContainer.SetAnchorPreset(_hud, LayoutContainer.LayoutPreset.TopWide);
         LayoutContainer.SetGrowHorizontal(_hud, LayoutContainer.GrowDirection.Both);
         LayoutContainer.SetMarginTop(_hud, 8);

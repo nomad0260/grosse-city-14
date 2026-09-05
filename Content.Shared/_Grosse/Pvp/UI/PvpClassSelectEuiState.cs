@@ -1,34 +1,36 @@
 using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared._Grosse.Assault.UI;
+namespace Content.Shared._Grosse.Pvp.UI;
 
 [Serializable, NetSerializable]
-public sealed class AssaultClassSelectEuiState : EuiStateBase
+public sealed class PvpClassSelectEuiState : EuiStateBase
 {
-    public AssaultTeam Team;
+    public PvpTeam Team;
     public int Tickets;
+    public bool ShowTickets;
+    public bool ShowClassCost = true;
     public string? SelectedClass;
-    public List<AssaultClassSelectInfo> Classes = new();
+    public List<PvpClassSelectInfo> Classes = new();
 }
 
 [Serializable, NetSerializable]
-public sealed class AssaultClassSelectInfo
+public sealed class PvpClassSelectInfo
 {
     public string Id = string.Empty;
     public string Name = string.Empty;
     public string Description = string.Empty;
     public int Cost;
-    public bool Affordable;
+    public bool Affordable = true;
     public bool Available = true;
 }
 
 [Serializable, NetSerializable]
-public sealed class AssaultClassSelectMessage : EuiMessageBase
+public sealed class PvpClassSelectMessage : EuiMessageBase
 {
     public string ClassId { get; }
 
-    public AssaultClassSelectMessage(string classId)
+    public PvpClassSelectMessage(string classId)
     {
         ClassId = classId;
     }

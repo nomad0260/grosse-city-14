@@ -17,6 +17,15 @@
   rules:
   - City14AssaultRule
 
+- type: gamePreset
+  id: City14Control
+  name: control-preset-title
+  showInVote: true
+  description: control-preset-description
+  supportedMaps: ControlMapPool
+  rules:
+  - City14ControlRule
+
 #- type: gamePreset
   #id: City14Rebellion
   #name: Восстание

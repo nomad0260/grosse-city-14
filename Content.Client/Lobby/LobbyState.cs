@@ -1,4 +1,4 @@
-using Content.Client._Grosse.Assault;
+using Content.Client._Grosse.Pvp;
 using Content.Client.Audio;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
@@ -34,7 +34,7 @@ namespace Content.Client.Lobby
 
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;
-        private AssaultClientSystem _assault = default!;
+        private PvpClientSystem _pvp = default!;
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -51,7 +51,7 @@ namespace Content.Client.Lobby
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
             _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
-            _assault = _entityManager.System<AssaultClientSystem>();
+            _pvp = _entityManager.System<PvpClientSystem>();
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
 
             chatController.SetMainChat(true);
@@ -74,8 +74,8 @@ namespace Content.Client.Lobby
             Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
-            Lobby.AssaultLoadout.LoadoutSelected += OnAssaultLoadoutSelected;
-            _assault.LobbyStateChanged += OnAssaultLobbyState;
+            Lobby.PvpLoadout.LoadoutSelected += OnPvpLoadoutSelected;
+            _pvp.LobbyStateChanged += OnPvpLobbyState;
 
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;
@@ -96,8 +96,8 @@ namespace Content.Client.Lobby
             Lobby!.CharacterPreview.CharacterSetupButton.OnPressed -= OnSetupPressed;
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
-            Lobby!.AssaultLoadout.LoadoutSelected -= OnAssaultLoadoutSelected;
-            _assault.LobbyStateChanged -= OnAssaultLobbyState;
+            Lobby!.PvpLoadout.LoadoutSelected -= OnPvpLoadoutSelected;
+            _pvp.LobbyStateChanged -= OnPvpLobbyState;
 
             Lobby = null;
         }
@@ -121,9 +121,9 @@ namespace Content.Client.Lobby
                 return;
             }
 
-            if (_assault.LobbyEnabled)
+            if (_pvp.LobbyEnabled)
             {
-                _assault.RequestLateJoin();
+                _pvp.RequestLateJoin();
                 return;
             }
 
@@ -207,8 +207,8 @@ namespace Content.Client.Lobby
                 Lobby!.ReadyButton.Disabled = false;
                 Lobby!.ObserveButton.Disabled = true;
 
-                if (_assault.LobbyEnabled)
-                    Lobby.ReadyButton.Disabled = !_assault.CanReady;
+                if (_pvp.LobbyEnabled)
+                    Lobby.ReadyButton.Disabled = !_pvp.CanReady;
             }
 
             if (_gameTicker.ServerInfoBlob != null)
@@ -286,14 +286,14 @@ namespace Content.Client.Lobby
             }
         }
 
-        private void OnAssaultLoadoutSelected(bool random, Content.Shared._Grosse.Assault.AssaultTeam? team, string? classId)
+        private void OnPvpLoadoutSelected(bool random, Content.Shared._Grosse.Pvp.PvpTeam? team, string? classId)
         {
-            _assault.SelectLoadout(random, team, classId);
+            _pvp.SelectLoadout(random, team, classId);
         }
 
-        private void OnAssaultLobbyState(Content.Shared._Grosse.Assault.AssaultLobbyStateEvent state)
+        private void OnPvpLobbyState(Content.Shared._Grosse.Pvp.PvpLobbyStateEvent state)
         {
-            Lobby?.AssaultLoadout.UpdateState(state);
+            Lobby?.PvpLoadout.UpdateState(state);
             UpdateLobbyUi();
         }
 
