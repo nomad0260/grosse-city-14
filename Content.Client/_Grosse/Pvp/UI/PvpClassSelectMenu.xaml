@@ -1,6 +1,6 @@
 <controls:FancyWindow xmlns="https://spacestation14.io"
                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-                      Title="{Loc 'assault-class-select-title'}"
+                      Title="{Loc 'pvp-class-select-title'}"
                       MinSize="360 280">
     <BoxContainer Orientation="Vertical" Margin="8">
         <Label Name="TicketsLabel" HorizontalAlignment="Center" Margin="0 0 0 6" />

@@ -1,0 +1,25 @@
+- type: entity
+  id: StandardControlArena
+  parent:
+  - BaseStation
+  - BaseStationJobsSpawning
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+
+- type: gameMap
+  id: ControlStub
+  mapName: 'Control Stub'
+  mapPath: /Maps/Test/empty.yml
+  minPlayers: 0
+  maxRandomOffset: 0
+  randomRotation: false
+  stations:
+    ControlStub:
+      stationProto: StandardControlArena
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'Control Stub'
+        - type: StationControlConfig
+          attackers: ControlRebels
+          defenders: ControlCombine

@@ -1,0 +1,24 @@
+- type: controlTeam
+  id: ControlAttackers
+  name: control-team-attackers
+  classes:
+  - AssaultRebelRifle
+  - AssaultRebelShotgun
+
+- type: controlTeam
+  id: ControlDefenders
+  name: control-team-defenders
+  classes:
+  - AssaultCp
+  - AssaultCpSmg
+  - AssaultOta
+
+- type: controlTeam
+  id: ControlRebels
+  parent: ControlAttackers
+  name: control-team-rebels
+
+- type: controlTeam
+  id: ControlCombine
+  parent: ControlDefenders
+  name: control-team-combine

@@ -12,7 +12,8 @@ using Content.Server.Station.Systems;
 using Content.Server._Grosse.Pvp;
 using Content.Server._Grosse.Pvp.UI;
 using Content.Shared._Grosse.Assault;
-using Content.Shared._Grosse.Assault.Components;
+using Content.Shared._Grosse.Control;
+using Content.Shared._Grosse.Control.Components;
 using Content.Shared._Grosse.Pvp;
 using Content.Shared._Grosse.Pvp.UI;
 using Content.Shared.GameTicking;
@@ -31,11 +32,10 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 
-namespace Content.Server._Grosse.Assault;
+namespace Content.Server._Grosse.Control;
 
-public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleComponent>
+public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleComponent>
 {
     [Dependency] private PvpLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
@@ -47,8 +47,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private NpcFactionSystem _factions = default!;
     [Dependency] private OutfitSystem _outfit = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
-    [Dependency] private SharedAssaultGateSystem _gates = default!;
-    [Dependency] private SharedAssaultSpawnBlockerSystem _blockers = default!;
+    [Dependency] private SharedControlGateSystem _gates = default!;
+    [Dependency] private SharedControlSpawnBlockerSystem _blockers = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private StationSpawningSystem _spawning = default!;
     [Dependency] private StationSystem _station = default!;
@@ -58,10 +58,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     public override void Initialize()
     {
         base.Initialize();
-
         SubscribeLocalEvent<RulePlayerSpawningEvent>(OnPlayerSpawning);
-        SubscribeLocalEvent<AssaultPlayerComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<AssaultCapturePointComponent, AssaultZoneCapturedEvent>(OnZoneCapturedEvent);
+        SubscribeLocalEvent<ControlPlayerComponent, MobStateChangedEvent>(OnMobStateChanged);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
     }
 
@@ -71,88 +69,90 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         _players.PlayerStatusChanged -= OnPlayerStatusChanged;
     }
 
-    protected override void Started(EntityUid uid, AssaultRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(EntityUid uid, ControlRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
-        component.Phase = AssaultPhase.Prep;
-        component.CurrentZone = 0;
-        component.TotalZones = GetMaxZone() + 1;
-        if (component.TotalZones <= 0)
-            component.TotalZones = 1;
-
+        component.Phase = ControlPhase.Prep;
         ApplyTeamConfig(component);
         component.PrepEndsAt = Timing.CurTime + component.PrepTime;
         component.RoundEndsAt = Timing.CurTime + component.RoundTime;
+        component.NextScoreTick = Timing.CurTime + component.PrepTime + component.ScoreInterval;
         component.Winner = null;
+        component.AttackersScore = 0;
+        component.DefendersScore = 0;
+        component.AttackersComebackGiven = false;
+        component.DefendersComebackGiven = false;
         component.Players.Clear();
 
         ResetCapturePoints();
-        _blockers.UpdateForZone(component.CurrentZone);
-        Announce("assault-announce-prep", ("time", (int) component.PrepTime.TotalSeconds));
+        _blockers.SetAllActive(true);
+        Announce("control-announce-prep", ("time", (int) component.PrepTime.TotalSeconds));
         BroadcastHud(component);
     }
 
-    protected override void Ended(EntityUid uid, AssaultRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(EntityUid uid, ControlRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        component.Phase = AssaultPhase.Ended;
+        component.Phase = ControlPhase.Ended;
         foreach (var eui in _classUis.Values.ToList())
         {
             eui.Close();
         }
 
         _classUis.Clear();
-        RaiseNetworkEvent(new AssaultHudUpdateEvent { Enabled = false });
+        RaiseNetworkEvent(new ControlHudUpdateEvent { Enabled = false });
         _lobby.BroadcastAll();
     }
 
-    protected override void AppendRoundEndText(EntityUid uid, AssaultRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
+    protected override void AppendRoundEndText(EntityUid uid, ControlRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
     {
-        if (component.Winner == AssaultTeam.Attackers)
-            args.AddLine(Loc.GetString("assault-roundend-attackers", ("name", TeamName(component, AssaultTeam.Attackers))));
-        else if (component.Winner == AssaultTeam.Defenders)
-            args.AddLine(Loc.GetString("assault-roundend-defenders", ("name", TeamName(component, AssaultTeam.Defenders))));
+        if (component.Winner == PvpTeam.Attackers)
+            args.AddLine(Loc.GetString("control-roundend-attackers", ("name", TeamName(component, PvpTeam.Attackers))));
+        else if (component.Winner == PvpTeam.Defenders)
+            args.AddLine(Loc.GetString("control-roundend-defenders", ("name", TeamName(component, PvpTeam.Defenders))));
         else
-            args.AddLine(Loc.GetString("assault-roundend-draw"));
+            args.AddLine(Loc.GetString("control-roundend-draw"));
 
-        args.AddLine(Loc.GetString("assault-roundend-tickets",
-            ("attackersName", TeamName(component, AssaultTeam.Attackers)),
-            ("defendersName", TeamName(component, AssaultTeam.Defenders)),
-            ("attackers", component.AttackersTickets),
-            ("defenders", component.DefendersTickets)));
-        args.AddLine(Loc.GetString("assault-roundend-zone",
-            ("zone", component.CurrentZone + 1),
-            ("total", component.TotalZones)));
+        args.AddLine(Loc.GetString("control-roundend-score",
+            ("attackersName", TeamName(component, PvpTeam.Attackers)),
+            ("defendersName", TeamName(component, PvpTeam.Defenders)),
+            ("attackers", component.AttackersScore),
+            ("defenders", component.DefendersScore),
+            ("cap", component.ScoreCap)));
     }
 
-    protected override void ActiveTick(EntityUid uid, AssaultRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(EntityUid uid, ControlRuleComponent component, GameRuleComponent gameRule, float frameTime)
     {
-        if (component.Phase is AssaultPhase.Ended or AssaultPhase.Lobby)
+        if (component.Phase is ControlPhase.Ended or ControlPhase.Lobby)
             return;
 
         var now = Timing.CurTime;
 
-        if (now >= component.RoundEndsAt)
-        {
-            EndAs(component, AssaultTeam.Defenders, "assault-announce-timeout");
-            return;
-        }
-
         switch (component.Phase)
         {
-            case AssaultPhase.Prep when now >= component.PrepEndsAt:
-                _gates.UnlockForZone(0);
-                component.Phase = AssaultPhase.Attack;
-                Announce("assault-announce-attack");
+            case ControlPhase.Prep when now >= component.PrepEndsAt:
+                _gates.UnlockAll();
+                component.Phase = ControlPhase.Fight;
+                component.NextScoreTick = now + component.ScoreInterval;
+                Announce("control-announce-fight");
                 break;
-            case AssaultPhase.Intermission when now >= component.IntermissionEndsAt:
-                _gates.UnlockForZone(component.CurrentZone);
-                component.Phase = AssaultPhase.Attack;
-                Announce("assault-announce-gates", ("zone", component.CurrentZone + 1));
+            case ControlPhase.Fight:
+                if (now >= component.RoundEndsAt)
+                {
+                    TryStartLastStand(component);
+                    break;
+                }
+
+                TickScore(component);
+                TryComebackCrate(component);
+                UpdateWaves(component);
+                if (component.AttackersScore >= component.ScoreCap || component.DefendersScore >= component.ScoreCap)
+                    TryStartLastStand(component);
+                break;
+            case ControlPhase.LastStand:
+                UpdateWaves(component);
+                if (now >= component.LastStandEndsAt || !HasLivingLosers(component))
+                    FinishRound(component);
                 break;
         }
-
-        UpdateWaves(component);
-        if (component.Phase != AssaultPhase.Ended)
-            TryEndIfAttackersDepleted(component);
 
         if (now >= component.HudNextUpdate)
         {
@@ -163,7 +163,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     private void OnPlayerSpawning(RulePlayerSpawningEvent ev)
     {
-        var query = EntityQueryEnumerator<AssaultRuleComponent, GameRuleComponent>();
+        var query = EntityQueryEnumerator<ControlRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var rule, out var gameRule))
         {
             if (!GameTicker.IsGameRuleAdded(uid, gameRule))
@@ -176,7 +176,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         }
     }
 
-    private void AssignAndSpawn(AssaultRuleComponent rule, List<ICommonSession> players)
+    private void AssignAndSpawn(ControlRuleComponent rule, List<ICommonSession> players)
     {
         _random.Shuffle(players);
         foreach (var session in players)
@@ -184,8 +184,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             AssignPlayer(rule, session);
         }
 
-        SpawnWave(rule, AssaultTeam.Attackers, chargeTickets: true);
-        SpawnWave(rule, AssaultTeam.Defenders, chargeTickets: true);
+        SpawnWave(rule, PvpTeam.Attackers);
+        SpawnWave(rule, PvpTeam.Defenders);
 
         foreach (var (user, slot) in rule.Players)
         {
@@ -199,13 +199,13 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         _lobby.BroadcastAll();
     }
 
-    private void AssignPlayer(AssaultRuleComponent rule, ICommonSession session)
+    private void AssignPlayer(ControlRuleComponent rule, ICommonSession session)
     {
         _lobby.TryGetChoice(session.UserId, out var choice);
         var team = ResolveTeam(rule, choice);
-        var cls = ResolveClass(rule, team, choice, GetTickets(rule, team), session.UserId);
+        var cls = ResolveClass(rule, team, choice, session.UserId);
 
-        rule.Players[session.UserId] = new AssaultPlayerSlot
+        rule.Players[session.UserId] = new ControlPlayerSlot
         {
             Team = team,
             Class = cls,
@@ -214,40 +214,39 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         };
     }
 
-    private PvpTeam ResolveTeam(AssaultRuleComponent rule, PvpLobbyChoice? choice)
+    private PvpTeam ResolveTeam(ControlRuleComponent rule, PvpLobbyChoice? choice)
     {
         var atk = CountTeam(rule, PvpTeam.Attackers);
         var def = CountTeam(rule, PvpTeam.Defenders);
         var preferred = choice is { Random: false, Team: { } team } ? team : (PvpTeam?) null;
 
-        if (preferred == AssaultTeam.Attackers && atk <= def)
-            return AssaultTeam.Attackers;
-        if (preferred == AssaultTeam.Defenders && def <= atk)
-            return AssaultTeam.Defenders;
+        if (preferred == PvpTeam.Attackers && atk <= def)
+            return PvpTeam.Attackers;
+        if (preferred == PvpTeam.Defenders && def <= atk)
+            return PvpTeam.Defenders;
 
-        return atk <= def ? AssaultTeam.Attackers : AssaultTeam.Defenders;
+        return atk <= def ? PvpTeam.Attackers : PvpTeam.Defenders;
     }
 
-    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultRuleComponent rule, PvpTeam team, PvpLobbyChoice? choice, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? ResolveClass(ControlRuleComponent rule, PvpTeam team, PvpLobbyChoice? choice, NetUserId user)
     {
         if (choice is { Random: false, Class: { } selected }
-            && Proto.TryIndex<AssaultClassPrototype>(selected, out var proto)
+            && Proto.TryIndex<AssaultClassPrototype>(selected, out _)
             && TeamHasClass(rule, team, selected)
-            && proto.Cost <= tickets
             && CanAssignClass(user, selected))
         {
             return selected;
         }
 
-        return PickRandomClass(rule, team, tickets, user);
+        return PickRandomClass(rule, team, user);
     }
 
-    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultRuleComponent rule, PvpTeam team, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? PickRandomClass(ControlRuleComponent rule, PvpTeam team, NetUserId user)
     {
         var options = new List<AssaultClassPrototype>();
         foreach (var proto in EnumerateTeamClasses(rule, team))
         {
-            if (proto.Cost <= tickets && CanAssignClass(user, proto.ID))
+            if (CanAssignClass(user, proto.ID))
                 options.Add(proto);
         }
 
@@ -262,7 +261,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return _lobby.CanSelectClass(user, classId, includeUnassignedLobby: false);
     }
 
-    private int CountTeam(AssaultRuleComponent rule, AssaultTeam team)
+    private int CountTeam(ControlRuleComponent rule, PvpTeam team)
     {
         var count = 0;
         foreach (var slot in rule.Players.Values)
@@ -286,7 +285,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (!_lobby.CanSelectClass(user, proto.ID))
         {
             if (_players.TryGetSessionById(user, out var session))
-                _chat.DispatchServerMessage(session, Loc.GetString("assault-lobby-class-full"));
+                _chat.DispatchServerMessage(session, Loc.GetString("control-lobby-class-full"));
             RefreshClassUi(user, rule, slot);
             return;
         }
@@ -302,7 +301,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
     public void TryLateJoin(ICommonSession session)
     {
-        if (!TryGetActiveRule(out var rule))
+        if (!TryGetActiveRule(out var rule) || rule.Phase is ControlPhase.Ended or ControlPhase.LastStand)
             return;
 
         if (rule.Players.ContainsKey(session.UserId))
@@ -310,7 +309,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         if (!_lobby.HasValidChoice(session.UserId))
         {
-            _chat.DispatchServerMessage(session, Loc.GetString("assault-lobby-need-loadout"));
+            _chat.DispatchServerMessage(session, Loc.GetString("control-lobby-need-loadout"));
             return;
         }
 
@@ -320,10 +319,10 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         NotifyClassOccupancy(rule);
         BroadcastHud(rule);
-        _chat.DispatchServerMessage(session, Loc.GetString("assault-lobby-queued"));
+        _chat.DispatchServerMessage(session, Loc.GetString("control-lobby-queued"));
     }
 
-    private void OnMobStateChanged(Entity<AssaultPlayerComponent> ent, ref MobStateChangedEvent args)
+    private void OnMobStateChanged(Entity<ControlPlayerComponent> ent, ref MobStateChangedEvent args)
     {
         if (args.NewMobState != MobState.Dead)
             return;
@@ -334,6 +333,13 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (!rule.Players.TryGetValue(ent.Comp.UserId, out var slot))
             return;
 
+        if (rule.Phase == ControlPhase.LastStand && slot.Team != rule.Winner)
+        {
+            slot.InWaveQueue = false;
+            BroadcastHud(rule);
+            return;
+        }
+
         slot.InWaveQueue = true;
         slot.QueuedAt = Timing.CurTime;
         slot.Class = ent.Comp.Class;
@@ -342,7 +348,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             OpenClassSelect(session, rule, slot);
 
         BroadcastHud(rule);
-        TryEndIfAttackersDepleted(rule);
     }
 
     private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs args)
@@ -361,14 +366,17 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         BroadcastHud(rule);
     }
 
-    private void UpdateWaves(AssaultRuleComponent rule)
+    private void UpdateWaves(ControlRuleComponent rule)
     {
-        TrySpawnWave(rule, AssaultTeam.Attackers);
-        TrySpawnWave(rule, AssaultTeam.Defenders);
+        TrySpawnWave(rule, PvpTeam.Attackers);
+        TrySpawnWave(rule, PvpTeam.Defenders);
     }
 
-    private void TrySpawnWave(AssaultRuleComponent rule, AssaultTeam team)
+    private void TrySpawnWave(ControlRuleComponent rule, PvpTeam team)
     {
+        if (rule.Phase == ControlPhase.LastStand && team != rule.Winner)
+            return;
+
         var total = 0;
         var dead = 0;
         var oldest = TimeSpan.MaxValue;
@@ -394,24 +402,26 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         if (ratio < rule.WaveThreshold && !timedOut)
             return;
 
-        SpawnWave(rule, team, chargeTickets: true);
+        SpawnWave(rule, team);
     }
 
-    private void SpawnWave(AssaultRuleComponent rule, AssaultTeam team, bool chargeTickets)
+    private void SpawnWave(ControlRuleComponent rule, PvpTeam team)
     {
         foreach (var (user, slot) in rule.Players.ToList())
         {
             if (slot.Team != team || !slot.InWaveQueue)
                 continue;
 
+            if (rule.Phase == ControlPhase.LastStand && team != rule.Winner)
+                continue;
+
             if (!_players.TryGetSessionById(user, out var session))
                 continue;
 
-            var tickets = GetTickets(rule, team);
             if (slot.Class == null
                 || !TeamHasClass(rule, team, slot.Class.Value)
                 || !CanAssignClass(user, slot.Class.Value))
-                slot.Class = PickRandomClass(rule, team, tickets, user);
+                slot.Class = PickRandomClass(rule, team, user);
 
             if (slot.Class == null || !Proto.TryIndex(slot.Class.Value, out AssaultClassPrototype? proto))
             {
@@ -419,14 +429,8 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 continue;
             }
 
-            if (chargeTickets && proto.Cost > tickets)
+            if (!TryGetSpawnCoords(team, out var coords))
                 continue;
-
-            if (!TryGetSpawnCoords(rule, team, out var coords))
-                continue;
-
-            if (chargeTickets)
-                SetTickets(rule, team, tickets - proto.Cost);
 
             SpawnPlayer(rule, session, slot, proto, coords);
         }
@@ -436,9 +440,9 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     }
 
     private void SpawnPlayer(
-        AssaultRuleComponent rule,
+        ControlRuleComponent rule,
         ICommonSession session,
-        AssaultPlayerSlot slot,
+        ControlPlayerSlot slot,
         AssaultClassPrototype proto,
         EntityCoordinates coords)
     {
@@ -468,13 +472,13 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
 
         _factions.ClearFactions(mob);
         _factions.AddFaction(mob,
-            slot.Team == AssaultTeam.Attackers
-                ? AssaultConstants.AttackersFaction
-                : AssaultConstants.DefendersFaction);
+            slot.Team == PvpTeam.Attackers
+                ? ControlConstants.AttackersFaction
+                : ControlConstants.DefendersFaction);
 
         ApplyTeamCollisionMask(mob, slot.Team);
 
-        var playerComp = EnsureComp<AssaultPlayerComponent>(mob);
+        var playerComp = EnsureComp<ControlPlayerComponent>(mob);
         playerComp.Team = slot.Team;
         playerComp.Class = proto.ID;
         playerComp.UserId = session.UserId;
@@ -489,28 +493,14 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         GameTicker.PlayerJoinGame(session, silent: true);
     }
 
-    private bool TryGetSpawnCoords(AssaultRuleComponent rule, AssaultTeam team, out EntityCoordinates coords)
+    private bool TryGetSpawnCoords(PvpTeam team, out EntityCoordinates coords)
     {
-        var zone = team == AssaultTeam.Attackers
-            ? Math.Max(0, rule.CurrentZone - 1)
-            : rule.CurrentZone;
-
         var points = new List<EntityUid>();
-        var query = EntityQueryEnumerator<AssaultSpawnPointComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<ControlSpawnPointComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var spawn, out _))
         {
-            if (spawn.Team == team && spawn.ZoneIndex == zone)
+            if (spawn.Team == team)
                 points.Add(uid);
-        }
-
-        if (points.Count == 0)
-        {
-            query = EntityQueryEnumerator<AssaultSpawnPointComponent, TransformComponent>();
-            while (query.MoveNext(out var uid, out var spawn, out _))
-            {
-                if (spawn.Team == team)
-                    points.Add(uid);
-            }
         }
 
         if (points.Count == 0)
@@ -523,12 +513,12 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return true;
     }
 
-    private void ApplyTeamCollisionMask(EntityUid mob, AssaultTeam team)
+    private void ApplyTeamCollisionMask(EntityUid mob, PvpTeam team)
     {
         if (!TryComp<FixturesComponent>(mob, out var fixtures))
             return;
 
-        var remove = (int) (team == AssaultTeam.Attackers
+        var remove = (int) (team == PvpTeam.Attackers
             ? CollisionGroup.AssaultAttackersImpassable
             : CollisionGroup.AssaultDefendersImpassable);
 
@@ -538,97 +528,147 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         }
     }
 
-    private void OnZoneCapturedEvent(Entity<AssaultCapturePointComponent> ent, ref AssaultZoneCapturedEvent args)
+    private void TickScore(ControlRuleComponent rule)
     {
-        if (!TryGetActiveRule(out var rule) || args.ZoneIndex != rule.CurrentZone)
+        if (Timing.CurTime < rule.NextScoreTick)
             return;
 
-        OnZoneCaptured(rule);
+        rule.NextScoreTick = Timing.CurTime + rule.ScoreInterval;
+        var atk = 0;
+        var def = 0;
+        var query = EntityQueryEnumerator<ControlCapturePointComponent>();
+        while (query.MoveNext(out _, out var point))
+        {
+            if (point.Owner == PvpTeam.Attackers)
+                atk++;
+            else if (point.Owner == PvpTeam.Defenders)
+                def++;
+        }
+
+        rule.AttackersScore += atk * rule.ScorePerHeldPoint;
+        rule.DefendersScore += def * rule.ScorePerHeldPoint;
     }
 
-    private void OnZoneCaptured(AssaultRuleComponent rule)
+    private void TryComebackCrate(ControlRuleComponent rule)
     {
-        rule.AttackersTickets += GetCaptureReward(rule, AssaultTeam.Attackers);
-        rule.DefendersTickets += GetCaptureReward(rule, AssaultTeam.Defenders);
-
-        if (rule.CurrentZone + 1 >= rule.TotalZones)
+        var diff = rule.AttackersScore - rule.DefendersScore;
+        if (diff <= -rule.ComebackDeficit && !rule.AttackersComebackGiven)
         {
-            EndAs(rule, AssaultTeam.Attackers, "assault-announce-last-point");
+            if (SpawnComebackCrate(PvpTeam.Attackers))
+            {
+                rule.AttackersComebackGiven = true;
+                Announce("control-announce-comeback", ("name", TeamName(rule, PvpTeam.Attackers)));
+            }
+        }
+        else if (diff >= rule.ComebackDeficit && !rule.DefendersComebackGiven)
+        {
+            if (SpawnComebackCrate(PvpTeam.Defenders))
+            {
+                rule.DefendersComebackGiven = true;
+                Announce("control-announce-comeback", ("name", TeamName(rule, PvpTeam.Defenders)));
+            }
+        }
+    }
+
+    private bool SpawnComebackCrate(PvpTeam team)
+    {
+        var markers = new List<EntityUid>();
+        var query = EntityQueryEnumerator<ControlComebackCrateSpawnComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var spawn, out _))
+        {
+            if (spawn.Team == team)
+                markers.Add(uid);
+        }
+
+        if (markers.Count == 0)
+            return false;
+
+        var marker = _random.Pick(markers);
+        Spawn(ControlConstants.ComebackCratePrototypeId, Transform(marker).Coordinates);
+        return true;
+    }
+
+    private void TryStartLastStand(ControlRuleComponent rule)
+    {
+        PvpTeam? winner = null;
+        if (rule.AttackersScore > rule.DefendersScore)
+            winner = PvpTeam.Attackers;
+        else if (rule.DefendersScore > rule.AttackersScore)
+            winner = PvpTeam.Defenders;
+
+        if (winner == null)
+        {
+            FinishRound(rule);
             return;
         }
 
-        rule.CurrentZone++;
-        rule.Phase = AssaultPhase.Intermission;
-        rule.IntermissionEndsAt = Timing.CurTime + rule.GateOpenDelay;
-        _blockers.UpdateForZone(rule.CurrentZone);
-        Announce("assault-announce-captured",
-            ("zone", rule.CurrentZone),
-            ("next", rule.CurrentZone + 1),
-            ("delay", (int) rule.GateOpenDelay.TotalSeconds),
-            ("atk", GetCaptureReward(rule, AssaultTeam.Attackers)),
-            ("def", GetCaptureReward(rule, AssaultTeam.Defenders)),
-            ("attackersName", TeamName(rule, AssaultTeam.Attackers)),
-            ("defendersName", TeamName(rule, AssaultTeam.Defenders)));
-        BroadcastHud(rule);
-    }
+        rule.Winner = winner;
+        rule.Phase = ControlPhase.LastStand;
+        rule.LastStandEndsAt = Timing.CurTime + rule.LastStandTime;
+        _blockers.SetAllActive(false);
 
-    private void TryEndIfAttackersDepleted(AssaultRuleComponent rule)
-    {
-        if (rule.Phase == AssaultPhase.Ended)
-            return;
+        var losers = winner == PvpTeam.Attackers ? PvpTeam.Defenders : PvpTeam.Attackers;
+        Announce("control-announce-retreat",
+            ("winner", TeamName(rule, winner.Value)),
+            ("loser", TeamName(rule, losers)),
+            ("time", (int) rule.LastStandTime.TotalSeconds));
 
-        var minCost = GetMinCost(rule, AssaultTeam.Attackers);
-        var living = 0;
-        var queuedCanSpawn = false;
+        foreach (var (user, slot) in rule.Players)
+        {
+            if (slot.Team != losers)
+                continue;
+
+            slot.InWaveQueue = true;
+            slot.QueuedAt = Timing.CurTime;
+            slot.LastStandSpent = true;
+        }
+
+        SpawnWave(rule, losers);
         foreach (var slot in rule.Players.Values)
         {
-            if (slot.Team != AssaultTeam.Attackers)
+            if (slot.Team == losers)
+                slot.InWaveQueue = false;
+        }
+    }
+
+    private bool HasLivingLosers(ControlRuleComponent rule)
+    {
+        if (rule.Winner is not { } winner)
+            return false;
+
+        var losers = winner == PvpTeam.Attackers ? PvpTeam.Defenders : PvpTeam.Attackers;
+        foreach (var slot in rule.Players.Values)
+        {
+            if (slot.Team != losers)
                 continue;
 
             if (IsAlive(slot))
-                living++;
-
-            if (slot.InWaveQueue)
-            {
-                var cost = minCost;
-                if (slot.Class != null && Proto.TryIndex(slot.Class.Value, out AssaultClassPrototype? proto))
-                    cost = proto.Cost;
-                if (cost <= rule.AttackersTickets)
-                    queuedCanSpawn = true;
-            }
+                return true;
         }
 
-        if (living == 0 && !queuedCanSpawn && rule.AttackersTickets < minCost)
-            EndAs(rule, AssaultTeam.Defenders, "assault-announce-tickets");
+        return false;
     }
 
-    private int GetMinCost(AssaultRuleComponent rule, AssaultTeam team)
+    private void FinishRound(ControlRuleComponent rule)
     {
-        var min = int.MaxValue;
-        foreach (var proto in EnumerateTeamClasses(rule, team))
-        {
-            min = Math.Min(min, proto.Cost);
-        }
-
-        return min == int.MaxValue ? 1 : min;
-    }
-
-    private void EndAs(AssaultRuleComponent rule, AssaultTeam winner, string announce)
-    {
-        if (rule.Phase == AssaultPhase.Ended)
+        if (rule.Phase == ControlPhase.Ended)
             return;
 
-        rule.Phase = AssaultPhase.Ended;
-        rule.Winner = winner;
-        Announce(announce,
-            ("name", TeamName(rule, winner)),
-            ("attackersName", TeamName(rule, AssaultTeam.Attackers)),
-            ("defendersName", TeamName(rule, AssaultTeam.Defenders)));
+        rule.Phase = ControlPhase.Ended;
+        if (rule.Winner is { } winner)
+        {
+            Announce("control-announce-end", ("name", TeamName(rule, winner)));
+        }
+        else
+        {
+            Announce("control-announce-draw");
+        }
+
         BroadcastHud(rule);
         _roundEnd.EndRound(rule.RestartDelay);
     }
 
-    private void OpenClassSelect(ICommonSession session, AssaultRuleComponent rule, AssaultPlayerSlot slot)
+    private void OpenClassSelect(ICommonSession session, ControlRuleComponent rule, ControlPlayerSlot slot)
     {
         var state = BuildClassState(rule, slot, session.UserId);
         if (_classUis.TryGetValue(session.UserId, out var existing))
@@ -643,7 +683,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         eui.StateDirty();
     }
 
-    private void RefreshClassUi(NetUserId user, AssaultRuleComponent rule, AssaultPlayerSlot slot)
+    private void RefreshClassUi(NetUserId user, ControlRuleComponent rule, ControlPlayerSlot slot)
     {
         if (!_classUis.TryGetValue(user, out var eui))
             return;
@@ -651,7 +691,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         eui.UpdateState(BuildClassState(rule, slot, user));
     }
 
-    private void RefreshAllClassUis(AssaultRuleComponent rule)
+    private void RefreshAllClassUis(ControlRuleComponent rule)
     {
         foreach (var (user, eui) in _classUis.ToList())
         {
@@ -662,21 +702,19 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         }
     }
 
-    private void NotifyClassOccupancy(AssaultRuleComponent rule)
+    private void NotifyClassOccupancy(ControlRuleComponent rule)
     {
         RefreshAllClassUis(rule);
         _lobby.BroadcastAll();
     }
 
-    private PvpClassSelectEuiState BuildClassState(AssaultRuleComponent rule, AssaultPlayerSlot slot, NetUserId user)
+    private PvpClassSelectEuiState BuildClassState(ControlRuleComponent rule, ControlPlayerSlot slot, NetUserId user)
     {
-        var tickets = GetTickets(rule, slot.Team);
         var state = new PvpClassSelectEuiState
         {
             Team = slot.Team,
-            Tickets = tickets,
-            ShowTickets = true,
-            ShowClassCost = true,
+            ShowTickets = false,
+            ShowClassCost = false,
             SelectedClass = slot.Class,
         };
 
@@ -688,7 +726,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
                 Name = Loc.GetString(proto.Name),
                 Description = Loc.GetString(proto.Description),
                 Cost = proto.Cost,
-                Affordable = proto.Cost <= tickets,
+                Affordable = true,
                 Available = _lobby.CanSelectClass(user, proto.ID),
             });
         }
@@ -696,35 +734,38 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return state;
     }
 
-    private void BroadcastHud(AssaultRuleComponent rule)
+    private void BroadcastHud(ControlRuleComponent rule)
     {
-        var (atkDead, atkTotal) = CountWave(rule, AssaultTeam.Attackers);
-        var (defDead, defTotal) = CountWave(rule, AssaultTeam.Defenders);
-        var progress = 0f;
-        var capQuery = EntityQueryEnumerator<AssaultCapturePointComponent>();
-        while (capQuery.MoveNext(out _, out var point))
+        var (atkDead, atkTotal) = CountWave(rule, PvpTeam.Attackers);
+        var (defDead, defTotal) = CountWave(rule, PvpTeam.Defenders);
+        var points = new List<ControlPointHudInfo>();
+        var query = EntityQueryEnumerator<ControlCapturePointComponent>();
+        while (query.MoveNext(out _, out var point))
         {
-            if (!point.Captured && point.ZoneIndex == rule.CurrentZone)
+            points.Add(new ControlPointHudInfo
             {
-                progress = Math.Max(progress, point.Progress);
-            }
+                Name = string.IsNullOrEmpty(point.PointName)
+                    ? Loc.GetString("control-capture-unnamed")
+                    : Loc.GetString(point.PointName),
+                Owner = point.Owner,
+                VisualState = point.VisualState,
+            });
         }
 
         var phaseEnd = rule.Phase switch
         {
-            AssaultPhase.Prep => rule.PrepEndsAt,
-            AssaultPhase.Intermission => rule.IntermissionEndsAt,
+            ControlPhase.Prep => rule.PrepEndsAt,
+            ControlPhase.LastStand => rule.LastStandEndsAt,
             _ => rule.RoundEndsAt,
         };
 
-        RaiseNetworkEvent(new AssaultHudUpdateEvent
+        RaiseNetworkEvent(new ControlHudUpdateEvent
         {
-            Enabled = rule.Phase != AssaultPhase.Ended,
+            Enabled = rule.Phase is not ControlPhase.Ended and not ControlPhase.Lobby,
             Phase = rule.Phase,
-            AttackersTickets = rule.AttackersTickets,
-            DefendersTickets = rule.DefendersTickets,
-            CurrentZone = rule.CurrentZone + 1,
-            TotalZones = rule.TotalZones,
+            AttackersScore = rule.AttackersScore,
+            DefendersScore = rule.DefendersScore,
+            ScoreCap = rule.ScoreCap,
             PhaseEndsAt = phaseEnd,
             RoundEndsAt = rule.RoundEndsAt,
             AttackersDead = atkDead,
@@ -732,13 +773,14 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             DefendersDead = defDead,
             DefendersTotal = defTotal,
             WaveThreshold = rule.WaveThreshold,
-            CaptureProgress = progress,
             AttackersTeam = rule.AttackersTeam,
             DefendersTeam = rule.DefendersTeam,
+            Winner = rule.Winner,
+            Points = points,
         });
     }
 
-    private (int Dead, int Total) CountWave(AssaultRuleComponent rule, AssaultTeam team)
+    private (int Dead, int Total) CountWave(ControlRuleComponent rule, PvpTeam team)
     {
         var dead = 0;
         var total = 0;
@@ -746,6 +788,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         {
             if (slot.Team != team)
                 continue;
+
             total++;
             if (slot.InWaveQueue || !IsAlive(slot))
                 dead++;
@@ -754,61 +797,30 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return (dead, total);
     }
 
-    private bool IsAlive(AssaultPlayerSlot slot)
+    private bool IsAlive(ControlPlayerSlot slot)
     {
         return slot.Mob is { } mob
-               && !Deleted(mob)
-               && TryComp<MobStateComponent>(mob, out var state)
-               && state.CurrentState == MobState.Alive;
-    }
-
-    private int GetTickets(AssaultRuleComponent rule, AssaultTeam team)
-    {
-        return team == AssaultTeam.Attackers ? rule.AttackersTickets : rule.DefendersTickets;
-    }
-
-    private void SetTickets(AssaultRuleComponent rule, AssaultTeam team, int value)
-    {
-        if (team == AssaultTeam.Attackers)
-            rule.AttackersTickets = Math.Max(0, value);
-        else
-            rule.DefendersTickets = Math.Max(0, value);
-    }
-
-    private int GetMaxZone()
-    {
-        var max = -1;
-        var query = AllEntityQuery<AssaultCapturePointComponent>();
-        while (query.MoveNext(out _, out var point))
-        {
-            max = Math.Max(max, point.ZoneIndex);
-        }
-
-        return max;
+            && Exists(mob)
+            && TryComp<MobStateComponent>(mob, out var state)
+            && state.CurrentState == MobState.Alive;
     }
 
     private void ResetCapturePoints()
     {
-        var query = AllEntityQuery<AssaultCapturePointComponent>();
+        var query = EntityQueryEnumerator<ControlCapturePointComponent>();
         while (query.MoveNext(out var uid, out var point))
         {
             point.Progress = 0f;
-            point.Captured = false;
-            point.VisualState = AssaultCaptureState.Idle;
-            point.Occupants.Clear();
+            point.Owner = null;
+            point.CapturingTeam = null;
+            point.VisualState = ControlCaptureState.Neutral;
             Dirty(uid, point);
-        }
-
-        var gates = AllEntityQuery<AssaultGateComponent>();
-        while (gates.MoveNext(out _, out var gate))
-        {
-            gate.Opened = false;
         }
     }
 
-    private bool TryGetActiveRule([NotNullWhen(true)] out AssaultRuleComponent? rule)
+    private bool TryGetActiveRule([NotNullWhen(true)] out ControlRuleComponent? rule)
     {
-        var query = EntityQueryEnumerator<AssaultRuleComponent, GameRuleComponent>();
+        var query = EntityQueryEnumerator<ControlRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out rule, out var gameRule))
         {
             if (GameTicker.IsGameRuleActive(uid, gameRule))
@@ -819,61 +831,41 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return false;
     }
 
-    public bool TryGetRuleForStatus([NotNullWhen(true)] out AssaultRuleComponent? rule)
+    public bool TryGetRuleForStatus([NotNullWhen(true)] out ControlRuleComponent? rule)
     {
         return TryGetActiveRule(out rule);
     }
 
-    private void ApplyTeamConfig(AssaultRuleComponent rule)
+    private void ApplyTeamConfig(ControlRuleComponent rule)
     {
-        StationAssaultConfigComponent? config = null;
+        StationControlConfigComponent? config = null;
         foreach (var station in _station.GetStations())
         {
             if (TryComp(station, out config))
                 break;
         }
 
-        config ??= AssaultTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
-        rule.AttackersTeam = AssaultTeamConfig.GetId(config, AssaultTeam.Attackers);
-        rule.DefendersTeam = AssaultTeamConfig.GetId(config, AssaultTeam.Defenders);
-
-        if (Proto.TryIndex(rule.AttackersTeam, out AssaultTeamPrototype? attackers))
-        {
-            rule.AttackersTickets = attackers.StartingTickets;
-            rule.AttackersCaptureReward = attackers.CaptureReward;
-        }
-        else
-        {
-            rule.AttackersTickets = rule.StartingTickets;
-        }
-
-        if (Proto.TryIndex(rule.DefendersTeam, out AssaultTeamPrototype? defenders))
-        {
-            rule.DefendersTickets = defenders.StartingTickets;
-            rule.DefendersCaptureReward = defenders.CaptureReward;
-        }
-        else
-        {
-            rule.DefendersTickets = rule.StartingTickets;
-        }
+        config ??= ControlTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
+        rule.AttackersTeam = ControlTeamConfig.GetId(config, PvpTeam.Attackers);
+        rule.DefendersTeam = ControlTeamConfig.GetId(config, PvpTeam.Defenders);
     }
 
-    private ProtoId<AssaultTeamPrototype> GetTeamId(AssaultRuleComponent rule, AssaultTeam team)
+    private ProtoId<ControlTeamPrototype> GetTeamId(ControlRuleComponent rule, PvpTeam team)
     {
-        return team == AssaultTeam.Attackers ? rule.AttackersTeam : rule.DefendersTeam;
+        return team == PvpTeam.Attackers ? rule.AttackersTeam : rule.DefendersTeam;
     }
 
-    private bool TryGetTeamPrototype(AssaultRuleComponent rule, AssaultTeam team, [NotNullWhen(true)] out AssaultTeamPrototype? proto)
+    private bool TryGetTeamPrototype(ControlRuleComponent rule, PvpTeam team, [NotNullWhen(true)] out ControlTeamPrototype? proto)
     {
         return Proto.TryIndex(GetTeamId(rule, team), out proto);
     }
 
-    private bool TeamHasClass(AssaultRuleComponent rule, AssaultTeam team, ProtoId<AssaultClassPrototype> classId)
+    private bool TeamHasClass(ControlRuleComponent rule, PvpTeam team, ProtoId<AssaultClassPrototype> classId)
     {
         return TryGetTeamPrototype(rule, team, out var proto) && proto.ContainsClass(classId);
     }
 
-    private IEnumerable<AssaultClassPrototype> EnumerateTeamClasses(AssaultRuleComponent rule, AssaultTeam team)
+    private IEnumerable<AssaultClassPrototype> EnumerateTeamClasses(ControlRuleComponent rule, PvpTeam team)
     {
         if (!TryGetTeamPrototype(rule, team, out var teamProto))
             yield break;
@@ -885,14 +877,9 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         }
     }
 
-    private int GetCaptureReward(AssaultRuleComponent rule, AssaultTeam team)
+    private string TeamName(ControlRuleComponent rule, PvpTeam team)
     {
-        return team == AssaultTeam.Attackers ? rule.AttackersCaptureReward : rule.DefendersCaptureReward;
-    }
-
-    private string TeamName(AssaultRuleComponent rule, AssaultTeam team)
-    {
-        return Loc.GetString(AssaultTeamConfig.GetName(Proto, GetTeamId(rule, team), team));
+        return Loc.GetString(ControlTeamConfig.GetName(Proto, GetTeamId(rule, team), team));
     }
 
     private void Announce(string locId, params (string, object)[] args)

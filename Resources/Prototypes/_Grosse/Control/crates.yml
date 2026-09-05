@@ -1,0 +1,19 @@
+- type: entity
+  parent: CrateGenericSteel
+  id: CrateControlComeback
+  name: control comeback crate
+  suffix: Контроль
+  description: Extra gear for the team that is losing on victory points.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: WeaponPulseRifleAR2C17
+        - id: MagazinePulseRifleC17
+        - id: MagazinePulseRifleC17
+        - id: ClothingOuterArmorOTAEliteC17
+        - id: MedkitC17
+        - id: MedkitC17
+        - id: GrenadeFlashBang
+        - id: GrenadeFlashBang

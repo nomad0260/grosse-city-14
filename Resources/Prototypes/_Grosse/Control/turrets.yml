@@ -1,0 +1,17 @@
+- type: entity
+  parent: BaseWeaponBallisticTurret
+  id: WeaponTurretControlAttackers
+  suffix: Контроль, Атака
+  components:
+  - type: NpcFactionMember
+    factions:
+    - ControlAttackers
+
+- type: entity
+  parent: BaseWeaponBallisticTurret
+  id: WeaponTurretControlDefenders
+  suffix: Контроль, Защита
+  components:
+  - type: NpcFactionMember
+    factions:
+    - ControlDefenders

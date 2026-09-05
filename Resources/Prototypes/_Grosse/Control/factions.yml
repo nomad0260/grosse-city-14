@@ -1,0 +1,9 @@
+- type: npcFaction
+  id: ControlAttackers
+  hostile:
+  - ControlDefenders
+
+- type: npcFaction
+  id: ControlDefenders
+  hostile:
+  - ControlAttackers
