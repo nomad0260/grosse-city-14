@@ -62,7 +62,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
             && !_sprite.LayerMapTryGet(spriteEnt, "computerLayerKeys", out _, false))
             return;
 
-        var color = OwnerColor(point.Owner);
+        var color = OwnerColor(point.OwningTeam);
         if (_sprite.LayerMapTryGet(spriteEnt, ControlCaptureVisualLayers.Screen, out _, false))
             _sprite.LayerSetColor(spriteEnt, ControlCaptureVisualLayers.Screen, color);
         else
@@ -143,7 +143,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
         {
             ControlTeam.TeamA => Color.DarkRed,
             ControlTeam.TeamB => Color.DarkBlue,
-            _ => OwnerColor(point.Owner),
+            _ => OwnerColor(point.OwningTeam),
         };
     }
 }

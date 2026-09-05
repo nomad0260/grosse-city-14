@@ -541,9 +541,9 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         var query = EntityQueryEnumerator<ControlCapturePointComponent>();
         while (query.MoveNext(out _, out var point))
         {
-            if (point.Owner == ControlTeam.TeamA)
+            if (point.OwningTeam == ControlTeam.TeamA)
                 atk++;
-            else if (point.Owner == ControlTeam.TeamB)
+            else if (point.OwningTeam == ControlTeam.TeamB)
                 def++;
         }
 
@@ -749,7 +749,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
                 Name = string.IsNullOrEmpty(point.PointName)
                     ? Loc.GetString("control-capture-unnamed")
                     : Loc.GetString(point.PointName),
-                Owner = point.Owner,
+                Owner = point.OwningTeam,
                 VisualState = point.VisualState,
             });
         }
@@ -813,7 +813,7 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         while (query.MoveNext(out var uid, out var point))
         {
             point.Progress = 0f;
-            point.Owner = null;
+            point.OwningTeam = null;
             point.CapturingTeam = null;
             point.VisualState = ControlCaptureState.Neutral;
             Dirty(uid, point);

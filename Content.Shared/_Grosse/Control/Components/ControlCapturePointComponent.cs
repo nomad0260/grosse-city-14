@@ -18,7 +18,7 @@ public sealed partial class ControlCapturePointComponent : Component
     public float Progress;
 
     [ViewVariables, AutoNetworkedField]
-    public ControlTeam? Owner;
+    public ControlTeam? OwningTeam;
 
     [ViewVariables, AutoNetworkedField]
     public ControlTeam? CapturingTeam;

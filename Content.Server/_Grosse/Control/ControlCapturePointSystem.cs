@@ -54,7 +54,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
             var (teamA, teamB) = CountOccupants(point);
             var oldProgress = point.Progress;
             var oldState = point.VisualState;
-            var oldOwner = point.Owner;
+            var oldOwner = point.OwningTeam;
             var oldCapturing = point.CapturingTeam;
 
             if (teamA > 0 && teamB > 0)
@@ -64,7 +64,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
             else if (teamA > 0 || teamB > 0)
             {
                 var team = teamA > 0 ? ControlTeam.TeamA : ControlTeam.TeamB;
-                if (point.Owner == team)
+                if (point.OwningTeam == team)
                 {
                     point.Progress = Math.Max(0f, point.Progress - dt / Math.Max(0.1f, point.CaptureTime));
                     point.CapturingTeam = point.Progress > 0f ? point.CapturingTeam : null;
@@ -82,7 +82,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
                     point.VisualState = ControlCaptureState.Capturing;
                     if (point.Progress >= 1f)
                     {
-                        point.Owner = team;
+                        point.OwningTeam = team;
                         point.Progress = 0f;
                         point.CapturingTeam = null;
                         point.VisualState = ControlCaptureState.Held;
@@ -95,7 +95,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
                 if (point.Progress <= 0f)
                     point.CapturingTeam = null;
 
-                point.VisualState = point.Owner != null
+                point.VisualState = point.OwningTeam != null
                     ? ControlCaptureState.Held
                     : point.Progress > 0f
                         ? ControlCaptureState.Capturing
@@ -104,7 +104,7 @@ public sealed partial class ControlCapturePointSystem : SharedControlCapturePoin
 
             if (Math.Abs(point.Progress - oldProgress) > 0.001f
                 || point.VisualState != oldState
-                || point.Owner != oldOwner
+                || point.OwningTeam != oldOwner
                 || point.CapturingTeam != oldCapturing)
                 Dirty(uid, point);
         }

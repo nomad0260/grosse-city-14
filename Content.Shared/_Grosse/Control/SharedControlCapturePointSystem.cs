@@ -45,7 +45,7 @@ public abstract partial class SharedControlCapturePointSystem : EntitySystem
             ? Loc.GetString("control-capture-unnamed")
             : Loc.GetString(ent.Comp.PointName);
         var percent = (int) (ent.Comp.Progress * 100f);
-        if (ent.Comp.Owner is { } owner)
+        if (ent.Comp.OwningTeam is { } owner)
         {
             args.PushMarkup(Loc.GetString("control-capture-examined-owned",
                 ("name", name),
