@@ -1,11 +1,9 @@
 #nullable enable
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
-using Content.Server.GameTicking.Presets;
-using Content.Server.Maps;
+using Content.Server._Grosse.Control;
 using Content.Shared._Grosse.Control;
 using Content.Shared._Grosse.Control.Components;
-using Content.Shared.Maps;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -27,9 +25,6 @@ public sealed class ControlMapTest : GameTest
     private static readonly ProtoId<ControlTeamPrototype> TeamBId = "ControlTeamB";
     private static readonly ProtoId<ControlTeamPrototype> RebelsId = "ControlRebels";
     private static readonly ProtoId<ControlTeamPrototype> CombineId = "ControlCombine";
-    private static readonly ProtoId<GamePresetPrototype> PresetId = "City14Control";
-    private static readonly ProtoId<GameMapPoolPrototype> PoolId = "ControlMapPool";
-    private static readonly ProtoId<GameMapPrototype> StubMapId = "ControlStub";
 
     public override PoolSettings PoolSettings => new()
     {
@@ -61,10 +56,10 @@ public sealed class ControlMapTest : GameTest
             Assert.That(proto.HasIndex(TeamBId));
             Assert.That(proto.HasIndex(RebelsId));
             Assert.That(proto.HasIndex(CombineId));
-            Assert.That(proto.HasIndex(PresetId));
-            Assert.That(proto.TryIndex(PoolId, out var pool));
-            Assert.That(pool!.Maps, Does.Contain(StubMapId.Id));
-            Assert.That(proto.TryIndex(StubMapId, out var map));
+            Assert.That(proto.HasIndex(ControlPrototypeIds.Preset));
+            Assert.That(proto.TryIndex(ControlPrototypeIds.MapPool, out var pool));
+            Assert.That(pool!.Maps, Does.Contain(ControlPrototypeIds.StubMap.Id));
+            Assert.That(proto.TryIndex(ControlPrototypeIds.StubMap, out var map));
             var config = ControlTeamConfig.FromGameMap(map);
             Assert.That(config, Is.Not.Null);
             Assert.That(config!.TeamA, Is.EqualTo(RebelsId));
