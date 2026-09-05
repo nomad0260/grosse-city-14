@@ -20,6 +20,13 @@ public sealed partial class ControlTeamPrototype : IPrototype, IInheritingProtot
     [DataField]
     public LocId Name { get; private set; }
 
+    /// <summary>
+    /// Victory points granted each score tick per point this team holds.
+    /// Applied onto the rule at round start like Assault captureReward/tickets.
+    /// </summary>
+    [DataField]
+    public int ScorePerHeldPoint { get; private set; } = 10;
+
     [DataField]
     [AlwaysPushInheritance]
     public List<ProtoId<AssaultClassPrototype>> Classes { get; private set; } = new();

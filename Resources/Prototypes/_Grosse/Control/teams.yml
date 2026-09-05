@@ -1,6 +1,7 @@
 - type: controlTeam
   id: ControlAttackers
   name: control-team-attackers
+  scorePerHeldPoint: 10
   classes:
   - AssaultRebelRifle
   - AssaultRebelShotgun
@@ -8,6 +9,7 @@
 - type: controlTeam
   id: ControlDefenders
   name: control-team-defenders
+  scorePerHeldPoint: 10
   classes:
   - AssaultCp
   - AssaultCpSmg

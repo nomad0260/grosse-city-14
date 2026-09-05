@@ -24,6 +24,12 @@ public sealed partial class ControlRuleComponent : Component
     [DataField]
     public int ScorePerHeldPoint = 10;
 
+    [ViewVariables]
+    public int AttackersScorePerPoint = 10;
+
+    [ViewVariables]
+    public int DefendersScorePerPoint = 10;
+
     [DataField]
     public float WaveThreshold = 0.5f;
 

@@ -545,8 +545,8 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
                 def++;
         }
 
-        rule.AttackersScore += atk * rule.ScorePerHeldPoint;
-        rule.DefendersScore += def * rule.ScorePerHeldPoint;
+        rule.AttackersScore += atk * rule.AttackersScorePerPoint;
+        rule.DefendersScore += def * rule.DefendersScorePerPoint;
     }
 
     private void TryComebackCrate(ControlRuleComponent rule)
@@ -848,6 +848,16 @@ public sealed partial class ControlRuleSystem : GameRuleSystem<ControlRuleCompon
         config ??= ControlTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
         rule.AttackersTeam = ControlTeamConfig.GetId(config, PvpTeam.Attackers);
         rule.DefendersTeam = ControlTeamConfig.GetId(config, PvpTeam.Defenders);
+
+        if (Proto.TryIndex(rule.AttackersTeam, out ControlTeamPrototype? attackers))
+            rule.AttackersScorePerPoint = attackers.ScorePerHeldPoint;
+        else
+            rule.AttackersScorePerPoint = rule.ScorePerHeldPoint;
+
+        if (Proto.TryIndex(rule.DefendersTeam, out ControlTeamPrototype? defenders))
+            rule.DefendersScorePerPoint = defenders.ScorePerHeldPoint;
+        else
+            rule.DefendersScorePerPoint = rule.ScorePerHeldPoint;
     }
 
     private ProtoId<ControlTeamPrototype> GetTeamId(ControlRuleComponent rule, PvpTeam team)
