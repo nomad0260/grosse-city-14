@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by ifi07 (Discord)",
+  "size": {
+    "x": 32,
+    "y": 48
+  },
+  "states": [
+    {
+      "name": "icon1",
+      "directions": 4
+    },
+    {
+      "name": "icon2",
+      "directions": 4
+    },
+    {
+      "name": "icon3",
+      "directions": 4
+    },
+    {
+      "name": "icon4",
+      "directions": 4
+    }
+  ]
+}

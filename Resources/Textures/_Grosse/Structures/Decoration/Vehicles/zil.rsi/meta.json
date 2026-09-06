@@ -1,7 +1,7 @@
 {
     "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Corvax Stalker",
+    "license": "Unlicensed",
+    "copyright": "Made for Stalker14, use with permission only. All rights reserved.",
     "size": {
         "x": 128,
         "y": 144
@@ -17,6 +17,10 @@
         },
         {
             "name": "z2-box",
+            "directions": 4
+        },
+        {
+            "name": "z3",
             "directions": 4
         }
     ]

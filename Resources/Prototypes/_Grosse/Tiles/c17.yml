@@ -1,0 +1,57 @@
+- type: tile
+  id: BaseTileC17
+  abstract: true
+  heatCapacity: 10000
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  weather: true
+  indestructible: true # Не уверена, но думаю, что покрытие оголять не требуется
+
+- type: tile
+  id: FloorPavementC17
+  parent: BaseTileC17
+  name: tiles-pavement-c17
+  sprite: /Textures/_Grosse/Tiles/bluediravaya.png
+
+- type: tile
+  id: FloorPavementBasicC17
+  parent: BaseTileC17
+  name: tiles-pavement-basic-c17
+  sprite: /Textures/_Grosse/Tiles/blueplate.png
+
+- type: tile
+  id: FloorPavementCorrodedC17
+  parent: BaseTileC17
+  name: tiles-pavement-corroded-c17
+  sprite: /Textures/_Grosse/Tiles/corrosiadiravaya.png
+
+- type: tile
+  id: FloorMetalCorrodedC17
+  parent: BaseTileC17
+  name: tiles-metal-corroded-c17
+  sprite: /Textures/_Grosse/Tiles/corrosianplate.png
+
+- type: tile
+  id: FloorPavementGrayC17
+  parent: BaseTileC17
+  name: tiles-pavement-gray-c17
+  sprite: /Textures/_Grosse/Tiles/diraviyplate.png
+
+- type: tile
+  id: FloorStairsC17
+  parent: BaseTileC17
+  name: tiles-stairs-c17
+  sprite: /Textures/_Grosse/Tiles/lestnitca.png
+
+- type: tile
+  id: FloorStairsAltC17
+  parent: BaseTileC17
+  name: tiles-stairs-alt-c17
+  sprite: /Textures/_Grosse/Tiles/lestnitcab.png
+
+- type: tile
+  id: FloorMetalPlateC17
+  parent: BaseTileC17
+  name: tiles-metal-plate-c17
+  sprite: /Textures/_Grosse/Tiles/metalplate.png

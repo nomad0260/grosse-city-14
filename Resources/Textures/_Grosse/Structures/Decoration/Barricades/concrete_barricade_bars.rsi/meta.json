@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by ifi07 (Discord)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "DamageOverlay_1",
+      "directions": 4
+    },
+    {
+      "name": "DamageOverlay_1_100",
+      "directions": 4
+    },
+    {
+      "name": "DamageOverlay_1_200",
+      "directions": 4
+    },
+    {
+      "name": "DamageOverlay_1_450",
+      "directions": 4
+    }
+  ]
+}

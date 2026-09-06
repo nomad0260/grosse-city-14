@@ -25,7 +25,7 @@
     layers:
     - state: red
       scale: 3, 3
-    - sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+    - sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
       scale: 1.1, 1.1
       state: z2
   - type: RandomSpawner
