@@ -142,6 +142,8 @@
         acts: [ "Destruction" ]
   - type: RequireProjectileTarget
     active: true
+  - type: Cover
+    shootThroughRadius: 3
 
 - type: entity
   id: BarricadeConcreteC17
