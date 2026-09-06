@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Administration.Logs;
+using Content.Shared.Cover;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
 using Content.Shared.Weapons.Hitscan.Components;
@@ -18,6 +19,7 @@ public sealed partial class HitscanBasicRaycastSystem : EntitySystem
 {
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private CoverSystem _cover = default!;
     [Dependency] private ISharedAdminLogManager _log = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
@@ -42,10 +44,12 @@ public sealed partial class HitscanBasicRaycastSystem : EntitySystem
         // Otherwise:
         //  1.) Hit the first entity that you targeted.
         //  2.) Hit the first entity that doesn't require you to aim at it specifically to be hit.
+        //  3.) Skip cover that this shot is allowed to fire through.
         var result = _container.IsEntityOrParentInContainer(shooter)
             ? rayCastResults.FirstOrNull()
             : rayCastResults.FirstOrNull(hit => hit.HitEntity == target
-                                                || CompOrNull<RequireProjectileTargetComponent>(hit.HitEntity)?.Active != true);
+                                                || (CompOrNull<RequireProjectileTargetComponent>(hit.HitEntity)?.Active != true
+                                                    && !_cover.CanShootThrough(hit.HitEntity, shooter, target)));
 
         var distanceTried = result?.Distance ?? ent.Comp.MaxDistance;
 

@@ -12,6 +12,7 @@
   description: assault-class-rebel-shotgun-desc
   team: Attackers
   cost: 2
+  maxCount: 10
   startingGear: RebelGearShotgun
 
 - type: assaultClass
@@ -20,6 +21,7 @@
   description: assault-class-rebel-ar2-desc
   team: Attackers
   cost: 3
+  maxCount: 2
   startingGear: RebelGearAR
 
 - type: assaultClass
@@ -36,6 +38,7 @@
   description: assault-class-cp-smg-desc
   team: Defenders
   cost: 2
+  maxCount: 10
   startingGear: CivilProtectionSMGGear
 
 - type: assaultClass
@@ -44,6 +47,7 @@
   description: assault-class-ota-desc
   team: Defenders
   cost: 3
+  maxCount: 10
   startingGear: OTAGear
 
 - type: assaultClass
@@ -52,4 +56,5 @@
   description: assault-class-ota-elite-desc
   team: Defenders
   cost: 5
+  maxCount: 2
   startingGear: OTAEliteGear

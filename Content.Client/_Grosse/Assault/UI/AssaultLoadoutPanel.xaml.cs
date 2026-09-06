@@ -17,6 +17,9 @@ public sealed partial class AssaultLoadoutPanel : Control
     private AssaultTeam? _team;
     private string? _classId;
     private bool _random;
+    private Dictionary<string, int> _classCounts = new();
+    private string _attackersTeam = AssaultConstants.DefaultAttackersTeam;
+    private string _defendersTeam = AssaultConstants.DefaultDefendersTeam;
 
     public AssaultLoadoutPanel()
     {
@@ -40,13 +43,24 @@ public sealed partial class AssaultLoadoutPanel : Control
         if (!state.Enabled)
             return;
 
+        _attackersTeam = state.AttackersTeam;
+        _defendersTeam = state.DefendersTeam;
+        var attackersName = TeamName(_attackersTeam, "assault-team-attackers");
+        var defendersName = TeamName(_defendersTeam, "assault-team-defenders");
+
         TeamCounts.Text = Loc.GetString("assault-team-counts",
+            ("attackersName", attackersName),
+            ("defendersName", defendersName),
             ("attackers", state.AttackersCount),
             ("defenders", state.DefendersCount));
+
+        AttackersButton.Text = attackersName;
+        DefendersButton.Text = defendersName;
 
         _random = state.RandomSelected;
         _team = state.SelectedTeam;
         _classId = state.SelectedClass;
+        _classCounts = new Dictionary<string, int>(state.ClassCounts);
 
         AttackersButton.Pressed = !_random && _team == AssaultTeam.Attackers;
         DefendersButton.Pressed = !_random && _team == AssaultTeam.Defenders;
@@ -95,22 +109,49 @@ public sealed partial class AssaultLoadoutPanel : Control
         if (_random || _team == null)
             return;
 
-        foreach (var proto in _proto.EnumeratePrototypes<AssaultClassPrototype>())
+        var teamId = _team == AssaultTeam.Attackers ? _attackersTeam : _defendersTeam;
+        if (!_proto.TryIndex<AssaultTeamPrototype>(teamId, out var teamProto))
+            return;
+
+        foreach (var classId in teamProto.Classes)
         {
-            if (proto.Team != _team)
+            if (!_proto.TryIndex(classId, out AssaultClassPrototype? proto))
                 continue;
 
             var id = proto.ID;
+            var available = IsClassAvailable(id, proto.MaxCount);
             var button = new Button
             {
                 Text = $"{Loc.GetString(proto.Name)}  ({Loc.GetString("assault-lobby-cost", ("cost", proto.Cost))})",
-                ToolTip = Loc.GetString(proto.Description),
+                ToolTip = available
+                    ? Loc.GetString(proto.Description)
+                    : Loc.GetString("assault-lobby-class-full"),
                 ToggleMode = true,
                 Pressed = _classId == id,
+                Disabled = !available,
                 HorizontalExpand = true,
             };
             button.OnPressed += _ => SelectClass(id);
             ClassList.AddChild(button);
         }
+    }
+
+    private bool IsClassAvailable(string id, int maxCount)
+    {
+        if (maxCount <= 0)
+            return true;
+
+        if (_classId == id)
+            return true;
+
+        return _classCounts.GetValueOrDefault(id) < maxCount;
+    }
+
+    private string TeamName(string teamId, string fallback)
+    {
+        if (_proto.TryIndex<AssaultTeamPrototype>(teamId, out var proto) && !string.IsNullOrEmpty(proto.Name))
+            return Loc.GetString(proto.Name);
+
+        return Loc.GetString(fallback);
     }
 }

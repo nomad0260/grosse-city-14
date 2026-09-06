@@ -22,6 +22,12 @@ public sealed partial class AssaultClassPrototype : IPrototype
     [DataField(required: true)]
     public int Cost { get; private set; } = 1;
 
+    /// <summary>
+    /// Maximum players that may occupy this class at once. 0 means unlimited.
+    /// </summary>
+    [DataField]
+    public int MaxCount { get; private set; }
+
     [DataField(required: true)]
     public ProtoId<StartingGearPrototype> StartingGear { get; private set; }
 

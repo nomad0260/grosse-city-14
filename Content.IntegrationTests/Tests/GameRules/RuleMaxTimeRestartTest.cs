@@ -1,5 +1,6 @@
 using Content.IntegrationTests.Fixtures;
 using Content.Server.GameTicking;
+using Content.Server.GameTicking.Presets;
 using Content.Server.GameTicking.Rules;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
@@ -44,7 +45,10 @@ namespace Content.IntegrationTests.Tests.GameRules
             {
                 Assert.That(sGameTicker.RunLevel, Is.EqualTo(GameRunLevel.PreRoundLobby));
                 maxTime.RoundMaxTime = TimeSpan.FromSeconds(3);
-                sGameTicker.StartRound();
+                // Don't start the default Secret preset: it adds a pile of extra game rules
+                // (variation passes, schedulers, etc.) and this test only cares about MaxTimeRestart.
+                sGameTicker.SetGamePreset((GamePresetPrototype) null);
+                sGameTicker.StartRound(force: true);
             });
 
             Assert.That(server.EntMan.Count<GameRuleComponent>(), Is.EqualTo(1));
