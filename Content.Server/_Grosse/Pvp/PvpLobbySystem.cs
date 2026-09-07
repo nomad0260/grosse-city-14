@@ -1,32 +1,27 @@
+using System.Linq;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
-using Content.Server.Maps;
-using Content.Shared._Grosse.Assault;
-using Content.Shared._Grosse.Assault.Components;
+using Content.Shared._Grosse.Pvp;
 using Content.Shared.GameTicking;
-using Content.Shared.GameTicking.Components;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
-using System.Diagnostics.CodeAnalysis;
 
-namespace Content.Server._Grosse.Assault;
+namespace Content.Server._Grosse.Pvp;
 
-public sealed partial class AssaultLobbySystem : EntitySystem
+public sealed partial class PvpLobbySystem : EntitySystem
 {
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IChatManager _chat = default!;
-    [Dependency] private IGameMapManager _gameMap = default!;
     [Dependency] private IPlayerManager _players = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
 
-    private readonly Dictionary<NetUserId, AssaultLobbyChoice> _choices = new();
+    private readonly List<IPvpLobbySource> _sources = new();
+    private readonly Dictionary<NetUserId, PvpLobbyChoice> _choices = new();
 
     public bool LobbyEnabled { get; private set; }
-
-    public IReadOnlyDictionary<NetUserId, AssaultLobbyChoice> Choices => _choices;
+    public IPvpLobbySource? ActiveSource { get; private set; }
+    public IReadOnlyDictionary<NetUserId, PvpLobbyChoice> Choices => _choices;
 
     public override void Initialize()
     {
@@ -35,10 +30,9 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         SubscribeLocalEvent<GamePresetChangedEvent>(OnPresetChanged);
         SubscribeLocalEvent<PlayerJoinedLobbyEvent>(OnJoinedLobby);
         SubscribeLocalEvent<ToggleReadyAttemptEvent>(OnReadyAttempt);
-        SubscribeNetworkEvent<AssaultSelectLoadoutEvent>(OnSelectLoadout);
+        SubscribeNetworkEvent<PvpSelectLoadoutEvent>(OnSelectLoadout);
+        SubscribeNetworkEvent<PvpLateJoinRequestEvent>(OnLateJoin);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
-
-        RefreshEnabled();
     }
 
     public override void Shutdown()
@@ -47,7 +41,17 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         _players.PlayerStatusChanged -= OnPlayerStatusChanged;
     }
 
-    public bool TryGetChoice(NetUserId user, out AssaultLobbyChoice choice)
+    public void Register(IPvpLobbySource source)
+    {
+        if (_sources.Contains(source))
+            return;
+
+        _sources.Add(source);
+        RefreshEnabled();
+        BroadcastAll();
+    }
+
+    public bool TryGetChoice(NetUserId user, out PvpLobbyChoice choice)
     {
         return _choices.TryGetValue(user, out choice!);
     }
@@ -57,7 +61,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
         return _choices.TryGetValue(user, out var choice) && IsValid(choice);
     }
 
-    public static bool IsValid(AssaultLobbyChoice choice)
+    public static bool IsValid(PvpLobbyChoice choice)
     {
         return choice.Random || choice.Team != null && choice.Class != null;
     }
@@ -71,7 +75,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             if (choice.Random || choice.Team == null)
                 continue;
 
-            if (choice.Team == AssaultTeam.Attackers)
+            if (choice.Team == PvpTeam.Attackers)
                 atk++;
             else
                 def++;
@@ -82,31 +86,42 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 
     public bool CanSelectClass(NetUserId user, string classId, bool includeUnassignedLobby = true)
     {
-        if (!_proto.TryIndex<AssaultClassPrototype>(classId, out var proto))
+        var source = ActiveSource;
+        if (source == null)
             return false;
 
-        if (proto.MaxCount <= 0)
+        var maxCount = 0;
+        foreach (var team in new[] { PvpTeam.Attackers, PvpTeam.Defenders })
+        {
+            foreach (var info in source.GetClasses(team))
+            {
+                if (info.Id != classId)
+                    continue;
+
+                maxCount = info.MaxCount;
+                break;
+            }
+        }
+
+        if (maxCount <= 0)
             return true;
 
-        return CountClassOccupants(classId, user, includeUnassignedLobby) < proto.MaxCount;
+        return CountClassOccupants(classId, user, includeUnassignedLobby) < maxCount;
     }
 
     public int CountClassOccupants(string classId, NetUserId? exclude = null, bool includeUnassignedLobby = true)
     {
         var count = 0;
         var counted = new HashSet<NetUserId>();
-        var query = EntityQueryEnumerator<AssaultRuleComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var rule, out var gameRule))
-        {
-            if (!_ticker.IsGameRuleActive(uid, gameRule))
-                continue;
 
-            foreach (var (user, slot) in rule.Players)
+        if (ActiveSource != null)
+        {
+            foreach (var (user, assigned) in ActiveSource.GetAssignedClasses())
             {
                 if (exclude != null && user == exclude.Value)
                     continue;
 
-                if (slot.Class is not { } assigned || assigned.Id != classId)
+                if (assigned != classId)
                     continue;
 
                 counted.Add(user);
@@ -125,7 +140,7 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             if (exclude != null && user == exclude.Value)
                 continue;
 
-            if (choice.Class is not { } chosen || chosen.Id != classId)
+            if (choice.Class != classId)
                 continue;
 
             count++;
@@ -138,19 +153,13 @@ public sealed partial class AssaultLobbySystem : EntitySystem
     {
         var counts = new Dictionary<string, int>();
         var counted = new HashSet<NetUserId>();
-        var query = EntityQueryEnumerator<AssaultRuleComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var rule, out var gameRule))
+
+        if (ActiveSource != null)
         {
-            if (!_ticker.IsGameRuleActive(uid, gameRule))
-                continue;
-
-            foreach (var (user, slot) in rule.Players)
+            foreach (var (user, assigned) in ActiveSource.GetAssignedClasses())
             {
-                if (slot.Class is not { } assigned)
-                    continue;
-
                 counted.Add(user);
-                counts[assigned.Id] = counts.GetValueOrDefault(assigned.Id) + 1;
+                counts[assigned] = counts.GetValueOrDefault(assigned) + 1;
             }
         }
 
@@ -159,13 +168,13 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             if (counted.Contains(user) || choice.Class is not { } chosen)
                 continue;
 
-            counts[chosen.Id] = counts.GetValueOrDefault(chosen.Id) + 1;
+            counts[chosen] = counts.GetValueOrDefault(chosen) + 1;
         }
 
         return counts;
     }
 
-    public bool CanJoinTeam(NetUserId user, AssaultTeam team)
+    public bool CanJoinTeam(NetUserId user, PvpTeam team)
     {
         var (atk, def) = GetTeamCounts();
         if (_choices.TryGetValue(user, out var existing) && !existing.Random && existing.Team == team)
@@ -173,13 +182,13 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 
         if (_choices.TryGetValue(user, out existing) && !existing.Random && existing.Team != null)
         {
-            if (existing.Team == AssaultTeam.Attackers)
+            if (existing.Team == PvpTeam.Attackers)
                 atk--;
             else
                 def--;
         }
 
-        if (team == AssaultTeam.Attackers)
+        if (team == PvpTeam.Attackers)
             atk++;
         else
             def++;
@@ -199,19 +208,13 @@ public sealed partial class AssaultLobbySystem : EntitySystem
     {
         _choices.TryGetValue(session.UserId, out var choice);
         var (atk, def) = GetTeamCounts();
-        var inQueue = false;
-        var query = EntityQueryEnumerator<AssaultRuleComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var rule, out var gameRule))
-        {
-            if (!_ticker.IsGameRuleActive(uid, gameRule))
-                continue;
+        var source = ActiveSource;
+        var inQueue = source?.IsInWaveQueue(session.UserId) ?? false;
+        var attackersName = source?.GetTeamName(PvpTeam.Attackers) ?? string.Empty;
+        var defendersName = source?.GetTeamName(PvpTeam.Defenders) ?? string.Empty;
+        var header = source != null ? Loc.GetString(source.HeaderLoc) : string.Empty;
 
-            if (rule.Players.TryGetValue(session.UserId, out var slot))
-                inQueue = slot.InWaveQueue;
-        }
-
-        var config = GetConfig();
-        RaiseNetworkEvent(new AssaultLobbyStateEvent(
+        RaiseNetworkEvent(new PvpLobbyStateEvent(
             LobbyEnabled,
             atk,
             def,
@@ -220,9 +223,13 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             choice?.Class,
             choice != null && IsValid(choice),
             inQueue,
+            source?.ShowClassCost ?? false,
+            header,
+            attackersName,
+            defendersName,
             GetClassCounts(),
-            AssaultTeamConfig.GetId(config, AssaultTeam.Attackers),
-            AssaultTeamConfig.GetId(config, AssaultTeam.Defenders)), session.Channel);
+            source?.GetClasses(PvpTeam.Attackers).ToList(),
+            source?.GetClasses(PvpTeam.Defenders).ToList()), session.Channel);
     }
 
     private void OnPresetChanged(GamePresetChangedEvent ev)
@@ -239,25 +246,25 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 
     private void OnReadyAttempt(ToggleReadyAttemptEvent ev)
     {
-        if (!LobbyEnabled)
+        if (!LobbyEnabled || ActiveSource == null)
             return;
 
         if (HasValidChoice(ev.Player.UserId))
             return;
 
         ev.Cancel();
-        _chat.DispatchServerMessage(ev.Player, Loc.GetString("assault-lobby-need-loadout"));
+        _chat.DispatchServerMessage(ev.Player, Loc.GetString(ActiveSource.NeedLoadoutLoc));
     }
 
-    private void OnSelectLoadout(AssaultSelectLoadoutEvent ev, EntitySessionEventArgs args)
+    private void OnSelectLoadout(PvpSelectLoadoutEvent ev, EntitySessionEventArgs args)
     {
-        if (!LobbyEnabled)
+        if (!LobbyEnabled || ActiveSource == null)
             return;
 
         var user = args.SenderSession.UserId;
         if (ev.Random)
         {
-            _choices[user] = new AssaultLobbyChoice { Random = true };
+            _choices[user] = new PvpLobbyChoice { Random = true };
             BroadcastAll();
             return;
         }
@@ -267,35 +274,38 @@ public sealed partial class AssaultLobbySystem : EntitySystem
 
         if (!CanJoinTeam(user, team))
         {
-            _chat.DispatchServerMessage(args.SenderSession, Loc.GetString("assault-lobby-team-full"));
+            _chat.DispatchServerMessage(args.SenderSession, Loc.GetString(ActiveSource.TeamFullLoc));
             SendTo(args.SenderSession);
             return;
         }
 
-        ProtoId<AssaultClassPrototype>? classId = null;
+        string? classId = null;
         if (!string.IsNullOrEmpty(ev.ClassId))
         {
-            if (!_proto.TryIndex<AssaultClassPrototype>(ev.ClassId, out var proto)
-                || !TryGetTeamPrototype(team, out var teamProto)
-                || !teamProto.ContainsClass(proto.ID))
+            if (!ActiveSource.ContainsClass(team, ev.ClassId))
                 return;
 
-            if (!CanSelectClass(user, proto.ID))
+            if (!CanSelectClass(user, ev.ClassId))
             {
-                _chat.DispatchServerMessage(args.SenderSession, Loc.GetString("assault-lobby-class-full"));
+                _chat.DispatchServerMessage(args.SenderSession, Loc.GetString(ActiveSource.ClassFullLoc));
                 SendTo(args.SenderSession);
                 return;
             }
 
-            classId = proto.ID;
+            classId = ev.ClassId;
         }
 
-        _choices[user] = new AssaultLobbyChoice
+        _choices[user] = new PvpLobbyChoice
         {
             Team = team,
             Class = classId,
         };
         BroadcastAll();
+    }
+
+    private void OnLateJoin(PvpLateJoinRequestEvent ev, EntitySessionEventArgs args)
+    {
+        ActiveSource?.HandleLateJoin(args.SenderSession);
     }
 
     private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs args)
@@ -307,32 +317,23 @@ public sealed partial class AssaultLobbySystem : EntitySystem
             BroadcastAll();
     }
 
-    public bool TryGetTeamPrototype(AssaultTeam team, [NotNullWhen(true)] out AssaultTeamPrototype? proto)
-    {
-        return AssaultTeamConfig.TryGetTeam(_proto, GetConfig(), team, out proto);
-    }
-
-    private StationAssaultConfigComponent? GetConfig()
-    {
-        var query = EntityQueryEnumerator<StationAssaultConfigComponent>();
-        if (query.MoveNext(out _, out var live))
-            return live;
-
-        return AssaultTeamConfig.FromGameMap(_gameMap.GetSelectedMap());
-    }
-
-    private void RefreshEnabled()
+    public void RefreshEnabled()
     {
         LobbyEnabled = false;
+        ActiveSource = null;
         var preset = _ticker.CurrentPreset ?? _ticker.Preset;
         if (preset == null)
             return;
 
-        foreach (var rule in preset.Rules)
+        foreach (var source in _sources)
         {
-            if (rule == AssaultConstants.RulePrototypeId)
+            foreach (var rule in preset.Rules)
             {
+                if (rule != source.RuleId)
+                    continue;
+
                 LobbyEnabled = true;
+                ActiveSource = source;
                 return;
             }
         }

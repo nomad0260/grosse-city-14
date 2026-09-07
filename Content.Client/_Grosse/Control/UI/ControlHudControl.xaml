@@ -1,0 +1,8 @@
+<PanelContainer xmlns="https://spacestation14.io"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                MouseFilter="Ignore">
+    <BoxContainer Orientation="Vertical" Margin="8 4">
+        <RichTextLabel Name="HudLabel" HorizontalAlignment="Center" />
+    </BoxContainer>
+</PanelContainer>

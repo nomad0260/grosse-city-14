@@ -9,7 +9,7 @@
     xmlns:lobbyUi="clr-namespace:Content.Client.Lobby.UI"
     xmlns:info="clr-namespace:Content.Client.Info"
     xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Chat.Widgets"
-    xmlns:assault="clr-namespace:Content.Client._Grosse.Assault.UI">
+    xmlns:pvp="clr-namespace:Content.Client._Grosse.Pvp.UI">
     <!-- Background -->
     <TextureRect Access="Public" VerticalExpand="True" HorizontalExpand="True" Name="Background"
                  Stretch="KeepAspectCovered" />
@@ -99,7 +99,7 @@
                     <controls:HSpacer Spacing="5" />
                     <lobbyUi:LobbyCharacterPreviewPanel Name="CharacterPreview" Access="Public" />
                     <controls:HSpacer Spacing="5" />
-                    <assault:AssaultLoadoutPanel Name="AssaultLoadout" Access="Public" />
+                    <pvp:PvpLoadoutPanel Name="PvpLoadout" Access="Public" />
                     <BoxContainer MinHeight="10" />
                     <!-- Gold line -->
                     <controls:HLine StyleClasses="highlight" Thickness="2" Access="Public" />

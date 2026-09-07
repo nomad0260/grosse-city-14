@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared._Grosse.Assault.Components;
+using Content.Shared._Grosse.Pvp;
 using Content.Shared.Maps;
 using Robust.Shared.Prototypes;
 
