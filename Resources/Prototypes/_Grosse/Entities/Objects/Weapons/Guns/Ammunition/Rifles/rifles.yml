@@ -17,6 +17,8 @@
     sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
   - type: Item
     sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
+  - type: GrosseGunWieldBonus
+    cameraRecoilScalar: -4
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: 0
@@ -24,6 +26,7 @@
   - type: Gun
     angleDecay: 30
     angleIncrease: 5
+    cameraRecoilScalar: 5
     minAngle: 24
     maxAngle: 35
     fireRate: 5
@@ -80,6 +83,8 @@
   - type: Item
     sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
     size: Large
+  - type: GrosseGunWieldBonus
+    cameraRecoilScalar: -3.5
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: 0
@@ -87,6 +92,7 @@
   - type: Gun
     angleDecay: 25
     angleIncrease: 6
+    cameraRecoilScalar: 5
     minAngle: 24
     maxAngle: 45
     fireRate: 5

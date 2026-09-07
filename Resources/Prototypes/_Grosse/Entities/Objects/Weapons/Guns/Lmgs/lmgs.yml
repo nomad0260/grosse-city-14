@@ -24,13 +24,15 @@
         state: equipped-BACKPACK
   - type: Item
     sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+  - type: GrosseGunWieldBonus
+    cameraRecoilScalar: -4
   - type: GunWieldBonus
     minAngle: -30
     maxAngle: -50
   - type: Gun
     minAngle: 34
     maxAngle: 55
-    cameraRecoilScalar: 2
+    cameraRecoilScalar: 5
     fireRate: 5
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/ak47.ogg
