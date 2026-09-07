@@ -46,6 +46,7 @@ namespace Content.IntegrationTests.Tests
             "CentComm",
             "Dart",
             "AssaultTestMisterNobody1",
+            "ControlStub",
         };
 
         private static readonly string[] Grids =
