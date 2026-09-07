@@ -10,7 +10,7 @@
 - type: gameMap
   id: ControlStub
   mapName: 'Control Stub'
-  mapPath: /Maps/Test/empty.yml
+  mapPath: /Maps/_Grosse/Control/control_stub.yml
   minPlayers: 0
   maxRandomOffset: 0
   randomRotation: false

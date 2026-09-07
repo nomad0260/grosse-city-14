@@ -2,8 +2,10 @@
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Grosse.Control;
+using Content.Server.GameTicking;
 using Content.Shared._Grosse.Control;
 using Content.Shared._Grosse.Control.Components;
+using Robust.Shared.EntitySerialization;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -60,10 +62,48 @@ public sealed class ControlMapTest : GameTest
             Assert.That(proto.TryIndex(ControlPrototypeIds.MapPool, out var pool));
             Assert.That(pool!.Maps, Does.Contain(ControlPrototypeIds.StubMap.Id));
             Assert.That(proto.TryIndex(ControlPrototypeIds.StubMap, out var map));
+            Assert.That(map!.MapPath.ToString(), Does.Contain("/Maps/_Grosse/Control/control_stub.yml"));
             var config = ControlTeamConfig.FromGameMap(map);
             Assert.That(config, Is.Not.Null);
             Assert.That(config!.TeamA, Is.EqualTo(RebelsId));
             Assert.That(config.TeamB, Is.EqualTo(CombineId));
+        });
+    }
+
+    [Test]
+    public async Task StubMapHasCaptureConsoleAtOrigin()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var ticker = server.System<GameTicker>();
+        var mapSys = server.System<SharedMapSystem>();
+        var proto = server.ResolveDependency<IPrototypeManager>();
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(proto.TryIndex(ControlPrototypeIds.StubMap, out var mapProto));
+            var opts = DeserializationOptions.Default with { InitializeMaps = true };
+            ticker.LoadGameMap(mapProto!, out var loadedMap, opts);
+            try
+            {
+                var foundAtOrigin = false;
+                var query = server.EntMan.EntityQueryEnumerator<ControlCapturePointComponent, TransformComponent>();
+                while (query.MoveNext(out _, out _, out var transform))
+                {
+                    var pos = transform.LocalPosition;
+                    if (Math.Abs(pos.X) < 0.1f && Math.Abs(pos.Y) < 0.1f)
+                    {
+                        foundAtOrigin = true;
+                        break;
+                    }
+                }
+
+                Assert.That(foundAtOrigin, Is.True, "ControlStub must have ControlCaptureConsole at (0,0)");
+            }
+            finally
+            {
+                mapSys.DeleteMap(loadedMap);
+            }
         });
     }
 
