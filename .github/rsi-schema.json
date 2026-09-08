@@ -77,6 +77,8 @@
          "default":"",
          "description":"The license for the associated icon states. Restricted to SS14-compatible asset licenses.",
          "enum":[
+            "CC-BY-3.0",
+            "CC-BY-4.0",
             "CC-BY-SA-3.0",
             "CC-BY-SA-4.0",
             "CC-BY-NC-3.0",
@@ -84,7 +86,8 @@
             "CC-BY-NC-SA-3.0",
             "CC-BY-NC-SA-4.0",
             "CC0-1.0",
-            "Grosse Private Licence"
+            "Grosse Private Licence",
+            "All right reserved"
          ],
          "examples":[
             "CC-BY-SA-3.0"

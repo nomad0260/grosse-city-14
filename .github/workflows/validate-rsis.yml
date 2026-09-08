@@ -7,6 +7,8 @@ on:
   pull_request:
     paths:
       - '**.rsi/**'
+      - '.github/rsi-schema.json'
+      - '.github/workflows/validate-rsis.yml'
 
 jobs:
   validate_rsis:
@@ -34,6 +36,10 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip3 install --ignore-installed --user pillow jsonschema
+      # Grosse: use repo schema so private licenses are allowed without editing the submodule.
+      - name: Apply custom RSI schema
+        run: |
+          cp .github/rsi-schema.json RobustToolbox/Schemas/rsi.json
       - name: Validate RSIs
         run: |
           python3 RobustToolbox/Schemas/validate_rsis.py Resources/
