@@ -1,3 +1,4 @@
+using Content.Shared._Grosse.Pvp;
 using Content.Shared.Physics;
 
 namespace Content.Shared._Grosse.Assault;

@@ -9,10 +9,12 @@ using Content.Server.Maps;
 using Content.Server.Mind;
 using Content.Server.RoundEnd;
 using Content.Server.Station.Systems;
-using Content.Server._Grosse.Assault.UI;
+using Content.Server._Grosse.Pvp;
+using Content.Server._Grosse.Pvp.UI;
 using Content.Shared._Grosse.Assault;
 using Content.Shared._Grosse.Assault.Components;
-using Content.Shared._Grosse.Assault.UI;
+using Content.Shared._Grosse.Pvp;
+using Content.Shared._Grosse.Pvp.UI;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs;
@@ -35,7 +37,7 @@ namespace Content.Server._Grosse.Assault;
 
 public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleComponent>
 {
-    [Dependency] private AssaultLobbySystem _lobby = default!;
+    [Dependency] private PvpLobbySystem _lobby = default!;
     [Dependency] private EuiManager _eui = default!;
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private IGameMapManager _gameMap = default!;
@@ -51,7 +53,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
     [Dependency] private StationSpawningSystem _spawning = default!;
     [Dependency] private StationSystem _station = default!;
 
-    private readonly Dictionary<NetUserId, AssaultClassSelectEui> _classUis = new();
+    private readonly Dictionary<NetUserId, PvpClassSelectEui> _classUis = new();
 
     public override void Initialize()
     {
@@ -60,7 +62,6 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         SubscribeLocalEvent<RulePlayerSpawningEvent>(OnPlayerSpawning);
         SubscribeLocalEvent<AssaultPlayerComponent, MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<AssaultCapturePointComponent, AssaultZoneCapturedEvent>(OnZoneCapturedEvent);
-        SubscribeNetworkEvent<AssaultLateJoinRequestEvent>(OnLateJoin);
         _players.PlayerStatusChanged += OnPlayerStatusChanged;
     }
 
@@ -213,11 +214,11 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         };
     }
 
-    private AssaultTeam ResolveTeam(AssaultRuleComponent rule, AssaultLobbyChoice? choice)
+    private PvpTeam ResolveTeam(AssaultRuleComponent rule, PvpLobbyChoice? choice)
     {
-        var atk = CountTeam(rule, AssaultTeam.Attackers);
-        var def = CountTeam(rule, AssaultTeam.Defenders);
-        var preferred = choice is { Random: false, Team: { } team } ? team : (AssaultTeam?) null;
+        var atk = CountTeam(rule, PvpTeam.Attackers);
+        var def = CountTeam(rule, PvpTeam.Defenders);
+        var preferred = choice is { Random: false, Team: { } team } ? team : (PvpTeam?) null;
 
         if (preferred == AssaultTeam.Attackers && atk <= def)
             return AssaultTeam.Attackers;
@@ -227,10 +228,10 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return atk <= def ? AssaultTeam.Attackers : AssaultTeam.Defenders;
     }
 
-    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultRuleComponent rule, AssaultTeam team, AssaultLobbyChoice? choice, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? ResolveClass(AssaultRuleComponent rule, PvpTeam team, PvpLobbyChoice? choice, int tickets, NetUserId user)
     {
         if (choice is { Random: false, Class: { } selected }
-            && Proto.TryIndex(selected, out AssaultClassPrototype? proto)
+            && Proto.TryIndex<AssaultClassPrototype>(selected, out var proto)
             && TeamHasClass(rule, team, selected)
             && proto.Cost <= tickets
             && CanAssignClass(user, selected))
@@ -241,7 +242,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         return PickRandomClass(rule, team, tickets, user);
     }
 
-    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultRuleComponent rule, AssaultTeam team, int tickets, NetUserId user)
+    private ProtoId<AssaultClassPrototype>? PickRandomClass(AssaultRuleComponent rule, PvpTeam team, int tickets, NetUserId user)
     {
         var options = new List<AssaultClassPrototype>();
         foreach (var proto in EnumerateTeamClasses(rule, team))
@@ -299,12 +300,11 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         _classUis.Remove(user);
     }
 
-    private void OnLateJoin(AssaultLateJoinRequestEvent ev, EntitySessionEventArgs args)
+    public void TryLateJoin(ICommonSession session)
     {
         if (!TryGetActiveRule(out var rule))
             return;
 
-        var session = args.SenderSession;
         if (rule.Players.ContainsKey(session.UserId))
             return;
 
@@ -637,7 +637,7 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
             return;
         }
 
-        var eui = new AssaultClassSelectEui(this, session.UserId, state);
+        var eui = new PvpClassSelectEui(session.UserId, state, TrySelectClass, OnClassSelectClosed);
         _classUis[session.UserId] = eui;
         _eui.OpenEui(eui, session);
         eui.StateDirty();
@@ -668,19 +668,21 @@ public sealed partial class AssaultRuleSystem : GameRuleSystem<AssaultRuleCompon
         _lobby.BroadcastAll();
     }
 
-    private AssaultClassSelectEuiState BuildClassState(AssaultRuleComponent rule, AssaultPlayerSlot slot, NetUserId user)
+    private PvpClassSelectEuiState BuildClassState(AssaultRuleComponent rule, AssaultPlayerSlot slot, NetUserId user)
     {
         var tickets = GetTickets(rule, slot.Team);
-        var state = new AssaultClassSelectEuiState
+        var state = new PvpClassSelectEuiState
         {
             Team = slot.Team,
             Tickets = tickets,
+            ShowTickets = true,
+            ShowClassCost = true,
             SelectedClass = slot.Class,
         };
 
         foreach (var proto in EnumerateTeamClasses(rule, slot.Team))
         {
-            state.Classes.Add(new AssaultClassSelectInfo
+            state.Classes.Add(new PvpClassSelectInfo
             {
                 Id = proto.ID,
                 Name = Loc.GetString(proto.Name),

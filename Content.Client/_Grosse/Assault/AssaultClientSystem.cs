@@ -9,37 +9,12 @@ public sealed partial class AssaultClientSystem : EntitySystem
 {
     [Dependency] private IUserInterfaceManager _ui = default!;
 
-    public bool LobbyEnabled { get; private set; }
-    public bool CanReady { get; private set; }
-    public bool InWaveQueue { get; private set; }
-
-    public event Action<AssaultLobbyStateEvent>? LobbyStateChanged;
-
     private AssaultHudControl? _hud;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeNetworkEvent<AssaultLobbyStateEvent>(OnLobbyState);
         SubscribeNetworkEvent<AssaultHudUpdateEvent>(OnHud);
-    }
-
-    public void SelectLoadout(bool random, AssaultTeam? team, string? classId)
-    {
-        RaiseNetworkEvent(new AssaultSelectLoadoutEvent(random, team, classId));
-    }
-
-    public void RequestLateJoin()
-    {
-        RaiseNetworkEvent(new AssaultLateJoinRequestEvent());
-    }
-
-    private void OnLobbyState(AssaultLobbyStateEvent ev)
-    {
-        LobbyEnabled = ev.Enabled;
-        CanReady = ev.CanReady;
-        InWaveQueue = ev.InWaveQueue;
-        LobbyStateChanged?.Invoke(ev);
     }
 
     private void OnHud(AssaultHudUpdateEvent ev)

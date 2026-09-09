@@ -1,0 +1,9 @@
+- type: npcFaction
+  id: ControlTeamA
+  hostile:
+  - ControlTeamB
+
+- type: npcFaction
+  id: ControlTeamB
+  hostile:
+  - ControlTeamA
