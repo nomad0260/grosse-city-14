@@ -140,8 +140,6 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-  - type: RequireProjectileTarget
-    active: true
   - type: Cover
     shootThroughRadius: 3
 
