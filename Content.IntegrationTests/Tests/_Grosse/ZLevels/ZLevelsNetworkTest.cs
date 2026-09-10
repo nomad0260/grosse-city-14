@@ -6,12 +6,13 @@ using Content.Server._Grosse.ZLevels.Core;
 using Content.Shared._Grosse.ZLevels.Core.Components;
 using Content.Shared._Grosse.ZLevels.Core.EntitySystems;
 using Content.Shared.Maps;
+using Robust.Shared.ContentPack;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Client.Graphics;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests._Grosse.ZLevels;
 
@@ -29,13 +30,14 @@ public sealed class ZLevelsNetworkTest : GameTest
     private static readonly EntProtoId ActionZFlightUpId = "GrosseActionZFlightUp";
     private static readonly EntProtoId ActionZFlightDownId = "GrosseActionZFlightDown";
     private static readonly EntProtoId ActionZFlightToggleId = "GrosseActionZFlightToggle";
-    private static readonly ProtoId<ShaderPrototype> ZBlurShaderId = "GrosseZBlur";
     private static readonly ProtoId<ContentTileDefinition> SpaceTileId = "Space";
     private static readonly ProtoId<ContentTileDefinition> LatticeTileId = "Lattice";
     private static readonly ProtoId<ContentTileDefinition> TrainLatticeTileId = "TrainLattice";
     private static readonly ProtoId<ContentTileDefinition> FloorGlassTileId = "FloorGlass";
     private static readonly ProtoId<ContentTileDefinition> FloorRGlassTileId = "FloorRGlass";
     private static readonly ProtoId<ContentTileDefinition> FloorSteelTileId = "FloorSteel";
+    private static readonly ResPath ZBlurShaderProtoPath = new("/Prototypes/_Grosse/Shaders/zlevels.yml");
+    private static readonly ResPath ZBlurShaderSourcePath = new("/Textures/_Grosse/Shaders/zblur.swsl");
 
     public override PoolSettings PoolSettings => new() { Connected = false, DummyTicker = false };
 
@@ -43,7 +45,7 @@ public sealed class ZLevelsNetworkTest : GameTest
     public async Task RequiredPrototypesExist()
     {
         var serverProto = Server.ResolveDependency<IPrototypeManager>();
-        var clientProto = Client.ResolveDependency<IPrototypeManager>();
+        var resources = Client.ResolveDependency<IResourceManager>();
 
         await Server.WaitAssertion(() =>
         {
@@ -74,10 +76,14 @@ public sealed class ZLevelsNetworkTest : GameTest
             });
         });
 
-        // ShaderPrototype is client-only.
+        // ShaderPrototype is client-only and not a YAMLLinter ProtoId kind; assert VFS assets instead.
         await Client.WaitAssertion(() =>
         {
-            Assert.That(clientProto.HasIndex(ZBlurShaderId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(resources.ContentFileExists(ZBlurShaderProtoPath));
+                Assert.That(resources.ContentFileExists(ZBlurShaderSourcePath));
+            });
         });
     }
 
