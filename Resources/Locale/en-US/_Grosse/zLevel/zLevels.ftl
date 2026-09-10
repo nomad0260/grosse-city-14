@@ -9,3 +9,5 @@ grosse-soft-paws-too-high = Even soft paws can't save you from a fall this high!
 grosse-floor-tile-tool-separator = or
 grosse-floor-tile-wrong-tool = You need {$toolNames} to pry that!
 grosse-ceiling-tile-obstructed = Something is blocking the ceiling tile.
+
+grosse-entity-effect-guidebook-add-z-velocity = adds {$speed} vertical velocity

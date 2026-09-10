@@ -9,3 +9,5 @@ grosse-soft-paws-too-high = Даже мягкие лапки не спасут �
 grosse-floor-tile-tool-separator = или
 grosse-floor-tile-wrong-tool = Вам нужно {$toolNames}, чтобы поддеть это!
 grosse-ceiling-tile-obstructed = Что-то мешает потолочному тайлу.
+
+grosse-entity-effect-guidebook-add-z-velocity = добавляет {$speed} вертикальной скорости
