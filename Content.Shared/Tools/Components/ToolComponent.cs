@@ -6,7 +6,7 @@ using Robust.Shared.Utility;
 namespace Content.Shared.Tools.Components;
 
 [RegisterComponent, NetworkedComponent]
-[Access(typeof(SharedToolSystem))]
+[Access(typeof(SharedToolSystem), typeof(Content.Shared._Grosse.ZLevels.Tiles.GrosseZLevelToolTileSystem))] // Grosse ZLevels ceiling pry
 public sealed partial class ToolComponent : Component
 {
     [DataField]

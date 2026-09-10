@@ -1,0 +1,39 @@
+# Ported from crystallpunk-14/crystall-edge (MIT sublicense). Icons use stock SS14 paths.
+- type: entity
+  id: GrosseActionZLevelUp
+  name: Move up
+  description: Move up one Z-Level
+  components:
+  - type: InstantAction
+    event: !type:GrosseZLevelActionUp
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_cycleweapon
+
+- type: entity
+  id: GrosseActionZLevelDown
+  name: Move down
+  description: Move down one Z-Level
+  components:
+  - type: InstantAction
+    event: !type:GrosseZLevelActionDown
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_eject
+
+- type: entity
+  parent: BaseToggleAction
+  id: GrosseActionToggleLookUp
+  name: Look up
+  description: You lift your head and look up at the sky.
+  components:
+  - type: Action
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light
+    iconOn:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light
