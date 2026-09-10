@@ -20,6 +20,23 @@ namespace Content.IntegrationTests.Tests._Grosse.ZLevels;
 [TestOf(typeof(GrosseSharedZLevelsSystem))]
 public sealed class ZLevelsNetworkTest : GameTest
 {
+    private static readonly EntProtoId ZLevelEyeId = "GrosseZLevelEye";
+    private static readonly EntProtoId DustEffectId = "GrosseDustEffect";
+    private static readonly EntProtoId DustTileEffectId = "GrosseDustTileEffect";
+    private static readonly EntProtoId ActionZLevelUpId = "GrosseActionZLevelUp";
+    private static readonly EntProtoId ActionZLevelDownId = "GrosseActionZLevelDown";
+    private static readonly EntProtoId ActionToggleLookUpId = "GrosseActionToggleLookUp";
+    private static readonly EntProtoId ActionZFlightUpId = "GrosseActionZFlightUp";
+    private static readonly EntProtoId ActionZFlightDownId = "GrosseActionZFlightDown";
+    private static readonly EntProtoId ActionZFlightToggleId = "GrosseActionZFlightToggle";
+    private static readonly ProtoId<ShaderPrototype> ZBlurShaderId = "GrosseZBlur";
+    private static readonly ProtoId<ContentTileDefinition> SpaceTileId = "Space";
+    private static readonly ProtoId<ContentTileDefinition> LatticeTileId = "Lattice";
+    private static readonly ProtoId<ContentTileDefinition> TrainLatticeTileId = "TrainLattice";
+    private static readonly ProtoId<ContentTileDefinition> FloorGlassTileId = "FloorGlass";
+    private static readonly ProtoId<ContentTileDefinition> FloorRGlassTileId = "FloorRGlass";
+    private static readonly ProtoId<ContentTileDefinition> FloorSteelTileId = "FloorSteel";
+
     public override PoolSettings PoolSettings => new() { Connected = false, DummyTicker = false };
 
     [Test]
@@ -32,15 +49,15 @@ public sealed class ZLevelsNetworkTest : GameTest
         {
             Assert.Multiple(() =>
             {
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseZLevelEye"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseDustEffect"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseDustTileEffect"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionZLevelUp"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionZLevelDown"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionToggleLookUp"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionZFlightUp"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionZFlightDown"));
-                Assert.That(serverProto.HasIndex<EntityPrototype>("GrosseActionZFlightToggle"));
+                Assert.That(serverProto.HasIndex(ZLevelEyeId));
+                Assert.That(serverProto.HasIndex(DustEffectId));
+                Assert.That(serverProto.HasIndex(DustTileEffectId));
+                Assert.That(serverProto.HasIndex(ActionZLevelUpId));
+                Assert.That(serverProto.HasIndex(ActionZLevelDownId));
+                Assert.That(serverProto.HasIndex(ActionToggleLookUpId));
+                Assert.That(serverProto.HasIndex(ActionZFlightUpId));
+                Assert.That(serverProto.HasIndex(ActionZFlightDownId));
+                Assert.That(serverProto.HasIndex(ActionZFlightToggleId));
             });
         });
 
@@ -48,19 +65,19 @@ public sealed class ZLevelsNetworkTest : GameTest
         {
             Assert.Multiple(() =>
             {
-                Assert.That(serverProto.Index<ContentTileDefinition>("Space").Transparent);
-                Assert.That(serverProto.Index<ContentTileDefinition>("Lattice").Transparent);
-                Assert.That(serverProto.Index<ContentTileDefinition>("TrainLattice").Transparent);
-                Assert.That(serverProto.Index<ContentTileDefinition>("FloorGlass").Transparent);
-                Assert.That(serverProto.Index<ContentTileDefinition>("FloorRGlass").Transparent);
-                Assert.That(serverProto.Index<ContentTileDefinition>("FloorSteel").Transparent, Is.False);
+                Assert.That(serverProto.Index(SpaceTileId).Transparent);
+                Assert.That(serverProto.Index(LatticeTileId).Transparent);
+                Assert.That(serverProto.Index(TrainLatticeTileId).Transparent);
+                Assert.That(serverProto.Index(FloorGlassTileId).Transparent);
+                Assert.That(serverProto.Index(FloorRGlassTileId).Transparent);
+                Assert.That(serverProto.Index(FloorSteelTileId).Transparent, Is.False);
             });
         });
 
         // ShaderPrototype is client-only.
         await Client.WaitAssertion(() =>
         {
-            Assert.That(clientProto.HasIndex<ShaderPrototype>("GrosseZBlur"));
+            Assert.That(clientProto.HasIndex(ZBlurShaderId));
         });
     }
 
