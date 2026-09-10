@@ -14,7 +14,7 @@ namespace Content.Server._Grosse.ZLevels.Core;
 
 public sealed partial class GrosseZLevelsSystem
 {
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency] private PvsOverrideSystem _pvsOverride = default!;
 
     /// <summary>
     /// Creates a new zLevel Map Network entity

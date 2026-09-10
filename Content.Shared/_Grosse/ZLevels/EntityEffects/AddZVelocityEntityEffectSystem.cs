@@ -14,7 +14,7 @@ namespace Content.Shared._Grosse.ZLevels.EntityEffects;
 /// </summary>
 public sealed partial class AddZVelocityEntityEffectSystem : EntityEffectSystem<MetaDataComponent, AddZVelocity>
 {
-    [Dependency] private readonly GrosseSharedZLevelsSystem _zLevel = default!;
+    [Dependency] private GrosseSharedZLevelsSystem _zLevel = default!;
 
     protected override void Effect(Entity<MetaDataComponent> entity, ref EntityEffectEvent<AddZVelocity> args)
     {
