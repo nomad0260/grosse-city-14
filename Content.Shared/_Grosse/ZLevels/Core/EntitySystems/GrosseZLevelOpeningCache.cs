@@ -365,12 +365,11 @@ public sealed class GrosseZLevelOpeningCache(int chunkSize = GrosseZLevelOpening
     }
 
     /// <summary>
-    /// TODO(z-levels): CE used <c>ContentTileDefinition.Transparent</c> (not in Grosse).
-    /// Approximate with map-atmosphere / weather-exposed tiles until that field is ported.
+    /// True when the tile is marked <see cref="ContentTileDefinition.Transparent"/> (openings for Z-level sight/roofs).
     /// </summary>
     public static bool IsTransparentTile(ContentTileDefinition tileDef)
     {
-        return tileDef.MapAtmosphere || tileDef.Weather;
+        return tileDef.Transparent;
     }
 
     public static bool IsOpeningTile(

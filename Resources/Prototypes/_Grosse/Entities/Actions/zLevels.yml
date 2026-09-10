@@ -37,3 +37,46 @@
     iconOn:
       sprite: Interface/Actions/actions_ai.rsi
       state: camera_light
+
+# Controllable flight (stock icons; no CE action RSI).
+- type: entity
+  id: GrosseActionZFlightUp
+  name: Fly up
+  description: Move up one Z-Level while flying
+  components:
+  - type: InstantAction
+    event: !type:GrosseZFlightActionUp
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_cycleweapon
+
+- type: entity
+  id: GrosseActionZFlightDown
+  name: Fly down
+  description: Move down one Z-Level while flying
+  components:
+  - type: InstantAction
+    event: !type:GrosseZFlightActionDown
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_eject
+
+- type: entity
+  parent: BaseToggleAction
+  id: GrosseActionZFlightToggle
+  name: Toggle flight
+  description: Toggle flight mode on or off
+  components:
+  - type: Action
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light
+    iconOn:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light

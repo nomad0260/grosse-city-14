@@ -29,7 +29,8 @@ public sealed partial class GrosseZLevelBlurOverlay : Overlay
     public GrosseZLevelBlurOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _blurShader = _proto.Index(_zBlurShader).InstanceUnique();
+        if (_proto.TryIndex(_zBlurShader, out var shaderProto))
+            _blurShader = shaderProto.InstanceUnique();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)

@@ -69,7 +69,6 @@ public abstract partial class GrosseSharedZLevelsRoofSystem : EntitySystem
         {
             var tileDef = (ContentTileDefinition)TilDefMan[change.NewTile.TypeId];
             var roovedAbove = Roof.IsRooved((mapUid, currentMapGrid, currentRoof), change.GridIndices);
-            // TODO(z-levels): replace with ContentTileDefinition.Transparent when ported
             roofMap.Add(change.GridIndices, roovedAbove || !GrosseZLevelOpeningCache.IsTransparentTile(tileDef));
         }
 
@@ -139,7 +138,6 @@ public abstract partial class GrosseSharedZLevelsRoofSystem : EntitySystem
                 Roof.SetRoof((otherGrid, otherMapGrid, otherRoof), localTile, covered);
 
                 var otherTileDef = (ContentTileDefinition)TilDefMan[tileRef.Tile.TypeId];
-                // TODO(z-levels): replace with ContentTileDefinition.Transparent when ported
                 if (!GrosseZLevelOpeningCache.IsTransparentTile(otherTileDef))
                     covered = true; // this level's own solid tile re-shields everything further down
             }

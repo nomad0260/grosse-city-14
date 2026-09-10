@@ -17,17 +17,17 @@ namespace Content.Server._Grosse.ZLevels.Roof;
 
 public sealed partial class GrosseZLevelsRoofSystem
 {
-    private void InitGrids()
-    {
-        SubscribeLocalEvent<GrosseZGridNetworkComponent, GrosseZLevelGridNetworkUpdatedEvent>(OnZGridNetworkUpdate);
-        SubscribeLocalEvent<GrosseZGridComponent, MapInitEvent>(OnZGridMapInit);
-    }
-    [Dependency] private EntityQuery<GrosseZGridComponent> _zgridQuery = default!;
-    [Dependency] private EntityQuery<GrosseZGridNetworkComponent> _zGridNetworkQuery = default!;
+    private EntityQuery<GrosseZGridComponent> _zgridQuery;
+    private EntityQuery<GrosseZGridNetworkComponent> _zGridNetworkQuery;
 
     private void InitGrids()
     {
+        _zgridQuery = GetEntityQuery<GrosseZGridComponent>();
+        _zGridNetworkQuery = GetEntityQuery<GrosseZGridNetworkComponent>();
+        SubscribeLocalEvent<GrosseZGridNetworkComponent, GrosseZLevelGridNetworkUpdatedEvent>(OnZGridNetworkUpdate);
+        SubscribeLocalEvent<GrosseZGridComponent, MapInitEvent>(OnZGridMapInit);
     }
+
     private void OnZGridNetworkUpdate(Entity<GrosseZGridNetworkComponent> ent, ref GrosseZLevelGridNetworkUpdatedEvent args)
     {
         RecalculateGridRoofs(ent);
@@ -64,7 +64,7 @@ public sealed partial class GrosseZLevelsRoofSystem
                     _roofMap.Contains(worldTile));
 
                 var tileDef = (ContentTileDefinition)TilDefMan[tileRef.Value.Tile.TypeId];
-                if (!tileDef.Transparent)
+                if (!GrosseZLevelOpeningCache.IsTransparentTile(tileDef))
                     _roofMap.Add(worldTile);
             }
         }

@@ -9,6 +9,7 @@ using System.Linq;
 using Robust.Shared.Analyzers;
 using Content.Server._Grosse.ZLevels.Core;
 using Content.Shared._Grosse.ZLevels.Core.Components;
+using Content.Shared._Grosse.ZLevels.Core.EntitySystems;
 using Content.Shared.Light.Components;
 using Content.Shared.Maps;
 
@@ -57,7 +58,7 @@ public sealed partial class GrosseZLevelsRoofSystem
 
                 var tileDef = (ContentTileDefinition)TilDefMan[tileRef.Value.Tile.TypeId];
 
-                if (!tileDef.Transparent)
+                if (!GrosseZLevelOpeningCache.IsTransparentTile(tileDef))
                     _roofMap.Add(tileRef.Value.GridIndices);
             }
         }

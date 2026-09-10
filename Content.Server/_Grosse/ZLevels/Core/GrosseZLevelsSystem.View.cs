@@ -37,6 +37,8 @@ public sealed partial class GrosseZLevelsSystem
         SubscribeLocalEvent<GrosseZLevelViewerComponent, MapInitEvent>(OnViewerInit);
         SubscribeLocalEvent<GrosseZLevelViewerComponent, ComponentRemove>(OnCompRemove);
         SubscribeLocalEvent<GrosseZLevelViewerComponent, MapUidChangedEvent>(OnViewerMapUidChanged);
+        SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
+        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
     }
 
     /// <summary>

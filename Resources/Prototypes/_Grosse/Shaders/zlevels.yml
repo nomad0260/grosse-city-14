@@ -1,0 +1,4 @@
+- type: shader
+  id: GrosseZBlur
+  kind: source
+  path: "/Textures/_Grosse/Shaders/zblur.swsl"

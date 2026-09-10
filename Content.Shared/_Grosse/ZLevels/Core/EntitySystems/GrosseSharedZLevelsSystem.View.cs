@@ -63,7 +63,6 @@ public abstract partial class GrosseSharedZLevelsSystem
                 _map.TryGetTileRef(gridUid, grid, worldPos, out var tileRef))
             {
                 var tileDef = (ContentTileDefinition)TilDefMan[tileRef.Tile.TypeId];
-                // TODO(z-levels): replace with ContentTileDefinition.Transparent when ported
                 if (!GrosseZLevelOpeningCache.IsTransparentTile(tileDef))
                     break;
             }
@@ -92,7 +91,6 @@ public abstract partial class GrosseSharedZLevelsSystem
         if (!_map.TryGetTileRef(gridUid, grid, worldPos, out var tileRef))
             return false;
 
-        // TODO(z-levels): replace with ContentTileDefinition.Transparent when ported
         return !GrosseZLevelOpeningCache.IsTransparentTile((ContentTileDefinition)TilDefMan[tileRef.Tile.TypeId]);
     }
 

@@ -1,0 +1,29 @@
+# Fall / collapse VFX for Z-levels (vanilla sprites; no CE assets).
+- type: entity
+  parent: EffectSparks
+  id: GrosseDustEffect
+  name: dust effect
+  suffix: ZLevels VFX
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.8
+
+- type: entity
+  parent: EffectSparks
+  id: GrosseDustTileEffect
+  name: tile dust effect
+  suffix: ZLevels VFX
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 2.2
+  - type: Sprite
+    drawdepth: Effects
+    noRot: true
+    snapCardinals: true
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Effects/sparks.rsi
+      state: sparks

@@ -134,6 +134,13 @@ namespace Content.Shared.Maps
         /// </summary>
         [DataField] public bool EditorHidden { get; private set; } = false;
 
+        /// <summary>
+        /// Whether light / Z-level roof logic can see through this tile (openings, lattice, glass floors).
+        /// Ported from CrystallEdge for multi-floor visibility.
+        /// </summary>
+        [DataField]
+        public bool Transparent = false;
+
         public void AssignTileId(ushort id)
         {
             TileId = id;
