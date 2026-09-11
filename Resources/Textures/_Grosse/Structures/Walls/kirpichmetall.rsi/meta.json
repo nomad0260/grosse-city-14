@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by alze_1",
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "kirpichmetall0",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall1",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall2",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall3",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall4",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall5",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall6",
+      "directions": 4
+    },
+    {
+      "name": "kirpichmetall7",
+      "directions": 4
+    }
+  ]
+}

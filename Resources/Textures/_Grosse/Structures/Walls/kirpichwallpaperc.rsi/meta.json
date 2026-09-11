@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by alze_1",
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "kirpichwallpaperc0",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc1",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc2",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc3",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc4",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc5",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc6",
+      "directions": 4
+    },
+    {
+      "name": "kirpichwallpaperc7",
+      "directions": 4
+    }
+  ]
+}

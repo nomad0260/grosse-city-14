@@ -275,7 +275,7 @@
     baseSprintSpeed : 6
     baseFriction: 0.6
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/zil.rsi
+    sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
     scale: 1.1, 1.1
     layers:
     - state: z2

@@ -292,3 +292,192 @@
     - South
   - type: RequireProjectileTarget
     active: true
+
+- type: entity
+  parent: BaseWall
+  id: WallConcreteAC17
+  name: concrete wall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/beton.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/beton.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: beton
+
+- type: entity
+  parent: BaseWall
+  id: WallConcreteBC17
+  name: concrete wall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/betona.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/betona.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: betona
+
+- type: entity
+  parent: BaseWall
+  id: WallConcreteCC17
+  name: concrete wall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/betonb.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/betonb.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: betonb
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickC17
+  name: brick wall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpich.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpich.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpich
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickMetalC17
+  name: brick wall with metal facade
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpichmetall.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpichmetall.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpichmetall
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickFacadeC17
+  name: brick wall with concrete facade
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpichpoloski.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpichpoloski.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpichpoloski
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickWallpaperAC17
+  name: brick wall with wallpaper
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpichwallpapera.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpichwallpapera.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpichwallpapera
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickWallpaperBC17
+  name: brick wall with wallpaper
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpichwallpaperc.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpichwallpaperc.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpichwallpaperc
+
+- type: entity
+  parent: BaseWall
+  id: WallBrickWallpaperCC17
+  name: brick wall with wallpaper
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/kirpichwallpaperd.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/kirpichwallpaperd.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: kirpichwallpaperd
