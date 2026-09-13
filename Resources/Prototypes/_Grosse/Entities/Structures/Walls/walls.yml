@@ -294,7 +294,73 @@
     active: true
 
 - type: entity
-  parent: BaseWall
+  abstract: true
+  parent: BaseStructure
+  id: BaseStructureWallC17
+  name: basewallC17
+  description: Keeps the air in and the greytide out.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection:
+          MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection:
+          MetalLaserImpact
+  - type: Tag
+    tags:
+    - Wall
+  - type: IsRoof
+  - type: Sprite
+    drawdepth: Mobs
+  - type: Icon
+    state: full
+  - type: PlacementReplacement
+    key: walls
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+
+- type: entity
+  abstract: true
+  parent: BaseStructureWallC17
+  id: BaseWallC17
+  components:
+  - type: Occluder
+
+- type: entity
+  parent: BaseWallC17
   id: WallConcreteAC17
   name: concrete wall
   components:
@@ -315,7 +381,7 @@
     base: beton
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallConcreteBC17
   name: concrete wall
   components:
@@ -336,7 +402,7 @@
     base: betona
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallConcreteCC17
   name: concrete wall
   components:
@@ -357,7 +423,7 @@
     base: betonb
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickC17
   name: brick wall
   components:
@@ -378,7 +444,7 @@
     base: kirpich
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickMetalC17
   name: brick wall with metal facade
   components:
@@ -399,7 +465,7 @@
     base: kirpichmetall
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickFacadeC17
   name: brick wall with concrete facade
   components:
@@ -420,7 +486,7 @@
     base: kirpichpoloski
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickWallpaperAC17
   name: brick wall with wallpaper
   components:
@@ -441,7 +507,7 @@
     base: kirpichwallpapera
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickWallpaperBC17
   name: brick wall with wallpaper
   components:
@@ -462,7 +528,7 @@
     base: kirpichwallpaperc
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallC17
   id: WallBrickWallpaperCC17
   name: brick wall with wallpaper
   components:
