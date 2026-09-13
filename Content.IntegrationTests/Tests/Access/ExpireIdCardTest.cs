@@ -41,8 +41,10 @@ namespace Content.IntegrationTests.Tests.Access
             EntityUid ent = default;
             ExpireIdCardComponent expireComp = default!;
             AccessComponent accessComp = default!;
-            var expirationTimeInSeconds = 2.0f;
-            var expireTime = TimeSpan.FromSeconds(expirationTimeInSeconds);
+            // ExpireTime is absolute CurTime, not a relative delay. Using wall-clock "2 seconds
+            // from zero" flakes once the pooled server has already advanced past that.
+            var lifetime = TimeSpan.FromSeconds(2);
+            TimeSpan expireTime = default;
 
             await Pair.Server.WaitPost(() =>
             {
@@ -62,8 +64,12 @@ namespace Content.IntegrationTests.Tests.Access
                 Assert.That(expireComp.ExpireMessage, Is.EqualTo(new LocId("genpop-prisoner-id-expire")));
             }
 
-            // Set the expire time to the future
-            _sharedIdCardSystem.SetExpireTime(ent, expireTime);
+            await Pair.Server.WaitPost(() =>
+            {
+                expireTime = SGameTiming.CurTime + lifetime;
+                _sharedIdCardSystem.SetExpireTime(ent, expireTime);
+            });
+
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(expireComp.Expired, Is.False);
@@ -72,18 +78,20 @@ namespace Content.IntegrationTests.Tests.Access
                 Assert.That(accessComp.Tags, Is.EqualTo(new HashSet<ProtoId<AccessLevelPrototype>> { GenpopEnter }));
             }
 
-            // Ensure that after just before expiry, the card has not yet expired and the access has not been replaced
-            await Pair.RunSeconds(1.0f);
+            // Halfway through the lifetime — still valid.
+            await Pair.RunSeconds((float)lifetime.TotalSeconds / 2f);
             using (Assert.EnterMultipleScope())
             {
+                Assert.That(SGameTiming.CurTime, Is.LessThan(expireTime));
                 Assert.That(expireComp.Expired, Is.False);
                 Assert.That(accessComp.Tags, Is.EqualTo(new HashSet<ProtoId<AccessLevelPrototype>> { GenpopEnter }));
             }
 
-            // Ensure that after expiry, the card has expired and the access has been replaced
-            await Pair.RunSeconds(1.0f);
+            // Past expiry — access swapped.
+            await Pair.RunSeconds((float)lifetime.TotalSeconds / 2f + 0.25f);
             using (Assert.EnterMultipleScope())
             {
+                Assert.That(SGameTiming.CurTime, Is.GreaterThanOrEqualTo(expireTime));
                 Assert.That(expireComp.Expired, Is.True);
                 Assert.That(expireComp.Permanent, Is.False);
                 Assert.That(accessComp.Tags, Is.EqualTo(new HashSet<ProtoId<AccessLevelPrototype>> { GenpopLeave }));
