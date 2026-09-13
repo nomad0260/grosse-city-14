@@ -1,0 +1,90 @@
+# Ported from crystallpunk-14/crystall-edge (MIT sublicense). Icons use stock SS14 paths.
+- type: entity
+  parent: BaseAction
+  id: GrosseActionZLevelUp
+  name: Move up
+  description: Move up one Z-Level
+  components:
+  - type: Action
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/jump.rsi
+      state: icon
+  - type: InstantAction
+    event: !type:GrosseZLevelActionUp
+
+- type: entity
+  parent: BaseAction
+  id: GrosseActionZLevelDown
+  name: Move down
+  description: Move down one Z-Level
+  components:
+  - type: Action
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_eject
+  - type: InstantAction
+    event: !type:GrosseZLevelActionDown
+
+- type: entity
+  parent: BaseToggleAction
+  id: GrosseActionToggleLookUp
+  name: Look up
+  description: You lift your head and look up at the sky.
+  components:
+  - type: Action
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light
+    iconOn:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: camera_light
+
+# Controllable flight (stock icons; no CE action RSI).
+- type: entity
+  parent: BaseAction
+  id: GrosseActionZFlightUp
+  name: Fly up
+  description: Move up one Z-Level while flying
+  components:
+  - type: Action
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/jump.rsi
+      state: icon
+  - type: InstantAction
+    event: !type:GrosseZFlightActionUp
+
+- type: entity
+  parent: BaseAction
+  id: GrosseActionZFlightDown
+  name: Fly down
+  description: Move down one Z-Level while flying
+  components:
+  - type: Action
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_eject
+  - type: InstantAction
+    event: !type:GrosseZFlightActionDown
+
+- type: entity
+  parent: BaseToggleAction
+  id: GrosseActionZFlightToggle
+  name: Toggle flight
+  description: Toggle flight mode on or off
+  components:
+  - type: Action
+    useDelay: 1.5
+    checkCanInteract: false
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_thrusters_off
+    iconOn:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_thrusters_on

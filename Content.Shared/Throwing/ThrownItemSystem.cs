@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Grosse.ZLevels.Core.EntitySystems;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Gravity;
@@ -25,6 +26,7 @@ namespace Content.Shared.Throwing
         [Dependency] private SharedBroadphaseSystem _broadphase = default!;
         [Dependency] private SharedPhysicsSystem _physics = default!;
         [Dependency] private SharedGravitySystem _gravity = default!;
+        [Dependency] private GrosseSharedZLevelsSystem _zLevels = default!; // Grosse ZLevels (from CrystallEdge MIT)
 
         private const string ThrowingFixture = "throw-fixture";
 

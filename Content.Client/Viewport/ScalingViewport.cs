@@ -150,7 +150,8 @@ namespace Content.Client.Viewport
 
             DebugTools.AssertNotNull(_viewport);
 
-            _viewport!.Render();
+            // Grosse ZLevels (from CrystallEdge MIT): multi-eye stack render
+            RenderZLevels(_viewport!);
 
             if (_queuedScreenshots.Count != 0)
             {

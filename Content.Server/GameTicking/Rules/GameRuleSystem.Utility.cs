@@ -104,29 +104,77 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
             return false;
         }
 
-        (targetGrid, var gridComp) = RobustRandom.Pick(weights);
+        // Prefer a weighted random grid, then fall through other grids if that one has no
+        // placeable tiles. Random AABB sampling alone is heisentest-prone on sparse maps
+        // (ParadoxCloneSpawn on Saltern in AntagGhostRoleTest).
+        (targetGrid, var preferredGrid) = RobustRandom.Pick(weights);
+        if (TryFindRandomTileOnGrid(targetGrid, preferredGrid, out tile, out targetCoords))
+            return true;
 
-        var found = false;
+        foreach (var (gridUid, gridComp) in weights.Keys)
+        {
+            if (gridUid == targetGrid)
+                continue;
+
+            if (!TryFindRandomTileOnGrid(gridUid, gridComp, out tile, out targetCoords))
+                continue;
+
+            targetGrid = gridUid;
+            return true;
+        }
+
+        targetGrid = EntityUid.Invalid;
+        return false;
+    }
+
+    private bool TryFindRandomTileOnGrid(
+        EntityUid targetGrid,
+        MapGridComponent gridComp,
+        out Vector2i tile,
+        out EntityCoordinates targetCoords)
+    {
+        tile = default;
+        targetCoords = EntityCoordinates.Invalid;
+
         var aabb = gridComp.LocalAABB;
+        var mapUid = Transform(targetGrid).MapUid;
 
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 25; i++)
         {
             var randomX = RobustRandom.Next((int) aabb.Left, (int) aabb.Right);
             var randomY = RobustRandom.Next((int) aabb.Bottom, (int) aabb.Top);
 
             tile = new Vector2i(randomX, randomY);
-            if (_atmosphere.IsTileSpace(targetGrid, Transform(targetGrid).MapUid, tile)
+            if (_atmosphere.IsTileSpace(targetGrid, mapUid, tile)
                 || _atmosphere.IsTileAirBlockedCached(targetGrid, tile))
             {
                 continue;
             }
 
-            found = true;
             targetCoords = _map.GridTileToLocal(targetGrid, gridComp, tile);
-            break;
+            return true;
         }
 
-        return found;
+        // Exhaustive fallback so antag ghost-role tests / events don't flake when sampling misses.
+        var candidates = new List<Vector2i>();
+        foreach (var t in _map.GetAllTiles(targetGrid, gridComp))
+        {
+            var indices = t.GridIndices;
+            if (_atmosphere.IsTileSpace(targetGrid, mapUid, indices)
+                || _atmosphere.IsTileAirBlockedCached(targetGrid, indices))
+            {
+                continue;
+            }
+
+            candidates.Add(indices);
+        }
+
+        if (candidates.Count == 0)
+            return false;
+
+        tile = candidates[RobustRandom.Next(candidates.Count)];
+        targetCoords = _map.GridTileToLocal(targetGrid, gridComp, tile);
+        return true;
     }
 
     protected void ForceEndSelf(EntityUid uid, GameRuleComponent? component = null)

@@ -1,0 +1,5 @@
+# PVS eye entities for other Z-levels (from CrystallEdge MIT zeye.yml).
+- type: entity
+  id: GrosseZLevelEye
+  save: false
+  categories: [ HideSpawnMenu ]

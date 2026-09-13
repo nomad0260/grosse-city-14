@@ -35,4 +35,9 @@ public sealed partial class ChasmFallingComponent : Component
     ///     Scale that the animation should bring entities to.
     /// </summary>
     public Vector2 AnimationScale = new Vector2(0.01f, 0.01f);
+
+    /// <summary>
+    /// Grosse ZLevels (from CrystallEdge MIT): void-fall may have no real chasm entity.
+    /// </summary>
+    public EntityUid? FallingInto;
 }
