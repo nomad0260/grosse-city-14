@@ -1,4 +1,13 @@
 - type: entity
+  abstract: true
+  parent: BaseStructureWall
+  id: BaseWallС17
+  components:
+  - type: Occluder # Breaks on diagonal walls
+  - type: Sprite
+    drawdepth: Mobs
+
+- type: entity
   id: WallIndestructible
   suffix: Неразрушимое
   abstract: true
@@ -294,7 +303,7 @@
     active: true
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallConcreteAC17
   name: concrete wall
   components:
@@ -315,7 +324,7 @@
     base: beton
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallConcreteBC17
   name: concrete wall
   components:
@@ -336,7 +345,7 @@
     base: betona
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallConcreteCC17
   name: concrete wall
   components:
@@ -357,7 +366,7 @@
     base: betonb
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickC17
   name: brick wall
   components:
@@ -378,7 +387,7 @@
     base: kirpich
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickMetalC17
   name: brick wall with metal facade
   components:
@@ -399,7 +408,7 @@
     base: kirpichmetall
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickFacadeC17
   name: brick wall with concrete facade
   components:
@@ -420,7 +429,7 @@
     base: kirpichpoloski
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickWallpaperAC17
   name: brick wall with wallpaper
   components:
@@ -441,7 +450,7 @@
     base: kirpichwallpapera
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickWallpaperBC17
   name: brick wall with wallpaper
   components:
@@ -462,7 +471,7 @@
     base: kirpichwallpaperc
 
 - type: entity
-  parent: BaseWall
+  parent: BaseWallС17
   id: WallBrickWallpaperCC17
   name: brick wall with wallpaper
   components:
