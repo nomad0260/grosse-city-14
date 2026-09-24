@@ -29,12 +29,22 @@ public sealed class ContextMenuSheetlet<T> : Sheetlet<T>
     {
         IWindowConfig windowCfg = sheet;
 
-        var borderedWindowBackground = new StyleBoxTexture
+        // Flat rounded popup, matching every other window.
+        var borderedWindowBackground = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(windowCfg.WindowBackgroundBorderedPath, NanotrasenStylesheet.TextureRoot),
+            BackgroundColor = Color.FromHex("#262A33").WithAlpha(0.98f),
+            BorderColor = Color.FromHex("#4C5665"),
+            BorderThickness = 1f,
+            CornerRadius = 8f,
+            Padding = new Thickness(2f),
         };
-        borderedWindowBackground.SetPatchMargin(StyleBox.Margin.All, ContextMenuElement.ElementMargin);
-        var buttonContext = new StyleBoxTexture { Texture = Texture.White };
+        // Rows stay flat and mostly transparent so they read as a list, but the hover
+        // highlight now has the same rounded corners as everything else.
+        var buttonContext = new RoundedStyleBox
+        {
+            BackgroundColor = Color.White,
+            CornerRadius = 6f,
+        };
         var contextMenuExpansionTexture = ResCache.GetTexture("/Textures/Interface/VerbIcons/group.svg.192dpi.png");
         var verbMenuConfirmationTexture = ResCache.GetTexture("/Textures/Interface/VerbIcons/group.svg.192dpi.png");
 

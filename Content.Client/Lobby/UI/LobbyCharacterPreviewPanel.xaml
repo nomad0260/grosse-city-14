@@ -9,19 +9,15 @@
         </controls:NanoHeading>
         <BoxContainer Name="Loaded" Orientation="Vertical"
                       Visible="False">
-            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
+            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3" StyleClasses="LabelBig"/>
             <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center">
                 <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
                                                   OverrideDirection="South"
-                                                  Scale="4 4"
-                                                  MaxSize="112 112"
+                                                  Scale="6 6"
+                                                  MaxSize="150 150"
                                                   Stretch="Fill"
                                                   Access="Public" />
             </BoxContainer>
-            <controls:VSpacer/>
-            <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
-                    HorizontalAlignment="Center"
-                    Margin="0 5 0 0"/>
         </BoxContainer>
         <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
     </BoxContainer>

@@ -1,4 +1,5 @@
-﻿using Content.Client.Stylesheets.SheetletConfigs;
+﻿using Content.Client.Stylesheets.Colorspace;
+using Content.Client.Stylesheets.SheetletConfigs;
 using Content.Client.Stylesheets.Stylesheets;
 using Content.Client.UserInterface.Systems.Chat.Controls;
 using Robust.Client.Graphics;
@@ -15,26 +16,17 @@ public sealed class ChatSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet, I
     {
         IButtonConfig btnCfg = sheet;
 
-        var chatColor = sheet.SecondaryPalette.Background.WithAlpha(221.0f / 255.0f);
-        var chatBg = new StyleBoxFlat(chatColor);
-
-        var chatChannelButtonTex =
-            sheet.GetTextureOr(btnCfg.RoundedButtonBorderedPath, NanotrasenStylesheet.TextureRoot);
-        var chatChannelButton = new StyleBoxTexture
+        var chatColor = sheet.SecondaryPalette.Background.NudgeLightness(0.06f).WithAlpha(221.0f / 255.0f);
+        var chatBg = new RoundedStyleBox
         {
-            Texture = chatChannelButtonTex,
+            BackgroundColor = chatColor,
+            BorderColor = sheet.SecondaryPalette.Element,
+            BorderThickness = 1f,
+            CornerRadius = 8f,
         };
-        chatChannelButton.SetPatchMargin(StyleBox.Margin.All, 5);
-        chatChannelButton.SetPadding(StyleBox.Margin.All, 2);
 
-        var chatFilterButtonTex =
-            sheet.GetTextureOr(btnCfg.RoundedButtonBorderedPath, NanotrasenStylesheet.TextureRoot);
-        var chatFilterButton = new StyleBoxTexture
-        {
-            Texture = chatFilterButtonTex,
-        };
-        chatFilterButton.SetPatchMargin(StyleBox.Margin.All, 5);
-        chatFilterButton.SetPadding(StyleBox.Margin.All, 2);
+        var chatChannelButton = StyleBoxHelpers.SmallStyleBox();
+        var chatFilterButton = StyleBoxHelpers.SmallStyleBox();
 
         return
         [

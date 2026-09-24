@@ -124,7 +124,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
     private void PreferencesDataLoaded()
     {
-        PreviewPanel?.SetLoaded(true);
+        SetLobbyLoaded(true);
 
         if (_stateManager.CurrentState is not LobbyState)
             return;
@@ -132,15 +132,28 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         ReloadCharacterSetup();
     }
 
+    /// <summary>
+    /// Toggles the lobby controls that depend on the character preferences being loaded (preview and setup button).
+    /// </summary>
+    private void SetLobbyLoaded(bool value)
+    {
+        PreviewPanel?.SetLoaded(value);
+
+        if (_stateManager.CurrentState is LobbyState lobby)
+        {
+            lobby.Lobby?.CharacterSetupButton.Disabled = !value;
+        }
+    }
+
     public void OnStateEntered(LobbyState state)
     {
-        PreviewPanel?.SetLoaded(_preferencesManager.ServerDataLoaded);
+        SetLobbyLoaded(_preferencesManager.ServerDataLoaded);
         ReloadCharacterSetup();
     }
 
     public void OnStateExited(LobbyState state)
     {
-        PreviewPanel?.SetLoaded(false);
+        SetLobbyLoaded(false);
         _profileEditor?.Dispose();
         _characterSetup?.Dispose();
 
