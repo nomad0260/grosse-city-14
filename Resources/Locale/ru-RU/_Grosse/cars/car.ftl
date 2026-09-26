@@ -12,3 +12,11 @@ grosse-car-action-exit-desc = Покинуть машину.
 
 grosse-car-action-radio-name = Запустить MIDI
 grosse-car-action-radio-desc = Открыть MIDI-проигрыватель в кабине.
+
+grosse-tank-verb-gunner = Сесть стрелком
+grosse-tank-ammo-full = Боекомплект полон.
+grosse-tank-ammo-empty = В боекомплекте пусто.
+grosse-tank-wrecked = Танк разбит.
+grosse-tank-examine-ammo = Боекомплект: {$count}/{$capacity}
+grosse-tank-examine-chambered = Затвор заряжен.
+grosse-tank-examine-empty = Затвор пуст.

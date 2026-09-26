@@ -36,7 +36,10 @@ public sealed partial class SharedGrosseCarController : VirtualController
             var moving = physics.LinearVelocity.LengthSquared() > 0.0001f;
             // Parked empty cars stay idle. After the driver leaves, keep stepping while there is leftover speed so the truck can coast.
             if (!driven && !moving)
+            {
+                HoldHull(uid, car, physics, xform);
                 continue;
+            }
 
             Step(uid, car, physics, xform, mover, frameTime, driven);
         }
@@ -93,15 +96,26 @@ public sealed partial class SharedGrosseCarController : VirtualController
         }
 
         var absSpeed = Math.Abs(speed);
-        if (absSpeed >= car.MinSteerSpeed && (steerLeft || steerRight) && steerLeft != steerRight)
+        var steer = 0f;
+        var steering = (steerLeft || steerRight) && steerLeft != steerRight;
+        if (steering && absSpeed >= car.MinSteerSpeed)
         {
             var maxSpeed = Math.Max(car.MaxForwardSpeed, 0.01f);
-            var steer = car.SteerRate * (absSpeed / maxSpeed) * frameTime;
+            steer = car.SteerRate * (absSpeed / maxSpeed) * frameTime;
             if (steerRight)
                 steer = -steer;
             if (speed < 0f)
                 steer = -steer;
+        }
+        else if (steering && car.SteerInPlace && driven)
+        {
+            steer = car.SteerRate * frameTime;
+            if (steerRight)
+                steer = -steer;
+        }
 
+        if (steer != 0f)
+        {
             heading += steer;
             facing = heading.ToWorldVec().Normalized();
         }
@@ -132,12 +146,63 @@ public sealed partial class SharedGrosseCarController : VirtualController
         PhysicsSystem.SetAngularVelocity(uid, 0f);
 
         var targetRot = heading + car.VisualRotationOffset;
+        car.CommandedRotation = targetRot;
+        car.HasCommandedRotation = true;
         if (!targetRot.EqualsApprox(TransformSystem.GetWorldRotation(xform), 0.001))
             TransformSystem.SetWorldRotation(uid, targetRot);
+
+        if (TryComp<GrosseCarJointComponent>(uid, out var joint) && joint.Turret is { } turret && !TerminatingOrDeleted(turret) &&
+            TryComp<PhysicsComponent>(turret, out var turretBody))
+        {
+            PhysicsSystem.SetLinearVelocity(turret, velocity, body: turretBody);
+            PhysicsSystem.WakeBody(turret, body: turretBody);
+        }
 
         if (velocity.LengthSquared() > 0.0001f)
             PhysicsSystem.WakeBody(uid);
 
         _mover.UsedMobMovement[uid] = true;
+    }
+
+    /// <summary>
+    /// Remember the hull heading before the physics solve. A turret joint must not yaw the chassis.
+    /// </summary>
+    private void HoldHull(EntityUid uid, GrosseCarComponent car, PhysicsComponent physics, TransformComponent xform)
+    {
+        if (!TryComp<GrosseCarJointComponent>(uid, out var joint) || joint.Turret is not { } turret || TerminatingOrDeleted(turret))
+            return;
+
+        car.CommandedRotation = TransformSystem.GetWorldRotation(xform);
+        car.HasCommandedRotation = true;
+        PhysicsSystem.SetAngularVelocity(uid, 0f, body: physics);
+        if (!TryComp<PhysicsComponent>(turret, out var turretBody))
+            return;
+
+        PhysicsSystem.SetLinearVelocity(turret, physics.LinearVelocity, body: turretBody);
+        PhysicsSystem.SetAngularVelocity(turret, 0f, body: turretBody);
+    }
+
+    public override void UpdateAfterSolve(bool prediction, float frameTime)
+    {
+        var query = EntityQueryEnumerator<GrosseCarComponent, PhysicsComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var car, out var physics, out var xform))
+        {
+            if (!car.HasCommandedRotation)
+                continue;
+
+            if (prediction && !physics.Predict)
+                continue;
+
+            car.HasCommandedRotation = false;
+            PhysicsSystem.SetAngularVelocity(uid, 0f, body: physics);
+            if (!car.CommandedRotation.EqualsApprox(TransformSystem.GetWorldRotation(xform), 0.001))
+                TransformSystem.SetWorldRotation(uid, car.CommandedRotation);
+
+            if (TryComp<GrosseCarJointComponent>(uid, out var joint) && joint.Turret is { } turret &&
+                TryComp<PhysicsComponent>(turret, out var turretBody))
+            {
+                PhysicsSystem.SetAngularVelocity(turret, 0f, body: turretBody);
+            }
+        }
     }
 }

@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "license": "All rights reserved",
+    "copyright": "Made for Stalker14, use with permission only. All rights reserved.",
+    "size": {
+        "x": 256,
+        "y": 256
+    },
+    "states": [
+        { "name": "frame" },
+        { "name": "frame-idle" },
+        { "name": "frame-run" },
+        { "name": "frame-lights" },
+        { "name": "frame-handbrake" },
+        { "name": "frame-driver" },
+        { "name": "frame-wrecked" },
+        { "name": "tower" },
+        { "name": "tower-chambered" },
+        { "name": "tower-ammo-empty" },
+        { "name": "tower-ammo-partial" },
+        { "name": "tower-ammo-full" },
+        { "name": "tower-gunner" },
+        { "name": "tower-wrecked" }
+    ]
+}

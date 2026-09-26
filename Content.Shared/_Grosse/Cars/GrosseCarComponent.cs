@@ -50,6 +50,13 @@ public sealed partial class GrosseCarComponent : Component
     [DataField]
     public float MinSteerSpeed = 0.6f;
 
+    /// <summary>
+    /// When enabled, the driver can yaw the chassis while nearly stopped.
+    /// Left off so existing cars only steer once they are rolling.
+    /// </summary>
+    [DataField]
+    public bool SteerInPlace;
+
     [DataField]
     public float Grip = 4f;
 
@@ -155,4 +162,11 @@ public sealed partial class GrosseCarComponent : Component
     public EntityUid? EngineSoundEntity;
     public EntityUid? DriftSoundEntity;
     public bool VisualRunning;
+
+    /// <summary>
+    /// World rotation chosen by the driving step. Re-applied after the physics solve so a turret joint cannot yaw the hull.
+    /// </summary>
+    public Angle CommandedRotation;
+
+    public bool HasCommandedRotation;
 }

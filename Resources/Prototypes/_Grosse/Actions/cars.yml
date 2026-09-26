@@ -1,5 +1,21 @@
 - type: entity
   parent: BaseAction
+  id: ActionGrosseTankReload
+  name: Reload
+  description: Chamber one shell from the rack.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    checkCanInteract: false
+    priority: -7
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_eject
+  - type: InstantAction
+    event: !type:GrosseTankReloadEvent
+
+- type: entity
+  parent: BaseAction
   id: ActionGrosseCarExit
   name: Exit vehicle
   description: Get out of the vehicle.

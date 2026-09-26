@@ -96,7 +96,10 @@ public sealed class GrosseCarTest : GameTest
                     foreach (var fixture in fixtures!.Fixtures.Values)
                     {
                         if (fixture.Shape is PhysShapeAabb aabb)
-                            Assert.That(aabb.LocalBounds.Width, Is.LessThan(2.2f), $"{proto.ID} hitbox is wider than the south-facing sprite");
+                        {
+                            var maxWidth = proto.ID == "GrosseTank" ? 3.6f : 2.2f;
+                            Assert.That(aabb.LocalBounds.Width, Is.LessThan(maxWidth), $"{proto.ID} hitbox is wider than the south-facing sprite");
+                        }
                     }
                     Assert.That(proto.TryGetComponent(out ContainerManagerComponent? containers, factory), $"{proto.ID} missing ContainerContainer");
 

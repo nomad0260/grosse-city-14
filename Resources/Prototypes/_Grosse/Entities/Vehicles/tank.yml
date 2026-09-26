@@ -1,0 +1,357 @@
+- type: entity
+  id: GrosseTank
+  name: танк
+  description: Корпус едет как грузовик. Башня на шарнире, стрелок сидит в ней.
+  suffix: Vehicle
+  components:
+  - type: Transform
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          # South frame is about 3.4 by 5 tiles, longer on local Y. Density is lower than the KrAZ so the larger box has the same mass.
+          bounds: "-1.7,-2.5,1.7,2.5"
+        density: 153
+        restitution: 0
+        hard: true
+        mask:
+        - MobMask
+        - BulletImpassable
+        layer:
+        - MachineLayer
+  - type: GravityAffected
+  - type: GrosseCar
+    entryDelay: 0.8
+    occupantActions:
+    - ActionGrosseCarExit
+    engineForce: 100000
+    brakeForce: 150000
+    friction: 1.5
+    maxForwardSpeed: 8
+    maxReverseSpeed: 3
+    steerRate: 2.2
+    minSteerSpeed: 0.6
+    minImpactSpeed: 4
+    ramMinSpeed: 4
+    impactCooldown: 0.5
+    impactRestitution: 0.3
+    pushMultiplier: 1
+    knockdownTime: 1.5
+    grip: 4
+    handbrakeGrip: 0.6
+    handbrakeForce: 120000
+    minDriftSpeed: 4
+    driftSlipThreshold: 0.35
+    driftDecal: GrosseCarSkid
+    driftDecalSpacing: 0.35
+    maxDriveDamage: 200
+    occupantDamageMultiplier: 0.35
+    driftSound:
+      path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
+      params:
+        loop: true
+    hitSound:
+      collection: GrosseCarHit
+    wallImpactSound:
+      collection: GrosseCarWall
+    hitDamage:
+      types:
+        Blunt: 15
+    selfDamage:
+      types:
+        Blunt: 5
+    wallDamage:
+      types:
+        Blunt: 12
+    slots:
+    - id: driver
+      name: grosse-car-slot-driver
+      containerId: car-driver
+      isDriver: true
+      visuals: Driver
+  - type: GrosseCarJoint
+  - type: SkipMobMovement
+  - type: InputMover
+  - type: DoAfter
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+  - type: MovementSound
+    sound:
+      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
+      params:
+        loop: true
+  - type: UnpoweredFlashlight
+    toggleAction: ActionGrosseCarToggleLight
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 16
+    energy: 4
+    netsync: true
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 4
+    allowSelfRepair: false
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    noRot: false
+    drawdepth: OverMobs
+    layers:
+    - state: frame
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+    - state: frame-idle
+      map: [ "enum.GrosseCarVisualLayers.Idle" ]
+      visible: false
+    - state: frame-run
+      map: [ "enum.GrosseCarVisualLayers.Run" ]
+      visible: false
+    - state: frame-lights
+      map: [ "enum.GrosseCarVisualLayers.Lights" ]
+      visible: false
+    - state: frame-handbrake
+      map: [ "enum.GrosseCarVisualLayers.Handbrake" ]
+      visible: false
+    - state: frame-driver
+      map: [ "enum.GrosseCarVisualLayers.Driver" ]
+      visible: false
+    - state: frame-wrecked
+      map: [ "enum.GrosseTankVisualLayers.Wrecked" ]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.GrosseCarVisuals.Lights:
+        enum.GrosseCarVisualLayers.Lights:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Handbrake:
+        enum.GrosseCarVisualLayers.Handbrake:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Idle:
+        enum.GrosseCarVisualLayers.Idle:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Run:
+        enum.GrosseCarVisualLayers.Run:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Driver:
+        enum.GrosseCarVisualLayers.Driver:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseTankVisuals.Wrecked:
+        enum.GrosseTankVisualLayers.Wrecked:
+          True: { visible: true }
+          False: { visible: false }
+        enum.GrosseCarVisualLayers.Base:
+          True: { visible: false }
+          False: { visible: true }
+        enum.GrosseCarVisualLayers.Idle:
+          True: { visible: false }
+        enum.GrosseCarVisualLayers.Run:
+          True: { visible: false }
+        enum.GrosseCarVisualLayers.Lights:
+          True: { visible: false }
+        enum.GrosseCarVisualLayers.Handbrake:
+          True: { visible: false }
+        enum.GrosseCarVisualLayers.Driver:
+          True: { visible: false }
+  - type: ContainerContainer
+    containers:
+      car-driver: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      actions: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+  - type: ActionsContainer
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - car-driver
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  id: GrosseTankTurret
+  name: башня танка
+  description: Ствол на корпусе. Кликать её нельзя.
+  suffix: Vehicle
+  components:
+  - type: Transform
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 50
+        hard: false
+        mask: []
+        layer: []
+  - type: GrosseCarTurret
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    noRot: false
+    drawdepth: OverMobs
+    layers:
+    - state: tower
+      map: [ "enum.GrosseTankVisualLayers.Base" ]
+    - state: tower-chambered
+      map: [ "enum.GrosseTankVisualLayers.Chambered" ]
+      visible: false
+    - state: tower-ammo-empty
+      map: [ "enum.GrosseTankVisualLayers.Ammo" ]
+      visible: false
+    - state: tower-gunner
+      map: [ "enum.GrosseTankVisualLayers.Gunner" ]
+      visible: false
+    - state: tower-wrecked
+      map: [ "enum.GrosseTankVisualLayers.Wrecked" ]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.GrosseTankVisuals.Chambered:
+        enum.GrosseTankVisualLayers.Chambered:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseTankVisuals.Gunner:
+        enum.GrosseTankVisualLayers.Gunner:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseTankVisuals.Ammo:
+        enum.GrosseTankVisualLayers.Ammo:
+          Empty: { state: tower-ammo-empty, visible: true }
+          Partial: { state: tower-ammo-partial, visible: true }
+          Full: { state: tower-ammo-full, visible: true }
+      enum.GrosseTankVisuals.Wrecked:
+        enum.GrosseTankVisualLayers.Wrecked:
+          True: { visible: true }
+          False: { visible: false }
+        enum.GrosseTankVisualLayers.Base:
+          True: { visible: false }
+          False: { visible: true }
+        enum.GrosseTankVisualLayers.Chambered:
+          True: { visible: false }
+        enum.GrosseTankVisualLayers.Ammo:
+          True: { visible: false }
+        enum.GrosseTankVisualLayers.Gunner:
+          True: { visible: false }
+  - type: MouseRotator
+    simple4DirMode: false
+    rotationSpeed: 90
+    angleTolerance: 2
+  - type: NoRotateOnInteract
+  - type: NoRotateOnMove
+  - type: Gun
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/gun_sentry.ogg
+  - type: BallisticAmmoProvider
+    proto: CartridgeGrosseTank
+    capacity: 1
+    cycleable: false
+    whitelist:
+      tags:
+      - CartridgeGrosseTank
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+      turret-gunner: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      turret-ammo: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+  - type: DoAfter
+
+- type: entity
+  parent: BaseCartridge
+  id: CartridgeGrosseTank
+  name: снаряд танка
+  description: Снаряд для башни. Клик по корпусу кладёт его в боекомплект.
+  components:
+  - type: Tag
+    tags:
+    - Cartridge
+    - CartridgeGrosseTank
+  - type: CartridgeAmmo
+    proto: BulletGrosseTank
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: BaseBullet
+  id: BulletGrosseTank
+  name: снаряд танка
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 50
+        Structural: 180
+
+- type: entity
+  parent: BaseItem
+  id: AmmoBoxGrosseTank
+  name: ящик снарядов
+  description: Ящик снарядов для танка. Клик по корпусу забирает один.
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeGrosseTank
+    proto: CartridgeGrosseTank
+    capacity: 6
+    unspawnedCount: 6
+  - type: Item
+    size: Normal
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Appearance

@@ -47,3 +47,18 @@
     prototypes:
     - VehicleKraz17
 
+- type: entity
+  name: спавнер танка
+  id: SpawnerGrosseTank
+  parent: SpawnerVehicleMoskvich17
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+      scale: 3, 3
+    - sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+      state: frame
+  - type: RandomSpawner
+    prototypes:
+    - GrosseTank
+

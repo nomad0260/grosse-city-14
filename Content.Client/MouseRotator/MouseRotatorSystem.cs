@@ -1,4 +1,5 @@
-﻿using Content.Shared.MouseRotator;
+﻿using Content.Shared._Grosse.Cars;
+using Content.Shared.MouseRotator;
 using Content.Shared.Vehicle.Components;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -30,7 +31,15 @@ public sealed partial class MouseRotatorSystem : SharedMouseRotatorSystem
             return;
 
         var rotatorUid = player.Value;
-        if (TryComp<VehicleOperatorComponent>(player.Value, out var op) &&
+        if (TryComp<GrosseCarRiderComponent>(player, out var rider) &&
+            TryComp<GrosseCarJointComponent>(rider.Car, out var joint) &&
+            joint.Turret is { } turret &&
+            HasComp<MouseRotatorComponent>(turret) &&
+            EntityManager.System<SharedGrosseCarJointSystem>().CanAim(player.Value, (rider.Car, joint)))
+        {
+            rotatorUid = turret;
+        }
+        else if (TryComp<VehicleOperatorComponent>(player.Value, out var op) &&
             op.Vehicle is { } vehicle &&
             HasComp<MouseRotatorComponent>(vehicle))
         {

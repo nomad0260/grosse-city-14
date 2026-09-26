@@ -16,6 +16,7 @@ using Content.Shared.Projectiles;
 using Content.Shared.Tag;
 using Content.Shared.Throwing;
 using Content.Shared.Timing;
+using Content.Shared._Grosse.Cars;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Hitscan.Components;
@@ -204,6 +205,16 @@ public abstract partial class SharedGunSystem : EntitySystem
             TryComp(vehicle, out GunComponent? vehicleGun))
         {
             gun = (vehicle, vehicleGun);
+            return true;
+        }
+
+        if (TryComp<GrosseCarRiderComponent>(entity, out var rider) &&
+            TryComp<GrosseCarJointComponent>(rider.Car, out var joint) &&
+            joint.Turret is { } turret &&
+            TryComp<GunComponent>(turret, out var turretGun) &&
+            EntityManager.System<SharedGrosseCarJointSystem>().CanAim(entity, (rider.Car, joint)))
+        {
+            gun = (turret, turretGun);
             return true;
         }
 

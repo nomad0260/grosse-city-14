@@ -1,4 +1,5 @@
-﻿using Content.Shared.Interaction;
+﻿using Content.Shared._Grosse.Cars;
+using Content.Shared.Interaction;
 using Content.Shared.Vehicle.Components;
 
 namespace Content.Shared.MouseRotator;
@@ -53,11 +54,19 @@ public abstract partial class SharedMouseRotatorSystem : EntitySystem
 
         var target = msg.User is { } userNet ? GetEntity(userNet) : attached;
 
-        // Allow the attached player, or a vehicle operator rotating the vehicle itself.
+        // Allow the attached player, a vehicle operator, or the tank's gunner (or the driver, if that seat is empty).
         if (attached != target)
         {
-            if (!TryComp<VehicleOperatorComponent>(attached, out var op) || op.Vehicle != target)
+            if (TryComp<GrosseCarTurretComponent>(target, out var turret) &&
+                TryComp<GrosseCarJointComponent>(turret.Hull, out var joint))
+            {
+                if (!EntityManager.System<SharedGrosseCarJointSystem>().CanAim(attached, (turret.Hull, joint)))
+                    return;
+            }
+            else if (!TryComp<VehicleOperatorComponent>(attached, out var op) || op.Vehicle != target)
+            {
                 return;
+            }
         }
 
         if (!TryComp<MouseRotatorComponent>(target, out var rotator))

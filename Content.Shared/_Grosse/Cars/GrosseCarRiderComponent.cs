@@ -13,4 +13,10 @@ public sealed partial class GrosseCarRiderComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool IsDriver;
+
+    /// <summary>
+    /// This rider aims and fires the hull's turret instead of driving.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool ControlsTurret;
 }

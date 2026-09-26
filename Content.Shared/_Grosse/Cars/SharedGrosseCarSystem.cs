@@ -177,7 +177,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
     private void OnVerbs(Entity<GrosseCarComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         var user = args.User;
-        if (!TryComp<GrosseCarRiderComponent>(user, out var rider) || rider.Car != ent.Owner)
+        if (!TryComp<GrosseCarRiderComponent>(user, out var rider) || rider.Car != ent.Owner || rider.ControlsTurret)
             return;
 
         args.Verbs.Add(new Verb
