@@ -1,9 +1,18 @@
 #nullable enable
+using System.Collections.Generic;
+using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Grosse.Cars;
+using Content.Shared.Damage.Systems;
+using Content.Shared.FixedPoint;
 using Content.Shared.Movement.Components;
+using Content.Shared.Projectiles;
+using Content.Shared.Tag;
+using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Components;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Prototypes;
@@ -38,6 +47,7 @@ public sealed class GrosseTankTest : GameTest
   - type: Body
     prototype: Human
   - type: MobState
+  - type: DoAfter
   - type: Fixtures
     fixtures:
       fix1:
@@ -106,6 +116,109 @@ public sealed class GrosseTankTest : GameTest
             Assert.That(entityManager.EntityExists(gunner), Is.True);
             Assert.That(entityManager.HasComponent<GrosseCarRiderComponent>(gunner), Is.False);
             Assert.That(Count(), Is.EqualTo(before + 1), "deleting the hull should remove the turret and leave the ejected gunner");
+        });
+    }
+
+    [Test]
+    public async Task GunnerSitsAndShotsDoNotDamageTheTank()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var map = await pair.CreateTestMap();
+        var coords = map.GridCoords;
+        var entityManager = server.EntMan;
+        var cars = entityManager.System<SharedGrosseCarSystem>();
+        var joints = entityManager.System<SharedGrosseCarJointSystem>();
+        var guns = entityManager.System<SharedGunSystem>();
+        var damageable = entityManager.System<DamageableSystem>();
+        var tags = entityManager.System<TagSystem>();
+        var xform = entityManager.System<SharedTransformSystem>();
+
+        EntityUid tank = default;
+        EntityUid turret = default;
+        EntityUid driver = default;
+        EntityUid gunner = default;
+
+        await server.WaitAssertion(() =>
+        {
+            tank = entityManager.SpawnEntity("GrosseTank", coords);
+            driver = entityManager.SpawnEntity(DummyId, coords);
+            gunner = entityManager.SpawnEntity(DummyId, coords);
+            turret = entityManager.GetComponent<GrosseCarJointComponent>(tank).Turret!.Value;
+
+            Assert.That(cars.TryEnterSlot(driver, tank, "driver", skipDelay: true), Is.True);
+            Assert.That(joints.CanAim(driver, (tank, entityManager.GetComponent<GrosseCarJointComponent>(tank))), Is.True);
+            Assert.That(guns.TryGetGun(driver, out var driverGun) && driverGun.Owner == turret, Is.True,
+                "the driver should fire the turret while the gunner seat is empty");
+        });
+
+        await FireThroughHull(server, entityManager, guns, xform, damageable, driver, tank, turret);
+
+        await server.WaitAssertion(() =>
+        {
+            tags.AddTag(gunner, InstantDoAfters);
+            var joint = entityManager.GetComponent<GrosseCarJointComponent>(tank);
+            Assert.That(joints.TryEnterGunner(gunner, (tank, joint), skipDelay: false), Is.True);
+            Assert.That(entityManager.GetComponent<GrosseCarRiderComponent>(gunner).ControlsTurret, Is.True);
+            Assert.That(joints.CanAim(gunner, (tank, joint)), Is.True);
+            Assert.That(joints.CanAim(driver, (tank, joint)), Is.False, "the driver must not aim while a gunner is seated");
+            Assert.That(guns.TryGetGun(gunner, out var gunnerGun) && gunnerGun.Owner == turret, Is.True);
+        });
+
+        await FireThroughHull(server, entityManager, guns, xform, damageable, gunner, tank, turret);
+    }
+
+    private static readonly ProtoId<TagPrototype> InstantDoAfters = "InstantDoAfters";
+
+    private static async Task FireThroughHull(
+        Robust.UnitTesting.RobustIntegrationTest.ServerIntegrationInstance server,
+        IEntityManager entityManager,
+        SharedGunSystem guns,
+        SharedTransformSystem xform,
+        DamageableSystem damageable,
+        EntityUid shooter,
+        EntityUid tank,
+        EntityUid turret)
+    {
+        await server.WaitAssertion(() =>
+        {
+            var breech = entityManager.GetComponent<BallisticAmmoProviderComponent>(turret);
+            guns.SetBallisticUnspawned((turret, breech), 1);
+            Assert.That(guns.GetAmmoCount(turret), Is.EqualTo(1));
+
+            var existing = new HashSet<EntityUid>();
+            var before = entityManager.EntityQueryEnumerator<ProjectileComponent>();
+            while (before.MoveNext(out var uid, out _))
+                existing.Add(uid);
+
+            var world = xform.GetWorldPosition(turret);
+            var facing = xform.GetWorldRotation(turret).ToWorldVec();
+            var mapUid = entityManager.GetComponent<TransformComponent>(turret).MapUid!.Value;
+            var target = new EntityCoordinates(mapUid, world - facing * 40f);
+            var gun = entityManager.GetComponent<GunComponent>(turret);
+            Assert.That(guns.AttemptShoot(shooter, (turret, gun), target), Is.True);
+
+            var found = false;
+            var query = entityManager.EntityQueryEnumerator<ProjectileComponent>();
+            while (query.MoveNext(out var uid, out var projectile))
+            {
+                if (existing.Contains(uid) || projectile.Weapon != turret)
+                    continue;
+
+                found = true;
+                Assert.That(projectile.Shooter, Is.EqualTo(tank), "the shell must treat the hull as its shooter");
+            }
+
+            Assert.That(found, Is.True, "the turret did not spawn a shell");
+            Assert.That(damageable.GetTotalDamage(tank), Is.EqualTo(FixedPoint2.Zero));
+        });
+
+        await server.WaitRunTicks(70);
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(damageable.GetTotalDamage(tank), Is.EqualTo(FixedPoint2.Zero), "the shell damaged its own tank");
+            Assert.That(guns.GetAmmoCount(turret), Is.EqualTo(0));
         });
     }
 }

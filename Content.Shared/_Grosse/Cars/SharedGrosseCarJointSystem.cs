@@ -355,6 +355,11 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         if (ent.Comp.Turret is not { } turret || Deleted(turret))
             return;
 
+        // Map cleanup deletes the grid first. Dropping the gunner onto that grid throws.
+        var parent = Transform(ent).ParentUid;
+        if (!parent.IsValid() || TerminatingOrDeleted(parent))
+            return;
+
         if (!_container.TryGetContainer(turret, ent.Comp.GunnerContainer, out var container))
             return;
 

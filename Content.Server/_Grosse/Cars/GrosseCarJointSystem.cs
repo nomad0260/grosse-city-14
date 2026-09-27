@@ -73,14 +73,14 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
         if (ent.Comp.Turret is not { } turret || Deleted(turret))
             return;
 
+        if (MetaData(ent).EntityLifeStage >= EntityLifeStage.Terminating)
+            return;
+
         if (_container.TryGetContainer(turret, ent.Comp.GunnerContainer, out var container))
         {
             foreach (var occupant in container.ContainedEntities.ToArray())
                 _container.Remove(occupant, container, destination: _transform.GetMoverCoordinates(ent.Owner));
         }
-
-        if (MetaData(ent).EntityLifeStage >= EntityLifeStage.Terminating)
-            return;
 
         QueueDel(turret);
     }
