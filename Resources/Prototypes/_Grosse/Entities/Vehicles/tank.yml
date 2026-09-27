@@ -226,6 +226,8 @@
     sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
     noRot: false
     drawdepth: OverMobs
+    # The barrel sits below the ring in the south frame. Shift so the ring, not the barrel, is the pivot.
+    offset: 0.17, -0.16
     layers:
     - state: tower
       map: [ "enum.GrosseTankVisualLayers.Base" ]
