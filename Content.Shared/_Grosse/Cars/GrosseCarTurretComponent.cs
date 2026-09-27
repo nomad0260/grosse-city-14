@@ -8,8 +8,11 @@ namespace Content.Shared._Grosse.Cars;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GrosseCarTurretComponent : Component
 {
+    /// <summary>
+    /// Null until the hull attaches this turret. A loose turret prototype must not store an entity id.
+    /// </summary>
     [DataField, AutoNetworkedField]
-    public EntityUid Hull;
+    public EntityUid? Hull;
 
     /// <summary>
     /// How far in front of the turret the shell is moved so it clears the hull.

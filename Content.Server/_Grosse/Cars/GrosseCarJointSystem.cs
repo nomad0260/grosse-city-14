@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Shared._Grosse.Cars;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Physics.Systems;
 
@@ -42,6 +43,10 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
 
     private void OnMapInit(Entity<GrosseCarJointComponent> ent, ref MapInitEvent args)
     {
+        // The component test adds this to a blank entity with no physics. A joint there only logs an error.
+        if (!HasComp<PhysicsComponent>(ent))
+            return;
+
         if (ent.Comp.Turret is { } existing && !TerminatingOrDeleted(existing))
         {
             if (Transform(existing).ParentUid != ent.Owner)
@@ -110,6 +115,9 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
 
     private void EnsureJoint(Entity<GrosseCarJointComponent> hull, EntityUid turret)
     {
+        if (!HasComp<PhysicsComponent>(hull) || !HasComp<PhysicsComponent>(turret))
+            return;
+
         if (TryComp<JointComponent>(hull, out var joints) && joints.GetJoints.ContainsKey(hull.Comp.JointId))
             return;
 

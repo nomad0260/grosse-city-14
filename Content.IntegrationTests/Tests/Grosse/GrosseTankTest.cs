@@ -99,7 +99,7 @@ public sealed class GrosseTankTest : GameTest
             Assert.That(entityManager.TryGetComponent(tank, out JointComponent? physicsJoints));
             Assert.That(physicsJoints!.GetJoints.ContainsKey(joint.JointId), Is.True);
             Assert.That(physicsJoints.GetJoints[joint.JointId], Is.InstanceOf<RevoluteJoint>());
-            Assert.That(entityManager.GetComponent<GrosseCarTurretComponent>(turret).Hull, Is.EqualTo(tank));
+            Assert.That(entityManager.GetComponent<GrosseCarTurretComponent>(turret).Hull, Is.EqualTo((EntityUid?) tank));
 
             Assert.That(cars.TryEnterSlot(driver, tank, "driver", skipDelay: true), Is.True);
             Assert.That(entityManager.GetComponent<GrosseCarRiderComponent>(driver).ControlsTurret, Is.False);
@@ -241,7 +241,10 @@ public sealed class GrosseTankTest : GameTest
         await server.WaitAssertion(() =>
         {
             var breech = entityManager.GetComponent<BallisticAmmoProviderComponent>(turret);
-            guns.SetBallisticUnspawned((turret, breech), 1);
+            // Map init already leaves one unspawned round, and a reload leaves a real shell in the breech.
+            // Adding another unspawned round on top of that makes the count 2 and the leftover round survives the shot.
+            if (guns.GetAmmoCount(turret) == 0)
+                guns.SetBallisticUnspawned((turret, breech), 1);
             Assert.That(guns.GetAmmoCount(turret), Is.EqualTo(1));
 
             var existing = new HashSet<EntityUid>();

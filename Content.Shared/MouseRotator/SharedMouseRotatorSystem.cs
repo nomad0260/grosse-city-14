@@ -58,9 +58,10 @@ public abstract partial class SharedMouseRotatorSystem : EntitySystem
         if (attached != target)
         {
             if (TryComp<GrosseCarTurretComponent>(target, out var turret) &&
-                TryComp<GrosseCarJointComponent>(turret.Hull, out var joint))
+                turret.Hull is { } hull &&
+                TryComp<GrosseCarJointComponent>(hull, out var joint))
             {
-                if (!EntityManager.System<SharedGrosseCarJointSystem>().CanAim(attached, (turret.Hull, joint)))
+                if (!EntityManager.System<SharedGrosseCarJointSystem>().CanAim(attached, (hull, joint)))
                     return;
             }
             else if (!TryComp<VehicleOperatorComponent>(attached, out var op) || op.Vehicle != target)

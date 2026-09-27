@@ -378,12 +378,15 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 
     private void OnShotAttempted(Entity<GrosseCarTurretComponent> ent, ref ShotAttemptedEvent args)
     {
-        if (IsWrecked(ent.Comp.Hull))
+        if (ent.Comp.Hull is not { } hull || IsWrecked(hull))
             args.Cancel();
     }
 
     private void OnAmmoShot(Entity<GrosseCarTurretComponent> ent, ref AmmoShotEvent args)
     {
+        if (ent.Comp.Hull is not { } hull)
+            return;
+
         var direction = _transform.GetWorldRotation(ent).ToWorldVec();
         foreach (var projectile in args.FiredProjectiles)
         {
@@ -391,14 +394,14 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
                 continue;
 
             if (TryComp<ProjectileComponent>(projectile, out var projectileComp))
-                _projectile.SetShooter(projectile, projectileComp, ent.Comp.Hull);
+                _projectile.SetShooter(projectile, projectileComp, hull);
 
             var position = _transform.GetWorldPosition(projectile);
             _transform.SetWorldPosition(projectile, position + direction * ent.Comp.Muzzle);
         }
 
-        if (TryComp<GrosseCarJointComponent>(ent.Comp.Hull, out var joint))
-            UpdateAppearance((ent.Comp.Hull, joint));
+        if (TryComp<GrosseCarJointComponent>(hull, out var joint))
+            UpdateAppearance((hull, joint));
     }
 
     private void OnTurretInserted(Entity<GrosseCarTurretComponent> ent, ref EntInsertedIntoContainerMessage args)
@@ -407,13 +410,13 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         if (_timing.ApplyingState)
             return;
 
-        if (!TryComp<GrosseCarJointComponent>(ent.Comp.Hull, out var joint))
+        if (ent.Comp.Hull is not { } hull || !TryComp<GrosseCarJointComponent>(hull, out var joint))
             return;
 
         if (args.Container.ID == joint.GunnerContainer)
-            SetupGunner((ent.Comp.Hull, joint), args.Entity);
+            SetupGunner((hull, joint), args.Entity);
 
-        UpdateAppearance((ent.Comp.Hull, joint));
+        UpdateAppearance((hull, joint));
     }
 
     private void OnTurretRemoved(Entity<GrosseCarTurretComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -421,13 +424,13 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         if (_timing.ApplyingState)
             return;
 
-        if (!TryComp<GrosseCarJointComponent>(ent.Comp.Hull, out var joint))
+        if (ent.Comp.Hull is not { } hull || !TryComp<GrosseCarJointComponent>(hull, out var joint))
             return;
 
         if (args.Container.ID == joint.GunnerContainer)
-            ClearGunner((ent.Comp.Hull, joint), args.Entity);
+            ClearGunner((hull, joint), args.Entity);
 
-        UpdateAppearance((ent.Comp.Hull, joint));
+        UpdateAppearance((hull, joint));
     }
 
     private void SetupGunner(Entity<GrosseCarJointComponent> hull, EntityUid user)
