@@ -12,7 +12,7 @@ namespace Content.Server._Grosse.Cars;
 /// Spawns the turret as a child of the hull and keeps a revolute joint on it.
 /// The joint is not map data, so it is created again whenever the hull starts.
 /// </summary>
-public sealed class GrosseCarJointSystem : EntitySystem
+public sealed partial class GrosseCarJointSystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedJointSystem _joints = default!;

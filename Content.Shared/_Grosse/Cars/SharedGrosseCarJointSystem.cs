@@ -19,7 +19,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Grosse.Cars;
 
-public sealed class SharedGrosseCarJointSystem : EntitySystem
+public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 {
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
