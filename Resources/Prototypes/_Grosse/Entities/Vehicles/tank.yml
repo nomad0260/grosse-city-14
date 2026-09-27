@@ -75,6 +75,17 @@
       isDriver: true
       visuals: Driver
   - type: GrosseCarJoint
+    turretActions:
+    - ActionGrosseTankReload
+    seats:
+    - id: gunner
+      container: turret-gunner
+      onTurret: true
+      priority: 0
+      reloadDelay: 1.5
+    - id: driver
+      priority: 1
+      reloadDelay: 2.5
   - type: SkipMobMovement
   - type: InputMover
   - type: DoAfter

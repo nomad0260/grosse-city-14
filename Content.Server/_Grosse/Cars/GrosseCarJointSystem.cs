@@ -51,6 +51,7 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
             turretComp.Hull = ent;
             Dirty(existing, turretComp);
             EnsureJoint(ent, existing);
+            EntityManager.System<SharedGrosseCarJointSystem>().UpdateTurretActions(ent);
             return;
         }
 
@@ -67,7 +68,9 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
         Dirty(ent, ent.Comp);
         EnsureJoint(ent, turret);
         FillRack(ent, turret);
-        EntityManager.System<SharedGrosseCarJointSystem>().UpdateAppearance(ent);
+        var joints = EntityManager.System<SharedGrosseCarJointSystem>();
+        joints.UpdateAppearance(ent);
+        joints.UpdateTurretActions(ent);
     }
 
     private void FillRack(Entity<GrosseCarJointComponent> hull, EntityUid turret)

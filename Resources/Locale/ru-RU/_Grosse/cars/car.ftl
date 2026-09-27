@@ -17,6 +17,7 @@ grosse-tank-verb-gunner = Сесть стрелком
 grosse-tank-ammo-full = Боекомплект полон.
 grosse-tank-ammo-empty = В боекомплекте пусто.
 grosse-tank-wrecked = Танк разбит.
+grosse-tank-gunner-busy = Заряжает другое место экипажа.
 grosse-tank-examine-ammo = Боекомплект: {$count}/{$capacity}
 grosse-tank-examine-chambered = Затвор заряжен.
 grosse-tank-examine-empty = Затвор пуст.

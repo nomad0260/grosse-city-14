@@ -53,6 +53,8 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         SubscribeLocalEvent<GrosseCarJointComponent, DestructionEventArgs>(OnDestroyed);
         SubscribeLocalEvent<GrosseCarJointComponent, EntityTerminatingEvent>(OnTerminating);
         SubscribeLocalEvent<GrosseCarJointComponent, ComponentStartup>(OnHullStartup);
+        SubscribeLocalEvent<GrosseCarJointComponent, EntInsertedIntoContainerMessage>(OnHullInserted);
+        SubscribeLocalEvent<GrosseCarJointComponent, EntRemovedFromContainerMessage>(OnHullRemoved);
 
         SubscribeLocalEvent<GrosseCarTurretComponent, ShotAttemptedEvent>(OnShotAttempted);
         SubscribeLocalEvent<GrosseCarTurretComponent, AmmoShotEvent>(OnAmmoShot);
@@ -290,8 +292,11 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (!CanAim(args.Performer, ent))
+        if (!TryGetLoader(ent, out var seat, out var loader) || loader != args.Performer)
+        {
+            _popup.PopupClient(Loc.GetString("grosse-tank-gunner-busy"), ent, args.Performer);
             return;
+        }
 
         if (IsWrecked(ent))
         {
@@ -308,11 +313,13 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, args.Performer, ent.Comp.ReloadDelay, new GrosseTankReloadDoAfterEvent(), ent, ent, ent)
+        // The loader is inside the turret, so a range check against the hull always fails. The driver sits in the hull and passes it.
+        var doAfter = new DoAfterArgs(EntityManager, args.Performer, seat.ReloadDelay, new GrosseTankReloadDoAfterEvent(), ent, args.Performer)
         {
             BreakOnMove = false,
             BreakOnDamage = true,
             NeedHand = false,
+            RequireCanInteract = false,
         };
         _doAfter.TryStartDoAfter(doAfter);
     }
@@ -434,21 +441,163 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         Dirty(user, rider);
 
         // A second insert must not grant another exit. The client receives actions from the server.
-        if (alreadyGunner || _net.IsClient)
-            return;
-
-        foreach (var proto in hull.Comp.GunnerActions)
+        if (!alreadyGunner && !_net.IsClient)
         {
-            EntityUid? action = null;
-            _actions.AddAction(user, ref action, proto, hull);
+            foreach (var proto in hull.Comp.GunnerActions)
+            {
+                EntityUid? action = null;
+                _actions.AddAction(user, ref action, proto, hull);
+            }
         }
+
+        UpdateTurretActions(hull);
     }
 
     private void ClearGunner(Entity<GrosseCarJointComponent> hull, EntityUid user)
     {
         RemComp<GrosseCarRiderComponent>(user);
-        if (!_net.IsClient)
-            _actions.RemoveProvidedActions(user, hull);
+        if (_net.IsClient)
+            return;
+
+        _actions.RemoveProvidedActions(user, hull);
+        if (hull.Comp.TurretUser == user)
+            hull.Comp.TurretUser = null;
+
+        UpdateTurretActions(hull);
+    }
+
+    private void OnHullInserted(Entity<GrosseCarJointComponent> ent, ref EntInsertedIntoContainerMessage args)
+    {
+        if (_timing.ApplyingState)
+            return;
+
+        UpdateTurretActions(ent);
+    }
+
+    private void OnHullRemoved(Entity<GrosseCarJointComponent> ent, ref EntRemovedFromContainerMessage args)
+    {
+        if (_timing.ApplyingState)
+            return;
+
+        if (ent.Comp.TurretUser == args.Entity)
+            ent.Comp.TurretUser = null;
+
+        UpdateTurretActions(ent);
+    }
+
+    /// <summary>
+    /// Moves <see cref="GrosseCarJointComponent.TurretActions"/> to the occupied seat that loads.
+    /// </summary>
+    public void UpdateTurretActions(Entity<GrosseCarJointComponent> hull)
+    {
+        if (_net.IsClient || _timing.ApplyingState || TerminatingOrDeleted(hull))
+            return;
+
+        EntityUid? next = TryGetLoader(hull, out _, out var loader) ? loader : null;
+        if (hull.Comp.TurretUser == next)
+            return;
+
+        var previous = hull.Comp.TurretUser;
+        hull.Comp.TurretUser = next;
+
+        if (previous is { } old && old != next && !TerminatingOrDeleted(old))
+            RemoveTurretActions(hull, old);
+
+        if (next is { } user)
+            GrantTurretActions(hull, user);
+    }
+
+    /// <summary>
+    /// The occupied loading seat with the best priority, and how long that seat takes to chamber a shell.
+    /// </summary>
+    public bool TryGetLoader(Entity<GrosseCarJointComponent> hull, out GrosseCarTurretSeat seat, out EntityUid loader)
+    {
+        GrosseCarTurretSeat? best = null;
+        EntityUid bestUser = default;
+
+        foreach (var candidate in hull.Comp.Seats)
+        {
+            if (!candidate.Loads || !TryGetSeatOccupant(hull, candidate, out var occupant))
+                continue;
+
+            if (best != null && candidate.Priority >= best.Priority)
+                continue;
+
+            best = candidate;
+            bestUser = occupant;
+        }
+
+        seat = best!;
+        loader = bestUser;
+        return best != null;
+    }
+
+    private bool TryGetSeatOccupant(Entity<GrosseCarJointComponent> hull, GrosseCarTurretSeat seat, out EntityUid occupant)
+    {
+        occupant = default;
+        BaseContainer? container = null;
+
+        if (seat.OnTurret)
+        {
+            if (hull.Comp.Turret is not { } turret)
+                return false;
+
+            var id = seat.Container ?? hull.Comp.GunnerContainer;
+            if (!_container.TryGetContainer(turret, id, out container))
+                return false;
+        }
+        else if (TryComp<GrosseCarComponent>(hull, out var car))
+        {
+            foreach (var slot in car.Slots)
+            {
+                if (slot.Id != seat.Id)
+                    continue;
+
+                _container.TryGetContainer(hull, slot.ContainerId, out container);
+                break;
+            }
+        }
+
+        if (container == null || container.ContainedEntities.Count == 0)
+            return false;
+
+        occupant = container.ContainedEntities[0];
+        return true;
+    }
+
+    private void GrantTurretActions(Entity<GrosseCarJointComponent> hull, EntityUid user)
+    {
+        foreach (var proto in hull.Comp.TurretActions)
+        {
+            if (HasTurretAction(user, proto))
+                continue;
+
+            EntityUid? action = null;
+            _actions.AddAction(user, ref action, proto, hull);
+        }
+    }
+
+    private void RemoveTurretActions(Entity<GrosseCarJointComponent> hull, EntityUid user)
+    {
+        foreach (var action in _actions.GetActions(user).ToArray())
+        {
+            var id = Prototype(action.Owner)?.ID;
+            if (id == null || !hull.Comp.TurretActions.Contains(id))
+                continue;
+
+            _actions.RemoveAction(user, action.Owner);
+        }
+    }
+
+    private bool HasTurretAction(EntityUid user, EntProtoId proto)
+    {
+        foreach (var action in _actions.GetActions(user))
+        {
+            if (Prototype(action.Owner)?.ID == proto.Id)
+                return true;
+        }
+
+        return false;
     }
 
     private bool TryInsertAmmo(Entity<GrosseCarJointComponent> hull, EntityUid turret, EntityUid shell, EntityUid user)

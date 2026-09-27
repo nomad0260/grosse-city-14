@@ -17,6 +17,7 @@ grosse-tank-verb-gunner = Sit as gunner
 grosse-tank-ammo-full = The rack is full.
 grosse-tank-ammo-empty = The rack is empty.
 grosse-tank-wrecked = The tank is wrecked.
+grosse-tank-gunner-busy = Another seat is loading.
 grosse-tank-examine-ammo = Rack: {$count}/{$capacity}
 grosse-tank-examine-chambered = The breech is loaded.
 grosse-tank-examine-empty = The breech is empty.

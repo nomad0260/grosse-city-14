@@ -177,6 +177,11 @@ public sealed class GrosseTankTest : GameTest
             turret = entityManager.GetComponent<GrosseCarJointComponent>(tank).Turret!.Value;
 
             Assert.That(cars.TryEnterSlot(driver, tank, "driver", skipDelay: true), Is.True);
+            Assert.That(ActionIds(entityManager, driver), Does.Contain("ActionGrosseTankReload"),
+                "the driver loads the turret while the gunner seat is empty");
+            Assert.That(joints.TryGetLoader((tank, entityManager.GetComponent<GrosseCarJointComponent>(tank)), out var driverSeat, out var driverLoader)
+                        && driverLoader == driver
+                        && driverSeat.ReloadDelay == TimeSpan.FromSeconds(2.5), Is.True);
             Assert.That(joints.CanAim(driver, (tank, entityManager.GetComponent<GrosseCarJointComponent>(tank))), Is.True);
             Assert.That(guns.TryGetGun(driver, out var driverGun) && driverGun.Owner == turret, Is.True,
                 "the driver should fire the turret while the gunner seat is empty");
@@ -192,23 +197,36 @@ public sealed class GrosseTankTest : GameTest
             Assert.That(entityManager.GetComponent<GrosseCarRiderComponent>(gunner).ControlsTurret, Is.True);
             Assert.That(joints.CanAim(gunner, (tank, joint)), Is.True);
             Assert.That(joints.CanAim(driver, (tank, joint)), Is.False, "the driver must not aim while a gunner is seated");
+            Assert.That(ActionIds(entityManager, driver), Does.Not.Contain("ActionGrosseTankReload"));
+            Assert.That(joints.TryGetLoader((tank, joint), out var gunnerSeat, out var gunnerLoader)
+                        && gunnerLoader == gunner
+                        && gunnerSeat.ReloadDelay == TimeSpan.FromSeconds(1.5), Is.True);
             Assert.That(guns.TryGetGun(gunner, out var gunnerGun) && gunnerGun.Owner == turret, Is.True);
 
-            var granted = new List<string>();
-            foreach (var action in entityManager.System<SharedActionsSystem>().GetActions(gunner))
-            {
-                var id = entityManager.GetComponent<MetaDataComponent>(action.Owner).EntityPrototype?.ID;
-                if (id != null)
-                    granted.Add(id);
-            }
+            Assert.That(ActionIds(entityManager, gunner), Is.EquivalentTo(new[] { "ActionGrosseCarExit", "ActionGrosseTankReload" }));
 
-            Assert.That(granted, Is.EquivalentTo(new[] { "ActionGrosseCarExit", "ActionGrosseTankReload" }));
+            var reload = new GrosseTankReloadEvent { Performer = gunner };
+            entityManager.EventBus.RaiseLocalEvent(tank, reload);
+            Assert.That(guns.GetAmmoCount(turret), Is.EqualTo(1), "the seated gunner should be able to chamber a shell");
         });
 
         await FireThroughHull(server, entityManager, guns, xform, damageable, gunner, tank, turret);
     }
 
     private static readonly ProtoId<TagPrototype> InstantDoAfters = "InstantDoAfters";
+
+    private static List<string> ActionIds(IEntityManager entityManager, EntityUid user)
+    {
+        var ids = new List<string>();
+        foreach (var action in entityManager.System<SharedActionsSystem>().GetActions(user))
+        {
+            var id = entityManager.GetComponent<MetaDataComponent>(action.Owner).EntityPrototype?.ID;
+            if (id != null)
+                ids.Add(id);
+        }
+
+        return ids;
+    }
 
     private static async Task FireThroughHull(
         Robust.UnitTesting.RobustIntegrationTest.ServerIntegrationInstance server,
