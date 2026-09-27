@@ -97,7 +97,7 @@ public sealed class GrosseCarTest : GameTest
                     {
                         if (fixture.Shape is PhysShapeAabb aabb)
                         {
-                            var maxWidth = proto.ID == "GrosseTank" ? 3.6f : 2.2f;
+                            var maxWidth = proto.ID.StartsWith("GrosseTank") ? 3.6f : 2.2f;
                             Assert.That(aabb.LocalBounds.Width, Is.LessThan(maxWidth), $"{proto.ID} hitbox is wider than the south-facing sprite");
                         }
                     }

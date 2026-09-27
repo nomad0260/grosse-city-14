@@ -11,6 +11,7 @@ using Content.Shared.Tag;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Components;
+using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -116,6 +117,34 @@ public sealed class GrosseTankTest : GameTest
             Assert.That(entityManager.EntityExists(gunner), Is.True);
             Assert.That(entityManager.HasComponent<GrosseCarRiderComponent>(gunner), Is.False);
             Assert.That(Count(), Is.EqualTo(before + 1), "deleting the hull should remove the turret and leave the ejected gunner");
+        });
+    }
+
+    [Test]
+    public async Task LoadedTankSpawnsWithRackAndEmptyDoesNot()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var map = await pair.CreateTestMap();
+        var coords = map.GridCoords;
+        var entityManager = server.EntMan;
+        var containers = entityManager.System<SharedContainerSystem>();
+
+        await server.WaitAssertion(() =>
+        {
+            var loaded = entityManager.SpawnEntity("GrosseTank", coords);
+            var loadedTurret = entityManager.GetComponent<GrosseCarJointComponent>(loaded).Turret!.Value;
+            Assert.That(containers.TryGetContainer(loadedTurret, "turret-ammo", out var rack), Is.True);
+            Assert.That(rack!.ContainedEntities, Has.Count.EqualTo(8));
+
+            var empty = entityManager.SpawnEntity("GrosseTankEmpty", coords);
+            var emptyJoint = entityManager.GetComponent<GrosseCarJointComponent>(empty);
+            Assert.That(emptyJoint.StartingAmmo, Is.Zero);
+            var emptyTurret = emptyJoint.Turret!.Value;
+            var emptyCount = containers.TryGetContainer(emptyTurret, "turret-ammo", out var emptyRack)
+                ? emptyRack.ContainedEntities.Count
+                : 0;
+            Assert.That(emptyCount, Is.Zero);
         });
     }
 

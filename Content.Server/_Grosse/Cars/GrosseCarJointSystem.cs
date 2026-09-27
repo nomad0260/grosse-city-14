@@ -66,6 +66,26 @@ public sealed partial class GrosseCarJointSystem : EntitySystem
         ent.Comp.Turret = turret;
         Dirty(ent, ent.Comp);
         EnsureJoint(ent, turret);
+        FillRack(ent, turret);
+        EntityManager.System<SharedGrosseCarJointSystem>().UpdateAppearance(ent);
+    }
+
+    private void FillRack(Entity<GrosseCarJointComponent> hull, EntityUid turret)
+    {
+        var count = Math.Min(hull.Comp.StartingAmmo, hull.Comp.AmmoCapacity);
+        if (count <= 0)
+            return;
+
+        var rack = _container.EnsureContainer<Container>(turret, hull.Comp.AmmoContainer);
+        for (var i = 0; i < count; i++)
+        {
+            var shell = Spawn(hull.Comp.AmmoPrototype, Transform(turret).Coordinates);
+            if (_container.Insert(shell, rack))
+                continue;
+
+            Del(shell);
+            break;
+        }
     }
 
     private void OnShutdown(Entity<GrosseCarJointComponent> ent, ref ComponentShutdown args)

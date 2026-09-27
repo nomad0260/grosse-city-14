@@ -195,6 +195,14 @@
         acts: ["Destruction"]
 
 - type: entity
+  parent: GrosseTank
+  id: GrosseTankEmpty
+  suffix: Пустой
+  components:
+  - type: GrosseCarJoint
+    startingAmmo: 0
+
+- type: entity
   id: GrosseTankTurret
   name: башня танка
   description: Ствол на корпусе. Кликать её нельзя.

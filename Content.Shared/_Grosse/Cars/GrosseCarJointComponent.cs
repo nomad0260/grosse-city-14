@@ -39,6 +39,15 @@ public sealed partial class GrosseCarJointComponent : Component
     public string AmmoTag = "CartridgeGrosseTank";
 
     [DataField]
+    public EntProtoId AmmoPrototype = "CartridgeGrosseTank";
+
+    /// <summary>
+    /// Shells placed in the rack when the turret is first created. Zero leaves it empty.
+    /// </summary>
+    [DataField]
+    public int StartingAmmo = 8;
+
+    [DataField]
     public TimeSpan EntryDelay = TimeSpan.FromSeconds(0.8f);
 
     [DataField]
