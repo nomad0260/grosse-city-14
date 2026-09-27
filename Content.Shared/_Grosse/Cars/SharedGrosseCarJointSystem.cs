@@ -16,12 +16,14 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._Grosse.Cars;
 
 public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 {
     [Dependency] private INetManager _net = default!;
+    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedContainerSystem _container = default!;
@@ -394,6 +396,10 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 
     private void OnTurretInserted(Entity<GrosseCarTurretComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
+        // Container state is replayed while predicted entities reset. The rider arrives with that state.
+        if (_timing.ApplyingState)
+            return;
+
         if (!TryComp<GrosseCarJointComponent>(ent.Comp.Hull, out var joint))
             return;
 
@@ -405,6 +411,9 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 
     private void OnTurretRemoved(Entity<GrosseCarTurretComponent> ent, ref EntRemovedFromContainerMessage args)
     {
+        if (_timing.ApplyingState)
+            return;
+
         if (!TryComp<GrosseCarJointComponent>(ent.Comp.Hull, out var joint))
             return;
 
@@ -417,13 +426,15 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
     private void SetupGunner(Entity<GrosseCarJointComponent> hull, EntityUid user)
     {
         var rider = EnsureComp<GrosseCarRiderComponent>(user);
+        var alreadyGunner = rider.Car == hull.Owner && rider.ControlsTurret;
         rider.Car = hull;
         rider.SlotId = "gunner";
         rider.IsDriver = false;
         rider.ControlsTurret = true;
         Dirty(user, rider);
 
-        if (_net.IsClient)
+        // A second insert must not grant another exit. The client receives actions from the server.
+        if (alreadyGunner || _net.IsClient)
             return;
 
         foreach (var proto in hull.Comp.GunnerActions)

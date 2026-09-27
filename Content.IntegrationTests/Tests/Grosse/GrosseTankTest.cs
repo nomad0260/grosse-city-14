@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Grosse.Cars;
+using Content.Shared.Actions;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Movement.Components;
@@ -192,6 +193,16 @@ public sealed class GrosseTankTest : GameTest
             Assert.That(joints.CanAim(gunner, (tank, joint)), Is.True);
             Assert.That(joints.CanAim(driver, (tank, joint)), Is.False, "the driver must not aim while a gunner is seated");
             Assert.That(guns.TryGetGun(gunner, out var gunnerGun) && gunnerGun.Owner == turret, Is.True);
+
+            var granted = new List<string>();
+            foreach (var action in entityManager.System<SharedActionsSystem>().GetActions(gunner))
+            {
+                var id = entityManager.GetComponent<MetaDataComponent>(action.Owner).EntityPrototype?.ID;
+                if (id != null)
+                    granted.Add(id);
+            }
+
+            Assert.That(granted, Is.EquivalentTo(new[] { "ActionGrosseCarExit", "ActionGrosseTankReload" }));
         });
 
         await FireThroughHull(server, entityManager, guns, xform, damageable, gunner, tank, turret);

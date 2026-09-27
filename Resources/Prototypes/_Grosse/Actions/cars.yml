@@ -9,8 +9,8 @@
     checkCanInteract: false
     priority: -7
     icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_eject
+      sprite: Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+      state: base
   - type: InstantAction
     event: !type:GrosseTankReloadEvent
 
