@@ -1,3 +1,4 @@
+using Content.Client.Resources;
 using Content.Client.Stylesheets;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -34,9 +35,9 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
         // Modulate colored stripe
         NetworkColorStripe.Modulate = data.Color;
 
-        // Load fonts
-        var headerFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Bold.ttf"), 11);
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        // Load fonts, honouring the selectable UI font style
+        var headerFont = _cache.GetStack("Bold", 11);
+        var normalFont = _cache.GetStack("Regular", 11);
 
         // Set fonts
         TemperatureHeaderLabel.FontOverride = headerFont;
@@ -54,7 +55,7 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
     public void UpdateEntry(AtmosMonitoringConsoleEntry updatedData, bool isFocus)
     {
         // Load fonts
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        var normalFont = _cache.GetStack("Regular", 11);
 
         // Update name and values
         if (!string.IsNullOrEmpty(updatedData.Address))

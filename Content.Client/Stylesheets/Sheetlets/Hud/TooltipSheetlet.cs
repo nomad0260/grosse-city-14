@@ -15,15 +15,24 @@ public sealed class TooltipSheetlet<T> : Sheetlet<T> where T: PalettedStylesheet
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        ITooltipConfig tooltipCfg = sheet;
+        // Flat, rounded chat bubbles and tooltips instead of the old beveled patches.
+        var tooltipBox = new RoundedStyleBox
+        {
+            BackgroundColor = Color.FromHex("#262A33").WithAlpha(0.97f),
+            BorderColor = Color.FromHex("#57616F"),
+            BorderThickness = 1f,
+            CornerRadius = 8f,
+            Padding = new Thickness(7f, 4f, 7f, 4f),
+        };
 
-        var tooltipBox = sheet.GetTextureOr(tooltipCfg.TooltipBoxPath, NanotrasenStylesheet.TextureRoot)
-            .IntoPatch(StyleBox.Margin.All, 2);
-        tooltipBox.SetContentMarginOverride(StyleBox.Margin.Horizontal, 7);
-
-        var whisperBox = sheet.GetTextureOr(tooltipCfg.WhisperBoxPath, NanotrasenStylesheet.TextureRoot)
-            .IntoPatch(StyleBox.Margin.All, 2);
-        whisperBox.SetContentMarginOverride(StyleBox.Margin.Horizontal, 7);
+        var whisperBox = new RoundedStyleBox
+        {
+            BackgroundColor = Color.FromHex("#262A33").WithAlpha(0.97f),
+            BorderColor = Color.FromHex("#6A7482"),
+            BorderThickness = 1f,
+            CornerRadius = 8f,
+            Padding = new Thickness(7f, 4f, 7f, 4f),
+        };
 
         return
         [

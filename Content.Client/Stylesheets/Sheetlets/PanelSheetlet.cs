@@ -1,3 +1,4 @@
+using Content.Client.Stylesheets.Colorspace;
 using Content.Client.Stylesheets.SheetletConfigs;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
@@ -46,23 +47,31 @@ public sealed class PanelSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet,
                 .Class("BackgroundDark")
                 .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Color.FromHex("#25252A"))),
 
-            // panels that have the same corner bezels as buttons
+            // panels that have the same rounded corners as buttons.
+            // Lifted in lightness: the raw palette backgrounds were nearly black.
             E()
                 .Class(StyleClass.BackgroundPanel)
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox(sheet))
-                .Modulate(sheet.SecondaryPalette.Background),
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.PanelStyleBox())
+                .Modulate(sheet.SecondaryPalette.Background.NudgeLightness(0.16f)),
             E()
                 .Class(StyleClass.BackgroundPanelDark)
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox(sheet))
-                .Modulate(sheet.SecondaryPalette.BackgroundDark),
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.PanelStyleBox())
+                .Modulate(sheet.SecondaryPalette.BackgroundDark.NudgeLightness(0.12f)),
              E()
                 .Class(StyleClass.BackgroundPanelOpenLeft)
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.OpenLeftStyleBox(sheet))
-                .Modulate(sheet.SecondaryPalette.Background),
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.OpenLeftStyleBox())
+                .Modulate(sheet.SecondaryPalette.Background.NudgeLightness(0.16f)),
             E()
                 .Class(StyleClass.BackgroundPanelOpenRight)
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.OpenRightStyleBox(sheet))
-                .Modulate(sheet.SecondaryPalette.Background),
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.OpenRightStyleBox())
+                .Modulate(sheet.SecondaryPalette.Background.NudgeLightness(0.16f)),
+
+            // Legacy class from the old Nano theme that still appears in several XAML files
+            // (loadouts, cargo bounties, salvage jobs). Without this it had no panel at all.
+            E<PanelContainer>()
+                .Class("AngleRect")
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.PanelStyleBox())
+                .Modulate(sheet.SecondaryPalette.Background.NudgeLightness(0.16f)),
         ];
     }
 }

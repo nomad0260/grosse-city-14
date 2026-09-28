@@ -27,17 +27,17 @@ public sealed class PdaSheetlet : Sheetlet<NanotrasenStylesheet>
             //PDA - Backgrounds
             E<PanelContainer>()
                 .Class("PdaContentBackground")
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox(sheet))
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox())
                 .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#25252a")),
 
             E<PanelContainer>()
                 .Class("PdaBackground")
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox(sheet))
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox())
                 .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#000000")),
 
             E<PanelContainer>()
                 .Class("PdaBackgroundRect")
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox((sheet)))
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.ButtonStyleBox())
                 .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#717059")),
 
             E<PanelContainer>()

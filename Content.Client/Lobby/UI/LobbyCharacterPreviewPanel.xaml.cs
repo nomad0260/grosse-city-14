@@ -12,8 +12,6 @@ namespace Content.Client.Lobby.UI;
 [GenerateTypedNameReferences]
 public sealed partial class LobbyCharacterPreviewPanel : Control
 {
-    public Button CharacterSetupButton => CharacterSetup;
-
     public LobbyCharacterPreviewPanel()
     {
         RobustXamlLoader.Load(this);
