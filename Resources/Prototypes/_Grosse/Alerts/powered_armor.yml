@@ -1,0 +1,42 @@
+- type: alertCategory
+  id: PoweredArmor
+
+- type: alert
+  id: PoweredArmorCharge
+  category: PoweredArmor
+  icons:
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery0
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery1
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery2
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery3
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery4
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery5
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery6
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery7
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery8
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery9
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery10
+  name: alerts-powered-armor-name
+  description: alerts-powered-armor-desc
+  minSeverity: 0
+  maxSeverity: 10
+
+- type: alert
+  id: PoweredArmorChargeNone
+  category: PoweredArmor
+  icons:
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery-none
+  name: alerts-powered-armor-name
+  description: alerts-powered-armor-none-desc
