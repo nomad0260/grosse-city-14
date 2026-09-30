@@ -24,10 +24,10 @@ public sealed partial class PoweredArmorComponent : Component
     public float EnergyPerDamage = 10f;
 
     [DataField]
-    public SoundSpecifier PowerOnSound = new SoundPathSpecifier("/Audio/_Grosse/Effects/Armor/powerarmor_on.wav");
+    public SoundSpecifier PowerOnSound = new SoundPathSpecifier("/Audio/_Grosse/Effects/Armor/powerarmor_on.ogg");
 
     [DataField]
-    public SoundSpecifier PowerOffSound = new SoundPathSpecifier("/Audio/_Grosse/Effects/Armor/armor_gone.wav");
+    public SoundSpecifier PowerOffSound = new SoundPathSpecifier("/Audio/_Grosse/Effects/Armor/armor_gone.ogg");
 
     [DataField]
     public ProtoId<AlertPrototype> ChargeAlert = "PoweredArmorCharge";

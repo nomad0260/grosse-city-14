@@ -70,9 +70,9 @@
     coefficientBonus: 0.2
     energyPerDamage: 10
     powerOnSound:
-      path: /Audio/_Grosse/Effects/Armor/powerarmor_on.wav
+      path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
     powerOffSound:
-      path: /Audio/_Grosse/Effects/Armor/armor_gone.wav
+      path: /Audio/_Grosse/Effects/Armor/armor_gone.ogg
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ItemSlots
