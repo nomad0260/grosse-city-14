@@ -1,7 +1,7 @@
 - type: species
   id: Ipc
   name: species-name-Ipc
-  roundStart: true
+  roundStart: false # Grosse-change
   sponsorOnly: false # Corvax-Sponsors
   prototype: MobIpc
   defaultSkinTone: "#eb943d"
