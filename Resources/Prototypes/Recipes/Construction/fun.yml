@@ -1,7 +1,9 @@
-- type: construction
-  id: HornBananium
-  graph: BananiumHorn
-  startNode: start
-  targetNode: bananiumHorn
-  category: construction-category-weapons
-  objectType: Item
+# Grosse-change start
+# - type: construction
+#   id: HornBananium
+#   graph: BananiumHorn
+#   startNode: start
+#   targetNode: bananiumHorn
+#   category: construction-category-weapons
+#   objectType: Item
+# Grosse-change end

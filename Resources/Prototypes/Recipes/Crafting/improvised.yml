@@ -5,15 +5,15 @@
   targetNode: bat
   category: construction-category-weapons
   objectType: Item
-
-- type: construction
-  id: ghost_sheet
-  graph: GhostSheet
-  startNode: start
-  targetNode: ghost_sheet
-  category: construction-category-clothing
-  objectType: Item
-
+# Grosse-change start
+# - type: construction
+#   id: ghost_sheet
+#   graph: GhostSheet
+#   startNode: start
+#   targetNode: ghost_sheet
+#   category: construction-category-clothing
+#   objectType: Item
+# Grosse-change end
 - type: construction
   id: makeshifthandcuffs
   graph: makeshifthandcuffs
@@ -37,15 +37,15 @@
   targetNode: muzzle
   category: construction-category-tools
   objectType: Item
-
-- type: construction
-  id: pneumaticcannon
-  graph: PneumaticCannon
-  startNode: start
-  targetNode: cannon
-  category: construction-category-weapons
-  objectType: Item
-
+# Grosse-change start
+# - type: construction
+#   id: pneumaticcannon
+#   graph: PneumaticCannon
+#   startNode: start
+#   targetNode: cannon
+#   category: construction-category-weapons
+#   objectType: Item
+# Grosse-change end
 - type: construction
   id: gauze
   graph: Gauze
@@ -133,59 +133,60 @@
   targetNode: pipebomb
   category: construction-category-weapons
   objectType: Item
+# Grosse-change start
+# - type: construction
+#   id: rollingpin
+#   graph: WoodenRollingPin
+#   startNode: start
+#   targetNode: rollingpin
+#   category: construction-category-tools
+#   objectType: Item
 
-- type: construction
-  id: rollingpin
-  graph: WoodenRollingPin
-  startNode: start
-  targetNode: rollingpin
-  category: construction-category-tools
-  objectType: Item
+# - type: construction
+#   id: PetCarrier
+#   graph: PetCarrier
+#   startNode: start
+#   targetNode: petCarrier
+#   category: construction-category-misc
+#   objectType: Item
 
-- type: construction
-  id: PetCarrier
-  graph: PetCarrier
-  startNode: start
-  targetNode: petCarrier
-  category: construction-category-misc
-  objectType: Item
+# - type: construction
+#   id: RepairMothershipPinpointer
+#   graph: RepairMothershipPinpointer
+#   startNode: start
+#   targetNode: repairedPinpointer
+#   category: construction-category-misc
+#   objectType: Item
 
-- type: construction
-  id: RepairMothershipPinpointer
-  graph: RepairMothershipPinpointer
-  startNode: start
-  targetNode: repairedPinpointer
-  category: construction-category-misc
-  objectType: Item
+# - type: construction
+#   id: HardsuitGoliath
+#   graph: HardsuitGoliath
+#   startNode: start
+#   targetNode: hardsuitGoliath
+#   category: construction-category-clothing
+#   objectType: Item
 
-- type: construction
-  id: HardsuitGoliath
-  graph: HardsuitGoliath
-  startNode: start
-  targetNode: hardsuitGoliath
-  category: construction-category-clothing
-  objectType: Item
+# - type: construction
+#   id: scraparmor
+#   graph: scraparmor
+#   startNode: start
+#   targetNode: scraparmorfinished
+#   category: construction-category-clothing
+#   objectType: Item
 
-- type: construction
-  id: scraparmor
-  graph: scraparmor
-  startNode: start
-  targetNode: scraparmorfinished
-  category: construction-category-clothing
-  objectType: Item
+# - type: construction
+#   id: scraphelmet
+#   graph: scraphelmet
+#   startNode: start
+#   targetNode: scraphelmet
+#   category: construction-category-clothing
+#   objectType: Item
 
-- type: construction
-  id: scraphelmet
-  graph: scraphelmet
-  startNode: start
-  targetNode: scraphelmet
-  category: construction-category-clothing
-  objectType: Item
-
-- type: construction
-  id: ClothingBagPet
-  graph: ClothingBagPet
-  startNode: start
-  targetNode: bagPet
-  category: construction-category-clothing
-  objectType: Item
+# - type: construction
+#   id: ClothingBagPet
+#   graph: ClothingBagPet
+#   startNode: start
+#   targetNode: bagPet
+#   category: construction-category-clothing
+#   objectType: Item
+# Grosse-change end

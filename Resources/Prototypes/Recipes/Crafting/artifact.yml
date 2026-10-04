@@ -1,7 +1,9 @@
-﻿- type: construction
-  id: Artifact
-  graph: Artifact
-  startNode: start
-  targetNode: done
-  category: construction-category-misc
-  objectType: Item
+﻿# Grosse-change start
+# - type: construction
+#   id: Artifact
+#   graph: Artifact
+#   startNode: start
+#   targetNode: done
+#   category: construction-category-misc
+#   objectType: Item
+# Grosse-change end
