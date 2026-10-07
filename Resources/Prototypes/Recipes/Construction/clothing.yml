@@ -1,121 +1,134 @@
-# Grosse-change start
-# - type: construction
-#   id: ClownHardsuit
-#   graph: ClownHardsuit
-#   startNode: start
-#   targetNode: clownHardsuit
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClownHardsuit
+  graph: ClownHardsuit
+  startNode: start
+  targetNode: clownHardsuit
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: MimeHardsuit
-#   graph: MimeHardsuit
-#   startNode: start
-#   targetNode: mimeHardsuit
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: MimeHardsuit
+  graph: MimeHardsuit
+  startNode: start
+  targetNode: mimeHardsuit
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: BoneArmor
-#   graph: BoneArmor
-#   startNode: start
-#   targetNode: armor
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: BoneArmor
+  graph: BoneArmor
+  startNode: start
+  targetNode: armor
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: BoneHelmet
-#   graph: BoneHelmet
-#   startNode: start
-#   targetNode: helmet
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: BoneHelmet
+  graph: BoneHelmet
+  startNode: start
+  targetNode: helmet
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: cardHelmet
-#   graph: cardHelmet
-#   startNode: start
-#   targetNode: cardhelmet
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: cardHelmet
+  graph: cardHelmet
+  startNode: start
+  targetNode: cardhelmet
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: cardArmour
-#   graph: cardArmour
-#   startNode: start
-#   targetNode: cardarmour
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: cardArmour
+  graph: cardArmour
+  startNode: start
+  targetNode: cardarmour
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: BananaClownMask
-#   graph: BananaClownMask
-#   startNode: start
-#   targetNode: mask
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: BananaClownMask
+  graph: BananaClownMask
+  startNode: start
+  targetNode: mask
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: BananaClownJumpsuit
-#   graph: BananaClownJumpsuit
-#   startNode: start
-#   targetNode: jumpsuit
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: BananaClownJumpsuit
+  graph: BananaClownJumpsuit
+  startNode: start
+  targetNode: jumpsuit
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: BananaClownShoes
-#   graph: BananaClownShoes
-#   startNode: start
-#   targetNode: shoes
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: BananaClownShoes
+  graph: BananaClownShoes
+  startNode: start
+  targetNode: shoes
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingEyesHudMedSec
-#   graph: HudMedSec
-#   startNode: start
-#   targetNode: medsecHud
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingEyesHudMedSec
+  graph: HudMedSec
+  startNode: start
+  targetNode: medsecHud
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingShoeSlippersDuck
-#   graph: ClothingShoeSlippersDuck
-#   startNode: start
-#   targetNode: shoes
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingShoeSlippersDuck
+  graph: ClothingShoeSlippersDuck
+  startNode: start
+  targetNode: shoes
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingShoeSlippersLizard
-#   graph: ClothingShoeSlippersLizard
-#   startNode: start
-#   targetNode: shoes
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingShoeSlippersLizard
+  graph: ClothingShoeSlippersLizard
+  startNode: start
+  targetNode: shoes
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingEyesGlassesSecurity
-#   graph: GlassesSecHUD
-#   startNode: start
-#   targetNode: glassesSec
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingEyesGlassesSecurity
+  graph: GlassesSecHUD
+  startNode: start
+  targetNode: glassesSec
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingBeltQuiver
-#   graph: Quiver
-#   startNode: start
-#   targetNode: Quiver
-#   category: construction-category-clothing
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingBeltQuiver
+  graph: Quiver
+  startNode: start
+  targetNode: Quiver
+  category: construction-category-clothing
+  objectType: Item
 
-# - type: construction
-#   id: ClothingHeadHelmetJustice
-#   graph: HelmetJustice
-#   startNode: start
-#   targetNode: helmet
-#   category: construction-category-clothing
-#   objectType: Item
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingHeadHelmetJustice
+  graph: HelmetJustice
+  startNode: start
+  targetNode: helmet
+  category: construction-category-clothing
+  objectType: Item

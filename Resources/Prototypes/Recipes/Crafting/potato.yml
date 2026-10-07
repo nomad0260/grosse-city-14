@@ -1,25 +1,26 @@
-# Grosse-change start
-# - type: construction
-#   id: PowerCellPotato
-#   graph: PowerCellPotato
-#   startNode: start
-#   targetNode: potatobattery
-#   category: construction-category-misc
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: PowerCellPotato
+  graph: PowerCellPotato
+  startNode: start
+  targetNode: potatobattery
+  category: construction-category-misc
+  objectType: Item
 
-# - type: construction
-#   id: PotatoAI
-#   graph: PotatoAI
-#   startNode: start
-#   targetNode: potatoai
-#   category: construction-category-misc
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: PotatoAI
+  graph: PotatoAI
+  startNode: start
+  targetNode: potatoai
+  category: construction-category-misc
+  objectType: Item
 
-# - type: construction
-#   id: PotatoAIChip
-#   graph: PotatoAIChip
-#   startNode: start
-#   targetNode: potatoaichip
-#   category: construction-category-misc
-#   objectType: Item
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: PotatoAIChip
+  graph: PotatoAIChip
+  startNode: start
+  targetNode: potatoaichip
+  category: construction-category-misc
+  objectType: Item

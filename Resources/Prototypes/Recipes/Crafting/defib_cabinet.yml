@@ -1,14 +1,13 @@
-# Grosse-change start
-# - type: construction
-#   id: DefibrillatorCabinet
-#   graph: DefibrillatorCabinet
-#   startNode: start
-#   targetNode: done
-#   category: construction-category-storage
-#   objectType: Structure
-#   placementMode: SnapgridCenter
-#   canRotate: true
-#   canBuildInImpassable: true
-#   conditions:
-#   - !type:WallmountCondition
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: DefibrillatorCabinet
+  graph: DefibrillatorCabinet
+  startNode: start
+  targetNode: done
+  category: construction-category-storage
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition

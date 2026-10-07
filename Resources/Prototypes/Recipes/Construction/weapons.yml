@@ -85,31 +85,33 @@
   targetNode: spear
   category: construction-category-weapons
   objectType: Item
-# Grosse-change start
-# - type: construction
-#   id: Bola
-#   graph: Bola
-#   startNode: start
-#   targetNode: bola
-#   category: construction-category-weapons
-#   objectType: Item
 
-# - type: construction
-#   id: WoodenBuckler
-#   graph: WoodenBuckler
-#   startNode: start
-#   targetNode: woodenBuckler
-#   category: construction-category-weapons
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: Bola
+  graph: Bola
+  startNode: start
+  targetNode: bola
+  category: construction-category-weapons
+  objectType: Item
 
-# - type: construction
-#   id: CardShield
-#   graph: CardShield
-#   startNode: start
-#   targetNode: cardShield
-#   category: construction-category-weapons
-#   objectType: Item
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: WoodenBuckler
+  graph: WoodenBuckler
+  startNode: start
+  targetNode: woodenBuckler
+  category: construction-category-weapons
+  objectType: Item
+
+- type: construction
+  hide: true # Grosse-change
+  id: CardShield
+  graph: CardShield
+  startNode: start
+  targetNode: cardShield
+  category: construction-category-weapons
+  objectType: Item
 
 - type: construction
   id: MakeshiftShield
@@ -174,20 +176,21 @@
   targetNode: spear
   category: construction-category-weapons
   objectType: Item
-# Grosse-change start
-# - type: construction
-#   id: ClothingHandsKnuckleDustersBrass
-#   graph: ClothingHandsKnuckleDustersBrass
-#   startNode: start
-#   targetNode: icon
-#   category: construction-category-weapons
-#   objectType: Item
 
-# - type: construction
-#   id: CardSword
-#   graph: CardSword
-#   startNode: start
-#   targetNode: cardSword
-#   category: construction-category-weapons
-#   objectType: Item
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: ClothingHandsKnuckleDustersBrass
+  graph: ClothingHandsKnuckleDustersBrass
+  startNode: start
+  targetNode: icon
+  category: construction-category-weapons
+  objectType: Item
+
+- type: construction
+  hide: true # Grosse-change
+  id: CardSword
+  graph: CardSword
+  startNode: start
+  targetNode: cardSword
+  category: construction-category-weapons
+  objectType: Item

@@ -5,47 +5,52 @@
   targetNode: torch
   category: construction-category-tools
   objectType: Item
-# Grosse-change start
-# - type: construction
-#   id: LogicGate
-#   graph: LogicGate
-#   startNode: start
-#   targetNode: logic_gate
-#   category: construction-category-tools
-#   objectType: Item
 
-# - type: construction
-#   id: EdgeDetector
-#   graph: LogicGate
-#   startNode: start
-#   targetNode: edge_detector
-#   category: construction-category-tools
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: LogicGate
+  graph: LogicGate
+  startNode: start
+  targetNode: logic_gate
+  category: construction-category-tools
+  objectType: Item
 
-# - type: construction
-#   id: PowerSensor
-#   graph: LogicGate
-#   startNode: start
-#   targetNode: power_sensor
-#   category: construction-category-tools
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: EdgeDetector
+  graph: LogicGate
+  startNode: start
+  targetNode: edge_detector
+  category: construction-category-tools
+  objectType: Item
 
-# - type: construction
-#   id: MemoryCell
-#   graph: LogicGate
-#   startNode: start
-#   targetNode: memory_cell
-#   category: construction-category-tools
-#   objectType: Item
+- type: construction
+  hide: true # Grosse-change
+  id: PowerSensor
+  graph: LogicGate
+  startNode: start
+  targetNode: power_sensor
+  category: construction-category-tools
+  objectType: Item
 
-# - type: construction
-#   id: RandomGate
-#   graph: LogicGate
-#   startNode: start
-#   targetNode: random_gate
-#   category: construction-category-tools
-#   objectType: Item
-# Grosse-change end
+- type: construction
+  hide: true # Grosse-change
+  id: MemoryCell
+  graph: LogicGate
+  startNode: start
+  targetNode: memory_cell
+  category: construction-category-tools
+  objectType: Item
+
+- type: construction
+  hide: true # Grosse-change
+  id: RandomGate
+  graph: LogicGate
+  startNode: start
+  targetNode: random_gate
+  category: construction-category-tools
+  objectType: Item
+
 - type: construction
   id: MakeshiftMortarAndPestle
   graph: MakeshiftMortarAndPestle
