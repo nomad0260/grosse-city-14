@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: HornBananium
   graph: BananiumHorn
   startNode: start

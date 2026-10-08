@@ -1,4 +1,5 @@
 ﻿- type: construction
+  hide: true # Grosse-change
   id: PlushieGhostRevenant
   graph: PlushieGhostRevenant
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingOuterSuitIan
   graph: ClothingOuterSuitIan
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: MoproachShoes
   graph: MoproachShoes
   startNode: start

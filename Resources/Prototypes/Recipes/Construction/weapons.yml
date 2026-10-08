@@ -87,6 +87,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: Bola
   graph: Bola
   startNode: start
@@ -95,6 +96,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: WoodenBuckler
   graph: WoodenBuckler
   startNode: start
@@ -103,6 +105,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: CardShield
   graph: CardShield
   startNode: start
@@ -175,6 +178,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingHandsKnuckleDustersBrass
   graph: ClothingHandsKnuckleDustersBrass
   startNode: start
@@ -183,6 +187,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: CardSword
   graph: CardSword
   startNode: start

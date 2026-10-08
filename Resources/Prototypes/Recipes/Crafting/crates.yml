@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: CrateLivestock
   graph: CrateLivestock
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: CrateGenericSteel
   graph: CrateGenericSteel
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: CrateSecure
   graph: CrateSecure
   startNode: start
@@ -23,6 +26,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: CrateFreezer
   name: construction-recipe-crate-freezer
   graph: CrateFreezer
@@ -32,6 +36,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: CratePlastic
   graph: CratePlastic
   startNode: start
@@ -40,6 +45,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: BigBox
   name: construction-recipe-big-box
   graph: BaseBigBox
@@ -49,6 +55,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: BoxCardboard
   name: construction-recipe-box-cardboard
   graph: BoxCardboard
@@ -58,6 +65,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: BoxCardboardSmall
   name: construction-recipe-box-cardboard-small
   graph: BoxCardboardSmall
@@ -67,6 +75,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ToteBase
   name: construction-recipe-box-tote
   graph: ToteBase
@@ -76,6 +85,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: FoodBoxPizza
   graph: FoodBoxPizza
   startNode: start
@@ -84,6 +94,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: CrateCoffin
   graph: CrateCoffin
   startNode: start

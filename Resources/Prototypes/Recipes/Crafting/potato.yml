@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: PowerCellPotato
   graph: PowerCellPotato
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PotatoAI
   graph: PotatoAI
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PotatoAIChip
   graph: PotatoAIChip
   startNode: start

@@ -1,5 +1,6 @@
 # SURVEILLANCE
 - type: construction
+  hide: true # Grosse-change
   id: camera
   graph: SurveillanceCamera
   startNode: start
@@ -9,6 +10,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: WallmountTelescreen
   graph: WallmountTelescreen
   startNode: start
@@ -19,6 +21,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: StationMap
   graph: StationMap
   startNode: start
@@ -33,6 +36,7 @@
 
 # POWER
 - type: construction
+  hide: true # Grosse-change
   id: APC
   graph: APC
   startNode: start
@@ -43,6 +47,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CableTerminal
   graph: CableTerminal
   startNode: start
@@ -53,6 +58,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: WallmountSubstation
   graph: WallmountSubstation
   startNode: start
@@ -63,6 +69,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: WallmountGenerator
   graph: WallmountGenerator
   startNode: start
@@ -73,6 +80,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: WallmountGeneratorAPU
   graph: WallmountGenerator
   startNode: start
@@ -84,6 +92,7 @@
 
 # DISPOSALS
 - type: construction
+  hide: true # Grosse-change
   id: DisposalUnit
   graph: DisposalMachine
   startNode: start
@@ -93,6 +102,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: MailingUnit
   graph: DisposalMachine
   startNode: start
@@ -102,6 +112,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalPipe
   graph: DisposalPipe
   startNode: start
@@ -111,6 +122,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalTagger
   graph: DisposalPipe
   startNode: start
@@ -120,6 +132,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalSignaller
   graph: DisposalPipe
   startNode: start
@@ -129,6 +142,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalTrunk
   graph: DisposalPipe
   startNode: start
@@ -138,6 +152,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalRouter
   graph: DisposalPipe
   startNode: start
@@ -159,6 +174,7 @@
   mirror: DisposalRouter
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalSignalRouter
   graph: DisposalPipe
   startNode: start
@@ -180,6 +196,7 @@
   mirror: DisposalSignalRouter
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalJunction
   graph: DisposalPipe
   startNode: start
@@ -201,6 +218,7 @@
   mirror: DisposalJunction
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalYJunction
   graph: DisposalPipe
   startNode: start
@@ -210,6 +228,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalXJunction
   graph: DisposalPipe
   startNode: start
@@ -219,6 +238,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: DisposalBend
   graph: DisposalPipe
   startNode: start
@@ -229,6 +249,7 @@
 
 # INTERCOM
 - type: construction
+  hide: true # Grosse-change
   id: IntercomAssembly
   graph: Intercom
   startNode: start
@@ -243,6 +264,7 @@
 
 # TIMERS
 - type: construction
+  hide: true # Grosse-change
   id: SignalTimer
   graph: Timer
   startNode: start
@@ -255,6 +277,7 @@
   - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ScreenTimer
   graph: Timer
   startNode: start
@@ -268,6 +291,7 @@
   - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: BrigTimer
   graph: Timer
   startNode: start
@@ -282,6 +306,7 @@
 
 # DEFENSES
 - type: construction
+  hide: true # Grosse-change
   id: WeaponEnergyTurretControlPanel
   graph: WeaponEnergyTurretControlPanel
   startNode: start

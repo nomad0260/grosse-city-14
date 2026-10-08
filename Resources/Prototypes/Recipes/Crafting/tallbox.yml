@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: ClosetSteel
   graph: ClosetSteel
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: ClosetSteelSecure
   graph: ClosetSteelSecure
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: ClosetFreezer
   name: construction-recipe-closet-freezer
   graph: ClosetFreezer
@@ -24,6 +27,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: GunSafe
   graph: GunSafe
   startNode: start
@@ -32,6 +36,7 @@
   objectType: Structure
 
 - type: construction
+  hide: true # Grosse-change
   id: ClosetWall
   graph: ClosetWall
   startNode: start

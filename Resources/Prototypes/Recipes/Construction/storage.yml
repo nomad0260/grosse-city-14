@@ -1,5 +1,6 @@
 #bureaucracy
 - type: construction
+  hide: true # Grosse-change
   id: FilingCabinet
   graph: FilingCabinet
   startNode: start
@@ -12,6 +13,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TallCabinet
   graph: FilingCabinet
   startNode: start
@@ -24,6 +26,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChestDrawer
   graph: FilingCabinet
   startNode: start
@@ -37,6 +40,7 @@
 
 # ItemCabinets
 - type: construction
+  hide: true # Grosse-change
   id: ShowCase
   graph: GlassBox
   startNode: start
@@ -51,6 +55,7 @@
 # Shelfs
 # Normals
 - type: construction
+  hide: true # Grosse-change
   id: ShelfWood
   graph: Shelf
   startNode: start
@@ -62,6 +67,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfMetal
   graph: Shelf
   startNode: start
@@ -73,6 +79,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfGlass
   graph: Shelf
   startNode: start
@@ -85,6 +92,7 @@
 
 # Reinforced
 - type: construction
+  hide: true # Grosse-change
   id: ShelfRWood
   graph: Shelf
   startNode: start
@@ -96,6 +104,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfRMetal
   graph: Shelf
   startNode: start
@@ -107,6 +116,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfRGlass
   graph: Shelf
   startNode: start
@@ -119,6 +129,7 @@
 
 # Departmental
 - type: construction
+  hide: true # Grosse-change
   id: ShelfBar
   graph: Shelf
   startNode: start
@@ -130,6 +141,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfKitchen
   graph: Shelf
   startNode: start
@@ -141,6 +153,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: ShelfChemistry
   graph: Shelf
   startNode: start

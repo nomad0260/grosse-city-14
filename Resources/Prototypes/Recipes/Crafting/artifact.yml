@@ -1,4 +1,5 @@
 ﻿- type: construction
+  hide: true # Grosse-change
   id: Artifact
   graph: Artifact
   startNode: start

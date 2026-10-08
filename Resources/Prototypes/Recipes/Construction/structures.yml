@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: Girder
   graph: Girder
   startNode: start
@@ -12,6 +13,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedGirder
   graph: Girder
   startNode: start
@@ -25,6 +27,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockworkGirder
   graph: ClockworkGirder
   startNode: start
@@ -38,6 +41,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Wall
   graph: Girder
   startNode: start
@@ -51,6 +55,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedWall
   graph: Girder
   startNode: start
@@ -64,6 +69,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: WallClock
   graph: ClockworkGirder
   startNode: start
@@ -77,6 +83,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: WoodWall
   graph: Barricade
   startNode: start
@@ -90,6 +97,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: UraniumWall
   graph: Girder
   startNode: start
@@ -103,6 +111,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: SilverWall
   graph: Girder
   startNode: start
@@ -116,6 +125,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasticWall
   graph: Girder
   startNode: start
@@ -129,6 +139,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaWall
   graph: Girder
   startNode: start
@@ -142,6 +153,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: GoldWall
   graph: Girder
   startNode: start
@@ -155,6 +167,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ShuttleWall
   graph: Girder
   startNode: start
@@ -168,6 +181,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: DiagonalShuttleWall
   name: construction-recipe-diagonal-shuttle-wall
   graph: Girder
@@ -182,6 +196,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ClownWall
   graph: Girder
   startNode: start
@@ -195,6 +210,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: MeatWall
   graph: Girder
   startNode: start
@@ -208,6 +224,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Cardwall
   graph: Cardwall
   startNode: start
@@ -221,6 +238,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: Grille
   graph: Grille
   startNode: start
@@ -234,6 +252,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockGrille
   graph: ClockGrille
   startNode: start
@@ -247,6 +266,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: GrilleDiagonal
   graph: GrilleDiagonal
   startNode: start
@@ -259,6 +279,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockworkGrilleDiagonal
   graph: GrilleDiagonal
   startNode: start
@@ -271,6 +292,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: Window
   graph: Window
   startNode: start
@@ -285,6 +307,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: WindowDiagonal
   name: construction-window-diagonal
   graph: WindowDiagonal
@@ -299,6 +322,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedWindow
   graph: Window
   startNode: start
@@ -313,6 +337,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedWindowDiagonal
   name: construction-recipe-reinforced-window-diagonal
   graph: WindowDiagonal
@@ -327,6 +352,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: TintedWindow
   graph: Window
   startNode: start
@@ -341,6 +367,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockworkWindow
   graph: Window
   startNode: start
@@ -355,6 +382,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockworkWindowDiagonal
   name: construction-recipe-clockwork-window-diagonal
   graph: WindowDiagonal
@@ -369,6 +397,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaWindow
   graph: Window
   startNode: start
@@ -383,6 +412,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedPlasmaWindow
   graph: Window
   startNode: start
@@ -397,6 +427,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ShuttleWindow
   graph: Window
   startNode: start
@@ -411,6 +442,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaWindowDiagonal
   name: construction-recipe-plasma-window-diagonal
   graph: WindowDiagonal
@@ -425,6 +457,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedPlasmaWindowDiagonal
   name: construction-recipe-reinforced-plasma-window-diagonal
   graph: WindowDiagonal
@@ -439,6 +472,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: WindowDirectional
   graph: WindowDirectional
   startNode: start
@@ -452,6 +486,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: WindowReinforcedDirectional
   graph: WindowDirectional
   startNode: start
@@ -465,6 +500,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: WindowClockworkDirectional
   graph: WindowDirectional
   startNode: start
@@ -478,6 +514,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaWindowDirectional
   graph: WindowDirectional
   startNode: start
@@ -491,6 +528,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaReinforcedWindowDirectional
   graph: WindowDirectional
   startNode: start
@@ -504,6 +542,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: UraniumWindow
   graph: Window
   startNode: start
@@ -518,6 +557,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedUraniumWindow
   graph: Window
   startNode: start
@@ -532,6 +572,7 @@
   canRotate: false
 
 - type: construction
+  hide: true # Grosse-change
   id: UraniumWindowDiagonal
   name: construction-recipe-uranium-window-diagonal
   graph: WindowDiagonal
@@ -546,6 +587,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedUraniumWindowDiagonal
   name: construction-recipe-reinforced-uranium-window-diagonal
   graph: WindowDiagonal
@@ -560,6 +602,7 @@
   placementMode: SnapgridCenter
 
 - type: construction
+  hide: true # Grosse-change
   id: Firelock
   graph: Firelock
   startNode: start
@@ -573,6 +616,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FirelockGlass
   graph: Firelock
   startNode: start
@@ -586,6 +630,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FirelockEdge
   name: construction-recipe-firelock-edge
   graph: Firelock
@@ -599,6 +644,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Turnstile
   graph: Turnstile
   startNode: start
@@ -611,6 +657,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Shutters
   graph: Shutters
   startNode: start
@@ -621,6 +668,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: ShuttersWindow
   graph: Shutters
   startNode: start
@@ -631,6 +679,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: ShuttersRadiation
   graph: Shutters
   startNode: start
@@ -641,6 +690,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: BlastDoor
   graph: BlastDoor
   startNode: start
@@ -651,6 +701,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: Catwalk
   graph: Catwalk
   startNode: start
@@ -668,6 +719,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: FloorBananium
   graph: FloorBananium
   startNode: start
@@ -684,6 +736,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: Barricade
   graph: Barricade
   startNode: start
@@ -696,6 +749,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BarricadeDirectional
   name: construction-recipe-barricade-directional
   graph: BarricadeDirectional
@@ -709,6 +763,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Railing
   graph: Railing
   startNode: start
@@ -721,6 +776,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: RailingCorner
   name: construction-recipe-railing-corner
   graph: Railing
@@ -734,6 +790,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: RailingCornerSmall
   name: construction-recipe-railing-corner-small
   graph: Railing
@@ -747,6 +804,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: RailingRound
   name: construction-recipe-railing-round
   graph: Railing
@@ -761,6 +819,7 @@
 
 # Chain link fencing
 - type: construction
+  hide: true # Grosse-change
   id: FenceMetal
   graph: FenceMetal
   startNode: start
@@ -773,6 +832,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FenceMetalCorner
   name: construction-recipe-fence-metal-corner
   graph: FenceMetal
@@ -786,6 +846,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FenceMetalEnd
   name: construction-recipe-fence-metal-end
   graph: FenceMetal
@@ -799,6 +860,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FenceMetalGate
   graph: FenceMetal
   startNode: start
@@ -941,6 +1003,7 @@
 
 #Airlocks
 - type: construction
+  hide: true # Grosse-change
   id: Airlock
   graph: Airlock
   startNode: start
@@ -953,6 +1016,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: AirlockGlass
   graph: Airlock
   startNode: start
@@ -965,6 +1029,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PinionAirlock
   name: construction-recipe-pinion-airlock
   graph: PinionAirlock
@@ -978,6 +1043,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PinionAirlockGlass
   name: construction-recipe-pinion-airlock-glass
   graph: PinionAirlock
@@ -991,6 +1057,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: AirlockShuttle
   graph: AirlockShuttle
   startNode: start
@@ -1004,6 +1071,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: AirlockGlassShuttle
   name: construction-recipe-airlock-glass-shuttle
   graph: AirlockShuttle
@@ -1018,6 +1086,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Windoor
   graph: Windoor
   startNode: start
@@ -1030,6 +1099,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: SecureWindoor
   graph: Windoor
   startNode: start
@@ -1042,6 +1112,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ClockworkWindoor
   graph: Windoor
   startNode: start
@@ -1055,6 +1126,7 @@
 
 #lighting
 - type: construction
+  hide: true # Grosse-change
   id: LightTubeFixture
   graph: LightFixture
   startNode: start
@@ -1070,6 +1142,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: LightSmallFixture
   graph: LightFixture
   startNode: start
@@ -1084,6 +1157,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: EmergencyLightFixture
   graph: LightFixture
   startNode: start
@@ -1097,6 +1171,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: LightGroundFixture
   graph: LightFixture
   startNode: start
@@ -1110,6 +1185,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: LightStrobeFixture
   graph: LightFixture
   startNode: start
@@ -1124,6 +1200,7 @@
 
 #conveyor
 - type: construction
+  hide: true # Grosse-change
   id: ConveyorBelt
   graph: ConveyorGraph
   startNode: start
@@ -1136,6 +1213,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: MetalDoor
   graph: DoorGraph
   startNode: start
@@ -1148,6 +1226,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: WoodDoor
   graph: DoorGraph
   startNode: start
@@ -1160,6 +1239,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaDoor
   graph: DoorGraph
   startNode: start
@@ -1172,6 +1252,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: GoldDoor
   graph: DoorGraph
   startNode: start
@@ -1184,6 +1265,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: SilverDoor
   graph: DoorGraph
   startNode: start
@@ -1196,6 +1278,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PaperDoor
   graph: DoorGraph
   startNode: start
@@ -1206,6 +1289,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: CardDoor
   graph: DoorGraph
   startNode: start
@@ -1216,6 +1300,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasticFlapsClear
   name: construction-recipe-plastic-flaps-clear
   graph: PlasticFlapsGraph
@@ -1229,6 +1314,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasticFlapsOpaque
   name: construction-recipe-plastic-flaps-opaque
   graph: PlasticFlapsGraph
@@ -1242,6 +1328,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: CarpStatue
   graph: CarpStatue
   startNode: start
@@ -1254,6 +1341,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BananiumClownStatue
   graph: BananiumStatueClown
   startNode: start
@@ -1266,6 +1354,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BananiumDoor
   graph: DoorGraph
   startNode: start
@@ -1278,6 +1367,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BananiumAltar
   graph: BananiumAltarGraph
   startNode: start
@@ -1291,6 +1381,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: SolidSecretDoor
   name: recipes-secret-door-name
   description: recipes-secret-door-desc
@@ -1305,6 +1396,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: FungalSoil
   graph: Soil
   startNode: start
@@ -1317,6 +1409,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: StationAiCore
   graph: StationAiCore
   startNode: start
@@ -1330,6 +1423,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Bonfire
   graph: Bonfire
   startNode: start
@@ -1343,6 +1437,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BonfireStake
   graph: Bonfire
   startNode: start

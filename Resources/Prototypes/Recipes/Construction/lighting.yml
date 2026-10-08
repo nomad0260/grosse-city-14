@@ -1,4 +1,5 @@
 ﻿- type: construction
+  hide: true # Grosse-change
   id: CyanLight
   graph: CyanLight
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: BlueLight
   graph: BlueLight
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: YellowLight
   graph: YellowLight
   startNode: start
@@ -23,6 +26,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PinkLight
   graph: PinkLight
   startNode: start
@@ -31,6 +35,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: OrangeLight
   graph: OrangeLight
   startNode: start
@@ -39,6 +44,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: BlackLight
   graph: BlackLight
   startNode: start
@@ -47,6 +53,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: RedLight
   graph: RedLight
   startNode: start
@@ -55,6 +62,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: GreenLight
   graph: GreenLight
   startNode: start
@@ -63,6 +71,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: CyanLightBulb
   graph: CyanLightBulb
   startNode: start
@@ -71,6 +80,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: BlueLightBulb
   graph: BlueLightBulb
   startNode: start
@@ -79,6 +89,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: YellowLightBulb
   graph: YellowLightBulb
   startNode: start
@@ -87,6 +98,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PinkLightBulb
   graph: PinkLightBulb
   startNode: start
@@ -95,6 +107,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: OrangeLightBulb
   graph: OrangeLightBulb
   startNode: start
@@ -103,6 +116,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: BlackLightBulb
   graph: BlackLightBulb
   startNode: start
@@ -111,6 +125,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: RedLightBulb
   graph: RedLightBulb
   startNode: start
@@ -119,6 +134,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: GreenLightBulb
   graph: GreenLightBulb
   startNode: start

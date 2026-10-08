@@ -1,4 +1,5 @@
 ﻿- type: construction
+  hide: true # Grosse-change
   id: Computer
   graph: Computer
   startNode: start
@@ -8,6 +9,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: MachineFrame
   graph: Machine
   startNode: start
@@ -18,6 +20,7 @@
 
 # Switching
 - type: construction
+  hide: true # Grosse-change
   id: TwoWayLeverRecipe
   graph: LeverGraph
   startNode: start
@@ -43,6 +46,7 @@
   hide: true #TODO: Fix the lightswitch, issue #34659. Until then, keep hidden so people don't build it and get confused.
 
 - type: construction
+  hide: true # Grosse-change
   id: SignalSwitchRecipe
   graph: SignalSwitchGraph
   startNode: start
@@ -56,6 +60,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: SignalButtonRecipe
   graph: SignalButtonGraph
   startNode: start
@@ -84,6 +89,7 @@
   hide: true #TODO: Fix the lightswitch, issue #34659. Until then, keep hidden so people don't build it and get confused.
 
 - type: construction
+  hide: true # Grosse-change
   id: SignalSwitchDirectionalRecipe
   name: construction-recipe-signal-switch-directional
   graph: SignalSwitchDirectionalGraph
@@ -98,6 +104,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: SignalButtonDirectionalRecipe
   name: construction-recipe-signal-button-directional
   graph: SignalButtonDirectionalGraph

@@ -7,6 +7,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ghost_sheet
   graph: GhostSheet
   startNode: start
@@ -39,6 +40,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: pneumaticcannon
   graph: PneumaticCannon
   startNode: start
@@ -135,6 +137,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: rollingpin
   graph: WoodenRollingPin
   startNode: start
@@ -143,6 +146,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PetCarrier
   graph: PetCarrier
   startNode: start
@@ -151,6 +155,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: RepairMothershipPinpointer
   graph: RepairMothershipPinpointer
   startNode: start
@@ -159,6 +164,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: HardsuitGoliath
   graph: HardsuitGoliath
   startNode: start
@@ -167,6 +173,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: scraparmor
   graph: scraparmor
   startNode: start
@@ -175,6 +182,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: scraphelmet
   graph: scraphelmet
   startNode: start
@@ -183,6 +191,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingBagPet
   graph: ClothingBagPet
   startNode: start

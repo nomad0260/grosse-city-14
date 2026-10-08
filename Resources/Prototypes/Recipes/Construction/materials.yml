@@ -1,4 +1,5 @@
 ﻿- type: construction
+  hide: true # Grosse-change
   id: MetalRod
   graph: MetalRod
   startNode: start
@@ -7,6 +8,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRGlass
   graph: Glass
   startNode: start
@@ -15,6 +17,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetClockworkGlass
   graph: Glass
   startNode: start
@@ -23,6 +26,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetPGlass
   graph: Glass
   startNode: start
@@ -31,6 +35,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRPGlass
   graph: Glass
   startNode: start
@@ -39,6 +44,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRPGlass0
   graph: Glass
   startNode: start
@@ -47,6 +53,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRPGlass1
   graph: Glass
   startNode: start
@@ -55,6 +62,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: MaterialDurathread
   graph: Durathread
   startNode: start
@@ -63,6 +71,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetUGlass
   graph: Glass
   startNode: start
@@ -71,6 +80,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRUGlass
   graph: Glass
   startNode: start
@@ -79,6 +89,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRUGlass0
   graph: Glass
   startNode: start
@@ -87,6 +98,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SheetRUGlass1
   graph: Glass
   startNode: start

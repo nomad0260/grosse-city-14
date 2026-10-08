@@ -1,5 +1,6 @@
 #chairs
 - type: construction
+  hide: true # Grosse-change
   id: Chair
   graph: Seat
   startNode: start
@@ -12,6 +13,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Stool
   graph: Seat
   startNode: start
@@ -24,6 +26,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: StoolBar
   graph: Seat
   startNode: start
@@ -36,6 +39,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairBrass
   graph: Seat
   startNode: start
@@ -48,6 +52,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairOfficeLight
   graph: Seat
   startNode: start
@@ -60,6 +65,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairOfficeDark
   graph: Seat
   startNode: start
@@ -72,6 +78,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairComfy
   graph: Seat
   startNode: start
@@ -84,6 +91,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: chairPilotSeat
   graph: Seat
   startNode: start
@@ -108,6 +116,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairMeat
   graph: Seat
   startNode: start
@@ -120,6 +129,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairRitual
   graph: RitualSeat
   startNode: start
@@ -132,6 +142,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairFolding
   graph: Seat
   startNode: start
@@ -144,6 +155,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: ChairSteelBench
   graph: Seat
   startNode: start
@@ -156,6 +168,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: StoolCard
   graph: Seat
   startNode: start
@@ -180,6 +193,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: RedComfBench
   name: construction-recipe-red-comf-bench
   graph: Seat
@@ -193,6 +207,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: BlueComfBench
   name: construction-recipe-blue-comf-bench
   graph: Seat
@@ -207,6 +222,7 @@
 
 #tables
 - type: construction
+  hide: true # Grosse-change
   id: Table
   graph: Table
   startNode: start
@@ -219,6 +235,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableReinforced
   graph: Table
   startNode: start
@@ -231,6 +248,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableGlass
   graph: Table
   startNode: start
@@ -243,6 +261,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableCard
   graph: Table
   startNode: start
@@ -255,6 +274,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableReinforcedGlass
   graph: Table
   startNode: start
@@ -267,6 +287,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TablePlasmaGlass
   graph: Table
   startNode: start
@@ -279,6 +300,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableBrass
   graph: Table
   startNode: start
@@ -291,6 +313,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableWood
   graph: Table
   startNode: start
@@ -303,6 +326,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableCarpet
   graph: Table
   startNode: start
@@ -315,6 +339,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyBlack
   name: construction-recipe-table-fancy-black
   graph: Table
@@ -328,6 +353,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyBlue
   name: construction-recipe-table-fancy-blue
   graph: Table
@@ -341,6 +367,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancySkyBlue
   name: construction-recipe-table-fancy-sky-blue
   graph: Table
@@ -354,6 +381,7 @@
   - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyCyan
   name: construction-recipe-table-fancy-cyan
   graph: Table
@@ -367,6 +395,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyGreen
   name: construction-recipe-table-fancy-green
   graph: Table
@@ -380,6 +409,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyOrange
   name: construction-recipe-table-fancy-orange
   graph: Table
@@ -393,6 +423,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyPurple
   name: construction-recipe-table-fancy-purple
   graph: Table
@@ -406,6 +437,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyPink
   name: construction-recipe-table-fancy-pink
   graph: Table
@@ -419,6 +451,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyRed
   name: construction-recipe-table-fancy-red
   graph: Table
@@ -432,6 +465,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableFancyWhite
   name: construction-recipe-table-fancy-white
   graph: Table
@@ -445,6 +479,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableCounterMetal
   graph: Table
   startNode: start
@@ -457,6 +492,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: TableCounterWood
   graph: Table
   startNode: start
@@ -470,6 +506,7 @@
 
 #bathroom
 - type: construction
+  hide: true # Grosse-change
   id: ToiletEmpty
   graph: Toilet
   startNode: start
@@ -483,6 +520,7 @@
 
 #bedroom
 - type: construction
+  hide: true # Grosse-change
   id: Bed
   graph: bed
   startNode: start
@@ -495,6 +533,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: MedicalBed
   graph: bed
   startNode: start
@@ -507,6 +546,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: DogBed
   graph: bed
   startNode: start
@@ -519,6 +559,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Dresser
   graph: Dresser
   startNode: start
@@ -532,6 +573,7 @@
 
 #racks
 - type: construction
+  hide: true # Grosse-change
   id: Rack
   graph: Rack
   startNode: start
@@ -545,6 +587,7 @@
 
 #misc
 - type: construction
+  hide: true # Grosse-change
   id: MeatSpike
   graph: MeatSpike
   startNode: start
@@ -557,6 +600,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: Curtains
   name: construction-recipe-curtains-cloth
   graph: Curtains
@@ -568,6 +612,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsBlack
   name: construction-recipe-curtains-black
   graph: Curtains
@@ -579,6 +624,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsBlue
   name: construction-recipe-curtains-blue
   graph: Curtains
@@ -590,6 +636,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsSkyBlue
   name: construction-recipe-curtains-sky-blue
   graph: Curtains
@@ -601,6 +648,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsCyan
   name: construction-recipe-curtains-cyan
   graph: Curtains
@@ -612,6 +660,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsGreen
   name: construction-recipe-curtains-green
   graph: Curtains
@@ -623,6 +672,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsOrange
   name: construction-recipe-curtains-orange
   graph: Curtains
@@ -634,6 +684,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsPink
   name: construction-recipe-curtains-pink
   graph: Curtains
@@ -645,6 +696,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsPurple
   name: construction-recipe-curtains-purple
   graph: Curtains
@@ -656,6 +708,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsRed
   name: construction-recipe-curtains-red
   graph: Curtains
@@ -667,6 +720,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: CurtainsWhite
   name: construction-recipe-curtains-white
   graph: Curtains
@@ -678,6 +732,7 @@
   canBuildInImpassable: true
 
 - type: construction
+  hide: true # Grosse-change
   id: Bookshelf
   graph: Bookshelf
   startNode: start
@@ -690,6 +745,7 @@
     - !type:TileNotBlocked
 
 - type: construction
+  hide: true # Grosse-change
   id: NoticeBoard
   graph: NoticeBoard
   startNode: start
@@ -703,6 +759,7 @@
     - !type:WallmountCondition
 
 - type: construction
+  hide: true # Grosse-change
   id: Mannequin
   graph: Mannequin
   startNode: start

@@ -1,5 +1,6 @@
 # Machines
 - type: construction
+  hide: true # Grosse-change
   id: AirAlarmFixture
   graph: AirAlarm
   startNode: start
@@ -13,6 +14,7 @@
   - !type:WallmountCondition {}
 
 - type: construction
+  hide: true # Grosse-change
   id: FireAlarm
   graph: FireAlarm
   startNode: start
@@ -26,6 +28,7 @@
   - !type:WallmountCondition {}
 
 - type: construction
+  hide: true # Grosse-change
   id: AirSensor
   graph: AirSensor
   startNode: start
@@ -36,6 +39,7 @@
   canRotate: true
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeSensor
   graph: GasPipeSensor
   startNode: start
@@ -81,6 +85,7 @@
 
 # ATMOS PIPES
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeHalf
   name: construction-recipe-gas-pipe-half
   graph: GasPipe
@@ -123,6 +128,7 @@
   - GasPipeHalfAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeStraight
   graph: GasPipe
   startNode: start
@@ -164,6 +170,7 @@
   - GasPipeStraightAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeBend
   name: construction-recipe-gas-pipe-bend
   graph: GasPipe
@@ -206,6 +213,7 @@
   - GasPipeBendAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeTJunction
   name: construction-recipe-gas-pipe-t-junction
   graph: GasPipe
@@ -248,6 +256,7 @@
   - GasPipeTJunctionAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeFourway
   name: construction-recipe-gas-pipe-fourway
   graph: GasPipe
@@ -290,6 +299,7 @@
   - GasPipeFourwayAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPipeManifold
   graph: GasPipe
   startNode: start
@@ -300,6 +310,7 @@
 
 # ATMOS UNARY
 - type: construction
+  hide: true # Grosse-change
   id: GasVentPump
   graph: GasUnary
   startNode: start
@@ -311,6 +322,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPassiveVent
   graph: GasUnary
   startNode: start
@@ -322,6 +334,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: GasVentScrubber
   graph: GasUnary
   startNode: start
@@ -333,6 +346,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: GasOutletInjector
   graph: GasUnary
   startNode: start
@@ -345,6 +359,7 @@
 
   # ATMOS BINARY
 - type: construction
+  hide: true # Grosse-change
   id: GasPressurePump
   graph: GasBinary
   startNode: start
@@ -392,6 +407,7 @@
   - GasPressurePumpAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasVolumePump
   graph: GasBinary
   startNode: start
@@ -439,6 +455,7 @@
   - GasVolumePumpAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPassiveGate
   graph: GasBinary
   startNode: start
@@ -486,6 +503,7 @@
   - GasPassiveGateAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPressureRegulator
   graph: GasBinary
   startNode: start
@@ -533,6 +551,7 @@
   - GasPressureRegulatorAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasValve
   graph: GasBinary
   startNode: start
@@ -580,6 +599,7 @@
   - GasValveAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: SignalControlledValve
   graph: GasBinary
   startNode: start
@@ -627,6 +647,7 @@
   - SignalControlledValveAlt2
 
 - type: construction
+  hide: true # Grosse-change
   id: GasPort
   graph: GasBinary
   startNode: start
@@ -638,6 +659,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: GasDualPortVentPump
   graph: GasBinary
   startNode: start
@@ -647,6 +669,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: HeatExchanger
   graph: GasBinary
   startNode: start
@@ -656,6 +679,7 @@
   canBuildInImpassable: false
 
 - type: construction
+  hide: true # Grosse-change
   id: HeatExchangerBend
   name: construction-recipe-heat-exchanger-bend
   graph: GasBinary
@@ -667,6 +691,7 @@
 
 # ATMOS TRINARY
 - type: construction
+  hide: true # Grosse-change
   id: GasFilter
   graph: GasTrinary
   startNode: start
@@ -692,6 +717,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: GasMixer
   graph: GasTrinary
   startNode: start
@@ -717,6 +743,7 @@
   - !type:NoUnstackableInTile
 
 - type: construction
+  hide: true # Grosse-change
   id: PressureControlledValve
   graph: GasTrinary
   startNode: start

@@ -1,7 +1,7 @@
 - type: species
   id: Vulpkanin
   name: species-name-vulpkanin
-  roundStart: True
+  roundStart: false # Grosse-change
   prototype: MobVulpkanin
   defaultSkinTone:  "#eb943d" #Corvax-Vulp_Port "#5a3f2d"
   dollPrototype: AppearanceVulpkanin

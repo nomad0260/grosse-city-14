@@ -7,6 +7,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: LogicGate
   graph: LogicGate
   startNode: start
@@ -15,6 +16,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: EdgeDetector
   graph: LogicGate
   startNode: start
@@ -23,6 +25,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PowerSensor
   graph: LogicGate
   startNode: start
@@ -31,6 +34,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: MemoryCell
   graph: LogicGate
   startNode: start
@@ -39,6 +43,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: RandomGate
   graph: LogicGate
   startNode: start

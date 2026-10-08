@@ -1,4 +1,5 @@
 - type: construction
+  hide: true # Grosse-change
   id: TileWeb
   graph: WebObjects
   startNode: start
@@ -10,6 +11,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingOuterWinterWeb
   graph: WebObjects
   startNode: start
@@ -21,6 +23,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingUniformJumpsuitWeb
   graph: WebObjects
   startNode: start
@@ -32,6 +35,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingUniformJumpskirtWeb
   graph: WebObjects
   startNode: start
@@ -43,6 +47,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SilkWovenCloth
   name: construction-recipe-silk-woven-cloth
   graph: WebObjects
@@ -55,6 +60,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: WebShield
   graph: WebObjects
   startNode: start
@@ -66,6 +72,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ClothingShoesBootsWinterWeb
   graph: WebObjects
   startNode: start
