@@ -16,3 +16,7 @@
   - type: Battery
     maxCharge: 6000
     startingCharge: 6000
+  - type: Tag
+    tags:
+    - PowerCell
+    - PowerCellCombineUnion

@@ -66,6 +66,26 @@
         Radiation: 0.5
         Caustic: 0.5
         Shock: 0.2
+  - type: PoweredArmor
+    coefficientBonus: 0.2
+    energyPerDamage: 10
+    powerOnSound:
+      path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
+    powerOffSound:
+      path: /Audio/_Grosse/Effects/Armor/armor_gone.ogg
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellCombineUnion17
+        whitelist:
+          tags:
+          - PowerCellCombineUnion
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
