@@ -10,7 +10,7 @@ namespace Content.Shared._Grosse.Clothing;
 /// <summary>
 /// Occupies extra inventory slots with virtual copies of clothing while it is worn.
 /// </summary>
-public sealed class ClothingRequiredSlotsSystem : EntitySystem
+public sealed partial class ClothingRequiredSlotsSystem : EntitySystem
 {
     private static readonly SlotFlags[] SingleFlags =
     [
