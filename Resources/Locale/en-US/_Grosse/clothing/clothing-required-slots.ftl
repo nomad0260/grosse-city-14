@@ -1,0 +1,20 @@
+clothing-required-slots-blocked = Free the extra slots this clothing needs before equipping it.
+clothing-required-slots-examine = Occupies extra slots: {$slots}.
+
+clothing-required-slots-slot-preventequip = unequippable
+clothing-required-slots-slot-head = head
+clothing-required-slots-slot-eyes = eyes
+clothing-required-slots-slot-ears = ears
+clothing-required-slots-slot-mask = mask
+clothing-required-slots-slot-outerclothing = outer clothing
+clothing-required-slots-slot-innerclothing = jumpsuit
+clothing-required-slots-slot-neck = neck
+clothing-required-slots-slot-back = back
+clothing-required-slots-slot-belt = belt
+clothing-required-slots-slot-gloves = gloves
+clothing-required-slots-slot-idcard = ID
+clothing-required-slots-slot-pocket = pocket
+clothing-required-slots-slot-legs = legs
+clothing-required-slots-slot-feet = shoes
+clothing-required-slots-slot-suitstorage = suit storage
+clothing-required-slots-slot-unknown = slot

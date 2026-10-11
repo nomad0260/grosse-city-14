@@ -1,0 +1,20 @@
+clothing-required-slots-blocked = Сначала освободите дополнительные слоты, которые занимает эта одежда.
+clothing-required-slots-examine = Занимает дополнительные слоты: {$slots}.
+
+clothing-required-slots-slot-preventequip = запрет надевания
+clothing-required-slots-slot-head = голова
+clothing-required-slots-slot-eyes = глаза
+clothing-required-slots-slot-ears = уши
+clothing-required-slots-slot-mask = маска
+clothing-required-slots-slot-outerclothing = верхняя одежда
+clothing-required-slots-slot-innerclothing = комбинезон
+clothing-required-slots-slot-neck = шея
+clothing-required-slots-slot-back = спина
+clothing-required-slots-slot-belt = пояс
+clothing-required-slots-slot-gloves = перчатки
+clothing-required-slots-slot-idcard = идентификатор
+clothing-required-slots-slot-pocket = карман
+clothing-required-slots-slot-legs = ноги
+clothing-required-slots-slot-feet = обувь
+clothing-required-slots-slot-suitstorage = хранилище костюма
+clothing-required-slots-slot-unknown = слот
