@@ -34,6 +34,12 @@ public sealed partial class JobPlayTimeRank
     public ProtoId<JobIconPrototype>? Icon;
 
     /// <summary>
+    /// Two-digit civil-protection callsign rank, for example <c>05</c>.
+    /// </summary>
+    [DataField]
+    public string? Callsign;
+
+    /// <summary>
     /// Playtime / other gates that must all pass for this rank to apply.
     /// Same types as job and loadout requirements.
     /// </summary>

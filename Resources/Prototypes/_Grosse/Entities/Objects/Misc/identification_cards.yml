@@ -216,14 +216,6 @@
   - type: IdCard
     jobTitle: job-title-civil-protection
     jobIcon: JobIconUnion
-  - type: AgentIDCard
-  - type: ActivatableUI
-    key: enum.AgentIDCardUiKey.Key
-    verbText: agent-id-open-ui-verb
-  - type: UserInterface
-    interfaces:
-      enum.AgentIDCardUiKey.Key:
-        type: AgentIDCardBoundUserInterface
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing

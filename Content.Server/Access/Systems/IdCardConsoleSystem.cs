@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Server._Grosse.CivilProtection;
 using Content.Server.Chat.Systems;
 using Content.Server.Containers;
 using Content.Server.StationRecords.Systems;
@@ -154,6 +155,11 @@ public sealed partial class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         if (newJobTitle.Length > maxIdJobLength)
             newJobTitle = newJobTitle[..maxIdJobLength];
+
+        if (HasComp<FixedIdNameComponent>(targetId)
+            && TryComp<IdCardComponent>(targetId, out var lockedId)
+            && !string.IsNullOrWhiteSpace(lockedId.FullName))
+            newFullName = lockedId.FullName;
 
         _idCard.TryChangeFullName(targetId, newFullName, player: player);
         _idCard.TryChangeJobTitle(targetId, newJobTitle, player: player);

@@ -18,6 +18,7 @@
       - Human
   playTimeRanks:
   - name: Ветеран Гражданской Обороны
+    callsign: "04"
     idCard: UnionIDCardCivilProtection
     icon: JobIconUnionGold
     requirements:
@@ -25,6 +26,7 @@
       role: JobCivilProtection
       time: 20h
   - name: Элитный юнит ГО
+    callsign: "03"
     idCard: UnionIDCardCivilProtectionOfficer
     icon: JobIconUnionCommander
     requirements:
@@ -66,6 +68,9 @@
     - !type:SpeciesRequirement
       species:
       - Human
+  playTimeRanks:
+  - name: Локальный Командир Гражданской Обороны
+    callsign: "02"
   access:
     - UnionBase
     - UnionCP
@@ -99,6 +104,9 @@
     - !type:SpeciesRequirement
       species:
       - Human
+  playTimeRanks:
+  - name: Офицер Гражданской Обороны
+    callsign: "01"
   access:
     - UnionBase
     - UnionCP

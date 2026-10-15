@@ -1,3 +1,4 @@
+using Content.Server._Grosse.CivilProtection;
 using Content.Server.Speech;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
@@ -204,6 +205,12 @@ public sealed partial class VoiceMaskSystem : EntitySystem
 
     private void OnChangeName(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeNameMessage message)
     {
+        if (HasComp<IdBoundVoiceMaskComponent>(entity))
+        {
+            _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-failure"), entity, message.Actor, PopupType.SmallCaution);
+            return;
+        }
+
         if (message.Name.Length > _maxNameLength || message.Name.Length <= 0)
         {
             _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-failure"), entity, message.Actor, PopupType.SmallCaution);
@@ -226,6 +233,9 @@ public sealed partial class VoiceMaskSystem : EntitySystem
 
     private void OnToggle(Entity<VoiceMaskComponent> entity, ref VoiceMaskToggleMessage args)
     {
+        if (HasComp<IdBoundVoiceMaskComponent>(entity))
+            return;
+
         _popupSystem.PopupEntity(Loc.GetString("voice-mask-popup-toggle"), entity, args.Actor);
         entity.Comp.Active = !entity.Comp.Active;
 
@@ -249,7 +259,7 @@ public sealed partial class VoiceMaskSystem : EntitySystem
     #region UI
     private void OnEquip(EntityUid uid, VoiceMaskComponent component, ClothingGotEquippedEvent args)
     {
-        if (_lock.IsLocked(uid))
+        if (HasComp<IdBoundVoiceMaskComponent>(uid) || _lock.IsLocked(uid))
             return;
 
         component.Active = false;

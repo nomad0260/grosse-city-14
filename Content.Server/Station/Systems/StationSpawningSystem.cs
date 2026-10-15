@@ -255,6 +255,7 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
         var rankComp = EnsureComp<JobPlayTimeRankComponent>(entity);
         rankComp.DisplayName = displayName;
         rankComp.Icon = rank.Icon;
+        rankComp.Callsign = rank.Callsign;
         Dirty(entity, rankComp);
 
         if (rank.IdCard != null)
