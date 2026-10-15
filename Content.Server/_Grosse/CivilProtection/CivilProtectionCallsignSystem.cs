@@ -16,7 +16,7 @@ namespace Content.Server._Grosse.CivilProtection;
 /// <summary>
 /// Issues a civil-protection callsign (<c>0000.05.14</c>) and keeps the gas-mask vocoder on that name.
 /// </summary>
-public sealed class CivilProtectionCallsignSystem : EntitySystem
+public sealed partial class CivilProtectionCallsignSystem : EntitySystem
 {
     private const string DepartmentId = "City14CivilProtection";
     private const string DefaultCallsign = "05";
