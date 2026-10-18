@@ -1,3 +1,4 @@
+using Content.Client.Resources;
 using Content.Client.Stylesheets;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -44,10 +45,10 @@ public sealed partial class AtmosAlarmEntryContainer : BoxContainer
         NetEntity = uid;
         Coordinates = coordinates;
 
-        // Load fonts
-        var headerFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Bold.ttf"), 11);
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
-        var smallFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"), 10);
+        // Load fonts, honouring the selectable UI font style
+        var headerFont = _cache.GetStack("Bold", 11);
+        var normalFont = _cache.GetStack("Regular", 11);
+        var smallFont = _cache.GetStack("Regular", 10);
 
         // Set fonts
         TemperatureHeaderLabel.FontOverride = headerFont;
@@ -71,7 +72,7 @@ public sealed partial class AtmosAlarmEntryContainer : BoxContainer
         Coordinates = _entManager.GetCoordinates(entry.Coordinates);
 
         // Load fonts
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        var normalFont = _cache.GetStack("Regular", 11);
 
         // Update alarm state
         if (!_alarmStrings.TryGetValue(entry.AlarmState, out var alarmString))

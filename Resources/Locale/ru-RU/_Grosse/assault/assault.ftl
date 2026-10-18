@@ -7,7 +7,7 @@ assault-team-rebels = Повстанцы
 assault-team-combine = Альянс
 assault-team-counts = { $attackersName } { $attackers } / { $defendersName } { $defenders }
 
-assault-lobby-header = Штурм
+assault-lobby-header = Штрум
 assault-lobby-random = Рандом
 assault-lobby-select-team = Команда
 assault-lobby-select-class = Класс

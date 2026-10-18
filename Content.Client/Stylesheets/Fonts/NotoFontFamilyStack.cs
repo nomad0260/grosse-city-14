@@ -1,4 +1,5 @@
 ﻿using Content.Client.Resources;
+using Content.Client.UserInterface;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
@@ -82,9 +83,22 @@ public sealed class NotoFontFamilyStack(IResourceCache resCache, string variant 
     /// <returns>A Font resource.</returns>
     public Font GetFont(int size, FontKind kind = FontKind.Regular)
     {
-        //ALDebugTools.AssertContains(AvailableKinds, kind);
-        var paths = GetFontPaths(kind);
+        // Route through the selectable UI font style manager when available.
+        if (IoCManager.Instance is { } ioc
+            && ioc.TryResolveType<IUiFontStackManager>(out var fonts))
+        {
+            var variation = kind switch
+            {
+                FontKind.Bold => "Bold",
+                FontKind.Italic => "Italic",
+                FontKind.BoldItalic => "BoldItalic",
+                _ => "Regular",
+            };
 
+            return fonts.GetStack(resCache, variation, size, variant == "Display");
+        }
+
+        var paths = GetFontPaths(kind);
         return resCache.GetFont(paths, size);
     }
 }

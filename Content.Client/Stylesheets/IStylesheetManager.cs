@@ -25,6 +25,13 @@ public interface IStylesheetManager
 
     void Initialize();
 
+    /// <summary>
+    /// Rebuilds every stylesheet from scratch. Style rules hold concrete <see cref="Robust.Client.Graphics.Font"/>
+    /// instances, so anything that changes which fonts are used (the selectable UI font style)
+    /// has to rebuild them for the change to reach the rest of the UI.
+    /// </summary>
+    void ReloadSheets();
+
     ///
     /// Sheetlets marked with CommonSheetlet that have not satisfied the type constraints of any stylesheet
     ///

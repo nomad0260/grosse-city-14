@@ -12,9 +12,9 @@ public sealed class LabelSheetlet : Sheetlet<PalettedStylesheet>
 {
     public override StyleRule[] GetRules(PalettedStylesheet sheet, object config)
     {
-        var robotoMonoBold11 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 11);
-        var robotoMonoBold12 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 12);
-        var robotoMonoBold14 = ResCache.GetFont("/Fonts/RobotoMono/RobotoMono-Bold.ttf", size: 14);
+        var monoBold11 = StyleFonts.Mono(ResCache, 11);
+        var monoBold12 = StyleFonts.Mono(ResCache, 12);
+        var monoBold14 = StyleFonts.Mono(ResCache, 14);
 
         return
         [
@@ -67,13 +67,13 @@ public sealed class LabelSheetlet : Sheetlet<PalettedStylesheet>
             // Console text
             E<Label>()
                 .Class(StyleClass.LabelMonospaceText)
-                .Prop(Label.StylePropertyFont, robotoMonoBold11),
+                .Prop(Label.StylePropertyFont, monoBold11),
             E<Label>()
                 .Class(StyleClass.LabelMonospaceSubHeading)
-                .Prop(Label.StylePropertyFont, robotoMonoBold12),
+                .Prop(Label.StylePropertyFont, monoBold12),
             E<Label>()
                 .Class(StyleClass.LabelMonospaceHeading)
-                .Prop(Label.StylePropertyFont, robotoMonoBold14),
+                .Prop(Label.StylePropertyFont, monoBold14),
         ];
     }
 }

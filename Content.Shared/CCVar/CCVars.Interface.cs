@@ -23,6 +23,12 @@ public sealed partial class CCVars
         CVarDef.Create("ui.layout", "Default", CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
+    /// The font style used for interface text.
+    /// </summary>
+    public static readonly CVarDef<string> UiFontStyle =
+        CVarDef.Create("ui.font_style", "Cozette", CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
     /// The dimensions for the chat window in Default UI mode
     /// </summary>
     public static readonly CVarDef<string> DefaultScreenChatSize =

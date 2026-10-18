@@ -1,0 +1,45 @@
+# Selectable UI font styles (ported from mini-station).
+# Non-Noto fonts are scaled at runtime to ~85% of Noto Sans metrics at the same requested size.
+- type: uiFontStyle
+  id: Default
+  name: ui-options-font-style-default
+  regular: /Fonts/NotoSans/NotoSans-Regular.ttf
+  italic: /Fonts/NotoSans/NotoSans-Italic.ttf
+  bold: /Fonts/NotoSans/NotoSans-Bold.ttf
+  boldItalic: /Fonts/NotoSans/NotoSans-BoldItalic.ttf
+  displayRegular: /Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf
+  displayBold: /Fonts/NotoSansDisplay/NotoSansDisplay-Bold.ttf
+  mono: /EngineFonts/NotoSans/NotoSansMono-Regular.ttf
+  notoFallback: false
+  order: 0
+
+- type: uiFontStyle
+  id: EpilepsySans
+  name: ui-options-font-style-epilepsy-sans
+  regular: /Fonts/_Mini/Epilepsy Sans/EpilepsySans.ttf
+  bold: /Fonts/_Mini/Epilepsy Sans/EpilepsySansBold.ttf
+  mono: /Fonts/_Mini/Epilepsy Sans/EpilepsySans.ttf
+  order: 1
+
+- type: uiFontStyle
+  id: Cozette
+  name: ui-options-font-style-cozette
+  regular: /Fonts/_Mini/Cozette/CozetteVector.ttf
+  bold: /Fonts/_Mini/Cozette/CozetteVectorBold.ttf
+  mono: /Fonts/_Mini/Cozette/CozetteVector.ttf
+  order: 2
+
+- type: uiFontStyle
+  id: Bedstead
+  name: ui-options-font-style-bedstead
+  regular: /Fonts/Bedstead/Bedstead.otf
+  mono: /Fonts/Bedstead/Bedstead.otf
+  order: 3
+
+- type: uiFontStyle
+  id: Pixeloid
+  name: ui-options-font-style-pixeloid
+  regular: /Fonts/_Mini/Pixeloid/PixeloidSans.ttf
+  bold: /Fonts/_Mini/Pixeloid/PixeloidSans-Bold.ttf
+  mono: /Fonts/_Mini/Pixeloid/PixeloidMono.ttf
+  order: 4

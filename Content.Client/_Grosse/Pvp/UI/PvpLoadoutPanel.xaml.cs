@@ -10,6 +10,8 @@ public sealed partial class PvpLoadoutPanel : Robust.Client.UserInterface.Contro
 {
     public event Action<bool, PvpTeam?, string?>? LoadoutSelected;
 
+    private bool _enabled;
+    private bool _open;
     private PvpTeam? _team;
     private string? _classId;
     private bool _random;
@@ -27,20 +29,19 @@ public sealed partial class PvpLoadoutPanel : Robust.Client.UserInterface.Contro
         RandomButton.OnPressed += _ => SelectRandom();
     }
 
-    public void SetVisibleEnabled(bool enabled)
+    /// <summary>Раскрывает или сворачивает меню. Видимо только когда режим активен.</summary>
+    public void SetOpen(bool open)
     {
-        Contents.Visible = enabled;
-        Visible = enabled;
+        _open = open;
+        UpdateVisibility();
     }
 
     public void UpdateState(PvpLobbyStateEvent state)
     {
-        SetVisibleEnabled(state.Enabled);
+        _enabled = state.Enabled;
+        UpdateVisibility();
         if (!state.Enabled)
             return;
-
-        if (!string.IsNullOrEmpty(state.Header))
-            Header.Text = state.Header;
 
         TeamCounts.Text = Loc.GetString("pvp-team-counts",
             ("attackersName", state.AttackersName),
@@ -70,6 +71,13 @@ public sealed partial class PvpLoadoutPanel : Robust.Client.UserInterface.Contro
                 : Loc.GetString("pvp-lobby-ready-hint");
 
         RebuildClasses();
+    }
+
+    private void UpdateVisibility()
+    {
+        var visible = _enabled && _open;
+        MenuPanel.Visible = visible;
+        Visible = visible;
     }
 
     private void SelectTeam(PvpTeam team)

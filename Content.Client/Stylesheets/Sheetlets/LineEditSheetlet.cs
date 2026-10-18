@@ -12,11 +12,14 @@ public sealed class LineEditSheetlet<T> : Sheetlet<T> where T : PalettedStyleshe
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        ILineEditConfig lineEditCfg = sheet;
-
-        var lineEditStylebox = sheet.GetTextureOr(lineEditCfg.LineEditPath, NanotrasenStylesheet.TextureRoot)
-            .IntoPatch(StyleBox.Margin.All, 3);
-        lineEditStylebox.SetContentMarginOverride(StyleBox.Margin.Horizontal, 5);
+        var lineEditStylebox = new RoundedStyleBox
+        {
+            BackgroundColor = Color.FromHex("#1B1F26").WithAlpha(0.96f),
+            BorderColor = Color.FromHex("#454F5C"),
+            BorderThickness = 1f,
+            CornerRadius = 6f,
+            Padding = new Thickness(6f, 2f, 6f, 2f),
+        };
 
         return
         [
