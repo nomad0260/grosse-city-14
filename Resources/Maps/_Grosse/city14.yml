@@ -440586,6 +440586,13 @@ entities:
       containers:
         board: !type:Container
           ents: []
+- proto: UnionComputerRationC17
+  entities:
+  - uid: 140001
+    components:
+    - type: Transform
+      pos: -138.5,44.5
+      parent: 1
 - proto: UnionComputerCargoBounty
   entities:
   - uid: 602

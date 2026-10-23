@@ -425,6 +425,26 @@
 
 - type: entity
   parent: BaseUnionComputerC17
+  id: UnionComputerRationC17
+  name: ration terminal
+  description: Issues ration coupons to civilian workers.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: console2
+    - map: ["computerLayerKeys"]
+      state: console2-unshaded
+  - type: RationTerminal
+  - type: ActivatableUI
+    key: enum.RationTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.RationTerminalUiKey.Key:
+        type: RationTerminalBoundUserInterface
+
+- type: entity
+  parent: BaseUnionComputerC17
   id: UnionComputerCriminalRecords
   name: criminal records computer
   description: This can be used to check criminal records. Only security can modify them.
