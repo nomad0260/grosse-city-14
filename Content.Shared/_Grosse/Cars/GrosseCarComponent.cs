@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared.Damage;
 using Content.Shared.Decals;
+using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -91,6 +92,20 @@ public sealed partial class GrosseCarComponent : Component
 
     [DataField]
     public DamageSpecifier WallDamage = new();
+
+    /// <summary>
+    /// Entities the car can crash into without damaging or tossing them. The car and crew still take impact damage.
+    /// An empty list rams every damageable target. Set tags on the vehicle prototype.
+    /// </summary>
+    [DataField]
+    public EntityWhitelist RamBlacklist = new();
+
+    /// <summary>
+    /// Multiplies <see cref="WallDamage"/> dealt to the car and crew when the target is on <see cref="RamBlacklist"/>.
+    /// Null leaves that damage unchanged.
+    /// </summary>
+    [DataField]
+    public float? BlacklistImpactCoefficient;
 
     [DataField]
     public TimeSpan ImpactCooldown = TimeSpan.FromSeconds(0.5);

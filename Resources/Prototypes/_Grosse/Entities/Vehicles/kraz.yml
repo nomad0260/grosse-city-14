@@ -68,6 +68,10 @@
     wallDamage:
       types:
         Blunt: 12
+    ramBlacklist:
+      tags:
+      - Wall
+    blacklistImpactCoefficient: 1.5
     slots:
     - id: driver
       name: grosse-car-slot-driver
