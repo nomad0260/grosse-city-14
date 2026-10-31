@@ -87,6 +87,11 @@ public sealed class GrosseCarTest : GameTest
                     Assert.That(car.Slots.Count(s => s.IsDriver), Is.EqualTo(1), $"{proto.ID} must have exactly one driver slot");
                     Assert.That(car.EngineForce, Is.GreaterThan(0f), $"{proto.ID} engineForce");
                     Assert.That(car.MaxForwardSpeed, Is.GreaterThan(0f), $"{proto.ID} maxForwardSpeed");
+                    Assert.That(car.RamBlacklist.Tags?.Any(tag => tag.Id == "Wall"), Is.True, $"{proto.ID} ramBlacklist must include Wall");
+                    if (proto.ID == "VehicleKraz17")
+                        Assert.That(car.BlacklistImpactCoefficient, Is.EqualTo(1.5f), $"{proto.ID} blacklistImpactCoefficient");
+                    else
+                        Assert.That(car.BlacklistImpactCoefficient, Is.Null, $"{proto.ID} blacklistImpactCoefficient");
                     Assert.That(proto.HasComponent<SkipMobMovementComponent>(factory), $"{proto.ID} missing SkipMobMovement");
                     Assert.That(proto.HasComponent<InputMoverComponent>(factory), $"{proto.ID} missing InputMover");
                     Assert.That(proto.HasComponent<AppearanceComponent>(factory), $"{proto.ID} missing Appearance");
