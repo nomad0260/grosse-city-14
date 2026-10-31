@@ -95,12 +95,10 @@ public sealed partial class GrosseCarComponent : Component
 
     /// <summary>
     /// Entities the car can crash into without damaging or tossing them. The car and crew still take impact damage.
+    /// An empty list rams every damageable target. Set tags on the vehicle prototype.
     /// </summary>
     [DataField]
-    public EntityWhitelist RamBlacklist = new()
-    {
-        Tags = new() { "Wall" },
-    };
+    public EntityWhitelist RamBlacklist = new();
 
     /// <summary>
     /// Multiplies <see cref="WallDamage"/> dealt to the car and crew when the target is on <see cref="RamBlacklist"/>.
