@@ -287464,100 +287464,56 @@ entities:
     - type: Transform
       pos: -55.5,-101.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 19219
     components:
     - type: Transform
       pos: 43.5,-89.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 82337
     components:
     - type: Transform
       pos: 15.5,-170.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 82338
     components:
     - type: Transform
       pos: 16.5,-170.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 84710
     components:
     - type: Transform
       pos: -97.5,-69.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 84722
     components:
     - type: Transform
       pos: -96.5,-69.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 84723
     components:
     - type: Transform
       pos: -95.5,-69.5
       parent: 1
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 117879
     components:
     - type: Transform
       pos: 230.5,-105.5
       parent: 29942
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118214
     components:
     - type: Transform
       pos: 232.5,-105.5
       parent: 29942
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118217
     components:
     - type: Transform
       pos: 229.5,-105.5
       parent: 29942
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118220
     components:
     - type: Transform
       pos: 231.5,-105.5
       parent: 29942
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 121429
     components:
     - type: Transform
@@ -287566,10 +287522,6 @@ entities:
       parent: 1
     - type: Physics
       bodyType: Dynamic
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 121436
     components:
     - type: Transform
@@ -287578,10 +287530,6 @@ entities:
       parent: 1
     - type: Physics
       bodyType: Dynamic
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
 - proto: PosterBroken
   entities:
   - uid: 4574

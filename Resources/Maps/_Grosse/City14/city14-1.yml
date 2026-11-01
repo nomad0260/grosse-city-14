@@ -31188,118 +31188,66 @@ entities:
     - type: Transform
       pos: -34.5,103.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 110919
     components:
     - type: Transform
       pos: -35.5,103.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 111088
     components:
     - type: Transform
       pos: 5.5,87.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 111089
     components:
     - type: Transform
       pos: 4.5,87.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 111090
     components:
     - type: Transform
       pos: 3.5,87.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 114550
     components:
     - type: Transform
       pos: -120.5,0.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 114563
     components:
     - type: Transform
       pos: 45.5,81.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118613
     components:
     - type: Transform
       pos: 62.5,91.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118614
     components:
     - type: Transform
       pos: 61.5,91.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118615
     components:
     - type: Transform
       pos: 60.5,91.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 118616
     components:
     - type: Transform
       pos: 59.5,91.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 123425
     components:
     - type: Transform
       pos: 52.5,72.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
   - uid: 123448
     components:
     - type: Transform
       pos: 51.5,72.5
       parent: 81589
-    - type: LinkedEntity
-      deleteOnEmptyLinks: True
-      linkedEntities:
-      - invalid
 - proto: PosterBroken
   entities:
   - uid: 85140
