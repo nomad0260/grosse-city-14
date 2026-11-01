@@ -26,6 +26,17 @@
             CivilProtactionUnit: [ 18, 18 ]
             CivilProtactionUnit02: [ 4, 4 ]
             CivilProtactionUnitOfficer: [ 1, 1 ]
+        - type: GhostRespawnWhitelist
+          jobs:
+            - Citizen
+            - Worker
+            - UnionMiner
+            - UnionResearcher
+            - UnionFactoryHead
+            - UnionWorkersHead
+            - CivilProtactionUnit
+            - CivilProtactionUnit02
+            - CivilProtactionUnitOfficer
 
 - type: entity
   id: StandardCombineCity
