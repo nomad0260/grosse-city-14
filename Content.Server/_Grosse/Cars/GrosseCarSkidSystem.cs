@@ -47,9 +47,10 @@ public sealed partial class GrosseCarSkidSystem : EntitySystem
             var side = new Vector2(-travel.Y, travel.X);
             var gridAngle = xform.GridUid is { } grid ? _transform.GetWorldRotation(grid) : Angle.Zero;
             var decalAngle = Angle.FromWorldVec(travel) - gridAngle + StreakAlongTravel;
+            var origin = Vector2.Transform(car.DriftDecalOffset, _transform.GetWorldMatrix(xform));
 
-            TrySkid(car, WorldToGrid(xform, worldPos + side * TrackHalfWidth), decalAngle);
-            TrySkid(car, WorldToGrid(xform, worldPos - side * TrackHalfWidth), decalAngle);
+            TrySkid(car, WorldToGrid(xform, origin + side * TrackHalfWidth), decalAngle);
+            TrySkid(car, WorldToGrid(xform, origin - side * TrackHalfWidth), decalAngle);
         }
     }
 
