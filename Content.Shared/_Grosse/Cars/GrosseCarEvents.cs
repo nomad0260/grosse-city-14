@@ -46,4 +46,9 @@ public sealed partial class GrosseCarEjectDoAfterEvent : DoAfterEvent
     {
         return new GrosseCarEjectDoAfterEvent(SlotId);
     }
+
+    public override bool IsDuplicate(DoAfterEvent other)
+    {
+        return other is GrosseCarEjectDoAfterEvent eject && eject.SlotId == SlotId;
+    }
 }

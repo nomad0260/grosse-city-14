@@ -167,7 +167,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 
             args.Verbs.Add(new AlternativeVerb
             {
-                Text = Loc.GetString("grosse-car-verb-eject", ("target", occupant)),
+                Text = Loc.GetString("grosse-car-verb-eject", ("target", occupant), ("slot", Loc.GetString(occupied.Name))),
                 Priority = -2,
                 Act = () => TryEject(ent, occupant, user, skipDelay: false),
             });
@@ -202,7 +202,12 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
         if (args.Cancelled || args.Handled)
             return;
 
-        var occupant = args.Target ?? args.User;
+        if (!TryGetSlot(ent.Comp, args.SlotId, out var slot) ||
+            !_container.TryGetContainer(ent.Owner, slot.ContainerId, out var container) ||
+            container.ContainedEntities.Count == 0)
+            return;
+
+        var occupant = container.ContainedEntities[0];
         args.Handled = TryEject(ent, occupant, args.User, skipDelay: true);
     }
 
@@ -378,19 +383,22 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 
         if (!skipDelay && user != occupant && car.Comp.ExitDelay > TimeSpan.Zero)
         {
-            _popup.PopupPredicted(
-                Loc.GetString("grosse-car-eject-others", ("target", occupant)),
-                car.Owner,
-                user,
-                PopupType.Large);
-
-            var args = new DoAfterArgs(EntityManager, user, car.Comp.ExitDelay, new GrosseCarEjectDoAfterEvent(rider.SlotId), car.Owner, occupant, car.Owner)
+            // Target the car. The occupant is inside a seat container, so a range check against them always fails.
+            var args = new DoAfterArgs(EntityManager, user, car.Comp.ExitDelay, new GrosseCarEjectDoAfterEvent(rider.SlotId), car.Owner, car.Owner, car.Owner)
             {
                 BreakOnMove = true,
                 BreakOnDamage = true,
                 NeedHand = false,
             };
-            return _doAfter.TryStartDoAfter(args);
+            if (!_doAfter.TryStartDoAfter(args))
+                return false;
+
+            _popup.PopupPredicted(
+                Loc.GetString("grosse-car-eject-others", ("target", occupant)),
+                car.Owner,
+                user,
+                PopupType.Large);
+            return true;
         }
 
         if (!TryGetSlot(car.Comp, rider.SlotId, out var slot))

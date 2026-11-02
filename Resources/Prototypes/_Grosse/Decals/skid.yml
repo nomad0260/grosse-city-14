@@ -5,4 +5,4 @@
   defaultSnap: false
   sprite:
     sprite: Decals/dirty.rsi
-    state: dirt
+    state: dirtheavy-horizontal-slats
