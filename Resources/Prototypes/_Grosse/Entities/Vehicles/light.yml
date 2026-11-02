@@ -1,0 +1,101 @@
+- type: entity
+  id: VehicleMoskvich17
+  parent: BaseVehicleC17
+  name: довоенный автомобиль
+  description: Довоенное авто каким-то чудом уцелевшее после 7-ми часовой войны.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/moskvich.rsi
+    scale: 0.8, 0.8
+    layers:
+    - state: m1
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+    drawdepth: Mobs
+    noRot: false
+  - type: GrosseCar
+    engineForce: 25000
+    brakeForce: 100000
+    friction: 5
+    maxForwardSpeed: 12
+    maxReverseSpeed: 2
+    steerRate: 3
+    minSteerSpeed: 1
+    handbrakeForce: 80000
+    driftSound:
+      path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
+      params:
+        loop: true
+    slots:
+    - id: driver
+      name: grosse-car-slot-driver
+      containerId: car-driver
+      isDriver: true
+      visuals: Driver
+    - id: passenger
+      name: grosse-car-slot-passenger
+      containerId: car-passenger
+      visuals: Passenger1
+  - type: ContainerContainer
+    containers:
+      car-driver: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+  - type: MovementSound
+    sound:
+      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
+      params:
+        loop: true
+  - type: UnpoweredFlashlight
+    toggleAction: ActionGrosseCarToggleLight
+  - type: PointLight
+    mask: /Textures/Effects/LightMasks/cone.png
+    offset: 0,-2.0
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 4
+    allowSelfRepair: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - car-driver
+        - car-passenger
+        - car-passenger2
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.7,-1.4,0.7,1.2"
+        density: 200
+        restitution: 0
+        hard: true
+        mask:
+        - MobMask
+        - BulletImpassable
+        layer:
+        - MachineLayer
+  - type: Storage
+    grid:
+    - 0,0,5,5
+    maxItemSize: Normal
+    storageOpenSound: /Audio/Effects/closetopen.ogg
+    storageCloseSound: /Audio/Effects/closetclose.ogg
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface

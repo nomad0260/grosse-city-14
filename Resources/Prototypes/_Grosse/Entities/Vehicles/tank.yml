@@ -114,7 +114,7 @@
     doAfterDelay: 4
     allowSelfRepair: false
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    sprite: _Grosse/Vehicles/grosse-tank.rsi
     noRot: false
     drawdepth: OverMobs
     layers:
@@ -237,7 +237,7 @@
         layer: []
   - type: GrosseCarTurret
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    sprite: _Grosse/Vehicles/grosse-tank.rsi
     noRot: false
     drawdepth: OverMobs
     # The barrel sits below the ring in the south frame. Shift so the ring, not the barrel, is the pivot.

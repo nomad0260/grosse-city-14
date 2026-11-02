@@ -1,13 +1,24 @@
 - type: entity
-  id: UAZStructureC17
+  id: BaseDecorVehicle
   parent: BaseShippingContainer
+  suffix: Decor Vehicle C17
+  abstract: true
+  components:
+  - type: Sprite
+    scale: 1, 1
+
+- type: entity
+  id: UAZStructureC17
+  parent: BaseDecorVehicle
   name: старый фургон
   description: Семейство полноприводных внедорожных фургонов и легких грузовиков с кузовом на раме и кабиной над двигателем.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/uaz.rsi
-    scale: 0.8, 0.8
-    state: base
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: base
+    - state: windows_tainted
+    - state: windows
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
@@ -23,22 +34,65 @@
         - WallLayer
 
 - type: entity
+  id: UAZStructurePoliceC17
+  parent: UAZStructureC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: base_police
+    - state: windows_tainted
+    - state: windows
+
+- type: entity
   id: UAZStructureRustedC17
   parent: UAZStructureC17
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/uaz.rsi
-    state: rusted
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: base
+    - state: dirt
+    - state: rust
+    - state: rust2
+    - state: windows_tainted_rust
+
+- type: entity
+  id: UAZStructureRustedPoliceC17
+  parent: UAZStructureC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: base_police
+    - state: dirt
+    - state: rust
+    - state: rust2
+    - state: windows_tainted_rust
+
+- type: entity
+  id: UAZStructureCrushedC17
+  parent: UAZStructureC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: crash
+    - state: dirt
+    - state: gunshot
+    - state: painting
+    - state: rust2
+    - state: windows_tainted_rust
 
 - type: entity
   id: OldCarGreenC17
-  parent: BaseShippingContainer
+  parent: BaseDecorVehicle
   name: старая машина
   description: Довоенная машина, время не щадит никого, поэтому она в таком плохом состоянии. К сожалению, невозможно различить марку машины.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/old_cars.rsi
-    scale: 0.8, 0.8
+    sprite: _Grosse/Vehicles/old_cars.rsi
+    scale: 1, 1
     state: old_car_green
   - type: InteractionOutline
   - type: Physics
@@ -61,19 +115,19 @@
   parent: OldCarGreenC17
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/old_cars.rsi
-    scale: 0.8, 0.8
+    sprite: _Grosse/Vehicles/old_cars.rsi
+    scale: 1, 1
     state: old_car_red
 
 - type: entity
   id: ZILC17
-  parent: BaseShippingContainer
+  parent: BaseDecorVehicle
   name: старый грузовик
   description: Довоенный тяжелый транспорт для транспортировки множества вещей.
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
-    scale: 1.1, 1.1
+    sprite: _Grosse/Vehicles/zil.rsi
+    scale: 1, 1
     state: z1
   - type: InteractionOutline
   - type: Physics
@@ -94,8 +148,8 @@
   parent: ZILC17
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
-    scale: 1.1, 1.1
+    sprite: _Grosse/Vehicles/zil.rsi
+    scale: 1, 1
     state: z2
 
 - type: entity
@@ -105,7 +159,7 @@
   parent: ZILC17
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/kraz.rsi
+    sprite: _Grosse/Vehicles/kraz.rsi
     state: kraz1
 
 - type: entity
@@ -117,13 +171,13 @@
 
 - type: entity
   id: MoskvichC17
-  parent: BaseShippingContainer
+  parent: BaseDecorVehicle
   name: старая машина
   description: Довоенная машина, время не щадит никого, поэтому она в таком плохом состоянии. К сожалению, невозможно различить марку машины.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
-    scale: 0.8, 0.8
+    sprite: _Grosse/Vehicles/moskvich.rsi
+    scale: 1, 1
     state: m1
   - type: InteractionOutline
   - type: Physics
@@ -143,13 +197,13 @@
 
 - type: entity
   id: ZILAC17
-  parent: BaseShippingContainer
+  parent: BaseDecorVehicle
   name: старый грузовик с цистерной
   description: Довоенный тяжелый транспорт для транспортировки различных жидкостей.
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
-    scale: 1.1, 1.1
+    sprite: _Grosse/Vehicles/zil.rsi
+    scale: 1, 1
     state: z3
   - type: InteractionOutline
   - type: Physics
