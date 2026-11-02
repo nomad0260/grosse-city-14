@@ -1,7 +1,9 @@
 #nullable enable
 using System.Linq;
+using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Grosse.Cars;
+using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Inventory.VirtualItem;
@@ -11,6 +13,7 @@ using Content.Shared.Prototypes;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Localization;
+using Robust.Shared.Timing;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
@@ -293,6 +296,58 @@ public sealed class GrosseCarTest : GameTest
             Assert.That(CountBlockingVirtuals(entityManager, driver, car), Is.EqualTo(0));
             var crowbar = entityManager.SpawnEntity("Crowbar", coords);
             Assert.That(hands.TryPickupAnyHand(driver, crowbar), Is.True, "driver should use hands after leaving the car");
+        });
+    }
+
+    [Test]
+    public async Task CanEjectEachPassengerAfterDelay()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var map = await pair.CreateTestMap();
+        var coords = map.GridCoords;
+        var entityManager = server.EntMan;
+        var cars = entityManager.System<SharedGrosseCarSystem>();
+        var containers = entityManager.System<SharedContainerSystem>();
+        var timing = server.ResolveDependency<IGameTiming>();
+
+        EntityUid car = default;
+        EntityUid passenger = default;
+        EntityUid passenger2 = default;
+        EntityUid rescuer = default;
+
+        await server.WaitAssertion(() =>
+        {
+            car = entityManager.SpawnEntity("VehicleKraz17", coords);
+            passenger = entityManager.SpawnEntity(DummyId, coords);
+            passenger2 = entityManager.SpawnEntity(DummyId, coords);
+            // Beside the hull, not inside the fixture, so the pull is not cancelled by collision shove.
+            rescuer = entityManager.SpawnEntity(DummyId, coords.Offset(new Vector2(1.3f, 0f)));
+            entityManager.EnsureComponent<DoAfterComponent>(rescuer);
+
+            Assert.That(cars.TryEnterSlot(passenger, car, "passenger", skipDelay: true), Is.True);
+            Assert.That(cars.TryEnterSlot(passenger2, car, "passenger2", skipDelay: true), Is.True);
+
+            var carEnt = (car, entityManager.GetComponent<GrosseCarComponent>(car));
+            Assert.That(cars.TryEject(carEnt, passenger, rescuer, skipDelay: false), Is.True);
+            Assert.That(cars.TryEject(carEnt, passenger2, rescuer, skipDelay: false), Is.True,
+                "a second seat must not cancel the first pull");
+
+            Assert.That(containers.TryGetContainer(car, "car-passenger", out var first) && first.Contains(passenger));
+            Assert.That(containers.TryGetContainer(car, "car-passenger2", out var second) && second.Contains(passenger2));
+        });
+
+        var ticks = (int)Math.Ceiling(1.6 / timing.TickPeriod.TotalSeconds) + 2;
+        await server.WaitRunTicks(ticks);
+
+        await server.WaitAssertion(() =>
+        {
+            var pending = entityManager.GetComponent<DoAfterComponent>(rescuer).DoAfters.Values
+                .Select(doAfter => $"cancelled={doAfter.Cancelled} completed={doAfter.Completed}");
+            Assert.That(entityManager.HasComponent<GrosseCarRiderComponent>(passenger), Is.False, string.Join(", ", pending));
+            Assert.That(entityManager.HasComponent<GrosseCarRiderComponent>(passenger2), Is.False);
+            Assert.That(containers.TryGetContainer(car, "car-passenger", out var first) && first.ContainedEntities.Count == 0);
+            Assert.That(containers.TryGetContainer(car, "car-passenger2", out var second) && second.ContainedEntities.Count == 0);
         });
     }
 

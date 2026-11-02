@@ -131,6 +131,13 @@ public sealed partial class GrosseCarComponent : Component
     [DataField]
     public float DriftDecalSpacing = 0.35f;
 
+    /// <summary>
+    /// Shifts both tire marks in the car's local space, same axes as the physics box.
+    /// Use this when the entity origin is not the visual center.
+    /// </summary>
+    [DataField]
+    public Vector2 DriftDecalOffset = Vector2.Zero;
+
     [DataField]
     public Color DriftDecalColor = Color.Black;
 

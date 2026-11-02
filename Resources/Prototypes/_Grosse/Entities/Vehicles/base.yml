@@ -47,6 +47,8 @@
     driftSlipThreshold: 0.35
     driftDecal: GrosseCarSkid
     driftDecalSpacing: 0.35
+    # Local tiles, same axes as the physics box. Shift so the tracks sit on the sprite center.
+    driftDecalOffset: 0, 0
     maxDriveDamage: 200
     occupantDamageMultiplier: 0.35
     driftSound:

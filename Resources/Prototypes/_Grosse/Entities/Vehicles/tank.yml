@@ -49,6 +49,7 @@
     driftSlipThreshold: 0.35
     driftDecal: GrosseCarSkid
     driftDecalSpacing: 0.35
+    driftDecalOffset: 0, 0
     maxDriveDamage: 200
     occupantDamageMultiplier: 0.35
     driftSound:
