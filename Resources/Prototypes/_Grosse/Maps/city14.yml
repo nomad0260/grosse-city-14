@@ -32,11 +32,7 @@
             - Worker
             - UnionMiner
             - UnionResearcher
-            - UnionFactoryHead
-            - UnionWorkersHead
             - CivilProtactionUnit
-            - CivilProtactionUnit02
-            - CivilProtactionUnitOfficer
         - type: GrosseStationZLevels
           mapsBelow:
           - /Maps/_Grosse/City14/city14-1.yml
