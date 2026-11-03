@@ -2,7 +2,6 @@ ration-terminal-title = Терминал талонов
 ration-terminal-empty = Сейчас нет граждан ГСР с телом.
 ration-terminal-issue-one = Выдать конверт
 ration-terminal-issue-all = Выдать всем
-ration-terminal-denied = Терминал доступен только главе ГСР и начальнику завода.
 ration-terminal-no-station = У станции нет учёта норм талонов.
 ration-terminal-nobody = Выдавать некому.
 ration-terminal-zero = Этой должности сейчас не положены талоны.
