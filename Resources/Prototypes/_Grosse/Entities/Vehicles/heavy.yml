@@ -46,18 +46,6 @@
       name: grosse-car-slot-passenger2
       containerId: car-passenger2
       visuals: Passenger2
-    - id: passenger3
-      name: grosse-car-slot-passenger3
-      containerId: car-passenger3
-      visuals: Passenger2
-    - id: passenger4
-      name: grosse-car-slot-passenger4
-      containerId: car-passenger4
-      visuals: Passenger2
-    - id: passenger5
-      name: grosse-car-slot-passenger5
-      containerId: car-passenger5
-      visuals: Passenger2
   - type: ContainerContainer
     containers:
       car-driver: !type:ContainerSlot
@@ -69,18 +57,6 @@
         occludes: True
         ent: null
       car-passenger2: !type:ContainerSlot
-        showEnts: False
-        occludes: True
-        ent: null
-      car-passenger3: !type:ContainerSlot
-        showEnts: False
-        occludes: True
-        ent: null
-      car-passenger4: !type:ContainerSlot
-        showEnts: False
-        occludes: True
-        ent: null
-      car-passenger5: !type:ContainerSlot
         showEnts: False
         occludes: True
         ent: null
@@ -122,9 +98,6 @@
         - car-driver
         - car-passenger
         - car-passenger2
-        - car-passenger3
-        - car-passenger4
-        - car-passenger5
       - !type:DoActsBehavior
         acts: ["Destruction"]
 
