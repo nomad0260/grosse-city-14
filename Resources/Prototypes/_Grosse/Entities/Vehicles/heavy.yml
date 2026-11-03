@@ -220,7 +220,7 @@
   id: VehicleCombineAPC17
   parent: VehicleKraz17
   name: бронетранспартер патруля
-  description: Военный грузовик, который всё ещё заводится. Три места в кабине.
+  description: Броневик сил патруля Альянса, основная наземная техника надзора.
   components:
   - type: Fixtures
     fixtures:
