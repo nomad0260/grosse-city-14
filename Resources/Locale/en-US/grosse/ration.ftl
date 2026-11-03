@@ -2,7 +2,6 @@ ration-terminal-title = Ration terminal
 ration-terminal-empty = No Civil Workers Union members have a body right now.
 ration-terminal-issue-one = Issue envelope
 ration-terminal-issue-all = Issue to everyone
-ration-terminal-denied = Only the GSR head and the factory head can use this terminal.
 ration-terminal-no-station = This station has no ration quota record.
 ration-terminal-nobody = There is nobody to issue coupons to.
 ration-terminal-zero = This job is not owed any coupons.
