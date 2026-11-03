@@ -185,6 +185,12 @@
         showEnts: False
         occludes: True
         ent: null
+      actions: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+      storagebase: !type:Container
+        ents: [ ]
   - type: PointLight
     offset: 0,-2.0
   - type: Repairable
