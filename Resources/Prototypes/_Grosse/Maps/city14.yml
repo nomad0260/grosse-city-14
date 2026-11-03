@@ -1,7 +1,7 @@
 - type: gameMap
   id: City14
   mapName: 'City 14'
-  mapPath: /Maps/_Grosse/city14.yml
+  mapPath: /Maps/_Grosse/City14/city140.yml
   minPlayers: 0
   maxPlayers: 140
   maxRandomOffset: 0
@@ -26,6 +26,11 @@
             CivilProtactionUnit: [ 18, 18 ]
             CivilProtactionUnit02: [ 4, 4 ]
             CivilProtactionUnitOfficer: [ 1, 1 ]
+        - type: GrosseStationZLevels
+          mapsBelow:
+          - /Maps/_Grosse/City14/city14-1.yml
+          mapsAbove:
+          - /Maps/_Grosse/City14/city141.yml
 
 - type: entity
   id: StandardCombineCity
