@@ -217,9 +217,9 @@
         type: StorageBoundUserInterface
 
 - type: entity
-  id: VehicleKraz17
-  parent: BaseVehicleC17
-  name: КрАЗ
+  id: VehicleCombineAPC17
+  parent: VehicleKraz17
+  name: бронетранспартер патруля
   description: Военный грузовик, который всё ещё заводится. Три места в кабине.
   components:
   - type: Fixtures
@@ -227,9 +227,8 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          # Sized to the south RSI frame (opaque ~1.44×3.78). The sprite is locked to South and rotated with the body, so this box turns with the truck.
           bounds: "-0.8,-2.15,0.85,1.8"
-        density: 400
+        density: 800
         restitution: 0
         hard: true
         mask:
@@ -238,18 +237,22 @@
         layer:
         - MachineLayer
   - type: GrosseCar
-    engineForce: 100000
-    brakeForce: 150000
-    friction: 1.5
-    maxForwardSpeed: 8
-    maxReverseSpeed: 3
-    steerRate: 2.2
-    minSteerSpeed: 0.6
-    handbrakeForce: 120000
+    engineForce: 350000
+    brakeForce: 550000
+    friction: 1
+    maxForwardSpeed: 12
+    maxReverseSpeed: 4
+    steerRate: 2.5
+    minSteerSpeed: 0.4
+    handbrakeForce: 520000
+    maxDriveDamage: 1000
     driftSound:
       path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
       params:
         loop: true
+    selfDamage:
+      types:
+        Blunt: 0
     slots:
     - id: driver
       name: grosse-car-slot-driver
@@ -284,16 +287,22 @@
         ents: []
   - type: MovementSound
     sound:
-      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
+      path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
       params:
         loop: true
+  - type: AmbientSound
+    volume: 5
+    range: 12
+    sound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
   - type: UnpoweredFlashlight
     toggleAction: ActionGrosseCarToggleLight
   - type: PointLight
     mask: /Textures/Effects/LightMasks/cone.png
+    offset: 0,-1.0
   - type: Repairable
     fuelCost: 25
-    doAfterDelay: 10
+    doAfterDelay: 30
     allowSelfRepair: false
   - type: Sprite
     sprite: _Grosse/Vehicles/combineAPC.rsi

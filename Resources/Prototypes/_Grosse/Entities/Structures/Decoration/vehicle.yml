@@ -6,6 +6,7 @@
   components:
   - type: Sprite
     scale: 1, 1
+    drawdepth: Mobs
 
 - type: entity
   id: UAZStructureC17
@@ -26,7 +27,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.5,-0.9,1.5,0.9"
+          bounds: "-0.6,-1.0,0.6,0.6"
         density: 155
         mask:
         - MachineMask
@@ -92,7 +93,6 @@
   components:
   - type: Sprite
     sprite: _Grosse/Vehicles/old_cars.rsi
-    scale: 1, 1
     state: old_car_green
   - type: InteractionOutline
   - type: Physics
@@ -101,7 +101,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.6,-1.1,0.6,1.1"
+          bounds: "-0.5,-1.0,0.5,1.0"
         density: 155
         mask:
         - MachineMask
@@ -116,7 +116,6 @@
   components:
   - type: Sprite
     sprite: _Grosse/Vehicles/old_cars.rsi
-    scale: 1, 1
     state: old_car_red
 
 - type: entity
@@ -171,29 +170,13 @@
 
 - type: entity
   id: MoskvichC17
-  parent: BaseDecorVehicle
+  parent: OldCarGreenC17
   name: старая машина
   description: Довоенная машина, время не щадит никого, поэтому она в таком плохом состоянии. К сожалению, невозможно различить марку машины.
   components:
   - type: Sprite
     sprite: _Grosse/Vehicles/moskvich.rsi
-    scale: 1, 1
     state: m1
-  - type: InteractionOutline
-  - type: Physics
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.7,-1.2,0.8,1.0"
-        density: 155
-        mask:
-        - MachineMask
-        layer:
-        - WallLayer
-  - type: RequireProjectileTarget
-    active: true
 
 - type: entity
   id: ZILAC17
