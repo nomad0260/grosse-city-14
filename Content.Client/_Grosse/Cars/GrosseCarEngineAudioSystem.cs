@@ -13,7 +13,7 @@ namespace Content.Client._Grosse.Cars;
 /// Raises the pitch and volume of the running engine as the driver presses the throttle.
 /// Pitch is applied on the client because the audio source is not replicated every frame.
 /// </summary>
-public sealed class GrosseCarEngineAudioSystem : EntitySystem
+public sealed partial class GrosseCarEngineAudioSystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedTransformSystem _xform = default!;
