@@ -3,6 +3,8 @@ using System.Linq;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Grosse.Cars;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Components;
@@ -89,6 +91,12 @@ public sealed class GrosseCarTest : GameTest
                     Assert.That(car.Slots.Select(s => s.ContainerId).Distinct().Count(), Is.EqualTo(car.Slots.Count), $"{proto.ID} has duplicate container ids");
                     Assert.That(car.Slots.Count(s => s.IsDriver), Is.EqualTo(1), $"{proto.ID} must have exactly one driver slot");
                     Assert.That(car.EngineForce, Is.GreaterThan(0f), $"{proto.ID} engineForce");
+                    Assert.That(car.EngineStartSound, Is.Not.Null, $"{proto.ID} engineStartSound");
+                    Assert.That(car.EngineStopSound, Is.Not.Null, $"{proto.ID} engineStopSound");
+                    Assert.That(car.EngineIdleSound, Is.Not.Null, $"{proto.ID} engineIdleSound");
+                    Assert.That(car.EngineMoveStartSound, Is.Not.Null, $"{proto.ID} engineMoveStartSound");
+                    Assert.That(car.EngineDriveSound, Is.Not.Null, $"{proto.ID} engineDriveSound");
+                    Assert.That(car.EngineState, Is.EqualTo(GrosseCarEngineState.Off), $"{proto.ID} engine starts off");
                     Assert.That(car.MaxForwardSpeed, Is.GreaterThan(0f), $"{proto.ID} maxForwardSpeed");
                     Assert.That(car.RamBlacklist.Tags?.Any(tag => tag.Id == "Wall"), Is.True, $"{proto.ID} ramBlacklist must include Wall");
                     if (proto.ID == "VehicleKraz17")
@@ -348,6 +356,80 @@ public sealed class GrosseCarTest : GameTest
             Assert.That(entityManager.HasComponent<GrosseCarRiderComponent>(passenger2), Is.False);
             Assert.That(containers.TryGetContainer(car, "car-passenger", out var first) && first.ContainedEntities.Count == 0);
             Assert.That(containers.TryGetContainer(car, "car-passenger2", out var second) && second.ContainedEntities.Count == 0);
+        });
+    }
+
+    [Test]
+    public async Task EngineOffDoesNotAccelerateUntilStarted()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var map = await pair.CreateTestMap();
+        var coords = map.GridCoords;
+        var entityManager = server.EntMan;
+        var cars = entityManager.System<SharedGrosseCarSystem>();
+        EntityUid car = default;
+        EntityUid driver = default;
+
+        await server.WaitAssertion(() =>
+        {
+            car = entityManager.SpawnEntity("VehicleKraz17", coords);
+            driver = entityManager.SpawnEntity(DummyId, coords);
+            Assert.That(cars.TryEnterSlot(driver, car, "driver", skipDelay: true), Is.True);
+
+            var component = entityManager.GetComponent<GrosseCarComponent>(car);
+            Assert.That(component.EngineState, Is.EqualTo(GrosseCarEngineState.Off));
+            entityManager.GetComponent<InputMoverComponent>(car).HeldMoveButtons = MoveButtons.Up;
+        });
+
+        await server.WaitRunTicks(20);
+
+        await server.WaitAssertion(() =>
+        {
+            var physics = entityManager.GetComponent<PhysicsComponent>(car);
+            Assert.That(physics.LinearVelocity.Length(), Is.LessThan(0.2f), "throttle must not move a stopped engine");
+
+            var driver = entityManager.System<SharedContainerSystem>().GetContainer(car, "car-driver").ContainedEntities[0];
+            Assert.That(cars.TryToggleEngine((car, entityManager.GetComponent<GrosseCarComponent>(car)), driver), Is.True);
+            Assert.That(entityManager.GetComponent<GrosseCarComponent>(car).EngineState, Is.EqualTo(GrosseCarEngineState.Starting));
+
+            entityManager.GetComponent<GrosseCarComponent>(car).EngineState = GrosseCarEngineState.On;
+            entityManager.GetComponent<InputMoverComponent>(car).HeldMoveButtons = MoveButtons.Up;
+        });
+
+        await server.WaitRunTicks(20);
+
+        await server.WaitAssertion(() =>
+        {
+            var physics = entityManager.GetComponent<PhysicsComponent>(car);
+            Assert.That(physics.LinearVelocity.Length(), Is.GreaterThan(1f), "a running engine should pull away under throttle");
+        });
+    }
+
+    [Test]
+    public async Task WreckedEngineDoesNotStart()
+    {
+        var pair = Pair;
+        var server = pair.Server;
+        var map = await pair.CreateTestMap();
+        var coords = map.GridCoords;
+        var entityManager = server.EntMan;
+        var cars = entityManager.System<SharedGrosseCarSystem>();
+        var damageable = entityManager.System<DamageableSystem>();
+
+        await server.WaitAssertion(() =>
+        {
+            var car = entityManager.SpawnEntity("VehicleKraz17", coords);
+            var driver = entityManager.SpawnEntity(DummyId, coords);
+            Assert.That(cars.TryEnterSlot(driver, car, "driver", skipDelay: true), Is.True);
+
+            var hit = new DamageSpecifier { DamageDict = { ["Blunt"] = 250 } };
+            Assert.That(damageable.TryChangeDamage(car, hit, ignoreResistances: true), Is.True);
+
+            var component = entityManager.GetComponent<GrosseCarComponent>(car);
+            Assert.That(damageable.GetTotalDamage(car).Float(), Is.GreaterThanOrEqualTo(component.MaxDriveDamage));
+            Assert.That(cars.TryToggleEngine((car, component), driver), Is.False);
+            Assert.That(component.EngineState, Is.EqualTo(GrosseCarEngineState.Off));
         });
     }
 
