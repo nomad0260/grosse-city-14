@@ -152,56 +152,10 @@ public sealed class GrosseCarTest : GameTest
 
                 foreach (var slot in car.Slots)
                 {
-                    if (proto.Abstract || pair.IsTestPrototype(proto))
-                        continue;
-
-                    if (!proto.TryGetComponent(out GrosseCarComponent? car, factory))
-                        continue;
-
-                    Assert.That(car.Slots, Is.Not.Empty, $"{proto.ID} has no seats");
-                    Assert.That(car.Slots.Select(s => s.Id).Distinct().Count(), Is.EqualTo(car.Slots.Count), $"{proto.ID} has duplicate slot ids");
-                    Assert.That(car.Slots.Select(s => s.ContainerId).Distinct().Count(), Is.EqualTo(car.Slots.Count), $"{proto.ID} has duplicate container ids");
-                    Assert.That(car.Slots.Count(s => s.IsDriver), Is.EqualTo(1), $"{proto.ID} must have exactly one driver slot");
-                    Assert.That(car.EngineForce, Is.GreaterThan(0f), $"{proto.ID} engineForce");
-                    Assert.That(car.EngineStartSound, Is.Not.Null, $"{proto.ID} engineStartSound");
-                    Assert.That(car.EngineStopSound, Is.Not.Null, $"{proto.ID} engineStopSound");
-                    Assert.That(car.EngineIdleSound, Is.Not.Null, $"{proto.ID} engineIdleSound");
-                    Assert.That(car.EngineMoveStartSound, Is.Not.Null, $"{proto.ID} engineMoveStartSound");
-                    Assert.That(car.EngineDriveSound, Is.Not.Null, $"{proto.ID} engineDriveSound");
-                    Assert.That(car.EngineState, Is.EqualTo(GrosseCarEngineState.Off), $"{proto.ID} engine starts off");
-                    Assert.That(car.MaxForwardSpeed, Is.GreaterThan(0f), $"{proto.ID} maxForwardSpeed");
-                    Assert.That(car.RamBlacklist.Tags?.Any(tag => tag.Id == "Wall"), Is.True, $"{proto.ID} ramBlacklist must include Wall");
-                    if (proto.ID == "VehicleKraz17")
-                        Assert.That(car.BlacklistImpactCoefficient, Is.EqualTo(1.5f), $"{proto.ID} blacklistImpactCoefficient");
-                    else
-                        Assert.That(car.BlacklistImpactCoefficient, Is.Null, $"{proto.ID} blacklistImpactCoefficient");
-                    Assert.That(proto.HasComponent<SkipMobMovementComponent>(factory), $"{proto.ID} missing SkipMobMovement");
-                    Assert.That(proto.HasComponent<InputMoverComponent>(factory), $"{proto.ID} missing InputMover");
-                    Assert.That(proto.HasComponent<AppearanceComponent>(factory), $"{proto.ID} missing Appearance");
-                    Assert.That(proto.TryGetComponent(out PhysicsComponent? physics, factory), $"{proto.ID} missing Physics");
-                    Assert.That(physics!.BodyType, Is.EqualTo(BodyType.Dynamic), $"{proto.ID} must be Dynamic so it collides with walking mobs");
-                    Assert.That(proto.TryGetComponent(out FixturesComponent? fixtures, factory), $"{proto.ID} missing Fixtures");
-                    foreach (var fixture in fixtures!.Fixtures.Values)
-                    {
-                        if (fixture.Shape is PhysShapeAabb aabb)
-                        {
-                            var maxWidth = proto.ID.StartsWith("GrosseTank") ? 3.6f : 2.2f;
-                            Assert.That(aabb.LocalBounds.Width, Is.LessThan(maxWidth), $"{proto.ID} hitbox is wider than the south-facing sprite");
-                        }
-                    }
-                    Assert.That(proto.TryGetComponent(out ContainerManagerComponent? containers, factory), $"{proto.ID} missing ContainerContainer");
-
-                    foreach (var slot in car.Slots)
-                    {
-                        Assert.That(loc.HasString(slot.Name), $"{proto.ID} slot {slot.Id} missing locale {slot.Name}");
-                        Assert.That(containers!.Containers.ContainsKey(slot.ContainerId), $"{proto.ID} missing container {slot.ContainerId}");
-                        Assert.That(containers.Containers[slot.ContainerId], Is.TypeOf<ContainerSlot>(), $"{proto.ID} {slot.ContainerId} is not a ContainerSlot");
-                    }
-
-                    foreach (var action in car.OccupantActions)
-                    {
-                        Assert.That(protoMan.HasIndex(action), $"{proto.ID} occupant action {action} missing");
-                    }
+                    Note(failures, loc.HasString(slot.Name), $"{proto.ID} slot {slot.Id} missing locale {slot.Name}");
+                    Note(failures, containers.Containers.ContainsKey(slot.ContainerId), $"{proto.ID} missing container {slot.ContainerId}");
+                    if (containers.Containers.TryGetValue(slot.ContainerId, out var container))
+                        Note(failures, container is ContainerSlot, $"{proto.ID} {slot.ContainerId} is not a ContainerSlot");
                 }
 
                 foreach (var action in car.OccupantActions)
