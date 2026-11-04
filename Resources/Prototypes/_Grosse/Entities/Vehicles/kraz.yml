@@ -65,6 +65,7 @@
       path: /Audio/_Grosse/Vehicles/engine_idle.ogg
     engineMoveStartSound:
       path: /Audio/_Grosse/Vehicles/engine_move_start.ogg
+    engineMoveStartDuration: 7.42
     engineDriveSound:
       path: /Audio/_Grosse/Vehicles/engine_drive.ogg
     hitSound:

@@ -95,6 +95,7 @@ public sealed class GrosseCarTest : GameTest
                     Assert.That(car.EngineStopSound, Is.Not.Null, $"{proto.ID} engineStopSound");
                     Assert.That(car.EngineIdleSound, Is.Not.Null, $"{proto.ID} engineIdleSound");
                     Assert.That(car.EngineMoveStartSound, Is.Not.Null, $"{proto.ID} engineMoveStartSound");
+                    Assert.That(car.EngineMoveStartDuration, Is.GreaterThan(0f), $"{proto.ID} engineMoveStartDuration");
                     Assert.That(car.EngineDriveSound, Is.Not.Null, $"{proto.ID} engineDriveSound");
                     Assert.That(car.EngineState, Is.EqualTo(GrosseCarEngineState.Off), $"{proto.ID} engine starts off");
                     Assert.That(car.MaxForwardSpeed, Is.GreaterThan(0f), $"{proto.ID} maxForwardSpeed");
