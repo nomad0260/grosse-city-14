@@ -3,15 +3,15 @@
 
 - type: job
   id: Citizen
-  name: Гражданин
-  description: Живи и работай
+  name: job-title-citizen
+  description: job-title-citizen-description
   playTimeTracker: JobCivilianC17
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CitizenGear
   icon: "JobIconUnionCivilian"
-  supervisors: job-supervisors-everyone
+  supervisors: job-supervisors-universal-union
   requirements:
     - !type:SpeciesRequirement
       species:

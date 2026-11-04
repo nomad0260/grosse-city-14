@@ -1,7 +1,7 @@
 - type: job
   id: Worker
-  name: Разнорабочий
-  description: Живи и работай.
+  name: job-title-cmb-worker
+  description: job-title-cmb-worker-description
   playTimeTracker: JobWorkerC17
   applyTraits: false
   joinNotifyCrew: false
@@ -22,8 +22,8 @@
 
 - type: job
   id: CWUEngineer
-  name: Инженер ГСР
-  description: Инженер городских служб.
+  name: job-title-cmb-engineer
+  description: job-title-cmb-engineer-description
   playTimeTracker: JobCWUEngineerC17
   applyTraits: false
   joinNotifyCrew: false

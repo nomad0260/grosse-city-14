@@ -3,8 +3,8 @@
 
 - type: job
   id: CivilProtactionUnit
-  name: Гражданская Оборона
-  description: Внутренние силы полиции для охраны порядка и закона.
+  name: job-title-civil-protection
+  description: job-title-civil-protection-description
   playTimeTracker: JobCivilProtection
   applyTraits: false
   joinNotifyCrew: false
@@ -53,8 +53,8 @@
 
 - type: job
   id: CivilProtactionUnit02
-  name: Локальный Командир Гражданской Обороны
-  description: Командир отряда ГэО, выполняет функцию полевого офицера.
+  name: job-title-civil-protection-local-commander
+  description: job-title-civil-protection-local-commander-description
   playTimeTracker: JobCivilProtection02
   applyTraits: false
   joinNotifyCrew: false
@@ -107,8 +107,8 @@
 
 - type: job
   id: CivilProtactionUnitDispetcher
-  name: Диспетчер Гражданской Обороны
-  description: Штабной офицер координирующий действия ГэО по всему городу.
+  name: job-title-civil-protection-dispetcher
+  description: job-title-civil-protection-dispetcher-description
   playTimeTracker: JobCivilProtectionDispetcher
   applyTraits: false
   joinNotifyCrew: false
@@ -143,8 +143,8 @@
 
 - type: job
   id: CivilProtactionUnitJudge
-  name: Судья Гражданской Обороны
-  description: Высший исполнительный орган власти, осуществляет справедливый и законный суд, карая нарушителей режима.
+  name: job-title-civil-protection-judge
+  description: job-title-civil-protection-judge-description
   playTimeTracker: JobCivilProtectionJudge
   applyTraits: false
   joinNotifyCrew: false
@@ -179,8 +179,8 @@
 
 - type: job
   id: CivilProtactionUnitOfficer
-  name: Командир Дивизии Гражданской Обороны
-  description: Командующий дивизии ГэО города, осуществляет координацию всех гарнизонов под его командованием.
+  name: job-title-civil-protection-officer
+  description: job-title-civil-protection-officer-description
   playTimeTracker: JobCivilProtectionOfficer
   applyTraits: false
   joinNotifyCrew: false
