@@ -57,6 +57,7 @@
     - state: rust
     - state: rust2
     - state: windows_tainted_rust
+    - state: windows
 
 - type: entity
   id: UAZStructureRustedPoliceC17
@@ -70,6 +71,7 @@
     - state: rust
     - state: rust2
     - state: windows_tainted_rust
+    - state: windows
 
 - type: entity
   id: UAZStructureCrushedC17
