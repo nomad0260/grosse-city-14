@@ -138,6 +138,15 @@ public sealed class GrosseCarTest : GameTest
                 Note(failures, car.Slots.Select(s => s.Id).Distinct().Count() == car.Slots.Count, $"{proto.ID} has duplicate slot ids");
                 Note(failures, car.Slots.Select(s => s.ContainerId).Distinct().Count() == car.Slots.Count, $"{proto.ID} has duplicate container ids");
                 Note(failures, car.Slots.Count(s => s.IsDriver) == 1, $"{proto.ID} must have exactly one driver slot");
+                Note(failures, car.EngineForce > 0f, $"{proto.ID} engineForce");
+                Note(failures, car.EngineStartSound != null, $"{proto.ID} engineStartSound");
+                Note(failures, car.EngineStopSound != null, $"{proto.ID} engineStopSound");
+                Note(failures, car.EngineIdleSound != null, $"{proto.ID} engineIdleSound");
+                Note(failures, car.EngineMoveStartSound != null, $"{proto.ID} engineMoveStartSound");
+                Note(failures, car.EngineMoveStartDuration > 0f, $"{proto.ID} engineMoveStartDuration");
+                Note(failures, car.EngineDriveSound != null, $"{proto.ID} engineDriveSound");
+                Note(failures, car.EngineState == GrosseCarEngineState.Off, $"{proto.ID} engine starts off");
+                Note(failures, car.MaxForwardSpeed > 0f, $"{proto.ID} maxForwardSpeed");
                 Note(failures, proto.HasComponent<SkipMobMovementComponent>(factory), $"{proto.ID} missing SkipMobMovement");
                 Note(failures, proto.HasComponent<InputMoverComponent>(factory), $"{proto.ID} missing InputMover");
                 Note(failures, proto.HasComponent<AppearanceComponent>(factory), $"{proto.ID} missing Appearance");

@@ -1,5 +1,6 @@
+using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
 using Robust.Shared.Audio;
-using Robust.Shared.Physics.Components;
 
 namespace Content.Shared._Grosse.Cars;
 
@@ -106,7 +107,7 @@ public sealed partial class SharedGrosseCarSystem
 
         if (state != GrosseCarEngineState.On)
         {
-            car.Comp.WasRolling = false;
+            car.Comp.ThrottleHeld = false;
             car.Comp.MoveStartUntil = TimeSpan.Zero;
         }
 
@@ -139,8 +140,8 @@ public sealed partial class SharedGrosseCarSystem
         if (!_timing.IsFirstTimePredicted)
             return;
 
-        var query = EntityQueryEnumerator<GrosseCarComponent, PhysicsComponent>();
-        while (query.MoveNext(out var uid, out var car, out var physics))
+        var query = EntityQueryEnumerator<GrosseCarComponent, InputMoverComponent>();
+        while (query.MoveNext(out var uid, out var car, out var mover))
         {
             var ent = (uid, car);
             if (car.EngineState != GrosseCarEngineState.On)
@@ -149,17 +150,16 @@ public sealed partial class SharedGrosseCarSystem
                 continue;
             }
 
-            var speed = physics.LinearVelocity.Length();
-            var rolling = speed >= (car.WasRolling ? car.DriveStopSpeed : car.DriveStartSpeed);
-            var startedRolling = rolling && !car.WasRolling;
-            if (car.WasRolling != rolling)
+            var throttle = HoldingForward(uid, mover);
+            var pressed = throttle && !car.ThrottleHeld;
+            if (car.ThrottleHeld != throttle)
             {
-                car.WasRolling = rolling;
+                car.ThrottleHeld = throttle;
                 if (_net.IsServer)
                     Dirty(uid, car);
             }
 
-            if (!rolling)
+            if (!throttle)
             {
                 car.MoveStartSoundEntity = _audio.Stop(car.MoveStartSoundEntity);
                 car.MoveStartUntil = TimeSpan.Zero;
@@ -170,10 +170,10 @@ public sealed partial class SharedGrosseCarSystem
 
             EnsureLoop(ent, false, car.EngineIdleSound, ref car.IdleSoundEntity, ref car.IdleSoundExcluded, car.IdleVolume);
             var moveStartPlaying = car.MoveStartUntil > _timing.CurTime;
-            if (startedRolling && car.EngineMoveStartSound != null)
+            if (pressed && car.EngineMoveStartSound != null)
             {
                 EnsureLoop(ent, false, car.EngineDriveSound, ref car.DriveSoundEntity, ref car.DriveSoundExcluded, car.DriveVolume);
-                car.MoveStartUntil = _timing.CurTime + SoundLength(car.EngineMoveStartSound, 1);
+                car.MoveStartUntil = _timing.CurTime + MoveStartDuration(car);
                 PlayGated(ent, car.EngineMoveStartSound, ref car.MoveStartSoundEntity);
                 continue;
             }
@@ -187,6 +187,26 @@ public sealed partial class SharedGrosseCarSystem
             car.MoveStartSoundEntity = _audio.Stop(car.MoveStartSoundEntity);
             EnsureLoop(ent, true, car.EngineDriveSound, ref car.DriveSoundEntity, ref car.DriveSoundExcluded, car.DriveVolume);
         }
+    }
+
+    /// <summary>
+    /// Forward only counts when a driver is relaying input, so a collision cannot start the drive sound.
+    /// </summary>
+    private bool HoldingForward(EntityUid uid, InputMoverComponent mover)
+    {
+        if (!HasComp<MovementRelayTargetComponent>(uid))
+            return false;
+
+        var buttons = SharedMoverController.GetNormalizedMovement(mover.HeldMoveButtons);
+        return (buttons & MoveButtons.Up) != 0;
+    }
+
+    private TimeSpan MoveStartDuration(GrosseCarComponent car)
+    {
+        if (car.EngineMoveStartDuration > 0)
+            return TimeSpan.FromSeconds(car.EngineMoveStartDuration);
+
+        return SoundLength(car.EngineMoveStartSound, 1);
     }
 
     private void EnsureLoop(

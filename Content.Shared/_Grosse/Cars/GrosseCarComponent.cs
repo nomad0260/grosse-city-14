@@ -164,10 +164,16 @@ public sealed partial class GrosseCarComponent : Component
     public SoundSpecifier? EngineIdleSound;
 
     /// <summary>
-    /// Played once when the car first starts rolling. The drive loop takes over after it finishes.
+    /// Played once when the driver presses forward. The drive loop takes over after <see cref="EngineMoveStartDuration"/>.
     /// </summary>
     [DataField]
     public SoundSpecifier? EngineMoveStartSound;
+
+    /// <summary>
+    /// Seconds to keep the pull-away clip before the cruise loop. Set this to the clip length so a shorter file is not cut off.
+    /// </summary>
+    [DataField]
+    public float EngineMoveStartDuration = 7.42f;
 
     [DataField]
     public SoundSpecifier? EngineDriveSound;
@@ -189,12 +195,6 @@ public sealed partial class GrosseCarComponent : Component
 
     [DataField]
     public float DriveVolume = -2f;
-
-    [DataField]
-    public float DriveStartSpeed = 0.6f;
-
-    [DataField]
-    public float DriveStopSpeed = 0.25f;
 
     [DataField]
     public EntProtoId EngineToggleAction = "ActionGrosseCarToggleEngine";
@@ -239,10 +239,10 @@ public sealed partial class GrosseCarComponent : Component
     public TimeSpan EngineTransitionEnd;
 
     /// <summary>
-    /// True after the car has crossed <see cref="DriveStartSpeed"/> until it falls under <see cref="DriveStopSpeed"/>.
+    /// True while the driver is holding forward, so a shove does not retrigger the pull-away clip.
     /// </summary>
     [AutoNetworkedField]
-    public bool WasRolling;
+    public bool ThrottleHeld;
 
     public Vector2 LastSkidPosition;
     public EntityUid? IdleSoundEntity;
