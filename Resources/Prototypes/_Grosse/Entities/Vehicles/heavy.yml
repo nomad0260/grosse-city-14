@@ -137,6 +137,7 @@
     steerRate: 1
     minSteerSpeed: 0.4
     handbrakeForce: 100000
+    engineMoveStartDuration: 4
     slots:
     - id: driver
       name: grosse-car-slot-driver
@@ -215,7 +216,7 @@
         layer:
         - MachineLayer
   - type: GrosseCar
-    engineForce: 350000
+    engineForce: 250000
     brakeForce: 550000
     friction: 1
     maxForwardSpeed: 12
@@ -236,7 +237,9 @@
       path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
     engineMoveStartSound:
       path: /Audio/_Grosse/Vehicles/APC/apc_firstgear_loop1.ogg
-    engineMoveStartDuration: 2
+    engineMoveStartDuration: 1.2
+    rpmFallRate: 3
+    rpmRiseRate: 6
     engineDriveSound:
       path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
       params:
