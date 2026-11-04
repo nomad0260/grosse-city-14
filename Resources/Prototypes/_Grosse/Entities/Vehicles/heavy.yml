@@ -131,7 +131,6 @@
     engineForce: 40000
     brakeForce: 100000
     friction: 5
-    engineSoundSpeed: 1
     maxForwardSpeed: 6
     maxReverseSpeed: 3
     ramMinSpeed: 3
@@ -229,6 +228,20 @@
       path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
       params:
         loop: true
+    engineStartSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_start_loop3.ogg
+    engineStopSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_shutdown.ogg
+    engineIdleSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
+    engineMoveStartSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_firstgear_loop1.ogg
+    engineDriveSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
+      params:
+        loop: true
+    driveStartSpeed: 0.2
+    driveStopSpeed: 0.1
     selfDamage:
       types:
         Blunt: 0
@@ -264,16 +277,6 @@
         showEnts: False
         occludes: True
         ents: []
-  - type: MovementSound
-    sound:
-      path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
-      params:
-        loop: true
-  - type: AmbientSound
-    volume: 5
-    range: 12
-    sound:
-      path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
   - type: UnpoweredFlashlight
     toggleAction: ActionGrosseCarToggleLight
   - type: PointLight

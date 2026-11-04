@@ -113,7 +113,7 @@
     radius: 16
     energy: 4
     netsync: true
-  - type: AmbientMusicMarkerGrosseCar
+  #- type: AmbientMusicMarkerGrosseCar
   - type: Instrument
     allowPercussion: false
     handheld: false
