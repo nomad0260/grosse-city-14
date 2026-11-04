@@ -42,6 +42,7 @@ public sealed class RationRecipient
 public sealed partial class RationTerminalSystem : EntitySystem
 {
     private const string City14Department = "City14";
+    private const string City14CommandDepartment = "City14Command";
     private const int EnvelopesPerBox = 9;
 
     [Dependency] private IAdminLogManager _admin = default!;
@@ -73,7 +74,7 @@ public sealed partial class RationTerminalSystem : EntitySystem
 
         foreach (var department in departments)
         {
-            if (department.ID == City14Department)
+            if (department.ID == City14Department || department.ID == City14CommandDepartment)
                 return true;
         }
 
