@@ -38,7 +38,7 @@ public sealed class CivilProtectionCallsignTest : GameTest
                 ["JobCivilProtection"] = TimeSpan.FromHours(20),
             }, "04", checkVoice: false);
             AssertCallsign(map.GridCoords, session!, "CivilProtactionUnit02", new Dictionary<string, TimeSpan>(), "02", checkVoice: false);
-            AssertCallsign(map.GridCoords, session!, "CivilProtactionUnitOfficer", new Dictionary<string, TimeSpan>(), "01", checkVoice: false);
+            AssertCallsign(map.GridCoords, session!, "CivilProtactionUnitOfficer", new Dictionary<string, TimeSpan>(), "DvL", checkVoice: false);
         });
     }
 

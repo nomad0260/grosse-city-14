@@ -25,6 +25,8 @@
             # ГэО
             CivilProtactionUnit: [ 18, 18 ]
             CivilProtactionUnit02: [ 4, 4 ]
+            CivilProtactionUnitDispetcher: [ 1, 1 ]
+            CivilProtactionUnitJudge: [ 1, 1 ]
             CivilProtactionUnitOfficer: [ 1, 1 ]
         - type: GhostRespawnWhitelist
           jobs:
@@ -57,7 +59,6 @@
       maxBounties: 3
     - type: RationQuota
       quotas:
-        Citizen: 1
         Worker: 2
         UnionMiner: 3
         UnionResearcher: 2

@@ -1,0 +1,64 @@
+- type: startingGear
+  id: HeadUnionWorker
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitQM
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    id: UnionIDCardUnionWorkersHead
+    pocket1: CouponC17
+    pocket2: Pen
+
+- type: startingGear
+  id: UnionFactoryHead
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitQMTurtleneck
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    outerClothing: ClothingOuterVestHazard
+    head: ClothingHeadHatHardhatWhite
+    id: UnionIDCardUnionFactoryHead
+    pocket1: CouponC17
+    pocket2: Pen
+
+- type: startingGear
+  id: CMBWorkerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardWorker
+    outerClothing: ClothingOuterWorkerCMBC17
+    head: ClothingHeadWorkerC17
+    gloves: ClothingHandsGlovesJanitor
+    pocket1: SprayBottleSpaceCleaner
+    pocket2: CouponC17
+  storage:
+    outerClothing:
+    - FlashlightLantern
+    - LightReplacer
+
+- type: startingGear
+  id: CMBWorkerNotReadyGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetCargo
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardWorker
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CMBWorkerResearcherGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardResearcher
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CMBWorkerMinerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsWork
+    id: UnionIDCardMiner
+    pocket2: CouponC17

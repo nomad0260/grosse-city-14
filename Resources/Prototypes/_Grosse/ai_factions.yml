@@ -1,0 +1,14 @@
+- type: npcFaction
+  id: UniversalUnion
+  hostile:
+  - NanoTrasen
+  - PetsNT
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - Dragon
+  - AllHostile
+  - Wizard
+  - Xenoborg

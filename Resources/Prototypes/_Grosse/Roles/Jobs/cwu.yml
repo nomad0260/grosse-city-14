@@ -1,126 +1,46 @@
-- type: playTimeTracker
-  id: JobCivilProtection
-
 - type: job
-  id: CivilProtactionUnit
-  name: Гражданская Оборона
-  description: Обороняй граждан
-  playTimeTracker: JobCivilProtection
+  id: Worker
+  name: job-title-cmb-worker
+  description: job-title-cmb-worker-description
+  playTimeTracker: JobWorkerC17
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
-  startingGear: CivilProtectionGear
-  icon: "JobIconUnion"
-  supervisors: job-supervisors-sectorial-commander
+  startingGear: CMBWorkerNotReadyGear
+  icon: "JobIconUnionPerson"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+    - Engineering
   requirements:
     - !type:SpeciesRequirement
       species:
       - Human
-  playTimeRanks:
-  - name: Ветеран Гражданской Обороны
-    callsign: "04"
-    idCard: UnionIDCardCivilProtection
-    icon: JobIconUnionGold
-    requirements:
-    - !type:RoleTimeRequirement
-      role: JobCivilProtection
-      time: 20h
-  - name: Элитный юнит ГО
-    callsign: "03"
-    idCard: UnionIDCardCivilProtectionOfficer
-    icon: JobIconUnionCommander
-    requirements:
-    - !type:RoleTimeRequirement
-      role: JobCivilProtection
-      time: 40h
-    - !type:DepartmentTimeRequirement
-      department: City14CivilProtection
-      time: 60h
-  access:
-    - UnionBase
-    - UnionCP
-    - Engineering
-    - UnionAdmin
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: AntagImmune
-    - type: NpcFactionMember
-      factions:
-      - Xenoborg
+
 - type: playTimeTracker
-  id: JobCivilProtection02
+  id: JobWorkerC17
 
 - type: job
-  id: CivilProtactionUnit02
-  name: Локальный Командир Гражданской Обороны
-  description: Обороняй граждан
-  playTimeTracker: JobCivilProtection02
+  id: CWUEngineer
+  name: job-title-cmb-engineer
+  description: job-title-cmb-engineer-description
+  playTimeTracker: JobCWUEngineerC17
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
-  startingGear: CivilProtection02Gear
-  icon: "JobIconUnionGold"
-  supervisors: job-supervisors-sectorial-commander
+  startingGear: CMBWorkerNotReadyGear
+  icon: "JobIconUnionPerson"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+    - Engineering
   requirements:
     - !type:SpeciesRequirement
       species:
       - Human
-  playTimeRanks:
-  - name: Локальный Командир Гражданской Обороны
-    callsign: "02"
-  access:
-    - UnionBase
-    - UnionCP
-    - Engineering
-    - UnionAdmin
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: AntagImmune
-    - type: NpcFactionMember
-      factions:
-      - Xenoborg
 
 - type: playTimeTracker
-  id: JobCivilProtectionOfficer
-
-- type: job
-  id: CivilProtactionUnitOfficer
-  name: Офицер Гражданской Обороны
-  description: Обороняй граждан
-  playTimeTracker: JobCivilProtectionOfficer
-  applyTraits: false
-  joinNotifyCrew: false
-  overrideConsoleVisibility: true
-  startingGear: CivilProtectionOfficerGear
-  icon: "JobIconUnionCommander"
-  supervisors: job-supervisors-sectorial-commander
-  requirements:
-    - !type:SpeciesRequirement
-      species:
-      - Human
-  playTimeRanks:
-  - name: Офицер Гражданской Обороны
-    callsign: "01"
-  access:
-    - UnionBase
-    - UnionCP
-    - Engineering
-    - UnionAdmin
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: AntagImmune
-    - type: NpcFactionMember
-      factions:
-      - Xenoborg
+  id: JobCWUEngineerC17
 
 - type: playTimeTracker
   id: JobUnionWorkersHead
@@ -152,7 +72,7 @@
     - type: AntagImmune
     - type: NpcFactionMember
       factions:
-      - Xenoborg
+      - UniversalUnion
 
 - type: playTimeTracker
   id: JobUnionFactoryHead
@@ -184,7 +104,7 @@
     - type: AntagImmune
     - type: NpcFactionMember
       factions:
-      - Xenoborg
+      - UniversalUnion
 - type: playTimeTracker
   id: JobUnionResearcher
 

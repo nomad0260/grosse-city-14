@@ -37,7 +37,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -87,7 +87,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -109,7 +109,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -131,7 +131,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -152,7 +152,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -173,7 +173,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -196,7 +196,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
@@ -219,13 +219,12 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase
     - Engineering
     - UnionCP
-    - UnionAdmin
 
 - type: entity
   parent: UnionIDCardCivilProtection
@@ -277,7 +276,7 @@
   #- type: ClothingGrantTag
   #  tag: CombineUnit
   - type: FactionClothing
-    faction: Xenoborg
+    faction: UniversalUnion
   - type: Access
     tags:
     - UnionBase

@@ -1,14 +1,21 @@
 - type: department
-  id: City14
-  name: department-City14
-  description: department-City14-description
+  id: City14Citizens
+  name: department-City14-citizen
+  description: department-City14-citizen-description
   color: "#9e6715"
   weight: -15
   roles:
   - Citizen
+
+- type: department
+  id: City14
+  name: department-City14
+  description: department-City14-description
+  color: "#9e6715"
+  weight: -16
+  isCity14: true
+  roles:
   - Worker
-  - UnionFactoryHead
-  - UnionWorkersHead
   - UnionMiner
   - UnionResearcher
 
@@ -17,8 +24,21 @@
   name: department-City14CivilProtection
   description: department-City14CivilProtection-description
   color: "Blue"
-  weight: -16
+  weight: -17
   roles:
   - CivilProtactionUnit
   - CivilProtactionUnit02
+  - CivilProtactionUnitDispetcher
+  - CivilProtactionUnitJudge
   - CivilProtactionUnitOfficer
+
+- type: department
+  id: City14Command
+  name: department-City14-command
+  description: department-City14-command-description
+  color: "Red"
+  weight: -18
+  isCity14: true
+  roles:
+  - UnionFactoryHead
+  - UnionWorkersHead
