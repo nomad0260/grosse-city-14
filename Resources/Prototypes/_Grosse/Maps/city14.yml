@@ -59,7 +59,6 @@
       maxBounties: 3
     - type: RationQuota
       quotas:
-        Citizen: 1
         Worker: 2
         UnionMiner: 3
         UnionResearcher: 2
