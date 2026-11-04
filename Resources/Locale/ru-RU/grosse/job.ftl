@@ -20,9 +20,11 @@ job-title-civil-protection-officer = Офицер Гражданской Обо�
 
 # Departments
 department-City14 = Гражданский Союз Рабочих
-department-City14-description = Роли города 14.
+department-City14-description = Объединенние рабочих групп в одну организацию.
 department-City14CivilProtection = Гражданская Оборона
-department-City14CivilProtection-description = Роли города 14.
+department-City14CivilProtection-description = Полицейские силы города.
+department-City14-command = Городская Администрация
+department-City14-command-description = Руководящий состав города.
 
 # Salvage job board ranks on City 14
 salvage-job-rank-title-city14 = [color=gray]Город 14[/color]

@@ -7,8 +7,6 @@
   roles:
   - Citizen
   - Worker
-  - UnionFactoryHead
-  - UnionWorkersHead
   - UnionMiner
   - UnionResearcher
 
@@ -22,3 +20,13 @@
   - CivilProtactionUnit
   - CivilProtactionUnit02
   - CivilProtactionUnitOfficer
+
+- type: department
+  id: City14Command
+  name: department-City14-command
+  description: department-City14-command-description
+  color: "Red"
+  weight: -17
+  roles:
+  - UnionFactoryHead
+  - UnionWorkersHead
