@@ -4,5 +4,5 @@
   defaultCleanable: true
   defaultSnap: false
   sprite:
-    sprite: Decals/dirty.rsi
-    state: dirtheavy-horizontal-slats
+    sprite: _Grosse/Decals/vehicleSkid.rsi
+    state: dirt1

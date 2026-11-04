@@ -54,6 +54,36 @@ jobs:
         $env:DOTNET_gcServer=1
         dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
+    - name: Print failed tests
+      if: always()
+      shell: pwsh
+      run: |
+        $files = Get-ChildItem -Path test_results -Filter *.xml -Recurse -ErrorAction SilentlyContinue
+        if (-not $files) {
+          Write-Host "No NUnit xml found."
+          exit 0
+        }
+
+        $count = 0
+        foreach ($file in $files) {
+          [xml]$doc = Get-Content -Raw -Path $file.FullName
+          foreach ($case in $doc.SelectNodes("//test-case[@result='Failed' or @result='Warning']")) {
+            $count++
+            $name = $case.GetAttribute("fullname")
+            if (-not $name) { $name = $case.GetAttribute("name") }
+            $result = $case.GetAttribute("result")
+            $node = $case.SelectSingleNode("failure/message")
+            if (-not $node) { $node = $case.SelectSingleNode("reason/message") }
+            $text = if ($node) { $node.InnerText.Trim() } else { "(no message)" }
+            if ($text.Length -gt 6000) { $text = $text.Substring(0, 6000) + "`n... truncated" }
+            Write-Host "==== $result $name ===="
+            Write-Host $text
+            Write-Host ""
+          }
+        }
+
+        if ($count -eq 0) { Write-Host "No failed or warning tests in NUnit xml." }
+
     - name: Archive NUnit3 test results.
       if: always()
       uses: actions/upload-artifact@v4

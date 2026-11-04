@@ -1,0 +1,311 @@
+- type: entity
+  id: VehicleKraz17
+  parent: BaseVehicleC17
+  name: КрАЗ
+  description: Военный грузовик, который всё ещё заводится. Три места в кабине.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          # Sized to the south RSI frame (opaque ~1.44×3.78). The sprite is locked to South and rotated with the body, so this box turns with the truck.
+          bounds: "-0.8,-2.15,0.85,1.8"
+        density: 400
+        restitution: 0
+        hard: true
+        mask:
+        - MobMask
+        - BulletImpassable
+        layer:
+        - MachineLayer
+  - type: GrosseCar
+    engineForce: 100000
+    brakeForce: 150000
+    friction: 1.5
+    maxForwardSpeed: 8
+    maxReverseSpeed: 3
+    steerRate: 2.2
+    minSteerSpeed: 0.6
+    handbrakeForce: 120000
+    driftSound:
+      path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
+      params:
+        loop: true
+    slots:
+    - id: driver
+      name: grosse-car-slot-driver
+      containerId: car-driver
+      isDriver: true
+      visuals: Driver
+    - id: passenger
+      name: grosse-car-slot-passenger
+      containerId: car-passenger
+      visuals: Passenger1
+    - id: passenger2
+      name: grosse-car-slot-passenger2
+      containerId: car-passenger2
+      visuals: Passenger2
+  - type: ContainerContainer
+    containers:
+      car-driver: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger2: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      actions: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+  - type: MovementSound
+    sound:
+      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
+      params:
+        loop: true
+  - type: UnpoweredFlashlight
+    toggleAction: ActionGrosseCarToggleLight
+  - type: PointLight
+    mask: /Textures/Effects/LightMasks/cone.png
+    offset: 0,-2.0
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 4
+    allowSelfRepair: false
+  - type: Sprite
+    sprite: _Grosse/Vehicles/kraz.rsi
+    layers:
+    - state: kraz1
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+  - type: Appearance
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - car-driver
+        - car-passenger
+        - car-passenger2
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  id: VehicleZIL17
+  parent: VehicleKraz17
+  name: грузовик
+  description: Довоенный тяжелый транспорт для транспортировки множества вещей.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/zil.rsi
+    layers:
+    - state: z2
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+    drawdepth: Mobs
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.7,0.8,1.7"
+        density: 500
+        restitution: 0
+        hard: true
+        mask:
+        - MobMask
+        - BulletImpassable
+        layer:
+        - MachineLayer
+  - type: GrosseCar
+    engineForce: 40000
+    brakeForce: 100000
+    friction: 5
+    maxForwardSpeed: 6
+    maxReverseSpeed: 3
+    ramMinSpeed: 3
+    steerRate: 1
+    minSteerSpeed: 0.4
+    handbrakeForce: 100000
+    slots:
+    - id: driver
+      name: grosse-car-slot-driver
+      containerId: car-driver
+      isDriver: true
+      visuals: Driver
+    - id: passenger
+      name: grosse-car-slot-passenger
+      containerId: car-passenger
+      visuals: Passenger1
+  - type: ContainerContainer
+    containers:
+      car-driver: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      actions: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+      storagebase: !type:Container
+        ents: [ ]
+  - type: PointLight
+    offset: 0,-2.0
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 4
+    allowSelfRepair: false
+  - type: Appearance
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - car-driver
+        - car-passenger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Storage
+    grid:
+    - 0,0,11,11
+    maxItemSize: Ginormous
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+
+- type: entity
+  id: VehicleCombineAPC17
+  parent: VehicleKraz17
+  name: бронетранспартер патруля
+  description: Броневик сил патруля Альянса, основная наземная техника надзора.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-2.15,0.85,1.8"
+        density: 800
+        restitution: 0
+        hard: true
+        mask:
+        - MobMask
+        - BulletImpassable
+        layer:
+        - MachineLayer
+  - type: GrosseCar
+    engineForce: 350000
+    brakeForce: 550000
+    friction: 1
+    maxForwardSpeed: 12
+    maxReverseSpeed: 4
+    steerRate: 2.5
+    minSteerSpeed: 0.4
+    handbrakeForce: 520000
+    maxDriveDamage: 1000
+    driftSound:
+      path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
+      params:
+        loop: true
+    engineStartSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_start_loop3.ogg
+    engineStopSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_shutdown.ogg
+    engineIdleSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
+    engineMoveStartSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_firstgear_loop1.ogg
+    engineDriveSound:
+      path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
+      params:
+        loop: true
+    driveStartSpeed: 0.2
+    driveStopSpeed: 0.1
+    selfDamage:
+      types:
+        Blunt: 0
+    slots:
+    - id: driver
+      name: grosse-car-slot-driver
+      containerId: car-driver
+      isDriver: true
+      visuals: Driver
+    - id: passenger
+      name: grosse-car-slot-passenger
+      containerId: car-passenger
+      visuals: Passenger1
+    - id: passenger2
+      name: grosse-car-slot-passenger2
+      containerId: car-passenger2
+      visuals: Passenger2
+  - type: ContainerContainer
+    containers:
+      car-driver: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger2: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      actions: !type:Container
+        showEnts: False
+        occludes: True
+        ents: []
+  - type: UnpoweredFlashlight
+    toggleAction: ActionGrosseCarToggleLight
+  - type: PointLight
+    mask: /Textures/Effects/LightMasks/cone.png
+    offset: 0,-1.0
+  - type: Repairable
+    fuelCost: 25
+    doAfterDelay: 30
+    allowSelfRepair: false
+  - type: Sprite
+    sprite: _Grosse/Vehicles/combineAPC.rsi
+    layers:
+    - state: base
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+    - state: window
+  - type: Appearance
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - car-driver
+        - car-passenger
+        - car-passenger2
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

@@ -1,0 +1,17 @@
+ent-GrosseTank = танк
+    .desc = Корпус едет как грузовик. Башня на шарнире, стрелок сидит в ней.
+    .suffix = { ent-BaseVehicleC17.suffix }
+ent-GrosseTankEmpty = танк
+    .desc = Корпус едет как грузовик. Башня на шарнире, стрелок сидит в ней.
+    .suffix = Пустой
+ent-GrosseTankTurret = башня танка
+    .desc = Ствол на корпусе. Кликать её нельзя.
+    .suffix = { ent-BaseVehicleC17.suffix }
+ent-CartridgeGrosseTank = снаряд танка
+    .desc = Снаряд для башни. Клик по корпусу кладёт его в боекомплект.
+ent-AmmoBoxGrosseTank = ящик снарядов
+    .desc = Ящик снарядов для танка. Клик по корпусу забирает один.
+ent-SpawnerGrosseTank = спавнер танка
+ent-VehicleCombineAPC17 = бронетранспартер патруля
+    .desc = Броневик сил патруля Альянса, основная наземная техника надзора.
+    .suffix = { ent-BaseVehicleC17.suffix }

@@ -1,6 +1,14 @@
 grosse-car-slot-driver = Водитель
 grosse-car-slot-passenger = Пассажир
 grosse-car-slot-passenger2 = Второй пассажир
+grosse-car-slot-passenger3 = Третий пассажир
+grosse-car-slot-passenger4 = Четвертый пассажир
+grosse-car-slot-passenger5 = Пятый пассажир
+grosse-car-slot-passenger6 = Шестой пассажир
+grosse-car-slot-passenger7 = Седьмой пассажир
+grosse-car-slot-passenger8 = Восьмой пассажир
+grosse-car-slot-passenger9 = Девятый пассажир
+grosse-car-slot-passenger10 = Десятый пассажир
 
 grosse-car-verb-enter-first = Сесть ({$slot})
 grosse-car-verb-exit = Выйти
