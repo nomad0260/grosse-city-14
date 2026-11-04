@@ -88,9 +88,31 @@
       - state: green
 
 - type: entity
+  id: SpawnPointCivilProtactionUnitJudge
+  parent: SpawnPointCivilProtactionUnit
+  name: судья гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnitJudge
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCivilProtactionUnitDispetcher
+  parent: SpawnPointCivilProtactionUnit
+  name: диспетчер гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnitDispetcher
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
   id: SpawnPointCivilProtactionUnitOfficer
   parent: SpawnPointCivilProtactionUnit
-  name: офицер гэо
+  name: командир дивизии гэо
   components:
   - type: SpawnPoint
     job_id: CivilProtactionUnitOfficer

@@ -4,38 +4,89 @@
 - type: job
   id: CivilProtactionUnit
   name: Гражданская Оборона
-  description: Обороняй граждан
+  description: Внутренние силы полиции для охраны порядка и закона.
   playTimeTracker: JobCivilProtection
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CivilProtectionGear
   icon: "JobIconUnion"
-  supervisors: job-supervisors-sectorial-commander
+  supervisors: job-supervisors-divison-leader
   requirements:
     - !type:SpeciesRequirement
       species:
       - Human
   playTimeRanks:
-  - name: Ветеран Гражданской Обороны
+  - name: Гражданская Оборона
+    callsign: "05"
+  - name: Гражданская Оборона
     callsign: "04"
-    idCard: UnionIDCardCivilProtection
-    icon: JobIconUnionGold
+    requirements:
+    - !type:RoleTimeRequirement
+      role: JobCivilProtection
+      time: 5h
+  - name: Гражданская Оборона
+    callsign: "03"
     requirements:
     - !type:RoleTimeRequirement
       role: JobCivilProtection
       time: 20h
-  - name: Элитный юнит ГО
-    callsign: "03"
-    idCard: UnionIDCardCivilProtectionOfficer
-    icon: JobIconUnionCommander
-    requirements:
-    - !type:RoleTimeRequirement
-      role: JobCivilProtection
-      time: 40h
     - !type:DepartmentTimeRequirement
       department: City14CivilProtection
       time: 60h
+  access:
+    - UnionBase
+    - UnionCP
+    - Engineering
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: NpcFactionMember
+      factions:
+      - UniversalUnion
+
+- type: playTimeTracker
+  id: JobCivilProtection02
+
+- type: job
+  id: CivilProtactionUnit02
+  name: Локальный Командир Гражданской Обороны
+  description: Командир отряда ГэО, выполняет функцию полевого офицера.
+  playTimeTracker: JobCivilProtection02
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CivilProtection02Gear
+  icon: "JobIconUnionGold"
+  supervisors: job-supervisors-divison-leader
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  playTimeRanks:
+  - name: Локальный Командир Гражданской Обороны
+    callsign: "02"
+  - name: Локальный Командир Гражданской Обороны
+    callsign: "01"
+    requirements:
+    - !type:RoleTimeRequirement
+      role: CivilProtactionUnit02
+      time: 5h
+    - !type:DepartmentTimeRequirement
+      department: City14CivilProtection
+      time: 20h
+  - name: Локальный Командир Гражданской Обороны
+    callsign: "OFC"
+    requirements:
+    - !type:RoleTimeRequirement
+      role: CivilProtactionUnitOfficer
+      time: 25h
+    - !type:DepartmentTimeRequirement
+      department: City14CivilProtection
+      time: 100h
   access:
     - UnionBase
     - UnionCP
@@ -50,27 +101,64 @@
     - type: NpcFactionMember
       factions:
       - UniversalUnion
+
 - type: playTimeTracker
-  id: JobCivilProtection02
+  id: JobCivilProtectionDispetcher
 
 - type: job
-  id: CivilProtactionUnit02
-  name: Локальный Командир Гражданской Обороны
-  description: Обороняй граждан
-  playTimeTracker: JobCivilProtection02
+  id: CivilProtactionUnitDispetcher
+  name: Диспетчер Гражданской Обороны
+  description: Штабной офицер координирующий действия ГэО по всему городу.
+  playTimeTracker: JobCivilProtectionDispetcher
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CivilProtection02Gear
   icon: "JobIconUnionGold"
-  supervisors: job-supervisors-sectorial-commander
+  supervisors: job-supervisors-divison-leader
   requirements:
     - !type:SpeciesRequirement
       species:
       - Human
   playTimeRanks:
-  - name: Локальный Командир Гражданской Обороны
-    callsign: "02"
+  - name: Диспетчер Гражданской Обороны
+    callsign: "DSP"
+  access:
+    - UnionBase
+    - UnionCP
+    - Engineering
+    - UnionAdmin
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: NpcFactionMember
+      factions:
+      - UniversalUnion
+
+- type: playTimeTracker
+  id: JobCivilProtectionJudge
+
+- type: job
+  id: CivilProtactionUnitJudge
+  name: Судья Гражданской Обороны
+  description: Высший исполнительный орган власти, осуществляет справедливый и законный суд, карая нарушителей режима.
+  playTimeTracker: JobCivilProtectionJudge
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CivilProtection02Gear
+  icon: "JobIconUnionGold"
+  supervisors: job-supervisors-divison-leader
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  playTimeRanks:
+  - name: Судья Гражданской Обороны
+    callsign: "JDG"
   access:
     - UnionBase
     - UnionCP
@@ -91,8 +179,8 @@
 
 - type: job
   id: CivilProtactionUnitOfficer
-  name: Офицер Гражданской Обороны
-  description: Обороняй граждан
+  name: Командир Дивизии Гражданской Обороны
+  description: Командующий дивизии ГэО города, осуществляет координацию всех гарнизонов под его командованием.
   playTimeTracker: JobCivilProtectionOfficer
   applyTraits: false
   joinNotifyCrew: false
@@ -106,7 +194,7 @@
       - Human
   playTimeRanks:
   - name: Офицер Гражданской Обороны
-    callsign: "01"
+    callsign: "DvL"
   access:
     - UnionBase
     - UnionCP
