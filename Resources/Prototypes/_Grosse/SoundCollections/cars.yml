@@ -8,6 +8,14 @@
   - /Audio/_Grosse/Vehicles/ram_hit_4.ogg
 
 - type: soundCollection
+  id: GrosseCarV8Impact
+  files:
+  - /Audio/_Grosse/Vehicles/impact_medium_1.ogg
+  - /Audio/_Grosse/Vehicles/impact_medium_2.ogg
+  - /Audio/_Grosse/Vehicles/impact_medium_3.ogg
+  - /Audio/_Grosse/Vehicles/impact_medium_4.ogg
+
+- type: soundCollection
   id: GrosseCarWall
   files:
   - /Audio/_Grosse/Vehicles/wall_crash_0.ogg

@@ -32,6 +32,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private ISharedPlayerManager _player = default!;
     [Dependency] private ActionBlockerSystem _blocker = default!;
     [Dependency] private ActionContainerSystem _actionContainer = default!;
     [Dependency] private ActivatableUISystem _activatableUi = default!;
@@ -60,6 +61,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
         SubscribeLocalEvent<GrosseCarComponent, GrosseCarEnterDoAfterEvent>(OnEnterDoAfter);
         SubscribeLocalEvent<GrosseCarComponent, GrosseCarEjectDoAfterEvent>(OnEjectDoAfter);
         SubscribeLocalEvent<GrosseCarComponent, GrosseCarExitEvent>(OnExitAction);
+        SubscribeLocalEvent<GrosseCarComponent, GrosseCarToggleEngineEvent>(OnToggleEngine);
         SubscribeLocalEvent<GrosseCarComponent, BoundUIOpenedEvent>(OnBoundUiOpened);
         SubscribeLocalEvent<GrosseCarComponent, ActivatableUIOpenAttemptEvent>(OnInstrumentOpenAttempt);
         SubscribeLocalEvent<GrosseCarComponent, EntInsertedIntoContainerMessage>(OnInserted);
@@ -86,6 +88,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 
     public override void Update(float frameTime)
     {
+        UpdateEngine();
         UpdateMotionVisuals();
         UpdateAudio();
     }
@@ -108,7 +111,7 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 
     private void OnCarShutdown(Entity<GrosseCarComponent> ent, ref ComponentShutdown args)
     {
-        ent.Comp.EngineSoundEntity = _audio.Stop(ent.Comp.EngineSoundEntity);
+        StopEngineLoops(ent.Comp);
         ent.Comp.DriftSoundEntity = _audio.Stop(ent.Comp.DriftSoundEntity);
         _ui.CloseUi(ent.Owner, InstrumentUiKey.Key);
     }
@@ -458,6 +461,14 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
 
         if (slot.IsDriver && car.Comp.RadioActionEntity is { } radio)
             _actions.GrantContainedAction(occupant, car.Owner, radio);
+
+        if (slot.IsDriver)
+        {
+            EntityUid? engineAction = null;
+            _actions.AddAction(occupant, ref engineAction, car.Comp.EngineToggleAction, car.Owner);
+            if (engineAction != null)
+                _actions.SetToggled(engineAction.Value, car.Comp.EngineState is GrosseCarEngineState.On or GrosseCarEngineState.Starting);
+        }
     }
 
     private void CleanupOccupant(Entity<GrosseCarComponent> car, EntityUid occupant, GrosseCarSlot slot)
@@ -584,20 +595,9 @@ public sealed partial class SharedGrosseCarSystem : EntitySystem
         if (!_timing.IsFirstTimePredicted)
             return;
 
-        var query = EntityQueryEnumerator<GrosseCarComponent, PhysicsComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var car, out var physics, out _))
+        var query = EntityQueryEnumerator<GrosseCarComponent>();
+        while (query.MoveNext(out var uid, out var car))
         {
-            var speed = physics.LinearVelocity.Length();
-
-            if (TryComp<MovementSoundComponent>(uid, out var movement) && movement.Sound != null)
-            {
-                var shouldPlay = speed >= car.EngineSoundSpeed;
-                if (shouldPlay && car.EngineSoundEntity == null)
-                    car.EngineSoundEntity = _audio.PlayPredicted(movement.Sound, uid, uid)?.Entity;
-                else if (!shouldPlay && car.EngineSoundEntity != null)
-                    car.EngineSoundEntity = _audio.Stop(car.EngineSoundEntity);
-            }
-
             if (car.DriftSound != null)
             {
                 EntityUid? listener = TryGetDriver((uid, car), out var driver) ? driver : uid;

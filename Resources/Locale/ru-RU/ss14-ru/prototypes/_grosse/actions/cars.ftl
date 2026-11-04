@@ -6,3 +6,5 @@ ent-ActionGrosseCarPlayMidi = Запустить MIDI
     .desc = Открыть MIDI-проигрыватель в кабине.
 ent-ActionGrosseCarToggleLight = Переключить свет
     .desc = Включить или выключить фары.
+ent-ActionGrosseCarToggleEngine = Двигатель
+    .desc = Завести или заглушить двигатель.

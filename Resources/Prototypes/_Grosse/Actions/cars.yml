@@ -51,3 +51,22 @@
   components:
   - type: Action
     priority: -4
+
+- type: entity
+  parent: BaseAction
+  id: ActionGrosseCarToggleEngine
+  name: Toggle engine
+  description: Start or stop the engine.
+  components:
+  - type: Action
+    itemIconStyle: NoItem
+    checkCanInteract: false
+    priority: -3
+    icon:
+      sprite: Structures/Power/Generation/portable_generator.rsi
+      state: portgen0
+    iconOn:
+      sprite: Structures/Power/Generation/portable_generator.rsi
+      state: portgen0on
+  - type: InstantAction
+    event: !type:GrosseCarToggleEngineEvent
