@@ -1,0 +1,57 @@
+- type: entity
+  id: ZLevelLadderBase
+  name: stairs
+  description: Be careful, the higher you ascend, the more painful the fall.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  parent: BaseStructure
+  abstract: true
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    state: straight
+  - type: Transform
+    anchored: True
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      hard:
+        shape: !type:PhysShapeAabb
+          bounds: -0.5,0.6,0.5,0.5
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+        hard: true
+      slowdown:
+        shape: !type:PhysShapeAabb
+          bounds: -0.4,-0.4,0.4,0.4
+        layer:
+        - SlipLayer
+        mask:
+        - ItemMask
+        density: 1000
+        hard: false
+  - type: GrosseZLevelHighGround
+    heightCurve:
+    - 1.05
+    - 1.05
+    - 0.1
+    stick: true
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.3
+    sprintSpeedModifier: 0.3
+
+- type: entity
+  id: ZLevelsLadder
+  parent: ZLevelLadderBase
+  name: ladder
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/stairs.rsi
+    state: lestnitca

@@ -13,6 +13,10 @@ grosse-car-action-exit-desc = Get out of the vehicle.
 grosse-car-action-radio-name = Play MIDI
 grosse-car-action-radio-desc = Open the cabin MIDI player.
 
+grosse-car-engine-started = The engine starts.
+grosse-car-engine-stopped = The engine stops.
+grosse-car-engine-wrecked = The engine is wrecked.
+
 grosse-tank-slot-gunner = Gunner
 grosse-tank-verb-gunner = Sit as gunner
 grosse-tank-ammo-full = The rack is full.

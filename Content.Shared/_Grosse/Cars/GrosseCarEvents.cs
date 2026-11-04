@@ -6,6 +6,8 @@ namespace Content.Shared._Grosse.Cars;
 
 public sealed partial class GrosseCarExitEvent : InstantActionEvent;
 
+public sealed partial class GrosseCarToggleEngineEvent : InstantActionEvent;
+
 [Serializable, NetSerializable]
 public sealed partial class GrosseCarEnterDoAfterEvent : DoAfterEvent
 {

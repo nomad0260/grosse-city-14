@@ -21,6 +21,10 @@ grosse-car-action-exit-desc = Покинуть машину.
 grosse-car-action-radio-name = Запустить MIDI
 grosse-car-action-radio-desc = Открыть MIDI-проигрыватель в кабине.
 
+grosse-car-engine-started = Двигатель заведён.
+grosse-car-engine-stopped = Двигатель заглушен.
+grosse-car-engine-wrecked = Двигатель разбит.
+
 grosse-tank-slot-gunner = Стрелок
 grosse-tank-verb-gunner = Сесть стрелком
 grosse-tank-ammo-full = Боекомплект полон.

@@ -5,9 +5,19 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._Grosse.Cars;
+
+[Serializable, NetSerializable]
+public enum GrosseCarEngineState : byte
+{
+    Off,
+    Starting,
+    On,
+    Stopping,
+}
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GrosseCarComponent : Component
@@ -145,7 +155,49 @@ public sealed partial class GrosseCarComponent : Component
     public SoundSpecifier? DriftSound;
 
     [DataField]
-    public float EngineSoundSpeed = 0.4f;
+    public SoundSpecifier? EngineStartSound;
+
+    [DataField]
+    public SoundSpecifier? EngineStopSound;
+
+    [DataField]
+    public SoundSpecifier? EngineIdleSound;
+
+    /// <summary>
+    /// Played once when the car first starts rolling. The drive loop takes over after it finishes.
+    /// </summary>
+    [DataField]
+    public SoundSpecifier? EngineMoveStartSound;
+
+    [DataField]
+    public SoundSpecifier? EngineDriveSound;
+
+    [DataField]
+    public float IdlePitch = 1f;
+
+    [DataField]
+    public float RevPitch = 1.45f;
+
+    [DataField]
+    public float RpmRiseRate = 2.2f;
+
+    [DataField]
+    public float RpmFallRate = 1.1f;
+
+    [DataField]
+    public float IdleVolume = -4f;
+
+    [DataField]
+    public float DriveVolume = -2f;
+
+    [DataField]
+    public float DriveStartSpeed = 0.6f;
+
+    [DataField]
+    public float DriveStopSpeed = 0.25f;
+
+    [DataField]
+    public EntProtoId EngineToggleAction = "ActionGrosseCarToggleEngine";
 
     [DataField]
     public SoundSpecifier? ImpactSound = new SoundCollectionSpecifier("MetalThud");
@@ -180,9 +232,27 @@ public sealed partial class GrosseCarComponent : Component
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
     public TimeSpan LastImpact;
 
+    [AutoNetworkedField]
+    public GrosseCarEngineState EngineState = GrosseCarEngineState.Off;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
+    public TimeSpan EngineTransitionEnd;
+
+    /// <summary>
+    /// True after the car has crossed <see cref="DriveStartSpeed"/> until it falls under <see cref="DriveStopSpeed"/>.
+    /// </summary>
+    [AutoNetworkedField]
+    public bool WasRolling;
+
     public Vector2 LastSkidPosition;
-    public EntityUid? EngineSoundEntity;
+    public EntityUid? IdleSoundEntity;
+    public EntityUid? DriveSoundEntity;
+    public EntityUid? MoveStartSoundEntity;
+    public EntityUid? IdleSoundExcluded;
+    public EntityUid? DriveSoundExcluded;
     public EntityUid? DriftSoundEntity;
+    public TimeSpan MoveStartUntil;
+    public float CurrentRpm;
     public bool VisualRunning;
 
     /// <summary>

@@ -55,8 +55,18 @@
       path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
       params:
         loop: true
+    engineStartSound:
+      path: /Audio/_Grosse/Vehicles/engine_start.ogg
+    engineStopSound:
+      path: /Audio/_Grosse/Vehicles/engine_stop.ogg
+    engineIdleSound:
+      path: /Audio/_Grosse/Vehicles/engine_idle.ogg
+    engineMoveStartSound:
+      path: /Audio/_Grosse/Vehicles/engine_move_start.ogg
+    engineDriveSound:
+      path: /Audio/_Grosse/Vehicles/engine_drive.ogg
     hitSound:
-      collection: GrosseCarHit
+      collection: GrosseCarV8Impact
     wallImpactSound:
       collection: GrosseCarWall
     hitDamage:
@@ -94,11 +104,6 @@
   - type: Tag
     tags:
     - DoorBumpOpener
-  - type: MovementSound
-    sound:
-      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
-      params:
-        loop: true
   - type: UnpoweredFlashlight
     toggleAction: ActionGrosseCarToggleLight
   - type: PointLight

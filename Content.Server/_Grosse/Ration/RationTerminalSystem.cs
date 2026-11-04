@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Popups;
 using Content.Shared._Grosse.Ration;
+using Content.Shared.Access.Systems;
 using Content.Shared.Database;
 using Content.Shared.Forensics.Components;
 using Content.Shared.Ghost;
@@ -43,10 +44,8 @@ public sealed partial class RationTerminalSystem : EntitySystem
     private const string City14Department = "City14";
     private const int EnvelopesPerBox = 9;
 
-    private static readonly ProtoId<JobPrototype> WorkersHead = "UnionWorkersHead";
-    private static readonly ProtoId<JobPrototype> FactoryHead = "UnionFactoryHead";
-
     [Dependency] private IAdminLogManager _admin = default!;
+    [Dependency] private AccessReaderSystem _access = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedJobSystem _jobs = default!;
@@ -61,7 +60,6 @@ public sealed partial class RationTerminalSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<RationTerminalComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
         SubscribeLocalEvent<RationTerminalComponent, BoundUIOpenedEvent>(OnOpened);
         SubscribeLocalEvent<RationTerminalComponent, RationTerminalSetQuotaMessage>(OnSetQuota);
         SubscribeLocalEvent<RationTerminalComponent, RationTerminalIssueMessage>(OnIssue);
@@ -80,17 +78,6 @@ public sealed partial class RationTerminalSystem : EntitySystem
         }
 
         return false;
-    }
-
-    public bool IsOperator(EntityUid user)
-    {
-        if (!_mind.TryGetMind(user, out var mindId, out _))
-            return false;
-
-        if (!_jobs.MindTryGetJobId(mindId, out var job) || job is not { } id)
-            return false;
-
-        return id == WorkersHead || id == FactoryHead;
     }
 
     public List<RationRecipient> CollectRecipients(RationQuotaComponent quota)
@@ -139,16 +126,6 @@ public sealed partial class RationTerminalSystem : EntitySystem
             GiveOrDrop(user, box);
 
         return boxes;
-    }
-
-    private void OnOpenAttempt(Entity<RationTerminalComponent> ent, ref ActivatableUIOpenAttemptEvent args)
-    {
-        if (IsOperator(args.User))
-            return;
-
-        args.Cancel();
-        if (!args.Silent)
-            _popup.PopupEntity(Loc.GetString("ration-terminal-denied"), ent, args.User);
     }
 
     private void OnOpened(Entity<RationTerminalComponent> ent, ref BoundUIOpenedEvent args)
@@ -218,7 +195,7 @@ public sealed partial class RationTerminalSystem : EntitySystem
     private bool TryGetQuota(EntityUid console, EntityUid user, out Entity<RationQuotaComponent> station)
     {
         station = default;
-        if (!IsOperator(user))
+        if (!_access.IsAllowed(user, console))
             return false;
 
         if (_station.GetOwningStation(console) is not { } stationUid
