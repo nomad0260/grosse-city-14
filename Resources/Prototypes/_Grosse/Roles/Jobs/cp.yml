@@ -73,7 +73,7 @@
     callsign: "01"
     requirements:
     - !type:RoleTimeRequirement
-      role: CivilProtactionUnit02
+      role: JobCivilProtection02
       time: 5h
     - !type:DepartmentTimeRequirement
       department: City14CivilProtection
@@ -82,7 +82,7 @@
     callsign: "OFC"
     requirements:
     - !type:RoleTimeRequirement
-      role: CivilProtactionUnitOfficer
+      role: JobCivilProtection02
       time: 25h
     - !type:DepartmentTimeRequirement
       department: City14CivilProtection
