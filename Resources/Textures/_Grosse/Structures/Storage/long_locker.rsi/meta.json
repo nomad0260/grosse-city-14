@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by yri_nuri",
+  "size": {
+    "x": 48,
+    "y": 48
+  },
+  "states": [
+    {
+      "name": "secure"
+    },
+    {
+      "name": "secure_door"
+    },
+    {
+      "name": "secure_icon"
+    },
+    {
+      "name": "secure_open"
+    },
+    {
+      "name": "rust"
+    },
+    {
+      "name": "rust_2"
+    }
+  ]
+}

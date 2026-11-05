@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Sprited by VilllL",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "storage-empty",
+      "directions": 4
+    },
+    {
+      "name": "layer-1"
+    },
+    {
+      "name": "layer-2"
+    },
+    {
+      "name": "layer-3"
+    },
+    {
+      "name": "layer-4"
+    },
+    {
+      "name": "layer-5"
+    }
+  ]
+}

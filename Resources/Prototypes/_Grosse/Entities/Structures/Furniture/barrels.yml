@@ -1,0 +1,50 @@
+- type: entity
+  id: RandomBarrelC17
+  parent: BaseStructure
+  name: barrel
+  description: Just a metalic barrel that can contain various substances.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/barrel.rsi
+    layers:
+    - state: barrel-black
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        barrel-black: ""
+        barrel-blue: ""
+        barrel-brown: ""
+        barrel-fire: "" # Not sure if actual explosive barrels are necessary
+        barrel-grey: ""
+        barrel-plastic: ""
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+        #region for tests, gonna change it
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 80
+        layer:
+        - WallLayer
+
+- type: entity
+  id: RandomRustyBarrelC17
+  parent: RandomBarrelC17
+  name: rusty barrel
+  description: Just a metalic barrel that can contain various substances. Became rusty, but seems to have no leaks still.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/barrel.rsi
+    layers:
+    - state: barrel-black-rust
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        barrel-black-rust: ""
+        barrel-blue-rust: ""
+        barrel-brown-rust: ""
+        barrel-fire-rust: ""
+        barrel-grey-rust: ""

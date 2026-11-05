@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by yri_nuri.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "WhiteChair",
+      "directions": 4
+    },
+    {
+      "name": "WhiteChairDirty",
+      "directions": 4
+    },
+    {
+      "name": "YellowChair",
+      "directions": 4
+    },
+    {
+      "name": "YellowChairDirty",
+      "directions": 4
+    },
+    {
+      "name": "RedChair",
+      "directions": 4
+    },
+    {
+      "name": "RedChairDirty",
+      "directions": 4
+    }
+  ]
+}

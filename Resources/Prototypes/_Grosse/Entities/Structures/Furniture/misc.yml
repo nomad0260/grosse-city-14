@@ -1,0 +1,105 @@
+- type: entity
+  id: CrematorHeadInAJarC17
+  parent: BaseStructure
+  name: cremator's head
+  description: A head of some alien synth in a jar.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/crematorhead.rsi
+    layers:
+    - state: creamator
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+
+- type: entity
+  abstract: true
+  id: BathBase
+  name: BathBase
+  description: You sit in this. Either by will or force.
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 100
+        mask:
+        - TableMask
+  - type: Sprite
+    sprite: _Grosse/Structures/Furniture/bath.rsi
+    noRot: true
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,-0.05"
+  - type: Pullable
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+
+- type: entity
+  name: BathC17
+  id: BathC17
+  parent: BathBase
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: bath
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 10
+
+- type: entity
+  name: BathRustyC17
+  id: BathRustyC17
+  parent: BathBase
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: bath-rust #This one red and dirty
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialSteel:
+            min: 5
+            max: 10

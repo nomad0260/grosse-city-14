@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by ???",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "barrel-black"
+    },
+    {
+      "name": "barrel-black-rust"
+    },
+    {
+      "name": "barrel-blue"
+    },
+    {
+      "name": "barrel-blue-rust"
+    },
+    {
+      "name": "barrel-brown"
+    },
+    {
+      "name": "barrel-brown-rust"
+    },
+    {
+      "name": "barrel-fire"
+    },
+    {
+      "name": "barrel-fire-rust"
+    },
+    {
+      "name": "barrel-grey"
+    },
+    {
+      "name": "barrel-grey-rust"
+    },
+    {
+      "name": "barrel-plastic"
+    }
+  ]
+}

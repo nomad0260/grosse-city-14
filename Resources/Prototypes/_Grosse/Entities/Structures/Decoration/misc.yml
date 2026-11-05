@@ -5,15 +5,10 @@
   description: Платформа, на которую уложена керамическая плитка для удобства транспортировки.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/palette.rsi
+    sprite: _Grosse/Structures/Decoration/pallet.rsi
     layers:
-    - state: p1
+    - state: pallet
       map: [ "enum.DamageStateVisualLayers.Base" ]
-  - type: RandomSprite
-    available:
-    - enum.DamageStateVisualLayers.Base:
-        p1: ""
-        p2: ""
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
@@ -102,3 +97,377 @@
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
     state: public_phone
+
+- type: entity
+  id: BigCarpetC17
+  name: big carpet
+  description: This is a very big carpet...
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/carpet_of_carpets.rsi
+    state: carpet
+    drawdepth: -1
+    offset: 0, -0.5
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialCloth1:
+            min: 4
+            max: 8
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+           bounds: "-1.5,-1,1.5,1"
+        density: 10
+        hard: false
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Physics
+    bodyType: Static
+
+- type: entity
+  parent: BaseStructure
+  id: BoxWoodenC17
+  name: wooden box
+  description: A big wooden box with many hidden toys. Maybe.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/box.rsi
+    state: box
+    noRot: true
+  - type: Damageable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 3
+            max: 5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          - bounds: -0.3, -0.45, 0.3, 0.45
+        density: 100
+        hard: true
+        layer:
+        - MachineLayer
+        mask:
+        - MachineMask
+
+- type: entity
+  parent: BaseMachine
+  id: GeneratorC17
+  name: generator
+  description: This generator looks rusty and old. But the control panel is so odd that you can't understand how you should even launch it.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/generator.rsi
+    state: generator
+    noRot: true
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.95,-0.95,0.95,0.95"
+        density: 250
+        hard: true
+        layer:
+        - MachineLayer
+        mask:
+        - MachineMask
+  - type: Physics
+    bodyType: Static
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+
+- type: entity
+  parent: StructureWheeled
+  id: PushCart01aC17
+  name: push cart
+  description: This is a push cart for packages and luggage.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/pushcart01a.rsi
+    state: pushcart01a
+    noRot: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.75,-0.65,0.75,0.25"
+        density: 250
+        hard: true
+        layer:
+        - MidImpassable
+        mask:
+        - ItemMask
+  - type: Physics
+    bodyType: Dynamic
+  - type: Rotatable
+  - type: Pullable
+  - type: Climbable
+  - type: InteractionOutline
+  - type: Clickable
+
+- type: entity
+  parent: BaseMachine
+  id: CarLiftC17
+  name: car lift
+  description: Тяжелый подъемник для транспортных средств. Панель управления выглядит настолько странно, что вы не понимаете, как его вообще запустить.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/car-lift.rsi
+    state: car-lift
+    noRot: true
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shapes:
+        - !type:PhysShapeAabb
+          bounds: "-0.95, -0.95, -0.6, 0.95"
+        - !type:PhysShapeAabb
+          bounds: "0.6, -0.95, 0.95, 0.95"
+        density: 250
+        hard: true
+        layer:
+        - ItemMask
+        mask:
+        - MachineMask
+  - type: Physics
+    bodyType: Static
+  - type: Rotatable
+  - type: Transform
+    noRot: false
+
+- type: entity
+  id: ComputerC17
+  parent: BaseStructure
+  name: компьютер
+  description: Старый компьютер. Клавиатура и мышь немного стерлись.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Furniture/computeh.rsi
+    state: computeh
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          # 48x64 пикселей. Коллизия только для верхней части (монитор и системник), без клавиатуры и мыши.
+          bounds: "-0.5,0.75,0.5,0.0"
+        density: 155
+        mask:
+        - ItemMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: ComputerTableC17
+  parent: BaseStructure
+  name: компьютерный стол
+  description: Стол, за которым обычно сидят программисты.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Furniture/computer_table.rsi
+    state: computeh_table
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.0,0.5,1.0,-0.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: ServerC17
+  parent: BaseStructure
+  name: сервер
+  description: Серверная стойка. Гудит как улей.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Furniture/server.rsi
+    state: serveh
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,0.75,0.4,-0.75"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: CylinderC17
+  parent: BaseStructure
+  name: большой цилиндр
+  description: Нечто большое. Похоже на гигантскую цистерну.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Decoration/cylinder-big.rsi
+    state: cylinder-big
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,0.75,0.4,-0.75"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: CylinderRustyC17
+  parent: CylinderC17
+  name: большой цилиндр
+  description: Нечто непонятное. Похоже на гигантскую цистерну.
+  components:
+  - type: Sprite
+    state: cylinder-big-rust
+
+- type: entity
+  id: SmallCylinderC17
+  parent: CylinderC17
+  name: малый цилиндр
+  description: Нечто непонятное. Похоже на большую цистерну.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/cylinder.rsi
+    state: cylinder-small
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,0.4,0.3,-0.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
+- type: entity
+  id: SmallCylinderRustyC17
+  parent: SmallCylinderC17
+  name: малый цилиндр
+  description: Нечто непонятное. Похоже на большую цистерну.
+  components:
+  - type: Sprite
+    state: cylinder-small-rust

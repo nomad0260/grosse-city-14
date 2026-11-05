@@ -102,3 +102,6 @@
 
 - type: Tag
   id: PulseBullet
+
+- type: Tag
+  id: KalashnikovGun

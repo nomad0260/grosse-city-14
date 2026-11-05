@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "license": "Grosse Private License",
+  "copyright": "Sprited by VilllL",
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "car-lift",
+      "directions": 4
+    }
+  ]
+}

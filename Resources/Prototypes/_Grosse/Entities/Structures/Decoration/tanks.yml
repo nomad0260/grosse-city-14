@@ -186,3 +186,46 @@
   - type: Sprite
     layers:
       - state: сargo7
+
+- type: entity
+  id: CombineTrainC17
+  parent: CargoTankC17
+  name: поезд альянса
+  description: Высокотехнологичный бронепоезд, собранный из земных материалов.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/Railroad/trains.rsi
+    drawdepth: HighFloorObjects
+    layers:
+      - state: train
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.83,-0.5,0.83,0.5"
+        density: 5000
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: CombineWagonC17
+  parent: CombineTrainC17
+  name: грузовой вагон
+  description: Высокотехнологичный вагон броепоезда для определённых целей.
+  components:
+  - type: Sprite
+    layers:
+      - state: wagon
+
+- type: entity
+  id: CombineWagonOpenC17
+  parent: CombineTrainC17
+  name: открытый грузовой вагон
+  description: Высокотехнологичный вагон броепоезда для определённых целей. С этого был снят кожух.
+  components:
+  - type: Sprite
+    layers:
+      - state: wagon-open

@@ -1,0 +1,13 @@
+# Tool closet
+#- type: entity
+#  id: ClosetTool
+#  name: tool closet
+#  parent: ClosetSteelBase
+#  description: It's a storage unit for tools.
+#  components:
+#  - type: Appearance
+#  - type: EntityStorageVisuals
+#    stateBaseClosed: eng
+#    stateDoorOpen: eng_open
+#    stateDoorClosed: eng_tool_door
+#

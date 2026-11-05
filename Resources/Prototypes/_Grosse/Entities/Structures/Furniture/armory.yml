@@ -1,0 +1,117 @@
+- type: entity
+  id: StructureWeaponRackBase
+  name: weapon rack
+  parent: BaseStructure
+  abstract: true
+  description: A storage unit for expedited pacification measures.
+  components:
+  - type: Anchorable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Sprite
+    snapCardinals: true
+    noRot: true
+    sprite: _Grosse/Structures/Furniture/gun-armory.rsi
+    layers:
+    - state: storage-empty
+  - type: Appearance
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  parent: StructureWeaponRackBase
+  id: AKWeaponArmoryC17
+  name: kalashnikov's armory
+  description: Tra-ta-ta-ta-ta! Take a gun right now!
+  components:
+  - type: ItemSlots
+    slots:
+      weapon1:
+        insertVerbText: weapon-rack-verb-insert-weapon-01
+        ejectVerbText: weapon-rack-verb-eject-weapon-01
+        name: weapon-rack-name-stored-weapon-slot
+        whitelist:
+          tags:
+          - KalashnikovGun
+      weapon2:
+        insertVerbText: weapon-rack-verb-insert-weapon-02
+        ejectVerbText: weapon-rack-verb-eject-weapon-02
+        name: weapon-rack-name-stored-weapon-slot
+        whitelist:
+          tags:
+          - KalashnikovGun
+      weapon3:
+        insertVerbText: weapon-rack-verb-insert-weapon-03
+        ejectVerbText: weapon-rack-verb-eject-weapon-03
+        name: weapon-rack-name-stored-weapon-slot
+        whitelist:
+          tags:
+          - KalashnikovGun
+      weapon4:
+        insertVerbText: weapon-rack-verb-insert-weapon-04
+        ejectVerbText: weapon-rack-verb-eject-weapon-04
+        name: weapon-rack-name-stored-weapon-slot
+        whitelist:
+          tags:
+          - KalashnikovGun
+      weapon5:
+        insertVerbText: weapon-rack-verb-insert-weapon-05
+        ejectVerbText: weapon-rack-verb-eject-weapon-05
+        name: weapon-rack-name-stored-weapon-slot
+        whitelist:
+          tags:
+          - KalashnikovGun
+  - type: ItemMapper
+    sprite: _Grosse/Structures/Furniture/gun-armory.rsi
+    mapLayers:
+      layer-1:
+        minCount: 1
+        whitelist:
+          tags:
+          - KalashnikovGun
+      layer-2:
+        minCount: 2
+        whitelist:
+          tags:
+          - KalashnikovGun
+      layer-3:
+        minCount: 3
+        whitelist:
+          tags:
+          - KalashnikovGun
+      layer-4:
+        minCount: 4
+        whitelist:
+          tags:
+          - KalashnikovGun
+      layer-5:
+        minCount: 5
+        whitelist:
+          tags:
+          - KalashnikovGun
