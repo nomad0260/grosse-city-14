@@ -60,9 +60,9 @@
     engineStopSound:
       path: /Audio/_Grosse/Vehicles/engine_stop.ogg
     engineIdleSound:
-      path: /Audio/_Grosse/Vehicles/engine_idle.ogg
+      path: /Audio/_Grosse/Vehicles/heli/rotor_loop.ogg
     engineMoveStartSound:
-      path: /Audio/_Grosse/Vehicles/engine_move_start.ogg
+      path: /Audio/_Grosse/Vehicles/heli/rotor_loop.ogg
     engineMoveStartDuration: 4
     engineDriveSound:
       path: /Audio/_Grosse/Vehicles/engine_drive.ogg
@@ -169,6 +169,14 @@
           False: { visible: false }
       enum.GrosseCarVisuals.Passenger2:
         enum.GrosseCarVisualLayers.Passenger2:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Passenger3:
+        enum.GrosseCarVisualLayers.Passenger3:
+          True: { visible: true }
+          False: { visible: false }
+      enum.GrosseCarVisuals.Passenger4:
+        enum.GrosseCarVisualLayers.Passenger4:
           True: { visible: true }
           False: { visible: false }
   - type: ContainerContainer

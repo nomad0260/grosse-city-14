@@ -35,6 +35,14 @@
       name: grosse-car-slot-passenger
       containerId: car-passenger
       visuals: Passenger1
+    - id: passenger2
+      name: grosse-car-slot-passenger2
+      containerId: car-passenger2
+      visuals: Passenger2
+    - id: passenger3
+      name: grosse-car-slot-passenger3
+      containerId: car-passenger3
+      visuals: Passenger3
   - type: ContainerContainer
     containers:
       car-driver: !type:ContainerSlot
@@ -42,6 +50,14 @@
         occludes: True
         ent: null
       car-passenger: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger2: !type:ContainerSlot
+        showEnts: False
+        occludes: True
+        ent: null
+      car-passenger3: !type:ContainerSlot
         showEnts: False
         occludes: True
         ent: null

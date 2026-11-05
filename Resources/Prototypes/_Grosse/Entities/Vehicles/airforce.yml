@@ -1,0 +1,136 @@
+# Это заготовка для будущего, щас все что ниже нужно для веселья и не забыть что вообще мы хотели
+
+- type: entity
+  parent: BaseMob
+  id: BaseAirVehicleC17
+  abstract: true
+  components:
+  - type: AmbientSound
+    volume: 1
+    range: 5
+    sound:
+      path: /Audio/_Grosse/Mobs/Gunship/engine_near_loop1.ogg
+  - type: CargoSellBlacklist
+  - type: Input
+    context: "human"
+  - type: Body
+  - type: Hands
+  - type: ComplexInteraction
+  - type: Sprite
+    drawdepth: Ghosts
+    sprite: _Grosse/rsi/Misc/gunship.rsi
+    noRot: false
+    state: gunship
+  - type: ContentEye
+    targetZoom: 1.5, 1.5
+    maxZoom: 9, 9
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 15
+        hard: false
+        mask:
+        - GhostImpassable
+  - type: MovementSpeedModifier
+    baseSprintSpeed: 8
+    baseWalkSpeed: 8
+  - type: MovementIgnoreGravity
+  - type: Physics
+    bodyType: KinematicController
+    bodyStatus: InAir
+    canCollide: true
+  - type: CanMoveInAir
+  - type: GrosseZPhysics
+    autoStep: false
+    velocityGravity: false
+  - type: GrosseZLevelGhostMover
+
+- type: entity
+  id: VehicleHunterChopper
+  parent: BaseAirVehicleC17
+  name: вертолет-охотник
+  components:
+  - type: AmbientSound
+    volume: 1
+    range: 25
+    sound:
+      path: /Audio/_Grosse/Vehicles/heli/rotor_loop.ogg
+  - type: Sprite
+    sprite: _Grosse/Vehicles/hunter-helicopter.rsi
+    layers:
+    - state: flying
+      map: [ "enum.GrosseCarVisualLayers.Base" ]
+
+- type: entity
+  parent: BaseAirVehicleC17
+  id: VehicleCombineAirTransportC17
+  name: транспортник Альянса
+  description: Брбрбрбрббрбрбрбрбрбрбрбрбрб.
+  components:
+  - type: AmbientSound
+    volume: 1
+    range: 5
+    sound:
+      path: /Audio/_Grosse/Mobs/Gunship/engine_near_loop1.ogg
+  - type: Hands
+    hands:
+      hand1:
+        location: Right
+      hand2:
+        location: Left
+    sortedHands:
+    - hand1
+    - hand2
+    showInHands: false
+  - type: Sprite
+    sprite: _Grosse/rsi/Misc/gunship.rsi
+    state: gunship
+  - type: Loadout
+    prototypes: [Gunship]
+
+- type: entity
+  id: DrobshipPod
+  name: pod
+  parent: LockerBaseSecure
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: syndicate
+    stateDoorOpen: syndicate_open
+    stateDoorClosed: syndicate_door
+  - type: Item
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 25
+        mask:
+        - SmallMobMask
+        layer:
+        - MachineLayer
+  - type: EntityStorage
+    openOnMove: false
+    capacity: 16
+    enteringRange: 1.5
+    airtight: false
+    whitelist:
+      tags:
+        - CombineUnit
+        - CombineLeader
+        - CombineElite
+  - type: ResistLocker
+  - type: PlaceableSurface
+    isPlaceable: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
