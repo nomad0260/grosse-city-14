@@ -11,6 +11,7 @@ ent-WallConcreteCC17 = бетонная стена
     .suffix = WallC17 Тип В
 
 ent-WallConcreteAVariationC17 = бетонная стена
+    .desc = Обычная кирпичная стена обычного здания.
     .suffix = WallC17 Вариативность
 
 ent-WallBrickC17 = кирпичная стена
@@ -54,6 +55,7 @@ ent-WallCombineAEC17 = стена Альянса
     .suffix = WallC17 Тип AE
 
 ent-WallCombineAVariationAC17 = стена Альянса
+    .desc = Стена созданная нашими Покровителями для нас.
     .suffix = WallC17 Тип А Вариативность
 
 ent-WallCombineBC17 = стена Альянса
@@ -73,4 +75,5 @@ ent-WallCombineBEC17 = стена Альянса
     .suffix = WallC17 Тип BE
 
 ent-WallCombineAVariationBC17 = стена Альянса
+    .desc = Стена созданная нашими Покровителями для нас.
     .suffix = WallC17 Тип B Вариативность
