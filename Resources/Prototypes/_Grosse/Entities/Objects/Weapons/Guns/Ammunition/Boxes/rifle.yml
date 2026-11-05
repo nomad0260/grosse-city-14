@@ -1,0 +1,19 @@
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: AmmoBoxRifle
+  name: rifle rounds box
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/Boxes/box46.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: BallisticAmmoProvider
+    capacity: 120
+    proto: CartridgeRifle

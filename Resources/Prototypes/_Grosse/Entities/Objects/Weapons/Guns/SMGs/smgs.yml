@@ -6,16 +6,16 @@
   description: SMG7, также известный как MP7 — компактное автоматическое огнестрельное оружие, модифицированное Альянсом для вооружения патруля, используется всеми родами войск.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/weapon/smg/big.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/smg/big.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Item
-    sprite: _Grosse/rsi/hlstaff/weapon/smg/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/smg/tiny.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/weapon/smg/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/smg/tiny.rsi
   - type: GunRequiresWield
   - type: Gun
     soundGunshot:

@@ -4,7 +4,7 @@
   name: shotgun shell box
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/Ammunition/Boxes/shell.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/Boxes/box12g.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]

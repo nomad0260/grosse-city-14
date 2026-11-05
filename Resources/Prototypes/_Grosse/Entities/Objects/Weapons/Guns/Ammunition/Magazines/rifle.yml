@@ -21,7 +21,7 @@
   - type: Item
     size: Small
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/weapon/magazine_ar2.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/magazine_ar2.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]

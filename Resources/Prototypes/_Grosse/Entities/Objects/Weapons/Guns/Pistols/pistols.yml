@@ -6,7 +6,7 @@
   description: Модифицированный Альянсом USP Match, созданный из местных материалов, состоит на вооружение офицеров Гражданской обороны.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/weapon/pistol.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/pistol.rsi
   - type: Gun
     selectedMode: SemiAuto
     availableModes:
