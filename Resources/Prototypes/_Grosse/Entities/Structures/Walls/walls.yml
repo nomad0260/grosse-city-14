@@ -303,6 +303,33 @@
     active: true
 
 - type: entity
+  parent: RandomSpawner
+  id: WallConcreteAVariationC17
+  name: concrete wall
+  suffix: WallC17 Variation
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Grosse/Structures/Walls/beton.rsi
+      state: full
+  - type: EntityTableSpawner
+    offset: 0
+    table: !type:NestedSelector
+      tableId: WallConcrete
+
+- type: entityTable
+  id: WallConcrete
+  table: !type:GroupSelector
+    children:
+    - !type:GroupSelector
+      children:
+      - id: WallConcreteAC17
+      - id: WallConcreteBC17
+      - id: WallConcreteCC17
+
+- type: entity
   parent: BaseWallC17
   id: WallConcreteAC17
   name: concrete wall
