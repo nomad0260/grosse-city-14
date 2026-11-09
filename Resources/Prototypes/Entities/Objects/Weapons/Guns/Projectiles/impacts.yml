@@ -12,16 +12,6 @@
       sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
       state: impact_bullet
   - type: EffectVisuals
-  - type: Fixtures #grosse-edit
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.1
-        density: 15
-        hard: false
-        mask:
-        - GhostImpassable
   - type: Tag
     tags:
       - HideContextMenu
