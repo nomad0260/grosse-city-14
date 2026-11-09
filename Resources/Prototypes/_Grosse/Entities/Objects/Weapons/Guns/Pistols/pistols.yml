@@ -2,12 +2,17 @@
   name: USP Match
   parent: BaseWeaponPistol
   id: WeaponPistolC17
-  suffix: Пистолет
+  suffix: Пистолет, Оружие 17
   description: Модифицированный Альянсом USP Match, созданный из местных материалов, состоит на вооружение офицеров Гражданской обороны.
   components:
   - type: Sprite
-    sprite: _Grosse/Objects/Weapons/Guns/pistol.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Pistols/pistol.rsi
   - type: Gun
+    cameraRecoilScalar: 0.5
+    angleIncrease: 8
+    angleDecay: 45
+    minAngle: 1
+    maxAngle: 45
     selectedMode: SemiAuto
     availableModes:
       - SemiAuto
@@ -30,6 +35,96 @@
           tags:
             - MagazinePistol
             - MagazinePistolHighCapacity
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+
+- type: entity
+  name: ПМ
+  parent: BaseWeaponPistol
+  id: WeaponPistolPMC17
+  suffix: Пистолет, Оружие 17
+  description: Пистолет Макарова, раньше использовался во всех силовых структурах как основной боевой пистолет, а щас... впрочем не будем об этом.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Pistols/pm.rsi
+    scale: 0.9, 0.9
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,0,0
+    - 0,1,0,1
+  - type: Gun
+    cameraRecoilScalar: 0.5
+    angleIncrease: 10
+    angleDecay: 40
+    minAngle: 1
+    maxAngle: 45
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/_Grosse/Weapons/Ranged/pm_shot.ogg
+      params:
+        volume: 4
+    soundEmpty:
+      path: /Audio/_Grosse/Weapons/Ranged/pm_empty.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/_Grosse/Weapons/Ranged/pm_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolPMC17
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistolPM
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+
+- type: entity
+  name: пистолет ТТ
+  parent: BaseWeaponPistol
+  id: WeaponPistolTTC17
+  suffix: Пистолет, Оружие 17
+  description: Модифицированный Альянсом USP Match, созданный из местных материалов, состоит на вооружение офицеров Гражданской обороны.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Pistols/tt.rsi
+  - type: Gun
+    cameraRecoilScalar: 0.5
+    angleIncrease: 8
+    angleDecay: 45
+    minAngle: 1
+    maxAngle: 45
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/_Grosse/Weapons/Ranged/colt.ogg
+      params:
+        volume: 4
+    soundEmpty:
+      path: /Audio/_Grosse/Weapons/Ranged/pistol_empty.ogg
+  - type: ChamberMagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolPMC17
+        insertSound: /Audio/_Grosse/Weapons/Ranged/colt_reload.ogg
+        ejectSound: /Audio/_Grosse/Weapons/Ranged/colt_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistolPM
   - type: MagazineVisuals
     magState: mag
     steps: 1

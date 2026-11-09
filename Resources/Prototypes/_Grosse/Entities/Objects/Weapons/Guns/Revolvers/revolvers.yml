@@ -2,12 +2,13 @@
   name: Colt Python
   parent: BaseWeaponRevolver
   id: WeaponRevolverColtPython
+  suffix: Револьвер, Оружие 17
   description: A double-action revolver manufactured by various companies. It is readily available on the civilian market, making it a popular choice among private investigators. You feel lucky just holding it. Loads 6 rounds of .45 magnum.
   components:
   - type: Sprite
-    sprite: _Grosse/Objects/Weapons/Guns/revolver.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolver.rsi
   - type: Clothing
-    sprite: _Grosse/Objects/Weapons/Guns/revolver.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolver.rsi
   - type: RevolverAmmoProvider
     capacity: 6
     chambers: [ True, True, True, True, True, True ]
@@ -18,6 +19,13 @@
       path: /Audio/_Grosse/Weapons/Ranged/357_reload4.ogg
     soundSpin:
       path: /Audio/_Grosse/Weapons/Ranged/357_spin1.ogg
+  - type: GrosseGunWieldBonus
+    kickMagnitudeMax: 8
   - type: Gun
+    cameraRecoilScalar: 5
+    angleIncrease: 15
+    angleDecay: 60
+    minAngle: 1
+    maxAngle: 45
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/357_fire2.ogg

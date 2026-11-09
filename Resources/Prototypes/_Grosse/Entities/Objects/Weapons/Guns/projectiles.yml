@@ -58,18 +58,18 @@
       types:
         Heat: 32
         Piercing: 20
-  - type: Reflective
-    reflective:
-    - NonEnergy
-  - type: Fixtures
-    fixtures:
-      projectile:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.1,-0.1,0.1,0.1"
-        hard: false
-        mask:
-        - Opaque
+  #- type: Reflective # это плазма вроде, кароче не знаю, но она по стеклам попадает
+  #  reflective:
+  #  - NonEnergy
+  #- type: Fixtures
+  #  fixtures:
+  #    projectile:
+  #      shape:
+  #        !type:PhysShapeAabb
+  #        bounds: "-0.1,-0.1,0.1,0.1"
+  #      hard: false
+  #      mask:
+  #      - Opaque
 
 - type: entity
   id: PelletShotgunMagnum12Spread

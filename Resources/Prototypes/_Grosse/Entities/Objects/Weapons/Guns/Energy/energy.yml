@@ -51,22 +51,24 @@
   name: AR 2
   parent: BaseWeaponEnergyRifle
   id: WeaponPulseRifleAR2C17
+  suffix: Винтовка, Оружие 17
   description: Импульсная винтовка Альянса, созданная из черной стали и использущая темную энергию, состаит в стандартном снаряжении сверх-человеческого отделения патруля Альянса и подразделения бионической пехоты Альянса.
   components:
   - type: Sprite
-    sprite: _Grosse/Objects/Weapons/Guns/ar2/big.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Energy/ar2/big.rsi
     layers:
       - state: base
         map: ["enum.GunVisualLayers.Base"]
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Item
-    sprite: _Grosse/Objects/Weapons/Guns/ar2/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Energy/ar2/tiny.rsi
     size: Large
   - type: Clothing
-    sprite: _Grosse/Objects/Weapons/Guns/ar2/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Energy/ar2/tiny.rsi
   - type: GrosseGunWieldBonus
-    cameraRecoilScalar: -4
+    cameraRecoilScalar: -4.5
+    kickMagnitudeMax: 1
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: -44
@@ -101,6 +103,7 @@
   description: Энергетическая установка по разгону маленьких частиц в воздухе, по сути небольшой рельсотрон.
   id: WeaponCMBKineticAccelerator17
   parent: BaseItem
+  suffix: Миск, Оружие 17
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/weapon/jackhummer.rsi

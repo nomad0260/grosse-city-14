@@ -1,16 +1,27 @@
 - type: entity
   name: модифицированный Spas-12
-  parent: BaseWeaponShotgun
+  parent:
+  - BaseFoldable
+  - BaseWeaponShotgun
   id: WeaponShotgun12CombineC17
-  suffix: Дробовик
+  suffix: Дробовик, Оружие 17
   description: Модифицированная Альянсом дробовик, уменьшенный боезапас с лихвой восполняет полуавтоматический режим.
   components:
   - type: Sprite
-    sprite: _Grosse/Objects/Weapons/Guns/spas-16/big.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/spas-16/big2.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base", "unfoldedLayer"]
+    - state: icon_folded
+      sprite: _Grosse/Objects/Weapons/Guns/Shotguns/spas-16/big.rsi
+      map: ["foldedLayer"]
+      visible: false
   - type: Item
-    sprite: _Grosse/Objects/Weapons/Guns/spas-16/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/spas-16/tiny.rsi
   - type: Clothing
-    sprite: _Grosse/Objects/Weapons/Guns/spas-16/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/spas-16/tiny.rsi
+  - type: Foldable
+    canFoldInsideContainer: true
   - type: BallisticAmmoProvider
     proto: ShellShotgunMagnum12
     capacity: 6
@@ -18,7 +29,30 @@
   - type: UseDelay
     delay: 0.3
   - type: GunRequiresWield
+  - type: Appearance
   - type: Gun
     fireRate: 3
     soundGunshot:
       collection: ShotgunshotCMB
+
+- type: entity
+  name: ТОЗ
+  parent: [BaseWeaponShotgun, BaseGunWieldable]
+  id: WeaponShotgunTOZ
+  description: An immortal classic. Uses .50 shotgun shells.
+  suffix: Дробовик, Оружие 17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/toz/big.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/toz/tiny.rsi
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 3
+  - type: GunSpreadModifier
+    spread: 0.6
+  - type: BallisticAmmoProvider
+    capacity: 2

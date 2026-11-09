@@ -15,6 +15,16 @@
   - type: Tag
     tags:
       - HideContextMenu
+  - type: Fixtures #grosse-edit
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.1
+        density: 15
+        hard: false
+        mask:
+        - GhostImpassable
   - type: AnimationPlayer
 
 - type: entity

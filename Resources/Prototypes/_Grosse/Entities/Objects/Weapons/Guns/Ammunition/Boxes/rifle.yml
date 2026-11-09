@@ -16,4 +16,4 @@
     zeroVisible: false
   - type: BallisticAmmoProvider
     capacity: 120
-    proto: CartridgeRifle
+    proto: CartridgeRifleLight762x39

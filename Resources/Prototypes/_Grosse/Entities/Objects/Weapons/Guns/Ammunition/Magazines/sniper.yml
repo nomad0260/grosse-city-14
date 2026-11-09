@@ -1,0 +1,47 @@
+- type: entity
+  parent: BaseItem
+  id: SpeedLoaderLightRifle762x54
+  name: "speed loader (7.62x54)"
+  description: 5-round 'stripper clip' for quickly reloading the Kardashev-Mosin. Intended to hold general-purpose kinetic ammunition.
+  components:
+  - type: SpeedLoader
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeRifle762x54
+    capacity: 5
+    proto: CartridgeRifleLight762x54
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/mosin_ammo.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-5
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+
+- type: entity
+  id: MagazineSVD
+  name: "магазин СВД (7.62x54)"
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    capacity: 10
+    proto: CartridgeRifleLight762x54
+    whitelist:
+      tags:
+      - CartridgeRifle762x54
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/svd_ammo.rsi
+  - type: Tag
+    tags:
+      - MagazineSVD

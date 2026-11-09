@@ -1,23 +1,35 @@
 - type: entity
-  name: SMG 7
+  name: СМГ 7
   parent: BaseWeaponSubMachineGun
   id: WeaponSubMachineGunC17
-  suffix: Пистолет-пулемёт
+  suffix: Пистолет-Пулемет, Оружие 17
   description: SMG7, также известный как MP7 — компактное автоматическое огнестрельное оружие, модифицированное Альянсом для вооружения патруля, используется всеми родами войск.
   components:
   - type: Sprite
-    sprite: _Grosse/Objects/Weapons/Guns/smg/big.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/SMGs/smg/big.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Item
-    sprite: _Grosse/Objects/Weapons/Guns/smg/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/SMGs/smg/tiny.rsi
   - type: Clothing
-    sprite: _Grosse/Objects/Weapons/Guns/smg/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/SMGs/smg/tiny.rsi
   - type: GunRequiresWield
+  - type: GrosseGunWieldBonus
+    cameraRecoilScalar: -3.5
+    kickMagnitudeMax: 4
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -14
   - type: Gun
+    cameraRecoilScalar: 5
+    angleIncrease: 10
+    angleDecay: 30
+    minAngle: 24
+    maxAngle: 45
+    fireRate: 8
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/smg1_fire1.ogg
   - type: ItemSlots

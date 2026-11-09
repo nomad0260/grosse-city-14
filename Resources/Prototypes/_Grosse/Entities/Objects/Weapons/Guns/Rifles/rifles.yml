@@ -3,32 +3,32 @@
   name: AKMS
   parent: BaseWeaponRifle
   id: WeaponAKMSRifleResistance
-  suffix: Resistens, Автомат
+  suffix: Винтовка, Оружие 17
   description: An iconic weapon of war. Uses 7.62x39 ammo.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/big.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/ak/big.rsi
+    scale: 0.85, 0.85
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/ak/tiny.rsi
   - type: Item
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/tiny.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/ak/tiny.rsi
   - type: GrosseGunWieldBonus
     cameraRecoilScalar: -4
   - type: GunWieldBonus
     minAngle: -23
-    maxAngle: 0
-    angleIncrease: -3
+    maxAngle: -30
   - type: Gun
-    angleDecay: 30
-    angleIncrease: 5
+    angleDecay: 35
+    angleIncrease: 4
     cameraRecoilScalar: 5
     minAngle: 24
-    maxAngle: 35
+    maxAngle: 65
     fireRate: 5
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/ak47.ogg
@@ -37,7 +37,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineLightRifle
+        startingItem: MagazineRifleLight762x39
         insertSound: /Audio/_Grosse/Weapons/Ranged/ak47_reload.ogg
         ejectSound: /Audio/_Grosse/Weapons/Ranged/ak47_unload.ogg
         priority: 2
@@ -46,11 +46,11 @@
             - MagazineLightRifle
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeLightRifle
+        startingItem: CartridgeRifleLight762x39
         priority: 1
         whitelist:
           tags:
-            - CartridgeLightRifle
+            - CartridgeRifle762x39
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -65,36 +65,44 @@
     delay: 0.5
 
 - type: entity
-  name: AK74-U
-  parent: BaseWeaponRifle
+  name: AK-74U
+  parent:
+  - BaseFoldable
+  - BaseWeaponRifle
   id: WeaponRifleAKSUResistance
-  suffix: Resistens, Автомат
+  suffix: Винтовка, Оружие 17
   description: An iconic weapon of war. Uses 7.62x39 ammo.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksupriklad/big.rsi
+    scale: 0.8, 0.8
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: ["enum.GunVisualLayers.Base", "unfoldedLayer"]
+    - state: base
+      sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksu/big.rsi
+      map: ["foldedLayer"]
+      visible: false
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksupriklad/tiny.rsi
   - type: Item
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/aksu.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksupriklad/tiny.rsi
     size: Large
+  - type: Foldable
+    canFoldInsideContainer: true
   - type: GrosseGunWieldBonus
     cameraRecoilScalar: -3.5
   - type: GunWieldBonus
     minAngle: -23
-    maxAngle: 0
-    angleIncrease: -2
+    maxAngle: -14
   - type: Gun
-    angleDecay: 25
-    angleIncrease: 6
+    angleDecay: 35
+    angleIncrease: 5.5
     cameraRecoilScalar: 5
     minAngle: 24
-    maxAngle: 45
+    maxAngle: 55
     fireRate: 5
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/ak47.ogg
@@ -103,7 +111,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineLightRifle
+        startingItem: MagazineRifleLight762x39
         insertSound: /Audio/_Grosse/Weapons/Ranged/ak47_reload.ogg
         ejectSound: /Audio/_Grosse/Weapons/Ranged/ak47_unload.ogg
         priority: 2
@@ -112,11 +120,11 @@
             - MagazineLightRifle
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeLightRifle
+        startingItem: CartridgeRifleLight762x39
         priority: 1
         whitelist:
           tags:
-            - CartridgeLightRifle
+            - CartridgeRifle762x39
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
