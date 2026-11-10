@@ -81,15 +81,7 @@
     - HeadSide
     - Snout
   - type: VoiceMask
-  - type: UIRequiresLock
-    userInterfaceKeys:
-      - enum.VoiceMaskUIKey.Key
-    accessDeniedSound: null
-    popup: null
-  - type: UserInterface
-    interfaces:
-      enum.VoiceMaskUIKey.Key:
-        type: VoiceMaskBoundUserInterface
+  - type: IdBoundVoiceMask
 
 - type: entity
   parent: ClothingMaskGas

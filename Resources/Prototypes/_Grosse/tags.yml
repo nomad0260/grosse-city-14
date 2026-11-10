@@ -102,3 +102,15 @@
 
 - type: Tag
   id: PulseBullet
+
+- type: Tag
+  id: MagazinePistolPM
+
+- type: Tag
+  id: CartridgeRifle762x39
+
+- type: Tag
+  id: CartridgeRifle762x54
+
+- type: Tag
+  id: MagazineSVD

@@ -29,6 +29,8 @@ namespace Content.Client.Stylesheets
 
         private Dictionary<string, Stylesheet> Stylesheets { get; set; } = default!;
 
+        private bool _initialized;
+
         public bool TryGetStylesheet(string name, [MaybeNullWhen(false)] out Stylesheet stylesheet)
         {
             return Stylesheets.TryGetValue(name, out stylesheet);
@@ -64,7 +66,34 @@ namespace Content.Client.Stylesheets
                 sawmill.Error($"There are unloaded sheetlets: {string.Join(", ", sheetlets)}");
             }
 
+            _initialized = true;
             sawmill.Debug($"Initialized {_styleRuleCount} style rules in {sw.Elapsed}");
+        }
+
+        public void ReloadSheets()
+        {
+            // Nothing to reload while the initial build is still in progress.
+            if (!_initialized)
+                return;
+
+            var sawmill = _logManager.GetSawmill("style");
+            var sw = Stopwatch.StartNew();
+
+            Stylesheets.Clear();
+            _styleRuleCount = 0;
+
+            SheetNanotrasen = Init(new NanotrasenStylesheet(new BaseStylesheet.NoConfig(), this));
+            SheetSystem = Init(new SystemStylesheet(new BaseStylesheet.NoConfig(), this));
+
+#pragma warning disable CS0618 // Legacy sheets are still exposed through TryGetStylesheet.
+            SheetNano = new StyleNano(_resCache).Stylesheet;
+            SheetSpace = new StyleSpace(_resCache).Stylesheet;
+#pragma warning restore CS0618
+
+            // Assigning a fresh instance makes the UI re-apply styles to the whole tree.
+            _userInterfaceManager.Stylesheet = SheetNanotrasen;
+
+            sawmill.Debug($"Reloaded {_styleRuleCount} style rules in {sw.Elapsed}");
         }
 
         private int _styleRuleCount;

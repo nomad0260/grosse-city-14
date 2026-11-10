@@ -49,14 +49,28 @@
     driftSlipThreshold: 0.35
     driftDecal: GrosseCarSkid
     driftDecalSpacing: 0.35
+    driftDecalOffset: 0, 0
     maxDriveDamage: 200
     occupantDamageMultiplier: 0.35
     driftSound:
       path: /Audio/_Grosse/Vehicles/tire_squeal.ogg
       params:
         loop: true
+    engineStartSound:
+      path: /Audio/_Grosse/Vehicles/engine_start.ogg
+    engineStopSound:
+      path: /Audio/_Grosse/Vehicles/engine_stop.ogg
+    engineIdleSound:
+      path: /Audio/_Grosse/Vehicles/engine_idle.ogg
+    engineMoveStartSound:
+      path: /Audio/_Grosse/Vehicles/engine_move_start.ogg
+    engineMoveStartDuration: 7.42
+    engineDriveSound:
+      path: /Audio/_Grosse/Vehicles/engine_drive.ogg
+    idlePitch: 0.92
+    revPitch: 1.22
     hitSound:
-      collection: GrosseCarHit
+      collection: GrosseCarV8Impact
     wallImpactSound:
       collection: GrosseCarWall
     hitDamage:
@@ -68,6 +82,9 @@
     wallDamage:
       types:
         Blunt: 12
+    ramBlacklist:
+      tags:
+      - Wall
     slots:
     - id: driver
       name: grosse-car-slot-driver
@@ -92,11 +109,6 @@
   - type: Tag
     tags:
     - DoorBumpOpener
-  - type: MovementSound
-    sound:
-      path: /Audio/_Grosse/Machines/hummer_vehicle_drive_mono.ogg
-      params:
-        loop: true
   - type: UnpoweredFlashlight
     toggleAction: ActionGrosseCarToggleLight
   - type: PointLight
@@ -111,7 +123,7 @@
     doAfterDelay: 4
     allowSelfRepair: false
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    sprite: _Grosse/Vehicles/grosse-tank.rsi
     noRot: false
     drawdepth: OverMobs
     layers:
@@ -234,7 +246,7 @@
         layer: []
   - type: GrosseCarTurret
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    sprite: _Grosse/Vehicles/grosse-tank.rsi
     noRot: false
     drawdepth: OverMobs
     # The barrel sits below the ring in the south frame. Shift so the ring, not the barrel, is the pivot.

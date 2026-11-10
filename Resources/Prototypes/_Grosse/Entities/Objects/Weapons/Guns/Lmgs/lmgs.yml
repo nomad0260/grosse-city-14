@@ -3,37 +3,33 @@
   name: RPD
   parent: BaseWeaponLightMachineGun
   id: WeaponLightMachineGunRPD
-  suffix: Resistens, Пулемёт
+  suffix: Пулемет, Оружие 17
   description: A cheap and robust machinegun, sometimes better known as an 'RPD'. Despite lacking attachment points beyond its underbarrel, remains a popular product on the black market with its cheap cost, high capacity and higher than usual caliber rounds.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/LMGs/pkm/big.rsi
+    scale: 0.9, 0.9
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
-    clothingVisuals:
-      suitstorage:
-      - sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
-        state: equipped-BACKPACK
-      Back:
-      - sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
-        state: equipped-BACKPACK
+    sprite: _Grosse/Objects/Weapons/Guns/LMGs/pkm/tiny.rsi
   - type: Item
-    sprite: _Grosse/rsi/Objects/Weapons/Guns/pkd27.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/LMGs/pkm/tiny.rsi
   - type: GrosseGunWieldBonus
-    cameraRecoilScalar: -4
+    cameraRecoilScalar: -4.7
   - type: GunWieldBonus
     minAngle: -30
-    maxAngle: -50
+    maxAngle: -30
   - type: Gun
-    minAngle: 34
+    minAngle: 31
     maxAngle: 55
+    angleDecay: 35
+    angleIncrease: 2
     cameraRecoilScalar: 5
-    fireRate: 5
+    fireRate: 6
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/ak47.ogg
   - type: ChamberMagazineAmmoProvider

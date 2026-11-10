@@ -5,6 +5,7 @@ using Content.Client.Examine;
 using Content.Client.PDA;
 using Content.Client.Resources;
 using Content.Client.Silicons.Laws.SiliconLawEditUi;
+using Content.Client.UserInterface;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Controls.FancyTree;
 using Content.Client.Verbs.UI;
@@ -23,20 +24,20 @@ namespace Content.Client.Stylesheets
     {
         public static Font NotoStack(this IResourceCache resCache, string variation = "Regular", int size = 10, bool display = false)
         {
-            var ds = display ? "Display" : "";
-            var sv = variation.StartsWith("Bold", StringComparison.Ordinal) ? "Bold" : "Regular";
-            return resCache.GetFont
-            (
-                // Ew, but ok
-                new[]
-                {
-                    $"/Fonts/NotoSans{ds}/NotoSans{ds}-{variation}.ttf",
-                    $"/Fonts/NotoSans/NotoSansSymbols-{sv}.ttf",
-                    "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf"
-                },
-                size
-            );
+            if (IoCManager.Instance is { } ioc
+                && ioc.TryResolveType<IUiFontStackManager>(out var fonts))
+                return fonts.GetStack(resCache, variation, size, display);
 
+            return new DummyFont();
+        }
+
+        public static Font NotoStack2ElectricBoogaloo(this IResourceCache resCache, string path = MiniFonts.Regular, int size = 10)
+        {
+            if (IoCManager.Instance is { } ioc
+                && ioc.TryResolveType<IUiFontStackManager>(out var fonts))
+                return fonts.GetStackWithPrimary(resCache, path, size);
+
+            return new DummyFont();
         }
 
     }
@@ -190,7 +191,14 @@ namespace Content.Client.Stylesheets
             var notoSansBold16 = resCache.NotoStack(variation: "Bold", size: 16);
             var notoSansBold18 = resCache.NotoStack(variation: "Bold", size: 18);
             var notoSansBold20 = resCache.NotoStack(variation: "Bold", size: 20);
-            var notoSansMono = resCache.GetFont("/EngineFonts/NotoSans/NotoSansMono-Regular.ttf", size: 12);
+            var notoSansMono = resCache.GetStack("Mono-Regular", 12, mono: true);
+
+            var useChatOverride = IoCManager.Instance is { } ioc
+                && ioc.TryResolveType<IUiFontStackManager>(out var uiFontStack)
+                && uiFontStack.UsesPrimaryChatFontOverride;
+            var chatFont = useChatOverride
+                ? resCache.GetChatStack(size: UiChatFonts.BaseSize)
+                : notoSans12;
 
             var windowHeaderTex = resCache.GetTexture("/Textures/Interface/Nano/window_header.png");
             var windowHeader = new StyleBoxTexture
@@ -548,6 +556,9 @@ namespace Content.Client.Stylesheets
             {
                 Element().Class("monospace")
                     .Prop("font", notoSansMono),
+                // Chat output panel — follow the selected UI font style.
+                Element<OutputPanel>()
+                    .Prop("font", chatFont),
                 // Window title.
                 new StyleRule(
                     new SelectorElement(typeof(Label), new[] {DefaultWindow.StyleClassWindowTitle}, null, null),

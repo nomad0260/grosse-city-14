@@ -1,0 +1,57 @@
+- type: startingGear
+  id: CityScanner
+  inhand:
+    - FlashCityScanner
+    - BinocularsScanner
+
+- type: startingGear
+  id: Gunship
+  inhand:
+    - DesantPod
+    - DrobshipPod
+
+- type: startingGear
+  id: NPCCombineSoldierElite
+  equipment:
+    pocket1: CombineSoldierElite
+
+- type: startingGear
+  id: NPCCombineSoldier
+  equipment:
+    pocket1: CombineSoldierLoot
+
+- type: startingGear
+  id: NPCCombineMedic
+  equipment:
+    pocket1: CombineMedicLoot
+
+
+- type: startingGear
+  id: NPCCombineSoldierAR2
+  equipment:
+    pocket1: CombineSoldierAR2Loot
+
+- type: startingGear
+  id: NPCCombineSoldierShotgun
+  equipment:
+    pocket1: CombineSoldierShotgunLoot
+
+- type: startingGear
+  id: NPCCombinePatrolUnitSMG
+  equipment:
+    pocket1: CombinePatrolUnitSMGLoot
+
+- type: startingGear
+  id: NPCCombinePatrolUnitRange
+  equipment:
+    pocket1: CombinePatrolUnitRangeLoot
+
+- type: startingGear
+  id: ReferentGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitLawyerBlack
+    ears: ClothingHeadsetCMBHeadsC17
+    shoes: ClothingShoesBootsLaceup
+    id: UnionIDCardAdministrationReferent
+    pocket1: EncryptionKeyCMBC17
+    pocket2: CouponC17

@@ -1,25 +1,15 @@
 - type: entity
   id: MobCityScannerC17
   name: city scanner
-  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  parent: [ SynthMobBase, FlyingMobBase ]
   description: Городской сканер, также известный как Сканер типа I — легкобронированный робот (дрон), снабженный камерой для фото-видео съемки. Используется Альянсом для контроля над городом Сити 14.
   components:
-  - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: Blood
-        Quantity: 50
-  - type: FlashImmunity
-  - type: ZombieImmune
   - type: CombatMode
   - type: MeleeWeapon
     hidden: true
     damage:
       types:
         Piercing: 0
-  - type: NpcFactionMember
-    factions:
-      - Xenoborg
   - type: IntrinsicRadioReceiver
   - type: ActiveRadio
     channels:

@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazinePistolPMC17
+  name: довоенный пистолетный магазин
+  description: Магазин используемый до 7-ми часовой войны, подходит для оружия того времени, почему-то.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 8
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/pm_ammo.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Tag
+    tags:
+      - MagazinePistol
+      - MagazinePistolPM

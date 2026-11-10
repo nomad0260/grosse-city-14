@@ -1,0 +1,30 @@
+- type: entity
+  parent: BaseUnionComputerC17
+  id: CommanderTerminalC17
+  name: commander terminal
+  description: Civil Protection console for groups and beacon orders.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: console2
+    - map: ["computerLayerKeys"]
+      state: console2-unshaded
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#3c5eb5"
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Pai
+  - type: AccessReader
+    access:
+    - [ UnionCP ]
+  - type: ActivatableUIRequiresAccess
+  - type: CommanderTerminal
+  - type: ActivatableUI
+    key: enum.CommanderTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CommanderTerminalUiKey.Key:
+        type: CommanderTerminalBoundUserInterface

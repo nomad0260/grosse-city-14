@@ -1,0 +1,122 @@
+- type: entity
+  name: винтовка Мосина
+  parent: BaseWeaponSniper
+  id: WeaponRifleMosinka
+  suffix: Винтовка, Оружие 17
+  description: Оружие используемая охотниками или для ведения вечных окопных воин. Использует винтовочный патрон 7.62x54.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosin/big.rsi
+    scale: 0.85, 0.85
+  - type: Clothing
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosin/tiny.rsi
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosin/tiny.rsi
+  - type: BallisticAmmoProvider
+    capacity: 5
+    proto: CartridgeRifleLight762x54
+    cycleable: false
+    whitelist:
+      tags:
+      - CartridgeRifle762x54
+  - type: Gun
+    fireRate: 0.8
+  - type: Wieldable
+  - type: UseDelay
+    delay: 0.8
+  - type: GunRequiresWield
+
+- type: entity
+  name: снайперская винтовка Мосина
+  parent: WeaponRifleMosinka
+  id: WeaponSniperMosinka
+  suffix: Винтовка, Оружие 17
+  description: Модификация винтовки Мосина для ведения снайперского огня. Использует винтовочный патрон 7.62x54.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosinAp/big.rsi
+    scale: 0.85, 0.85
+  - type: Clothing
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosinAp/tiny.rsi
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosinAp/tiny.rsi
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 26
+    pvsIncrease: 1.5
+
+- type: entity
+  name: снайперская винтовка Драгунова
+  parent: BaseWeaponRifle
+  id: WeaponRifleSVD
+  suffix: Винтовка, Оружие 17
+  description: Полуавтоматическая снайперская винтовка созданная конструктором Драгуновым для советской армии, удивительно что он все еще исправно работает, наверное. Использует винтовочный патрон 7.62x54.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/svd/big.rsi
+    scale: 0.85, 0.85
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/svd/tiny.rsi
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Snipers/svd/tiny.rsi
+  - type: GrosseGunWieldBonus
+    cameraRecoilScalar: -5
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -44
+  - type: Gun
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    minAngle: 24
+    maxAngle: 45
+    cameraRecoilScalar: 10
+    fireRate: 3
+    soundGunshot:
+      path: /Audio/_Grosse/Weapons/Ranged/svd.ogg
+      params:
+        volume: -5
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 26
+    pvsIncrease: 1.5
+  - type: ChamberMagazineAmmoProvider
+  - type: BallisticAmmoProvider
+    soundRack:
+      path: /Audio/_Grosse/Weapons/Ranged/svd_cocked.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineSVD
+        insertSound: /Audio/_Grosse/Weapons/Ranged/svd_reload.ogg
+        ejectSound: /Audio/_Grosse/Weapons/Ranged/svd_unload.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineSVD
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeRifleLight762x54
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeRifle762x54
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+  - type: UseDelay
+    delay: 1.5

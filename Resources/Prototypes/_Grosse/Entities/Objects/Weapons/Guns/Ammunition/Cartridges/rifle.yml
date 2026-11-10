@@ -1,0 +1,51 @@
+- type: entity
+  id: BaseCartridgeRifleLightSniper
+  name: cartridge (7,62)
+  parent: BaseCartridge
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+      - Cartridge
+      - CartridgeRifle762x54
+  - type: CartridgeAmmo
+    proto: BulletRifle
+  - type: Sprite
+    netsync: false
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/ammo_casing.rsi
+    layers:
+    - state: 30combat
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+    state: 30combat
+  - type: StaticPrice
+    price: 10
+
+- type: entity
+  id: CartridgeRifleLight762x39
+  name: cartridge (7,62x39)
+  parent: BaseCartridgeRifleLightSniper
+  components:
+  - type: Sprite
+    scale: 0.8, 0.8
+  - type: CartridgeAmmo
+    proto: BulletRifle762x39
+  - type: Tag
+    tags:
+      - Cartridge
+      - CartridgeRifle762x39
+
+- type: entity
+  id: CartridgeRifleLight762x54
+  name: cartridge (7,62x54)
+  parent: BaseCartridgeRifleLightSniper
+  components:
+  - type: Sprite
+    scale: 0.8, 0.8
+  - type: CartridgeAmmo
+    proto: BulletLight762
+  - type: Tag
+    tags:
+      - Cartridge
+      - CartridgeRifle762x54

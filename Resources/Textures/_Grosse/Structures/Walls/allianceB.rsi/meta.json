@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by alze_1",
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "allianceB0",
+      "directions": 4
+    },
+    {
+      "name": "allianceB1",
+      "directions": 4
+    },
+    {
+      "name": "allianceB2",
+      "directions": 4
+    },
+    {
+      "name": "allianceB3",
+      "directions": 4
+    },
+    {
+      "name": "allianceB4",
+      "directions": 4
+    },
+    {
+      "name": "allianceB5",
+      "directions": 4
+    },
+    {
+      "name": "allianceB6",
+      "directions": 4
+    },
+    {
+      "name": "allianceB7",
+      "directions": 4
+    }
+  ]
+}

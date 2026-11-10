@@ -483,4 +483,9 @@ public enum LogType
     /// Events related to players connecting/disconnecting.
     /// </summary>
     Connection = 104,
+
+    /// <summary>
+    /// Ration terminal issuance and ration envelope opening.
+    /// </summary>
+    Ration = 105,
 }

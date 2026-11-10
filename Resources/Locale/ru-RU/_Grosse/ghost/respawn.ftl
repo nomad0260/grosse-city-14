@@ -1,0 +1,16 @@
+ghost-respawn-return-to-round = Вернуться в раунд
+ghost-respawn-command-desc = Открыть меню возвращения в раунд
+ghost-respawn-command-help = grosse_return_to_round
+ghost-respawn-not-player = Команду может выполнить только игрок.
+ghost-respawn-not-ghost = Вернуться в раунд может только гост.
+ghost-respawn-unavailable = Возвращение в раунд сейчас недоступно.
+ghost-respawn-window-title = Возвращение в раунд
+ghost-respawn-role-label = Роль
+ghost-respawn-character-label = Персонаж
+ghost-respawn-confirm = Зайти
+ghost-respawn-no-characters = Свободных персонажей не осталось. Респавн недоступен.
+ghost-respawn-role-slots = { $job } ({ $slots })
+ghost-respawn-role-full = { $job } (нет слотов)
+ghost-respawn-role-unavailable = Эту роль нельзя выбрать.
+ghost-respawn-character-used = Этот персонаж уже был в раунде.
+ghost-respawn-role-requirements = Этот персонаж не подходит для выбранной роли.

@@ -31,30 +31,33 @@
     color: "#3c5eb5"
 
 - type: entity
-  parent: VendingMachine
+  parent: BaseMachinePowered
   id: RationDispenserC17
   name: пункт выдачи рационов
   description: Пункт установленный Альянсом для выдачи питательных рационов.
   components:
   - type: Transform
     noRot: false
-  - type: VendingMachine
-    pack: RationDispenserC17Inventory
-    dispenseOnHitChance: 0
-    dispenseOnHitThreshold: 0
-    offState: rationdispenser-off
-    brokenState: rationdispenser
-    normalState: rationdispenser
-    initialStockQuality: 0
+    anchored: true
   - type: Sprite
-    # Parent VendingMachine uses snapCardinals; that asserts on 4-directional RSI states.
     snapCardinals: false
     noRot: true
     sprite: _Grosse/rsi/hlstaff/structure/ration-dispenser.rsi
     layers:
-    - state: "rationdispenser"
-      map: ["enum.VendingMachineVisualLayers.Base"]
-    - state: "rationdispenser"
-      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
     - state: rationdispenser
-      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+  - type: Store
+    name: ration-store-name
+    categories:
+    - RationShop
+    currencyWhitelist:
+    - CouponC17
+    balance:
+      CouponC17: 0
+    refundAllowed: false

@@ -260,7 +260,7 @@
     sound: /Audio/Weapons/egloves.ogg
   - type: NpcFactionMember
     factions:
-      - Xenoborg
+      - UniversalUnion
   - type: MindShield
     mindShieldStatusIcon: UnionFaction
   - type: Sprite

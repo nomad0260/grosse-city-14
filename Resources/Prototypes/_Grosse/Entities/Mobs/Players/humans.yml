@@ -28,7 +28,7 @@
     prototypes: [CivilProtectionGear]
   - type: NpcFactionMember
     factions:
-      - Xenoborg
+      - UniversalUnion
   - type: RandomHumanoidAppearance
     randomizeName: false
   - type: MindShield
@@ -70,7 +70,7 @@
   - type: MindShield
   - type: NpcFactionMember
     factions:
-      - Xenoborg
+      - UniversalUnion
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
   - type: Tag

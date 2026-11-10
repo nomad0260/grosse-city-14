@@ -1,10 +1,44 @@
-#- type: listing
-#  id: RationDispenserC17Inventory1
-#  productEntity: FoodC17Ration
-#  cost:
-#    CouponC17: 1
-#  categories:
-#    - RationDispenserC17Inventory
-#  conditions:
-#    - !type:ListingLimitedStockCondition
-#      stock: 15
+- type: listing
+  id: RationShopRation
+  name: ration-shop-ration-name
+  productEntity: FoodC17Ration
+  cost:
+    CouponC17: 1
+  categories:
+  - RationShop
+
+- type: listing
+  id: RationShopWaterBar
+  name: ration-shop-water-name
+  productEntity: FoodC17WaterBarPacket
+  cost:
+    CouponC17: 2
+  categories:
+  - RationShop
+
+- type: listing
+  id: RationShopPorkBar
+  name: ration-shop-pork-name
+  productEntity: FoodC17PorkBarPacket
+  cost:
+    CouponC17: 2
+  categories:
+  - RationShop
+
+- type: listing
+  id: RationShopEggPasta
+  name: ration-shop-egg-name
+  productEntity: FoodC17EggPastaPacketCMB
+  cost:
+    CouponC17: 3
+  categories:
+  - RationShop
+
+- type: listing
+  id: RationShopChickenPasta
+  name: ration-shop-chicken-name
+  productEntity: FoodC17ChikenPastaPacketCMB
+  cost:
+    CouponC17: 3
+  categories:
+  - RationShop

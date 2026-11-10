@@ -1,0 +1,156 @@
+- type: job
+  id: Worker
+  name: job-title-cmb-worker
+  description: job-title-cmb-worker-description
+  playTimeTracker: JobWorkerC17
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CMBWorkerNotReadyGear
+  icon: "JobIconUnionPerson"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+    - Engineering
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+
+- type: playTimeTracker
+  id: JobWorkerC17
+
+- type: job
+  id: CWUEngineer
+  name: job-title-cmb-engineer
+  description: job-title-cmb-engineer-description
+  playTimeTracker: JobCWUEngineerC17
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CMBWorkerNotReadyGear
+  icon: "JobIconUnionPerson"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+    - Engineering
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+
+- type: playTimeTracker
+  id: JobCWUEngineerC17
+
+- type: playTimeTracker
+  id: JobUnionWorkersHead
+
+- type: job
+  id: UnionWorkersHead
+  name: Глава ГСР
+  description: Руководи Гражданским Союзом Рабочих
+  playTimeTracker: JobUnionWorkersHead
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: HeadUnionWorker
+  icon: "JobIconUnionGrey"
+  supervisors: job-supervisors-city-administrator
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  access:
+    - UnionBase
+    - Engineering
+    - UnionAdmin
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: NpcFactionMember
+      factions:
+      - UniversalUnion
+
+- type: playTimeTracker
+  id: JobUnionFactoryHead
+
+- type: job
+  id: UnionFactoryHead
+  name: Начальник Завода
+  description: Руководи Заводским Районом
+  playTimeTracker: JobUnionFactoryHead
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: UnionFactoryHead
+  icon: "JobIconUnionGrey"
+  supervisors: job-supervisors-city-administrator
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  access:
+    - UnionBase
+    - Engineering
+    - UnionAdmin
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: NpcFactionMember
+      factions:
+      - UniversalUnion
+- type: playTimeTracker
+  id: JobUnionResearcher
+
+- type: job
+  id: UnionResearcher
+  name: Исследователь
+  description: Исследуй неизвестные пустоши на окраине города 14.
+  playTimeTracker: JobUnionResearcher
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CMBWorkerResearcherGear
+  icon: "JobIconUnionWorker"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+
+- type: playTimeTracker
+  id: JobUnionMiner
+
+- type: job
+  id: UnionMiner
+  name: Шахтер
+  description: добывай материалы на окраине города 14.
+  playTimeTracker: JobUnionMiner
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CMBWorkerMinerGear
+  icon: "JobIconUnionMiner"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+  requirements:
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
