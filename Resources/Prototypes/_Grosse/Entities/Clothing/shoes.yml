@@ -45,3 +45,19 @@
       collection: FootstepSoldier
       params:
         volume: -5
+
+- type: entity
+  parent: ClothingShoesBase
+  id: ClothingShoesBootsMVD
+  name: Обувь МВД
+  description: Обувь для МВД
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoes.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/shoes.rsi
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepSoldier
+      params:
+        volume: -5

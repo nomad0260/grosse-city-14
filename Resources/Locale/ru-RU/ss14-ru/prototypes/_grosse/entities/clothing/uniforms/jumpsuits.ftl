@@ -16,3 +16,6 @@ ent-ClothingUniformJumpsuitRefugeeC17 = { ent-ClothingUniformJumpsuitCitizenC17 
     .desc = { ent-ClothingUniformJumpsuitCitizenC17.desc }
 ent-ClothingUniformMilitaryRU = армейская одежда
     .desc = { ent-UnsensoredClothingUniformBase.desc }
+ent-ClothingUniformJumpsuitParadeMVD = Парадная форма МВД
+ent-ClothingUniformJumpsuitShirtMVD = Майка МВД
+ent-ClothingUniformJumpsuitMVD = Форма МВД

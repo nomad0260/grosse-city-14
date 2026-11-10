@@ -10,3 +10,5 @@ ent-ClothingHeadWorkerC17 = шлем рабочего Альянса
     .desc = Специальные шлемы рабочих Альянса.
 ent-ClothingHeadjuggernautHelmetArmored = бронешлем "ТШ-6"
     .desc = Тяжелый защитный с Шестого уровнем защиты "Вулкан" предназначен для использования в комплекте боевого снаряжения с целью круговой защиты головы человека шестого класса от пуль стрелкового оружия.
+ent-ClothingHeadjuggernautHelmetArmored = ClothingHeadCapMVD
+    .desc = Это фуражка для МВД

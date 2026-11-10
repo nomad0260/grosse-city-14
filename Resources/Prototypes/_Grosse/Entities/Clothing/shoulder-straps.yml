@@ -1,0 +1,131 @@
+#Блять сделайте потом джоб иконы и тайтлы плиз. Дорогим спрайтерам от прототипера
+
+- type: entity
+  parent: IDCardStandard
+  id: ShoulderStraps
+  name: Shulder Strap
+  description: A shoulder strap necessary to access various areas.
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: equipped
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsOrdinary
+  name: Private shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: ordinary
+  - type: IdCard
+    #jobTitle: job-title-mvd-ordinary
+    #jobIcon: JobIconMvdOrdinary
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsSergeant
+  name: Sergeant shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: sergeant
+  - type: IdCard
+    #jobTitle: job-title-mvd-sergeant
+    #jobIcon: JobIconMvdSergeant
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsLieutenant
+  name: Lieutenant shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: lieutenant
+  - type: IdCard
+    #jobTitle: job-title-mvd-lieutenant
+    #jobIcon: JobIconMvdLieutenant
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsSeniorLieutenant
+  name: The shoulder straps of a senior lieutenant
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: senior-lieutenant
+  - type: IdCard
+    #jobTitle: job-title-mvd-senior-lieutenant
+    #jobIcon: JobIconMvdSeniorLieutenant
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsCaptain
+  name: Captain shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: captain
+  - type: IdCard
+    #jobTitle: job-title-mvd-captain
+    #jobIcon: JobIconMvdCaptain
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsMajor
+  name: Major shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: major
+  - type: IdCard
+    #jobTitle: job-title-mvd-major
+    #jobIcon: JobIconMvdMajor
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsLieutenantColonel
+  name: The shoulder straps of a lieutenant colonel
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: lieutenant-colonel
+  - type: IdCard
+    #jobTitle: job-title-mvd-lieutenant-colonel
+    #jobIcon: JobIconMvdLieutenantColonel
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsColonel
+  name: Сolonel shoulder straps
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: colonel
+  - type: IdCard
+    #jobTitle: job-title-mvd-colonel
+    #jobIcon: JobIconMvdColonel
+
+- type: entity
+  parent: ShoulderStraps
+  id: ShoulderStrapsMajorGeneral
+  name: The shoulder straps of a major general
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
+    layers:
+    - state: major-general
+  - type: IdCard
+    #jobTitle: job-title-mvd-major-general
+    #jobIcon: JobIconMvdMajorGeneral
