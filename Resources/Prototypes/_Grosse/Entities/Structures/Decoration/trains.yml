@@ -8,7 +8,7 @@
     mode: AlignTileAny
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Railroad/Train.rsi
+    sprite: _Grosse/Structures/Railroad/train.rsi
     drawdepth: HighFloorObjects
     layers:
       - state: cargo_tank
@@ -186,3 +186,93 @@
   - type: Sprite
     layers:
       - state: сargo7
+
+- type: entity
+  id: CombineTrainHeadC17
+  parent: CargoTankC17
+  name: локомотив позда бритвы
+  description: Один из новых поездов созданный нашими Покровителями, смесь гения Альянса и довоенных технологий Земли.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    layers:
+      - state: train
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.25,-0.5,1.25,0.5"
+        density: 5000
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: CombineTrainCargoC17
+  parent: CombineTrainHeadC17
+  name: вагон позда бритвы
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    layers:
+      - state: wagon
+
+- type: entity
+  id: CombineTrainCargoOpenC17
+  parent: CombineTrainHeadC17
+  name: вагон позда бритвы
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    layers:
+      - state: wagon-open
+
+- type: entity
+  id: TrainRailC17
+  name: рельсы
+  description: Старые ЖД пути, шпалы которых уже прогнили, а метал проржавел.
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: InteractionOutline
+  - type: Appearance
+  - type: Sprite
+    sprite: _Grosse/Structures/Railroad/rails.rsi
+    drawdepth: FloorTiles
+    layers:
+      - state: rails-wood
+        #scale: 0.6, 0.6
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepCatwalk
+      params:
+        volume: 8
+
+- type: entity
+  id: TrainRailMetalC17
+  parent: TrainRailC17
+  name: рельсы
+  description: Новые стальные рельсы для поездов Альянса, наверное это не очень хорошая идея делать рельсы из металов, но не думаю что кто-нибудь бы посмел это сказать нашим Покровителям.
+  components:
+  - type: Sprite
+    layers:
+      - state: rails-metal
+
+- type: entity
+  id: TrainRailMetalCrossC17
+  parent: TrainRailC17
+  name: рельсы
+  description: Новые стальные рельсы для поездов Альянса, наверное это не очень хорошая идея делать рельсы из металов, но не думаю что кто-нибудь бы посмел это сказать нашим Покровителям.
+  components:
+  - type: Sprite
+    layers:
+      - state: rails-crossroad
+  - type: Transform
+    noRot: true

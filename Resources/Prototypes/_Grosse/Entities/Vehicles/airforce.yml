@@ -53,6 +53,7 @@
   parent: BaseAirVehicleC17
   name: вертолет-охотник
   components:
+  - type: CombatMode
   - type: AmbientSound
     volume: 1
     range: 25
@@ -63,6 +64,26 @@
     layers:
     - state: flying
       map: [ "enum.GrosseCarVisualLayers.Base" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-1.7,0.5,1.5"
+        density: 15
+        hard: false
+        mask:
+        - GhostImpassable
+  - type: Hands
+    hands:
+      hand1:
+        location: Left
+    sortedHands:
+    - hand1
+    showInHands: false
+  - type: Loadout
+    prototypes: [HunterChopper]
+  - type: RequireProjectileTarget
 
 - type: entity
   parent: BaseAirVehicleC17

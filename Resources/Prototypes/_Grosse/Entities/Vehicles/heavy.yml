@@ -81,7 +81,7 @@
   - type: Sprite
     sprite: _Grosse/Vehicles/kraz.rsi
     layers:
-    - state: kraz1
+    - state: kraz1-clear
       map: [ "enum.GrosseCarVisualLayers.Base" ]
   - type: Appearance
   - type: Destructible
@@ -110,8 +110,9 @@
   - type: Sprite
     sprite: _Grosse/Vehicles/zil.rsi
     layers:
-    - state: z2
+    - state: z1-clear
       map: [ "enum.GrosseCarVisualLayers.Base" ]
+    - state: z2-box
     drawdepth: Mobs
   - type: Fixtures
     fixtures:
@@ -206,7 +207,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.8,-2.15,0.85,1.8"
+          bounds: "-0.8,-1.5,0.8,1.5"
         density: 800
         restitution: 0
         hard: true
@@ -216,8 +217,8 @@
         layer:
         - MachineLayer
   - type: GrosseCar
-    engineForce: 250000
-    brakeForce: 550000
+    engineForce: 200000
+    brakeForce: 350000
     friction: 1
     maxForwardSpeed: 12
     maxReverseSpeed: 4
@@ -237,9 +238,9 @@
       path: /Audio/_Grosse/Vehicles/APC/apc_idle1.ogg
     engineMoveStartSound:
       path: /Audio/_Grosse/Vehicles/APC/apc_firstgear_loop1.ogg
-    engineMoveStartDuration: 1.2
-    rpmFallRate: 3
-    rpmRiseRate: 6
+    engineMoveStartDuration: 4
+    rpmFallRate: 0.2
+    rpmRiseRate: 4
     engineDriveSound:
       path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
       params:
@@ -291,9 +292,9 @@
   - type: Sprite
     sprite: _Grosse/Vehicles/combineAPC.rsi
     layers:
-    - state: base
+    - state: Combine-APC-car
       map: [ "enum.GrosseCarVisualLayers.Base" ]
-    - state: window
+    - state: Combine-APC-wind
   - type: Appearance
   - type: Destructible
     thresholds:
