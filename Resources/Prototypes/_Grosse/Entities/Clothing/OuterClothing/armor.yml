@@ -59,15 +59,15 @@
 #      armorLvls:
 #        Piercing: 2
       coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Heat: 0.5
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.6
         Radiation: 0.5
         Caustic: 0.5
         Shock: 0.2
   - type: PoweredArmor
-    coefficientBonus: 0.2
+    coefficientBonus: 0.25
     energyPerDamage: 10
     powerOnSound:
       path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
@@ -110,7 +110,7 @@
       coefficients:
         Blunt: 0.6
         Slash: 0.6
-        Piercing: 0.4
+        Piercing: 0.55
         Heat: 0.5
         Shock: 0.5
   - type: ClothingSpeedModifier
@@ -129,7 +129,7 @@
     sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
 
 - type: entity
-  parent: ClothingOuterEVASuitBaseC17
+  parent: ClothingOuterArmorOTAC17
   id: ClothingOuterArmorOTAEliteC17
   name: overwatch soldier elite unit suit
   description: Military-grade suit for special overwatch units.
@@ -144,13 +144,16 @@
 #        Piercing: 2
 #        Heat: 2
       coefficients:
-        Blunt: 0.4
-        Slash: 0.3
-        Piercing: 0.3
-        Heat: 0.2
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.5
         Radiation: 0.1
         Caustic: 0.1
         Shock: 0.1
+  - type: PoweredArmor
+    coefficientBonus: 0.4
+    energyPerDamage: 10
   - type: ExplosionResistance
     damageCoefficient: 0.2
   - type: ClothingSpeedModifier

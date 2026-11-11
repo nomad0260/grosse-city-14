@@ -1,6 +1,5 @@
-using System.Numerics;
-using Content.Client.Stylesheets.Stylesheets;
 using Content.Client.Stylesheets.SheetletConfigs;
+using Content.Client.Stylesheets.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
@@ -12,64 +11,73 @@ namespace Content.Client.Stylesheets.Sheetlets;
 [CommonSheetlet]
 public sealed class MonotoneButtonSheetlet<T> : Sheetlet<T> where T : IButtonConfig
 {
+    private static readonly Color OutlineColor = Color.FromHex("#5A6675");
+    private static readonly Color FillColor = Color.FromHex("#252A33").WithAlpha(0.85f);
+
+    private static RoundedStyleBox Unfilled()
+    {
+        return new RoundedStyleBox
+        {
+            BackgroundColor = FillColor,
+            BorderColor = OutlineColor,
+            BorderThickness = 1f,
+            CornerRadius = StyleBoxHelpers.ButtonRadius,
+            Padding = new Thickness(12f, 2f, 12f, 2f),
+        };
+    }
+
+    private static RoundedStyleBox Filled()
+    {
+        return new RoundedStyleBox
+        {
+            BackgroundColor = Color.FromHex("#4A5566"),
+            BorderColor = Color.FromHex("#8194AB"),
+            BorderThickness = 1f,
+            CornerRadius = StyleBoxHelpers.ButtonRadius,
+            Padding = new Thickness(12f, 2f, 12f, 2f),
+        };
+    }
+
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        // Monotone (unfilled)
-        var monotoneButton = new StyleBoxTexture
-        {
-            Texture = sheet.GetTextureOr(sheet.MonotoneBaseButtonPath, NanotrasenStylesheet.TextureRoot)
-        };
-        monotoneButton.SetPatchMargin(StyleBox.Margin.All, 11);
-        monotoneButton.SetPadding(StyleBox.Margin.All, 1);
-        monotoneButton.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
-        monotoneButton.SetContentMarginOverride(StyleBox.Margin.Horizontal, 14);
+        // OpenLeft/OpenRight/Square variants keep the button group looking joined.
+        var monotoneButtonOpenLeft = RoundedStyleBox.OpenLeft(FillColor, OutlineColor, 1f, StyleBoxHelpers.ButtonRadius);
+        monotoneButtonOpenLeft.Padding = new Thickness(8f, 2f, 12f, 2f);
 
-        var monotoneButtonOpenLeft = new StyleBoxTexture(monotoneButton)
-        {
-            Texture = sheet.GetTextureOr(sheet.MonotoneOpenLeftButtonPath, NanotrasenStylesheet.TextureRoot)
-        };
+        var monotoneButtonOpenRight = RoundedStyleBox.OpenRight(FillColor, OutlineColor, 1f, StyleBoxHelpers.ButtonRadius);
+        monotoneButtonOpenRight.Padding = new Thickness(12f, 2f, 8f, 2f);
 
-        var monotoneButtonOpenRight = new StyleBoxTexture(monotoneButton)
+        var monotoneButtonOpenBoth = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(sheet.MonotoneOpenRightButtonPath, NanotrasenStylesheet.TextureRoot)
+            BackgroundColor = FillColor,
+            BorderColor = OutlineColor,
+            BorderThickness = 1f,
+            CornerRadius = 0f,
+            Padding = new Thickness(12f, 2f, 12f, 2f),
         };
 
-        var monotoneButtonOpenBoth = new StyleBoxTexture(monotoneButton)
-        {
-            Texture = sheet.GetTextureOr(sheet.MonotoneOpenBothButtonPath, NanotrasenStylesheet.TextureRoot)
-        };
+        var filledOpenLeft = RoundedStyleBox.OpenLeft(Color.FromHex("#4A5566"), Color.FromHex("#8194AB"), 1f,
+            StyleBoxHelpers.ButtonRadius);
+        filledOpenLeft.Padding = new Thickness(8f, 2f, 12f, 2f);
 
-        // Monotone (filled)
-        var buttonTex = sheet.GetTextureOr(sheet.OpenLeftButtonPath, NanotrasenStylesheet.TextureRoot);
-        var monotoneFilledButton = new StyleBoxTexture(monotoneButton)
-        {
-            Texture = buttonTex
-        };
+        var filledOpenRight = RoundedStyleBox.OpenRight(Color.FromHex("#4A5566"), Color.FromHex("#8194AB"), 1f,
+            StyleBoxHelpers.ButtonRadius);
+        filledOpenRight.Padding = new Thickness(12f, 2f, 8f, 2f);
 
-        var monotoneFilledButtonOpenLeft = new StyleBoxTexture(monotoneButton)
+        var filledOpenBoth = new RoundedStyleBox
         {
-            Texture = new AtlasTexture(buttonTex, UIBox2.FromDimensions(new Vector2(10, 0), new Vector2(14, 24))),
+            BackgroundColor = Color.FromHex("#4A5566"),
+            BorderColor = Color.FromHex("#8194AB"),
+            BorderThickness = 1f,
+            CornerRadius = 0f,
+            Padding = new Thickness(12f, 2f, 12f, 2f),
         };
-        monotoneFilledButtonOpenLeft.SetPatchMargin(StyleBox.Margin.Left, 0);
-
-        var monotoneFilledButtonOpenRight = new StyleBoxTexture(monotoneButton)
-        {
-            Texture = new AtlasTexture(buttonTex, UIBox2.FromDimensions(new Vector2(0, 0), new Vector2(14, 24))),
-        };
-        monotoneFilledButtonOpenRight.SetPatchMargin(StyleBox.Margin.Right, 0);
-
-        var monotoneFilledButtonOpenBoth = new StyleBoxTexture(monotoneButton)
-        {
-            Texture = new AtlasTexture(buttonTex, UIBox2.FromDimensions(new Vector2(10, 0), new Vector2(3, 24))),
-        };
-        monotoneFilledButtonOpenBoth.SetPatchMargin(StyleBox.Margin.Horizontal, 0);
-
 
         return
         [
             // Unfilled
             E<MonotoneButton>()
-                .Box(monotoneButton),
+                .Box(Unfilled()),
             E<MonotoneButton>()
                 .Class(StyleClass.ButtonOpenLeft)
                 .Box(monotoneButtonOpenLeft),
@@ -83,22 +91,22 @@ public sealed class MonotoneButtonSheetlet<T> : Sheetlet<T> where T : IButtonCon
             // Filled
             E<MonotoneButton>()
                 .PseudoPressed()
-                .Box(monotoneFilledButton)
+                .Box(Filled())
                 .Prop(Button.StylePropertyModulateSelf, Color.White),
             E<MonotoneButton>()
                 .Class(StyleClass.ButtonOpenLeft)
                 .PseudoPressed()
-                .Box(monotoneFilledButtonOpenLeft)
+                .Box(filledOpenLeft)
                 .Prop(Button.StylePropertyModulateSelf, Color.White),
             E<MonotoneButton>()
                 .Class(StyleClass.ButtonOpenRight)
                 .PseudoPressed()
-                .Box(monotoneFilledButtonOpenRight)
+                .Box(filledOpenRight)
                 .Prop(Button.StylePropertyModulateSelf, Color.White),
             E<MonotoneButton>()
                 .Class(StyleClass.ButtonOpenBoth)
                 .PseudoPressed()
-                .Box(monotoneFilledButtonOpenBoth)
+                .Box(filledOpenBoth)
                 .Prop(Button.StylePropertyModulateSelf, Color.White),
         ];
     }

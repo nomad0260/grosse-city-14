@@ -1289,6 +1289,7 @@ entities:
       fixtures: {}
     - type: BecomesStation
       id: City14
+    - type: GrosseStationZLevels
     - type: OccluderTree
     - type: SpreaderGrid
     - type: Shuttle
@@ -318462,7 +318463,7 @@ entities:
       content: >-
         ## заводские рецепты
 
-        метал -станок- = скрап 
+        метал -станок- = скрап
 
         скрап -резак- = детали
 
@@ -318576,7 +318577,7 @@ entities:
       content: >-
         ## заводские рецепты
 
-        метал -станок- = скрап 
+        метал -станок- = скрап
 
         скрап -резак- = детали
 
@@ -318690,7 +318691,7 @@ entities:
       content: >-
         ## заводские рецепты
 
-        метал -станок- = скрап 
+        метал -станок- = скрап
 
         скрап -резак- = детали
 
@@ -319481,7 +319482,7 @@ entities:
       parent: 1
     - type: Paper
       content: >-
-        Да успокоится душа его тут, Да отпустят его скорбящие на покой. 
+        Да успокоится душа его тут, Да отпустят его скорбящие на покой.
 
 
 
@@ -440586,6 +440587,13 @@ entities:
       containers:
         board: !type:Container
           ents: []
+- proto: UnionComputerRationC17
+  entities:
+  - uid: 140001
+    components:
+    - type: Transform
+      pos: -138.5,44.5
+      parent: 1
 - proto: UnionComputerCargoBounty
   entities:
   - uid: 602

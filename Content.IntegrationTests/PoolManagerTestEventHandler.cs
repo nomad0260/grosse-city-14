@@ -4,7 +4,10 @@
 public sealed class PoolManagerTestEventHandler
 {
     // This value is completely arbitrary.
-    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(20);
+    // Grosse: the fork's suite (with the Grosse/_Grosse integration tests) needs ~23 min on slow CI
+    // runners; the stock 20 min limit killed the last tests mid-run (PoolManager.Shutdown) and then
+    // FailFast-ed the whole host, so the limit is raised well above the observed worst case.
+    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(45);
     private static TimeSpan HardStopTimeLimit => MaximumTotalTestingTimeLimit.Add(TimeSpan.FromMinutes(1));
 
     [OneTimeSetUp]

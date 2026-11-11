@@ -21,7 +21,7 @@
   - type: Item
     size: Small
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/weapon/magazine_ar2.rsi
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/magazine_ar2.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -32,3 +32,30 @@
     magState: mag
     steps: 2
     zeroVisible: false
+
+- type: entity
+  id: MagazineRifleLight762x39
+  name: магазин АК (7,62x39)
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleLight762x39
+    capacity: 30
+    whitelist:
+      tags:
+        - CartridgeRifle762x39
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/ak_ammo.rsi
+    scale: 0.9, 0.9
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Tag
+    tags:
+      - MagazineLightRifle

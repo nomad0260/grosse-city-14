@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Numerics;
 using System.Linq;
 using Content.Client.Guidebook.RichText;
 using Content.Client.UserInterface.ControlExtensions;
@@ -99,6 +100,21 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         }
         else
             ClearSelectedGuide();
+    }
+
+    protected override void Opened()
+    {
+        base.Opened();
+
+        // Окно гайдбука не должно уезжать за края на маленьких экранах и при большом UI scale.
+        var screen = UserInterfaceManager.RootControl.Size;
+        if (screen.X <= 0f || screen.Y <= 0f)
+            return;
+
+        var width = Math.Min(900f, Math.Max(400f, screen.X * 0.86f));
+        var height = Math.Min(700f, Math.Max(320f, screen.Y * 0.84f));
+        SetSize = new Vector2(width, height);
+        RecenterWindow(new Vector2(0.5f, 0.5f));
     }
 
     public void ClearSelectedGuide()

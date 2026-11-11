@@ -17,3 +17,17 @@
   license: "CC0-1.0"
   copyright: "Kenney (www.kenney.nl), Impact Sounds pack (impactPunch_heavy / impactPlate_heavy). Converted to mono OGG."
   source: "https://kenney.nl/assets/impact-sounds"
+
+- files:
+  - engine_start.ogg
+  - engine_idle.ogg
+  - engine_move_start.ogg
+  - engine_drive.ogg
+  - engine_stop.ogg
+  - impact_medium_1.ogg
+  - impact_medium_2.ogg
+  - impact_medium_3.ogg
+  - impact_medium_4.ogg
+  license: "Custom"
+  copyright: "Valve Corporation. Half-Life 2 jeep engine and impact sounds (v8_start_loop1, v8_idle_loop1, v8_firstgear_rev_loop1, v8_fourth_cruise_loop2, v8_stop1, v8_impact_medium). Converted from WAV to OGG."
+  source: "https://store.steampowered.com/app/220/HalfLife_2/"

@@ -7,6 +7,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Physics;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
+using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -24,6 +25,7 @@ public sealed partial class SharedGrosseCarSystem
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedStunSystem _stun = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
 
     [Dependency] private EntityQuery<DamageableComponent> _damageableQuery = default!;
     [Dependency] private EntityQuery<GrosseCarRiderComponent> _riderQuery = default!;
@@ -77,7 +79,12 @@ public sealed partial class SharedGrosseCarSystem
 
         if (_injurableQuery.HasComp(args.OtherEntity) || _damageableQuery.HasComp(args.OtherEntity))
         {
-            if (_mobStateQuery.HasComp(args.OtherEntity))
+            if (_whitelist.IsWhitelistPass(ent.Comp.RamBlacklist, args.OtherEntity))
+            {
+                if (carSpeed >= ent.Comp.MinImpactSpeed)
+                    HandleBlacklist(ent, args.OtherEntity, dir, relSpeed, mCar);
+            }
+            else if (_mobStateQuery.HasComp(args.OtherEntity))
             {
                 if (carSpeed >= ent.Comp.MinImpactSpeed)
                     HandleMob(ent, args.OtherEntity, args.OtherBody, dir, relSpeed, mCar);
@@ -120,6 +127,28 @@ public sealed partial class SharedGrosseCarSystem
         }
 
         PlayImpact(ent, ent.Comp.HitSound);
+    }
+
+    private void HandleBlacklist(
+        Entity<GrosseCarComponent> ent,
+        EntityUid other,
+        Vector2 dir,
+        float relSpeed,
+        float mCar)
+    {
+        SlowCar(ent, dir, relSpeed, mCar, float.PositiveInfinity);
+
+        if (_net.IsServer && relSpeed >= ent.Comp.MinImpactSpeed)
+        {
+            var scale = relSpeed / ent.Comp.MinImpactSpeed;
+            var damage = ent.Comp.WallDamage * scale;
+            if (ent.Comp.BlacklistImpactCoefficient is { } coefficient)
+                damage *= coefficient;
+
+            ApplyCarDamage(ent, damage);
+        }
+
+        PlayImpact(ent, _injurableQuery.HasComp(other) ? ent.Comp.HitSound : ent.Comp.ImpactSound);
     }
 
     private void HandleWall(Entity<GrosseCarComponent> ent, Vector2 dir, float relSpeed, float mCar)

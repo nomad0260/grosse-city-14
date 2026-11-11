@@ -1,3 +1,4 @@
-#- type: storeCategory
-  #id: RationDispenserC17Inventory
-  #name: раздатчик рационов
+- type: storeCategory
+  id: RationShop
+  name: ration-store-category
+  priority: 0

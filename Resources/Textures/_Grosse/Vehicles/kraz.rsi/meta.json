@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "license": "All right reserved",
+    "copyright": "Made for Stalker14, use with permission only. All rights reserved.",
+    "size": {
+        "x": 128,
+        "y": 144
+    },
+    "states": [
+        {
+            "name": "kraz1",
+            "directions": 4
+        },
+        {
+            "name": "kraz2",
+            "directions": 4
+        }
+    ]
+}

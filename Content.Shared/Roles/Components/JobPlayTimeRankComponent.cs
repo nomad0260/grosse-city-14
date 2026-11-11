@@ -18,4 +18,10 @@ public sealed partial class JobPlayTimeRankComponent : Component
 
     [DataField, AutoNetworkedField]
     public ProtoId<JobIconPrototype>? Icon;
+
+    /// <summary>
+    /// Two-digit civil-protection callsign rank copied from the resolved playtime rank.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public string? Callsign;
 }

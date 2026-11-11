@@ -1,6 +1,6 @@
 using Content.Client.Info;
-using Content.Client.Info.PlaytimeStats;
 using Content.Client.Resources;
+using Content.Client.Stylesheets;
 using Content.Corvax.Interfaces.Client;
 using Content.Shared.CCVar;
 using Content.Shared.Preferences;
@@ -11,6 +11,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
+using Robust.Shared.Maths;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
@@ -38,15 +39,15 @@ namespace Content.Client.Lobby.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            var panelTex = _resourceCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
-            var back = new StyleBoxTexture
+            // Flat rounded backing instead of the old near-black beveled button texture.
+            BackgroundPanel.PanelOverride = new RoundedStyleBox
             {
-                Texture = panelTex,
-                Modulate = new Color(37, 37, 42)
+                BackgroundColor = Color.FromHex("#262B35").WithAlpha(0.96f),
+                BorderColor = Color.FromHex("#4C5665"),
+                BorderThickness = 1f,
+                CornerRadius = 12f,
+                Padding = new Thickness(10f),
             };
-            back.SetPatchMargin(StyleBox.Margin.All, 10);
-
-            BackgroundPanel.PanelOverride = back;
 
             _createNewCharacterButton = new Button
             {
@@ -62,8 +63,6 @@ namespace Content.Client.Lobby.UI
 
             CharEditor.AddChild(profileEditor);
             RulesButton.OnPressed += _ => new RulesAndInfoWindow().Open();
-
-            StatsButton.OnPressed += _ => new PlaytimeStatsWindow().OpenCentered();
 
             _cfg.OnValueChanged(CCVars.SeeOwnNotes, p => AdminRemarksButton.Visible = p, true);
             // Corvax-Sponsors-Start

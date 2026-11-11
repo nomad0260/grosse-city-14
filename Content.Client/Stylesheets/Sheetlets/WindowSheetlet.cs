@@ -22,36 +22,56 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
         IWindowConfig windowCfg = sheet;
         IIconConfig iconCfg = sheet;
 
-        var headerStylebox = new StyleBoxTexture
+        // Flat, rounded window chrome shared by every window in the game.
+        const float windowRadius = 10f;
+        var windowBorder = Color.FromHex("#414651");
+
+        var headerStylebox = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(windowCfg.WindowHeaderTexturePath, NanotrasenStylesheet.TextureRoot),
-            PatchMarginBottom = 3,
-            ExpandMarginBottom = 3,
-            ContentMarginBottomOverride = 0,
+            BackgroundColor = Color.FromHex("#3A3F4C"),
+            BorderColor = windowBorder,
+            BorderThickness = 1f,
+            RadiusTopLeft = windowRadius,
+            RadiusTopRight = windowRadius,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(6f, 4f, 6f, 4f),
         };
         // TODO: This would probably be better palette-based but we can leave it for now.
-        var headerAlertStylebox = new StyleBoxTexture
+        var headerAlertStylebox = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(windowCfg.WindowHeaderAlertTexturePath, NanotrasenStylesheet.TextureRoot),
-            PatchMarginBottom = 3,
-            ExpandMarginBottom = 3,
-            ContentMarginBottomOverride = 0,
+            BackgroundColor = Color.FromHex("#5A2523"),
+            BorderColor = Color.FromHex("#8E3A36"),
+            BorderThickness = 1f,
+            RadiusTopLeft = windowRadius,
+            RadiusTopRight = windowRadius,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(6f, 4f, 6f, 4f),
         };
-        var backgroundBox = new StyleBoxTexture()
+        var backgroundBox = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(windowCfg.WindowBackgroundPath, NanotrasenStylesheet.TextureRoot),
+            BackgroundColor = Color.FromHex("#2C303A").WithAlpha(0.97f),
+            BorderColor = windowBorder,
+            BorderThickness = 1f,
+            RadiusTopLeft = 0f,
+            RadiusTopRight = 0f,
+            RadiusBottomLeft = windowRadius,
+            RadiusBottomRight = windowRadius,
+            Padding = new Thickness(2f),
         };
-        backgroundBox.SetPatchMargin(StyleBox.Margin.Horizontal | StyleBox.Margin.Bottom, 2);
-        backgroundBox.SetExpandMargin(StyleBox.Margin.Horizontal | StyleBox.Margin.Bottom, 2);
-        var borderedBackgroundBox = new StyleBoxTexture
+        var borderedBackgroundBox = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(windowCfg.WindowBackgroundBorderedPath, NanotrasenStylesheet.TextureRoot),
+            BackgroundColor = Color.FromHex("#333844").WithAlpha(0.97f),
+            BorderColor = Color.FromHex("#525A66"),
+            BorderThickness = 1f,
+            CornerRadius = windowRadius,
+            Padding = new Thickness(6f),
         };
-        borderedBackgroundBox.SetPatchMargin(StyleBox.Margin.All, 2);
         var closeButtonTex = sheet.GetTextureOr(iconCfg.CrossIconPath, NanotrasenStylesheet.TextureRoot);
 
-        var leftPanel = StyleBoxHelpers.OpenLeftStyleBox(sheet);
-        leftPanel.SetPadding(StyleBox.Margin.All, 0.0f);
+        var leftPanel = StyleBoxHelpers.OpenLeftStyleBox();
+        leftPanel.Padding = new Thickness(0f);
 
         // TODO: maybe also change everything here to `NanoWindow` or something
         return
@@ -102,9 +122,10 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
                 .Modulate(Palettes.Red.DisabledElement),
 
             // Title
+            // Title uses the selectable UI font instead of the hardcoded Boxfont.
             E<Label>()
                 .Class("FancyWindowTitle") // TODO: hardcoding class name
-                .Font(ResCache.GetFont("/Fonts/Boxfont-round/Boxfont Round.ttf", 13)) // TODO: hardcoding font
+                .Font(sheet.BaseFont.GetFont(14, FontKind.Bold))
                 .FontColor(sheet.HighlightPalette.Text),
 
             // Help Button

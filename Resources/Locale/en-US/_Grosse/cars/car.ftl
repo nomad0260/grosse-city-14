@@ -4,7 +4,7 @@ grosse-car-slot-passenger2 = Second passenger
 
 grosse-car-verb-enter-first = Sit ({$slot})
 grosse-car-verb-exit = Exit
-grosse-car-verb-eject = Pull out {$target}
+grosse-car-verb-eject = Pull out {$target} ({$slot})
 grosse-car-eject-others = Pulling {$target} out of the cabin!
 
 grosse-car-action-exit-name = Exit vehicle
@@ -13,6 +13,11 @@ grosse-car-action-exit-desc = Get out of the vehicle.
 grosse-car-action-radio-name = Play MIDI
 grosse-car-action-radio-desc = Open the cabin MIDI player.
 
+grosse-car-engine-started = The engine starts.
+grosse-car-engine-stopped = The engine stops.
+grosse-car-engine-wrecked = The engine is wrecked.
+
+grosse-tank-slot-gunner = Gunner
 grosse-tank-verb-gunner = Sit as gunner
 grosse-tank-ammo-full = The rack is full.
 grosse-tank-ammo-empty = The rack is empty.

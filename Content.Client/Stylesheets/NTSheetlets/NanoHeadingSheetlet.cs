@@ -14,19 +14,18 @@ public sealed class NanoHeadingSheetlet : Sheetlet<NanotrasenStylesheet>
 {
     public override StyleRule[] GetRules(NanotrasenStylesheet sheet, object config)
     {
-        INanoHeadingConfig nanoHeadingCfg = sheet;
-
-        var nanoHeadingTex = sheet.GetTexture(nanoHeadingCfg.NanoHeadingPath);
-        var nanoHeadingBox = new StyleBoxTexture
+        // Flat and rounded instead of the old beveled tab.
+        var nanoHeadingBox = new RoundedStyleBox
         {
-            Texture = nanoHeadingTex,
-            PatchMarginRight = 10,
-            PatchMarginTop = 10,
-            ContentMarginTopOverride = 2,
-            ContentMarginLeftOverride = 10,
-            PaddingTop = 4,
+            BackgroundColor = Color.FromHex("#3A3F4C"),
+            BorderColor = Color.FromHex("#4C5665"),
+            BorderThickness = 1f,
+            RadiusTopLeft = 8f,
+            RadiusTopRight = 8f,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(10f, 4f, 10f, 4f),
         };
-        nanoHeadingBox.SetPatchMargin(StyleBox.Margin.Left | StyleBox.Margin.Bottom, 2);
 
         return
         [

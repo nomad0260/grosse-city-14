@@ -1,0 +1,69 @@
+- type: startingGear
+  id: CitizenGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear2
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+
+- type: startingGear
+  id: CitizenGear3
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    belt: CrowbarRed
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear4
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear5
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket2: CouponC17
+
+- type: startingGear
+  id: CitizenGear6
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    outerClothing: ClothingOuterCoatGentle
+
+- type: startingGear
+  id: CitizenGear7
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCitizenC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    outerClothing: ClothingOuterCoatBomber
+
+- type: startingGear
+  id: CitizenGear8
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack
+    id: UnionIDCardCivil
+    pocket1: DrinkWhiskeyBottleFull
+
+- type: startingGear
+  id: RefugeeCivilGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRefugeeC17
+    shoes: ClothingShoesColorBlack

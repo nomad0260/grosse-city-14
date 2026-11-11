@@ -12,12 +12,17 @@ public sealed class StripebackSheetlet<T> : Sheetlet<T> where T : PalettedStyles
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        IStripebackConfig stripebackCfg = sheet;
-
-        var stripeBack = new StyleBoxTexture
+        // Flat header strip instead of the old tiled stripeback texture.
+        var stripeBack = new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(stripebackCfg.StripebackPath, NanotrasenStylesheet.TextureRoot),
-            Mode = StyleBoxTexture.StretchMode.Tile,
+            BackgroundColor = Color.FromHex("#2E313B"),
+            BorderColor = Color.FromHex("#414651"),
+            BorderThickness = 1f,
+            RadiusTopLeft = 10f,
+            RadiusTopRight = 10f,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(4f),
         };
 
         return
