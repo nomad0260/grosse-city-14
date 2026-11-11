@@ -5,17 +5,24 @@
   parent: [BaseVehicleStrap, BaseDeployFoldable, BaseItem]
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Weapons/emplacement.rsi
+    sprite: _Grosse/Objects/Weapons/Emplacement/ar3/ar3/big.rsi
     noRot: false
     drawdepth: Mobs
     layers:
-    - state: combine_emplacement
+    - state: ar3
       map: ["unfoldedLayer"]
-    - state: combine
+      sprite: _Grosse/Objects/Weapons/Emplacement/ar3/ar3BIG.rsi
+    - state: icon
       map: ["foldedLayer"]
       visible: false
+      scale: 0.9, 0.9
   - type: Item
     size: Ginormous
+    sprite: _Grosse/Objects/Weapons/Emplacement/ar3/ar3/tiny.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.6
+  - type: HeldSpeedModifier
   - type: Appearance
   - type: Physics
     bodyType: KinematicController
@@ -27,18 +34,19 @@
           radius: 0.4
         density: 360
         restitution: 0.0
+        hard: true
         mask:
-        - MobMask
+        - Impassable
         layer:
-        - TableLayer
+        - TabletopMachineLayer
   - type: Vehicle
     canAttack: true
     transferDamage: false
   - type: GrosseEmplacement
     maxYawDeviation: 22.5
-    damageSplit: 0.5
+    damageSplit: 0
   - type: Strap
-    buckleOffset: "0, 0.6"
+    buckleOffset: "0, 0.5"
     position: Stand
     modifyBuckleDrawDepth: false
   - type: MouseRotator
@@ -51,8 +59,8 @@
   - type: NoRotateOnMove
   - type: Gun
     cameraRecoilScalar: 5
-    minAngle: 24
-    maxAngle: 45
+    minAngle: 5
+    maxAngle: 25
     fireRate: 8
     selectedMode: FullAuto
     availableModes:
@@ -67,12 +75,12 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazinePulseRifleC17
+        startingItem: MagazinePulseHeavyRifleC17
         insertSound: /Audio/_Grosse/Weapons/Ranged/ar2_reload.ogg
         ejectSound: /Audio/_Grosse/Weapons/Ranged/divet_magout.ogg
         whitelist:
           tags:
-            - MagazinePulseRifle
+            - MagazinePulseHeavyRifle
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -91,11 +99,7 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetSteel1:
-            min: 3
-            max: 5
+  - type: RequireProjectileTarget
 
 - type: entity
   parent: WeaponEmplacementCombine

@@ -20,7 +20,7 @@
         mask:
         - MachineMask
         layer:
-        - WallLayer
+        - MachineLayer
   - type: Climbable
   - type: Damageable
     damageModifierSet: StructuralMetallic
@@ -99,7 +99,7 @@
         mask:
         - MachineMask
         layer:
-        - WallLayer
+        - MachineLayer
   - type: Destructible
     thresholds:
     - trigger:
@@ -118,6 +118,8 @@
   parent: BaseStructure
   abstract: true
   components:
+  - type: Sprite
+    drawdepth: Mobs
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
@@ -125,12 +127,12 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.5,-0.2,0.5,0.2"
+          bounds: "-0.5,-0.5,0.5,-0.3"
         density: 155
         mask:
         - MachineMask
         layer:
-        - WallLayer
+        - MachineLayer
   - type: Climbable
   - type: Destructible
     thresholds:
@@ -173,6 +175,17 @@
     sprite: _Grosse/Structures/Decoration/Barricades/concrete_barricade_bars.rsi
     layers:
       - state: DamageOverlay_1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
   - type: Destructible
     thresholds:
       - trigger:
@@ -194,19 +207,10 @@
   - type: InteractionOutline
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/Barricades/sandbag_barricade.rsi
+    offset: 0.0, 0.2
+    noRot: true
     layers:
     - state: icon1
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.5,-0.2,0.5,0.2"
-        density: 155
-        mask:
-        - MachineMask
-        layer:
-        - WallLayer
   - type: Destructible
     thresholds:
     - trigger:
