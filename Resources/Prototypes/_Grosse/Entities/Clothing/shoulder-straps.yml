@@ -3,7 +3,7 @@
 - type: entity
   parent: IDCardStandard
   id: ShoulderStraps
-  name: Shulder Strap
+  name: shoulder Strap
   description: A shoulder strap necessary to access various areas.
   abstract: true
   categories: [ HideSpawnMenu ]
@@ -16,7 +16,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsOrdinary
-  name: Private shoulder straps
+  name: private shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -29,7 +29,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsSergeant
-  name: Sergeant shoulder straps
+  name: sergeant shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -42,7 +42,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsLieutenant
-  name: Lieutenant shoulder straps
+  name: lieutenant shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -55,7 +55,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsSeniorLieutenant
-  name: The shoulder straps of a senior lieutenant
+  name: the shoulder straps of a senior lieutenant
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -68,7 +68,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsCaptain
-  name: Captain shoulder straps
+  name: captain shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -81,7 +81,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsMajor
-  name: Major shoulder straps
+  name: major shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -94,7 +94,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsLieutenantColonel
-  name: The shoulder straps of a lieutenant colonel
+  name: the shoulder straps of a lieutenant colonel
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -107,7 +107,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsColonel
-  name: Сolonel shoulder straps
+  name: colonel shoulder straps
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
@@ -120,7 +120,7 @@
 - type: entity
   parent: ShoulderStraps
   id: ShoulderStrapsMajorGeneral
-  name: The shoulder straps of a major general
+  name: the shoulder straps of a major general
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi

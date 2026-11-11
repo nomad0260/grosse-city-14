@@ -121,7 +121,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitParadeMVD
-  name: overwatch CP patrol unit jumpsuit
+  name: Parade uniform for MVD
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/parade-jacket.rsi
@@ -131,7 +131,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitMVD
-  name: overwatch CP patrol unit jumpsuit
+  name: Uniform for MVD
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/jacket.rsi
@@ -141,7 +141,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitShirtMVD
-  name: overwatch CP patrol unit jumpsuit
+  name: Shirt for MVD
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shirt.rsi

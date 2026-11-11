@@ -1,10 +1,10 @@
-ent-ShoulderStrapsOrdinary = Погоны рядового
-ent-ShoulderStrapsSergeant = Погоны сержанта
-ent-ShoulderStrapsLieutenant = Погоны лейтенанта
-ent-ShoulderStrapsSeniorLieutenant = Погоны старшего лейтенанта
-ent-ShoulderStrapsCaptain = Погоны капитана
-ent-ShoulderStrapsMajor = Погоны майора
-ent-ShoulderStrapsColonel = Погоны полковника
-ent-ShoulderStrapsLieutenantColonel = Погоны лейтенанта полковника
-ent-ShoulderStrapsMajorGeneral = Погоны генерала майора
+ent-ShoulderStrapsOrdinary = погоны рядового
+ent-ShoulderStrapsSergeant = погоны сержанта
+ent-ShoulderStrapsLieutenant = погоны лейтенанта
+ent-ShoulderStrapsSeniorLieutenant = погоны старшего лейтенанта
+ent-ShoulderStrapsCaptain = погоны капитана
+ent-ShoulderStrapsMajor = погоны майора
+ent-ShoulderStrapsColonel = погоны полковника
+ent-ShoulderStrapsLieutenantColonel = погоны лейтенанта полковника
+ent-ShoulderStrapsMajorGeneral = погоны генерала майора
 

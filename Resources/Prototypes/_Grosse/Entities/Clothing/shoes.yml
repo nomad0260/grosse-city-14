@@ -49,8 +49,8 @@
 - type: entity
   parent: ClothingShoesBase
   id: ClothingShoesBootsMVD
-  name: Обувь МВД
-  description: Обувь для МВД
+  name: shoes for MVD
+  description: Shoes for mvd units.
   components:
   - type: Sprite
     sprite: _Grosse/Entities/Clothing/mvd/shoes.rsi
