@@ -1,0 +1,21 @@
+# Цели, которые уже беспомощны (крит) — для пожирания.
+- type: utilityQuery
+  id: NearbyCritTargets
+  query:
+    - !type:NearbyHostilesQuery
+    - !type:ComponentFilter
+      components:
+        - type: ZombieImmune
+      retainWithComp: false
+  considerations:
+    - !type:TargetIsCritCon
+      curve: !type:BoolCurve
+    - !type:TargetIsVisibleCon
+      curve: !type:BoolCurve
+    - !type:TargetDistanceCon
+      curve: !type:PresetCurve
+        preset: TargetDistance
+    - !type:TargetAccessibleCon
+      curve: !type:BoolCurve
+    - !type:TargetInLOSOrCurrentCon
+      curve: !type:BoolCurve

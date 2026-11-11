@@ -1,10 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Audio;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Ranged;
 
@@ -37,6 +39,7 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
     /// If true, only opaque objects will block line of sight.
     /// Glass and grilles are not opaque, so NPCs can see through them.
     /// </summary>
+    // Grosse: изменено с false на true — стрельба сквозь прозрачные препятствия (наше отличие от апстрима).
     [DataField("opaqueKey")]
     public bool UseOpaqueForLOSChecks = true;
 

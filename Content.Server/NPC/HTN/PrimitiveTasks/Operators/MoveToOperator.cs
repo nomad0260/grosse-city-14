@@ -1,8 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.Pathfinding;
 using Content.Server.NPC.Systems;
+using Content.Server._Grosse.NPC.Systems;
 using Content.Server._Grosse.ZLevels.LaddersCache;
 using Content.Shared._Grosse.ZLevels.Core.Components;
 using Content.Shared._Grosse.ZLevels.Core.EntitySystems;
@@ -10,6 +12,7 @@ using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 

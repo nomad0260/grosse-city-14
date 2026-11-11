@@ -1,5 +1,7 @@
 using Content.Server.NPC.Systems;
+using Content.Server._Grosse.NPC.Systems;
 using Robust.Shared.Audio;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Components;
 
@@ -46,6 +48,8 @@ public sealed partial class NPCRangedCombatComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     // ReSharper disable once InconsistentNaming
+    // Grosse: изменено с false на true — NPC должны видеть цель сквозь стекло и решётки,
+    // иначе в коридорах с окнами они не стреляют. Это отличие от апстрима.
     public bool UseOpaqueForLOSChecks = true;
 
     /// <summary>

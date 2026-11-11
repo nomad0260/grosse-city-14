@@ -1,0 +1,99 @@
+- type: entity
+  id: PatrolPoint
+  parent: MarkerBase
+  name: patrol point (default)
+  description: NPC patrol marker for 'default' group.
+  components:
+  - type: PatrolPoint
+    group: default
+    capacity: 1
+    waitTime: 2.0
+    cooldownTime: 5.0
+    reservationTimeout: 30.0
+  - type: Sprite
+    state: red
+
+- type: entity
+  id: PatrolPointAntlionBase
+  parent: PatrolPoint
+  name: antlion patrol point
+  description: Patrol point for antlions.
+  components:
+  - type: PatrolPoint
+    group: antlion
+    capacity: 2
+    waitTime: 3.0
+  - type: Sprite
+    state: red
+
+# Цветные маркеры для визуального разделения маршрутов
+- type: entity
+  id: PatrolPointRouteA
+  parent: PatrolPoint
+  name: patrol point (Route A)
+  description: Red route marker. Set 'route' field to match NPC route.
+  components:
+  - type: PatrolPoint
+    route: route_a
+  - type: Sprite
+    state: red
+
+- type: entity
+  id: PatrolPointRouteB
+  parent: PatrolPoint
+  name: patrol point (Route B)
+  description: Blue route marker. Set 'route' field to match NPC route.
+  components:
+  - type: PatrolPoint
+    route: route_b
+  - type: Sprite
+    state: blue
+
+- type: entity
+  id: PatrolPointRouteC
+  parent: PatrolPoint
+  name: patrol point (Route C)
+  description: Green route marker. Set 'route' field to match NPC route.
+  components:
+  - type: PatrolPoint
+    route: route_c
+  - type: Sprite
+    state: green
+
+- type: entity
+  id: PatrolPointRouteD
+  parent: PatrolPoint
+  name: patrol point (Route D)
+  description: Pink route marker. Set 'route' field to match NPC route.
+  components:
+  - type: PatrolPoint
+    route: route_d
+  - type: Sprite
+    state: pink
+
+# Специализированные маршруты для антлайонов
+- type: entity
+  id: PatrolPointAntlionRouteA
+  parent: PatrolPointAntlionBase
+  name: antlion patrol (Route A - Red)
+  description: Red antlion route marker.
+  components:
+  - type: PatrolPoint
+    group: antlion
+    route: route_a
+    capacity: 2
+  - type: Sprite
+    state: red
+
+- type: entity
+  id: PatrolPointAntlionRouteB
+  parent: PatrolPointAntlionBase
+  name: antlion patrol (Route B - Blue)
+  description: Blue antlion route marker.
+  components:
+  - type: PatrolPoint
+    group: antlion
+    route: route_b
+    capacity: 2
+  - type: Sprite
+    state: blue

@@ -5,6 +5,7 @@
     - tasks:
         - !type:HTNCompoundTask
           task: MeleeCombatCompound
+    # Grosse: добавлено нашим форком — монстры занимают стратегические точки.
     - tasks:
         - !type:HTNCompoundTask
           task: StrategicPointCompound

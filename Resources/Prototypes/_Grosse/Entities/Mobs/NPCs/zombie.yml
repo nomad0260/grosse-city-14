@@ -40,7 +40,8 @@
     useSound:
       path: /Audio/Items/crowbar.ogg
   - type: NpcDevour
-    gibHits: 4
+    tearTime: 15
+    organsToEat: 2
     healAmount: 30
     range: 1.5
     devourSound:

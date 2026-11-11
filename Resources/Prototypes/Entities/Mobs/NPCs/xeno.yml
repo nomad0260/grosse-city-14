@@ -34,6 +34,7 @@
   - type: NpcFactionMember
     factions:
     - Xeno
+  # Grosse: добавлено нашим форком — участие ксеносов в стратегических точках.
   - type: NpcPointTracker
     faction: Xeno
     strategicTags:

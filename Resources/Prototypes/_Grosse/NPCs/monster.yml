@@ -4,7 +4,11 @@
 - type: htnCompound
   id: MonsterAssaultCompound
   branches:
-    # Сначала доедаем беспомощную (крит) добычу рядом.
+    # Сначала забиваем живую добычу и сразу рвём её на гибы.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourLivingCompound
+    # Затем доедаем беспомощную (крит) добычу рядом.
     - tasks:
         - !type:HTNCompoundTask
           task: DevourCritCompound

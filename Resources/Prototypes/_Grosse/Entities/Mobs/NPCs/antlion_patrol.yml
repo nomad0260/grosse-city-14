@@ -12,7 +12,6 @@
 
   # Закапывание при idle
   - type: Burrowable
-    burrowAfterIdleTime: 15.0  # Долго не закапывается
     burrowedSpeedMultiplier: 0.7
 
   # Простой HTN без патруля
@@ -44,7 +43,6 @@
     maxPatrolTime: 20  # ТЕСТ: 20 секунд максимум патруля
     ambushTime: 15  # ТЕСТ: 15 секунд в засаде
     combatCooldown: 5.0  # 5 секунд кулдаун после боя
-    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
     burrowedSpeedMultiplier: 0.0  # Не может двигаться
     burrowedAlpha: 0.0  # Полностью невидим при закапывании
 
@@ -80,7 +78,6 @@
 
   # Закапывание контролируется через HTN
   - type: Burrowable
-    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
     burrowedSpeedMultiplier: 0.7
     burrowedAlpha: 0.0  # Полностью невидим при закапывании
 
@@ -112,7 +109,6 @@
 
   # Закапывание контролируется через HTN
   - type: Burrowable
-    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
     burrowedSpeedMultiplier: 0.7
     burrowedAlpha: 0.0  # Полностью невидим при закапывании
 

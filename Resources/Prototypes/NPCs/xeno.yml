@@ -4,6 +4,7 @@
     - tasks:
         - !type:HTNCompoundTask
           task: MeleeCombatCompound
+    # Grosse: добавлено нашим форком — ксеносы занимают стратегические точки.
     - tasks:
         - !type:HTNCompoundTask
           task: StrategicPointCompound

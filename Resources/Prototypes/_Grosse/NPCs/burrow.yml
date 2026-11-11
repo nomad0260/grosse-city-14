@@ -1,0 +1,137 @@
+# Враждебный compound с умным закапыванием
+- type: htnCompound
+  id: HostileBurrowCompound
+  branches:
+    # Приоритет 1: Есть цель - выкапываемся и атакуем
+    - preconditions:
+        - !type:TargetInRangePrecondition
+          targetKey: Target
+          rangeKey: VisionRadius
+      tasks:
+        # Выкапываемся если нужно
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+
+        # Атакуем цель
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+    # Приоритет 2: Закопан - ждём в засаде
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Burrowed
+      tasks:
+        # Просто ждём
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 3: Наблюдаем - пытаемся закопаться
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Observing
+      tasks:
+        # Пытаемся закопаться
+        - !type:HTNPrimitiveTask
+          operator: !type:BurrowOperator
+
+        # Генерируем время ожидания
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        # Ждём
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 4: Активны - начинаем наблюдение
+    - tasks:
+        # Начинаем наблюдать
+        - !type:HTNPrimitiveTask
+          operator: !type:StartObservingOperator
+
+        # Генерируем время ожидания
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+
+# Патруль с умным закапыванием и таймерами
+- type: htnCompound
+  id: PatrolBurrowCompound
+  branches:
+    # Приоритет 1: Есть цель - выкапываемся и атакуем
+    - preconditions:
+        - !type:TargetInRangePrecondition
+          targetKey: Target
+          rangeKey: VisionRadius
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+    # Приоритет 2: Закопан - ждём в засаде, затем выкапываемся по таймеру
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Burrowed
+      tasks:
+        # Пытаемся выкопаться (проверяет таймер внутри)
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+
+        # Если не вышло (еще не время) - немного ждём и повторяем
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 3: Наблюдаем - пытаемся закопаться
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Observing
+      tasks:
+        # Пытаемся закопаться
+        - !type:HTNPrimitiveTask
+          operator: !type:BurrowOperator
+
+        # Небольшая пауза перед следующей проверкой
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 4: Активен - патрулируем и проверяем таймер
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Active
+      tasks:
+        # Патрулируем
+        - !type:HTNCompoundTask
+          task: SimplePatrolCompound
+
+        # Пытаемся начать наблюдение (проверяет таймер внутри)
+        - !type:HTNPrimitiveTask
+          operator: !type:StartObservingOperator
+
+        # Если не вышло (еще не время) - генерируем паузу
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        # Ждём и повторяем
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime

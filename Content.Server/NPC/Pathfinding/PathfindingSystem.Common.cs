@@ -1,8 +1,10 @@
 using Content.Shared.Gravity;
 using Content.Shared.Maps;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Spawners;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Pathfinding;
 

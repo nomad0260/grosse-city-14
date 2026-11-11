@@ -77,7 +77,6 @@
     emotes:
     - EmoteAntlionIdle
   - type: Burrowable
-    burrowAfterIdleTime: 5.0
     burrowedAlpha: 0.2
     burrowedSpeedMultiplier: 0.7
     allowedTileIds:

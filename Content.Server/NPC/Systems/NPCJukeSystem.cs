@@ -1,9 +1,11 @@
 using System.Numerics;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.Events;
 using Content.Server.Weapons.Melee;
 using Content.Shared.Interaction;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Content.Shared.Physics;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -11,6 +13,7 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Systems;
 

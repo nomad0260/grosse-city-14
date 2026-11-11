@@ -1,0 +1,39 @@
+# Пожирание. Ветки не выбираются, если у NPC нет NpcDevour.
+#
+# DevourLivingCompound — живая добыча: NPC подходит и забивает её ударами
+# до смерти, после чего рвёт тело на части и ест органы.
+- type: htnCompound
+  id: DevourLivingCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            targetKey: TargetCoordinates
+            pathfindInPlanning: true
+            shutdownState: TaskFinished
+            rangeKey: MeleeRange
+        - !type:HTNPrimitiveTask
+          operator: !type:DevourOperator
+            targetKey: Target
+
+# DevourCritCompound — уже лежащая добыча (крит или труп): NPC добивает
+# крит-цель до смерти, затем рвёт тело и ест органы.
+- type: htnCompound
+  id: DevourCritCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyCritTargets
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            targetKey: TargetCoordinates
+            pathfindInPlanning: true
+            shutdownState: TaskFinished
+            rangeKey: MeleeRange
+        - !type:HTNPrimitiveTask
+          operator: !type:DevourOperator
+            targetKey: Target

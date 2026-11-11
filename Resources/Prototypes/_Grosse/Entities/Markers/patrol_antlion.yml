@@ -13,8 +13,8 @@
   - type: InteractionOutline
   - type: Sprite
     drawdepth: Overlays
-    sprite: Markers/arrows.rsi
-    state: green
+    sprite: Markers/arrow.rsi
+    state: mono
     color: "#FF6600AA"  # Оранжево-красный цвет для ксено
   - type: PatrolPoint
     group: "antlion"
@@ -53,8 +53,8 @@
   - type: InteractionOutline
   - type: Sprite
     drawdepth: Overlays
-    sprite: Markers/arrows.rsi
-    state: green
+    sprite: Markers/arrow.rsi
+    state: mono
     color: "#CC3300AA"  # Тёмно-красный
   - type: StrategicPoint
     tags:
