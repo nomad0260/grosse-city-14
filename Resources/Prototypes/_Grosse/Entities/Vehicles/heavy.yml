@@ -185,6 +185,7 @@
         containers:
         - car-driver
         - car-passenger
+        - storagebase
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: Storage
@@ -280,6 +281,16 @@
         showEnts: False
         occludes: True
         ents: []
+      storagebase: !type:Container
+        ents: [ ]
+  - type: Storage
+    grid:
+    - 0,0,6,6
+    maxItemSize: Ginormous
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
   - type: UnpoweredFlashlight
     toggleAction: ActionGrosseCarToggleLight
   - type: PointLight
@@ -310,5 +321,6 @@
         - car-driver
         - car-passenger
         - car-passenger2
+        - storagebase
       - !type:DoActsBehavior
         acts: ["Destruction"]

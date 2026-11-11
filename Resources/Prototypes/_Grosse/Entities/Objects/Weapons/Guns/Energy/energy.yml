@@ -65,6 +65,8 @@
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/Energy/ar2/tiny.rsi
     size: Large
+    shape:
+    - 0,0,3,1
   - type: Clothing
     sprite: _Grosse/Objects/Weapons/Guns/Energy/ar2/tiny.rsi
   - type: GrosseGunWieldBonus

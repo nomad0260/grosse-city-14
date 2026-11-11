@@ -136,6 +136,7 @@
     ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorCPC17
     id: UnionIDCardCivilProtectionLocalCommander
+    suitstorage: WeaponSubMachineGunC17
     belt: WeaponPistolC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
@@ -155,3 +156,5 @@
     - HealthvialC17
     - HealthvialC17
     - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun

@@ -17,3 +17,6 @@
   - type: BallisticAmmoProvider
     capacity: 120
     proto: CartridgeRifleLight762x39
+  - type: Item
+    shape:
+    - 0,0,1,1

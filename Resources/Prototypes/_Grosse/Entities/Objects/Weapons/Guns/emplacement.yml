@@ -19,6 +19,8 @@
   - type: Item
     size: Ginormous
     sprite: _Grosse/Objects/Weapons/Emplacement/ar3/ar3/tiny.rsi
+    shape:
+    - 0,0,4,2
   - type: ClothingSpeedModifier
     walkModifier: 0.6
     sprintModifier: 0.6

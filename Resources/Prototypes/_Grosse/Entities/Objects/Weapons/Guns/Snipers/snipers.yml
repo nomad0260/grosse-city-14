@@ -12,6 +12,8 @@
     sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosin/tiny.rsi
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/Snipers/mosin/tiny.rsi
+    shape:
+    - 0,0,4,0
   - type: BallisticAmmoProvider
     capacity: 5
     proto: CartridgeRifleLight762x54
@@ -64,6 +66,8 @@
     sprite: _Grosse/Objects/Weapons/Guns/Snipers/svd/tiny.rsi
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/Snipers/svd/tiny.rsi
+    shape:
+    - 0,0,4,1
   - type: GrosseGunWieldBonus
     cameraRecoilScalar: -5
   - type: GunWieldBonus
