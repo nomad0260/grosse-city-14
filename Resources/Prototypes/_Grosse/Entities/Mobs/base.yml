@@ -115,6 +115,8 @@
   description: Угроза любой органической форме жизни
   suffix: Antlion
   components:
+  # Антлайоны нападают на любых мобов, не глядя на фракции.
+  - type: NpcAggressiveToAll
   - type: GhostRole
     prob: 0
   - type: NameIdentifier
@@ -181,7 +183,7 @@
   - type: NoSlip
   - type: IgnoreSpiderWeb
   - type: IntrinsicRadioReceiver
-  - type: ActiveRadio
+  - type: ActiveRadio 
     channels:
     - Hivemind
   - type: IntrinsicRadioTransmitter
@@ -246,29 +248,3 @@
         - HighImpassable
         layer:
         - MobLayer
-
-- type: entity
-  abstract: true
-  parent:
-  - BaseSimpleMob
-  - MobCombat
-  - BaseMobAnimal
-  id: SynthMobBase
-  components:
-  - type: NpcFactionMember
-    factions:
-      - UniversalUnion
-  - type: ZombieImmune
-  - type: FlashImmunity
-  - type: HTN
-    rootTask:
-      task: IdleCompound
-  - type: Climbing
-  - type: NameIdentifier
-    group: GenericNumber
-  - type: SlowOnDamage
-    speedModifierThresholds:
-      60: 0.7
-      80: 0.5
-  - type: MobPrice
-    price: 1000

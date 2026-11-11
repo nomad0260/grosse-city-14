@@ -226,6 +226,7 @@ public sealed partial class HTNSystem : EntitySystem
                     var oldMtr = comp.Plan.BranchTraversalRecord;
                     var mtr = comp.PlanningJob.Result.BranchTraversalRecord;
 
+
                     for (var i = 0; i < oldMtr.Count; i++)
                     {
                         if (i < mtr.Count && oldMtr[i] > mtr[i])
@@ -234,6 +235,16 @@ public sealed partial class HTNSystem : EntitySystem
                             break;
                         }
                     }
+
+                    if (!newPlanBetter)
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
                 }
 
                 if (comp.Plan == null || newPlanBetter)
@@ -252,6 +263,9 @@ public sealed partial class HTNSystem : EntitySystem
                     if (comp.Plan != null)
                     {
                         StartupTask(comp.Plan.Tasks[comp.Plan.Index], comp.Blackboard, comp.Plan.Effects[comp.Plan.Index]);
+                    }
+                    else
+                    {
                     }
 
                     // Send debug info
@@ -459,8 +473,7 @@ public sealed partial class HTNSystem : EntitySystem
     /// </summary>
     private void StartupTask(HTNPrimitiveTask primitive, NPCBlackboard blackboard, Dictionary<string, object>? effects)
     {
-        // We may have planner only tasks where we want to reuse their data during update
-        // e.g. if we pathfind to an enemy to know if we can attack it, we don't want to do another pathfind immediately
+        // Apply planning effects if applicable (silent)
         if (effects != null && primitive.ApplyEffectsOnStartup)
         {
             foreach (var (key, value) in effects)

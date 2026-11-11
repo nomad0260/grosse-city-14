@@ -1,0 +1,68 @@
+# Точки патруля для антлайонов
+
+- type: entity
+  id: PatrolPointAntlion
+  name: "Antlion Patrol Point"
+  description: "Точка патруля для антлайонов. Они будут ходить между такими точками."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    drawdepth: Overlays
+    sprite: Markers/arrows.rsi
+    state: green
+    color: "#FF6600AA"  # Оранжево-красный цвет для ксено
+  - type: PatrolPoint
+    group: "antlion"
+    order: 0
+    waitTime: 3.0
+    lookAround: false
+    capacity: 2            # Антлайоны могут быть по двое на точке
+    cooldownTime: 1.5
+    reservationTimeout: 40.0
+    priority: 0
+
+- type: entity
+  parent: PatrolPointAntlion
+  id: PatrolPointAntlionYoung
+  name: "Young Antlion Patrol Point"
+  description: "Точка патруля для молодых антлайонов."
+  components:
+  - type: Sprite
+    color: "#FFAA00AA"  # Более светлый оранжевый
+  - type: PatrolPoint
+    group: "antlion_young"
+    waitTime: 2.0
+    capacity: 3  # Молодые могут кучковаться
+
+# Стратегическая точка для защиты гнезда
+- type: entity
+  id: StrategicPointAntlionNest
+  name: "Antlion Nest Defense"
+  description: "Стратегическая точка защиты гнезда антлайонов."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    drawdepth: Overlays
+    sprite: Markers/arrows.rsi
+    state: green
+    color: "#CC3300AA"  # Тёмно-красный
+  - type: StrategicPoint
+    tags:
+    - nest_defense
+    - antlion_territory
+    faction: "xeno"
+    priority: 20
+    capacity: 6  # Много антлайонов могут защищать гнездо
+    cooldownTime: 3.0
+    reservationTimeout: 60.0
+    activePriorityMultiplier: 3.0

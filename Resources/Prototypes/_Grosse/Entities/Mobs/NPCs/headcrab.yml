@@ -20,11 +20,21 @@
     - type: IdentityBlocker
     - type: HTN
       rootTask:
-        task: HeadCrabCompound
+        task: MonsterAssaultCompound
+      blackboard:
+        NavSmash: !type:Bool
+          true
+        # Открываем двери на пути вместо обхода по длинному маршруту.
+        NavInteract: !type:Bool
+          true
     - type: CombatMode
     - type: NpcFactionMember
       factions:
         - Zombie
+    - type: NpcPointTracker
+      faction: Zombie
+      strategicTags:
+        - monster_assault
     - type: MeleeWeapon
       hidden: true
       soundHit:

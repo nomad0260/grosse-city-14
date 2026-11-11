@@ -123,6 +123,9 @@ public sealed class HTNPlanJob : Job<HTNPlan>
 
         var branchTraversalRecord = decompHistory.Reverse().Select(o => o.BranchTraversal).ToList();
 
+        // Only log if planning succeeded
+        // Logger.InfoS("npc.planning", $"HTN plan created: {finalPlan.Count} tasks");
+
         return new HTNPlan(finalPlan, branchTraversalRecord, appliedStates);
     }
 
@@ -138,11 +141,16 @@ public sealed class HTNPlanJob : Job<HTNPlan>
             return false;
         }
 
+        var operatorName = primitive.Operator.GetType().Name;
         var (valid, effects) = await primitive.Operator.Plan(blackboard, Cancellation);
 
         if (!valid)
+        {
+            // Operator failed - silent
             return false;
+        }
 
+        // Operator succeeded - apply effects silently
         blackboard.ReadOnly = false;
 
         if (effects != null)

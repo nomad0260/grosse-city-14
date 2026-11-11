@@ -11,6 +11,7 @@ using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 using ClimbingComponent = Content.Shared.Climbing.Components.ClimbingComponent;
 using Robust.Shared.Random;
 
@@ -107,7 +108,12 @@ public sealed partial class NPCSteeringSystem
         if (!steering.ForceMove && steering.ArriveOnLineOfSight)
         {
             // TODO: use vision range
-            inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f);
+            // Стекло и решётки не входят в Opaque, поэтому NPC видят сквозь них,
+            // но пройти не могут. Проверяем обзор по маске столкновений NPC: иначе
+            // монстр считает, что уже дошёл до цели за стеклом, и топчется у него,
+            // так и не начав ломать препятствие.
+            var (_, hardMask) = _physics.GetHardCollision(uid);
+            inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f, (CollisionGroup) hardMask);
 
             if (inLos)
             {
@@ -214,8 +220,11 @@ public sealed partial class NPCSteeringSystem
                 lock (_obstacles)
                 {
                     // We're still coming to a stop so wait for the do_after.
+                    // Тормозим явно: иначе NPC проскакивает узел препятствия
+                    // и кружит вокруг него, так и не начав ломать.
                     if (body.LinearVelocity.LengthSquared() > 0.01f)
                     {
+                        SetDirection(uid, mover, steering, Vector2.Zero, false);
                         return true;
                     }
 
@@ -235,6 +244,16 @@ public sealed partial class NPCSteeringSystem
                         return false;
                     case SteeringObstacleStatus.Continuing:
                         CheckPath(uid, steering, xform, needsPath, targetDistance);
+
+                        // Давим на препятствие, пока ждём кулдаун/удар. Обычный
+                        // seek здесь не работает, а collision avoidance отталкивает
+                        // от стены, из-за чего NPC кружит вокруг неё, не ломая.
+                        if (direction.LengthSquared() > 0f)
+                        {
+                            steering.LastSteerDirection = offsetRot.RotateVec(direction.Normalized());
+                            forceSteer = false;
+                        }
+
                         return true;
                     default:
                         throw new ArgumentOutOfRangeException();

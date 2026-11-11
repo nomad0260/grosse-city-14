@@ -1,0 +1,131 @@
+# Патрулирующие антлайоны
+
+# ТЕСТОВАЯ ВЕРСИЯ: антлайон, который просто бродит без точек патруля
+- type: entity
+  name: муравьиный лев (тест)
+  id: MobAntlionTest
+  description: Тестовый антлайон, который бродит без точек патруля.
+  parent: MobAntlion
+  suffix: Test
+  components:
+  # Без трекера патруля - просто бродит
+
+  # Закапывание при idle
+  - type: Burrowable
+    burrowAfterIdleTime: 15.0  # Долго не закапывается
+    burrowedSpeedMultiplier: 0.7
+
+  # Простой HTN без патруля
+  - type: HTN
+    rootTask:
+      task: HostileBurrowCompound
+    blackboard:
+      VisionRadius: !type:Single
+        8
+      MovementRange: !type:Single
+        15.0
+
+- type: entity
+  name: муравьиный лев (патруль)
+  id: MobAntlionPatrol
+  description: Львиный муровей, патрулирующий свою территорию.
+  parent: MobAntlion
+  suffix: Patrol
+  components:
+  # Трекер для патрулирования
+  - type: NpcPointTracker
+    patrolGroup: "antlion"
+    faction: "xeno"
+
+  # Закапывание с таймерами цикла (ТЕСТ: короткие таймеры)
+  - type: Burrowable
+    observeTimeBeforeBurrow: 3.0  # 3 секунды наблюдения перед закапыванием
+    minPatrolTime: 10  # ТЕСТ: 10 секунд минимум патруля
+    maxPatrolTime: 20  # ТЕСТ: 20 секунд максимум патруля
+    ambushTime: 15  # ТЕСТ: 15 секунд в засаде
+    combatCooldown: 5.0  # 5 секунд кулдаун после боя
+    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
+    burrowedSpeedMultiplier: 0.0  # Не может двигаться
+    burrowedAlpha: 0.0  # Полностью невидим при закапывании
+
+  # Визуализация закапывания на клиенте
+  - type: BurrowableVisuals
+  - type: Appearance
+
+  # HTN с патрулём
+  - type: HTN
+    rootTask:
+      task: AntlionPatrolCompound
+    blackboard:
+      VisionRadius: !type:Single
+        8
+      MinimumIdleTime: !type:Single
+        1.0
+      MaximumIdleTime: !type:Single
+        5.0
+      IdleTime: !type:Single
+        3.0
+
+- type: entity
+  name: муравьиный рабочий (патруль)
+  id: MobAntlionWorkerPatrol
+  description: Белый муровей, патрулирующий свою территорию.
+  parent: MobAntlionWorker
+  suffix: Patrol
+  components:
+  # Трекер для патрулирования
+  - type: NpcPointTracker
+    patrolGroup: "antlion"
+    faction: "xeno"
+
+  # Закапывание контролируется через HTN
+  - type: Burrowable
+    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
+    burrowedSpeedMultiplier: 0.7
+    burrowedAlpha: 0.0  # Полностью невидим при закапывании
+
+  # HTN с патрулём
+  - type: HTN
+    rootTask:
+      task: AntlionWorkerPatrolCompound
+    blackboard:
+      VisionRadius: !type:Single
+        12
+      MinimumIdleTime: !type:Single
+        1.0
+      MaximumIdleTime: !type:Single
+        5.0
+      IdleTime: !type:Single
+        3.0
+
+- type: entity
+  name: молодой муравьиный лев (патруль)
+  id: MobYoungAntlionPatrol
+  description: Молодой львиный муровей, патрулирующий свою территорию.
+  parent: MobYoungAntlion
+  suffix: Patrol
+  components:
+  # Трекер для патрулирования
+  - type: NpcPointTracker
+    patrolGroup: "antlion_young"
+    faction: "xeno"
+
+  # Закапывание контролируется через HTN
+  - type: Burrowable
+    burrowAfterIdleTime: 999999.0  # Никогда не закапывается автоматически - только через HTN
+    burrowedSpeedMultiplier: 0.7
+    burrowedAlpha: 0.0  # Полностью невидим при закапывании
+
+  # HTN с патрулём
+  - type: HTN
+    rootTask:
+      task: AntlionPatrolCompound
+    blackboard:
+      VisionRadius: !type:Single
+        6
+      MinimumIdleTime: !type:Single
+        1.0
+      MaximumIdleTime: !type:Single
+        5.0
+      IdleTime: !type:Single
+        3.0

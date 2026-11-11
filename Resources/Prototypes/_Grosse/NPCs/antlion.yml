@@ -6,6 +6,9 @@
           task: MeleeCombatCompound
     - tasks:
         - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: FollowCompound
     - tasks:
         - !type:HTNCompoundTask

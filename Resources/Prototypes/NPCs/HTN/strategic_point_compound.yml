@@ -1,0 +1,20 @@
+# Ищет стратегическую точку, подходит к ней, удерживает и освобождает.
+# Для работы NPC нужен NpcPointTracker. Теги берутся из его strategicTags,
+# а если они пусты — из tags на самом RequestStrategicPointOperator.
+- type: htnCompound
+  id: StrategicPointCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:RequestStrategicPointOperator
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            pathfindInPlanning: false
+            shutdownState: TaskFinished
+        - !type:HTNPrimitiveTask
+          operator: !type:OccupyStrategicPointOperator
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: StrategicWaitTime
+        - !type:HTNPrimitiveTask
+          operator: !type:ReleaseStrategicPointOperator

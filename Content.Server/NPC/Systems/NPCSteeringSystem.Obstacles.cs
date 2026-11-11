@@ -58,8 +58,13 @@ public sealed partial class NPCSteeringSystem
 
         // TODO: Should cache the fact we're doing this somewhere.
         // See https://github.com/space-wizards/space-station-14/issues/11475
-        if ((poly.Data.CollisionLayer & mask) != 0x0 ||
-            (poly.Data.CollisionMask & layer) != 0x0)
+        var obstacleEnts = new List<EntityUid>();
+        GetObstacleEntities(poly, mask, layer, obstacleEnts);
+
+        // Данные полигона могли устареть: например, стекло появилось после
+        // построения навмеша. Ориентируемся на реальные столкновения, иначе
+        // NPC считает узел свободным и бесконечно тычется в стену без ударов.
+        if (obstacleEnts.Count > 0)
         {
             var id = component.DoAfterId;
 
@@ -74,9 +79,10 @@ public sealed partial class NPCSteeringSystem
                     return SteeringObstacleStatus.Failed;
             }
 
-            var obstacleEnts = new List<EntityUid>();
+            // Полигон мог устареть после разрушения препятствия.
+            if (obstacleEnts.Count == 0)
+                return SteeringObstacleStatus.Completed;
 
-            GetObstacleEntities(poly, mask, layer, obstacleEnts);
             var isDoor = (poly.Data.Flags & PathfindingBreadcrumbFlag.Door) != 0x0;
             var isAccessRequired = (poly.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;
             var isClimbable = (poly.Data.Flags & PathfindingBreadcrumbFlag.Climb) != 0x0;
@@ -156,34 +162,47 @@ public sealed partial class NPCSteeringSystem
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
             {
-                if (_melee.TryGetWeapon(uid, out _, out var meleeWeapon) && meleeWeapon.NextAttack <= _timing.CurTime && TryComp<CombatModeComponent>(uid, out var combatMode))
+                if (!_melee.TryGetWeapon(uid, out var weaponUid, out var meleeWeapon) ||
+                    meleeWeapon == null ||
+                    !TryComp<CombatModeComponent>(uid, out var combatMode))
                 {
-                    _combat.SetInCombatMode(uid, true, combatMode);
-                    // TODO: This is a hack around grilles and windows.
-                    _random.Shuffle(obstacleEnts);
-                    var attackResult = false;
-
-                    foreach (var ent in obstacleEnts)
-                    {
-                        // TODO: Validate we can damage it
-                        if (_destructibleQuery.HasComponent(ent))
-                        {
-                            attackResult = _melee.AttemptLightAttack(uid, uid, meleeWeapon, ent);
-                            break;
-                        }
-                    }
-
-                    _combat.SetInCombatMode(uid, false, combatMode);
-
-                    // Blocked or the likes?
-                    if (!attackResult)
-                        return SteeringObstacleStatus.Failed;
-
-                    if (obstacleEnts.Count == 0)
-                        return SteeringObstacleStatus.Completed;
-
-                    return SteeringObstacleStatus.Continuing;
+                    return SteeringObstacleStatus.Failed;
                 }
+
+                // Оружие на кулдауне: ждём следующий удар, не сбрасывая план.
+                // Иначе после первого попадания steering получает NoPath,
+                // NPC уходит кружить вокруг препятствия и не добивает его.
+                if (meleeWeapon.NextAttack > _timing.CurTime)
+                    return SteeringObstacleStatus.Continuing;
+
+                _combat.SetInCombatMode(uid, true, combatMode);
+                // TODO: This is a hack around grilles and windows.
+                _random.Shuffle(obstacleEnts);
+                var attackResult = false;
+
+                foreach (var ent in obstacleEnts)
+                {
+                    // TODO: Validate we can damage it
+                    if (_destructibleQuery.HasComponent(ent))
+                    {
+                        attackResult = _melee.AttemptLightAttack(uid, weaponUid, meleeWeapon, ent);
+                        break;
+                    }
+                }
+
+                _combat.SetInCombatMode(uid, false, combatMode);
+
+                // Удар не прошёл (например, моб стоит на краю дистанции
+                // или дуги замаха): не сбрасываем план, а даём подойти и
+                // попробовать снова. Иначе NPC уходит кружить вокруг
+                // препятствия, так и не разбив его.
+                if (!attackResult)
+                    return SteeringObstacleStatus.Continuing;
+
+                if (obstacleEnts.Count == 0)
+                    return SteeringObstacleStatus.Completed;
+
+                return SteeringObstacleStatus.Continuing;
             }
 
             return SteeringObstacleStatus.Failed;

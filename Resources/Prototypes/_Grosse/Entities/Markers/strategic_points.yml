@@ -1,0 +1,22 @@
+# Активная точка для зомби и прочей нечисти.
+# Фракция не указана, чтобы точку могли использовать разные монстры;
+# фильтрация идёт по тегу monster_assault.
+- type: entity
+  parent: MarkerBase
+  id: StrategicPointMonsterAssault
+  name: strategic point (monster assault)
+  suffix: Штурм, Нечисть
+  components:
+  - type: StrategicPoint
+    active: true
+    tags:
+    - monster_assault
+    priority: 60
+    capacity: 8
+    waitTime: 15
+    arrivalRange: 1.0
+    cooldownTime: 5
+    reservationTimeout: 90
+    activePriorityMultiplier: 2.0
+  - type: Sprite
+    state: red

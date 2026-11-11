@@ -68,11 +68,13 @@ public sealed partial class PathfindingSystem
             // Door we can force open one way or another
             else if (isDoor && isAccess && (request.Flags & PathFlags.Prying) != 0x0)
             {
-                modifier += 10f;
+                modifier += 4f;
             }
+            // Разрушение стены/стекла — последнее средство: обход через дверь
+            // должен выигрывать, даже если к двери идти заметно дальше.
             else if ((request.Flags & PathFlags.Smashing) != 0x0 && end.Data.Damage > 0f)
             {
-                modifier += 10f + end.Data.Damage / 100f;
+                modifier += 50f + end.Data.Damage / 100f;
             }
             else if (isClimb && (request.Flags & PathFlags.Climbing) != 0x0)
             {

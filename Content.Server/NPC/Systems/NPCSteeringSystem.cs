@@ -165,10 +165,17 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     /// </summary>
     public NPCSteeringComponent Register(EntityUid uid, EntityCoordinates coordinates, NPCSteeringComponent? component = null)
     {
+
         if (Resolve(uid, ref component, false))
         {
+            // Флаги могли измениться после предыдущего движения,
+            // например после включения NavSmash.
+            component.Flags = _pathfindingSystem.GetFlags(uid);
+
             if (component.Coordinates.Equals(coordinates))
+            {
                 return component;
+            }
 
             component.PathfindToken?.Cancel();
             component.PathfindToken = null;
@@ -237,6 +244,10 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         {
             npcs[index] = (uid, steering, mover, xform);
             index++;
+        }
+
+        if (index > 0 && _timing.CurTime.TotalSeconds % 2.0 < frameTime)
+        {
         }
 
         // Dependency issues across threads.
@@ -309,6 +320,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     {
         if (Deleted(steering.Coordinates.EntityId))
         {
+            Log.Warning($"[STEER] {ToPrettyString(uid)} has deleted target coordinates");
             SetDirection(uid, mover, steering, Vector2.Zero);
             steering.Status = SteeringStatus.NoPath;
             return;
@@ -324,6 +336,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         // Can't move at all, just noop input.
         if (!mover.CanMove)
         {
+            Log.Warning($"[STEER] {ToPrettyString(uid)} CanMove=false, setting zero direction");
             SetDirection(uid, mover, steering, Vector2.Zero);
             steering.Status = SteeringStatus.NoPath;
             return;
@@ -372,8 +385,27 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             return;
         }
 
+        // Не отталкиваемся от препятствия, которое пришли сломать: иначе
+        // collision avoidance не даёт подойти на дистанцию удара и NPC
+        // скользит вдоль стены, кружа вокруг неё.
+        var pressIntoObstacle = false;
+
+        if (steering.CurrentPath.TryPeek(out var nextNode) &&
+            (nextNode.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0)
+        {
+            var nodeMap = _transform.ToMapCoordinates(new EntityCoordinates(nextNode.GraphUid, nextNode.Box.Center));
+            var ourMap = _transform.ToMapCoordinates(xform.Coordinates);
+
+            if (nodeMap.MapId == ourMap.MapId &&
+                (nodeMap.Position - ourMap.Position).LengthSquared() <= 4f)
+            {
+                pressIntoObstacle = !IsFreeSpace(uid, steering, nextNode);
+            }
+        }
+
         // Avoid static objects like walls
-        CollisionAvoidance(uid, offsetRot, worldPos, agentRadius, layer, mask, xform, danger);
+        if (!pressIntoObstacle)
+            CollisionAvoidance(uid, offsetRot, worldPos, agentRadius, layer, mask, xform, danger);
         DebugTools.Assert(!float.IsNaN(danger[0]));
 
         Separation(uid, offsetRot, worldPos, agentRadius, layer, mask, body, xform, danger);

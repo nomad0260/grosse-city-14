@@ -35,9 +35,10 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
 
     /// <summary>
     /// If true, only opaque objects will block line of sight.
+    /// Glass and grilles are not opaque, so NPCs can see through them.
     /// </summary>
     [DataField("opaqueKey")]
-    public bool UseOpaqueForLOSChecks = false;
+    public bool UseOpaqueForLOSChecks = true;
 
     // Like movement we add a component and pass it off to the dedicated system.
 

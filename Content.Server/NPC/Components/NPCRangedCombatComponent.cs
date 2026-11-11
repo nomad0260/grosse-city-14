@@ -42,10 +42,11 @@ public sealed partial class NPCRangedCombatComponent : Component
 
     /// <summary>
     /// If true, only opaque objects will block line of sight.
+    /// Glass and grilles are not opaque, so NPCs can see through them.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     // ReSharper disable once InconsistentNaming
-    public bool UseOpaqueForLOSChecks = false;
+    public bool UseOpaqueForLOSChecks = true;
 
     /// <summary>
     /// Delay after target is in LOS before we start shooting.

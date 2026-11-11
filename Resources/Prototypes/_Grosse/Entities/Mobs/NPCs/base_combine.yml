@@ -178,7 +178,7 @@
   components:
   - type: NpcFactionMember
     factions:
-      - UniversalUnion
+      - Xenoborg
   - type: MindShield
     mindShieldStatusIcon: UnionFaction
   - type: StatusIcon
@@ -214,6 +214,11 @@
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
+    blackboard:
+      NavPry: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
   - type: Tool
     qualities:
       - Prying

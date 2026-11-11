@@ -6,4 +6,7 @@
           task: MeleeCombatCompound
     - tasks:
         - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: IdleCompound

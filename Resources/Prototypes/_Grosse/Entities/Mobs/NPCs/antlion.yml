@@ -76,6 +76,23 @@
   - type: AutoEmote
     emotes:
     - EmoteAntlionIdle
+  - type: Burrowable
+    burrowAfterIdleTime: 5.0
+    burrowedAlpha: 0.2
+    burrowedSpeedMultiplier: 0.7
+    allowedTileIds:
+      - FloorPlanetDirt
+      - FloorDesert
+      - FloorLowDesert
+      - FloorPlanetGrass
+      - FloorSnow
+      - FloorSnowDug
+  - type: HTN
+    rootTask:
+      task: AntlionAssaultCompound
+    blackboard:
+      VisionRadius: !type:Single
+        7
 
 - type: entity
   name: муравьиный рабочий
@@ -116,7 +133,7 @@
         Slash: 10
   - type: HTN
     rootTask:
-      task: CombineSoldierCompound
+      task: AntlionWorkerAssaultCompound
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 0.5
     rechargeSound:

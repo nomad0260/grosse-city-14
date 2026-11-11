@@ -115,7 +115,10 @@ namespace Content.Server.NPC.Systems
                 return;
             }
 
-            Log.Debug($"Waking {ToPrettyString(uid)}");
+
+            // Задержка перед первым планированием чтобы все компоненты и точки патруля успели инициализироваться
+            component.PlanAccumulator = 0.5f; // 500ms задержка
+
             EnsureComp<ActiveNPCComponent>(uid);
         }
 

@@ -34,6 +34,10 @@
   - type: NpcFactionMember
     factions:
     - Xeno
+  - type: NpcPointTracker
+    faction: Xeno
+    strategicTags:
+    - monster_assault
   - type: Hands
   - type: ComplexInteraction
   - type: Sprite
@@ -332,7 +336,7 @@
       25: 0.7
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: XenoSpitterAssaultCompound
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 0.75
   - type: BasicEntityAmmoProvider
@@ -495,6 +499,10 @@
   - type: NpcFactionMember
     factions:
     - Xeno
+  - type: NpcPointTracker
+    faction: Xeno
+    strategicTags:
+    - monster_assault
   - type: Hands
   - type: ComplexInteraction
   - type: MobState

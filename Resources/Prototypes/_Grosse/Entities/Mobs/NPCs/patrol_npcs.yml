@@ -1,0 +1,66 @@
+# Готовые NPC с настроенным патрулированием
+# Просто поставь на карту - они сразу начнут патрулировать!
+
+# Civilian с патрулированием (нейтральный)
+- type: entity
+  parent: MobCivilian
+  id: MobCivilianPatrol
+  name: civilian (patrol)
+  description: A civilian that patrols civilian patrol points.
+  components:
+  - type: HTN
+    rootTask:
+      task: SimplePatrolCompound
+    blackboard:
+      SoundTargetInLOS: !type:Bool
+        false
+  - type: NpcPointTracker
+    patrolGroup: default
+
+# Syndicate Footsoldier с патрулированием (враждебный)
+- type: entity
+  parent: MobSyndicateFootsoldier
+  id: MobSyndicateFootsoldierPatrol
+  name: syndicate soldier (patrol)
+  description: Syndicate soldier that patrols syndicate patrol points.
+  components:
+  - type: HTN
+    rootTask:
+      task: HostilePatrolCompound
+    blackboard:
+      SoundTargetInLOS: !type:Bool
+        false
+  - type: NpcPointTracker
+    patrolGroup: syndicate
+
+# Salvager с патрулированием
+- type: entity
+  parent: MobSalvager
+  id: MobSalvagerPatrol
+  name: salvager (patrol)
+  description: Salvager that patrols salvage patrol points.
+  components:
+  - type: HTN
+    rootTask:
+      task: HostilePatrolCompound
+    blackboard:
+      SoundTargetInLOS: !type:Bool
+        false
+  - type: NpcPointTracker
+    patrolGroup: salvage
+
+# Pirate с патрулированием
+- type: entity
+  parent: MobSpirate
+  id: MobSpiratePatrol
+  name: spirate (patrol)
+  description: Space pirate that patrols pirate patrol points.
+  components:
+  - type: HTN
+    rootTask:
+      task: HostilePatrolCompound
+    blackboard:
+      SoundTargetInLOS: !type:Bool
+        false
+  - type: NpcPointTracker
+    patrolGroup: pirate

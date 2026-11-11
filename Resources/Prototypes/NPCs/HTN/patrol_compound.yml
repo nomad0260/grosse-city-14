@@ -1,0 +1,47 @@
+# ТЕСТОВЫЙ compound - только запрос точки без движения
+- type: htnCompound
+  id: TestPatrolCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:RequestNextPatrolPointOperator
+
+# Полноценный патруль (БЕЗ рекурсии - один цикл, затем новый план)
+- type: htnCompound
+  id: PatrolCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:RequestNextPatrolPointOperator
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            pathfindInPlanning: false
+        - !type:HTNPrimitiveTask
+          operator: !type:OccupyPatrolPointOperator
+        - !type:HTNPrimitiveTask
+          operator: !type:ReleasePatrolPointOperator
+
+# Простой патруль с fallback
+- type: htnCompound
+  id: SimplePatrolCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: PatrolCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+# Враждебный патруль
+- type: htnCompound
+  id: HostilePatrolCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: PatrolCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound

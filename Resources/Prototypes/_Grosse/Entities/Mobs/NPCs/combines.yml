@@ -247,6 +247,12 @@
   parent: MobBaseHumanCombine
   suffix: suppa Патруль Альянса 17
   components:
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+    blackboard:
+      VisionRadius: !type:Single
+        12
   - type: MeleeWeapon
     angle: 0
     animation: WeaponArcSlash
@@ -260,7 +266,7 @@
     sound: /Audio/Weapons/egloves.ogg
   - type: NpcFactionMember
     factions:
-      - UniversalUnion
+      - Xenoborg
   - type: MindShield
     mindShieldStatusIcon: UnionFaction
   - type: Sprite

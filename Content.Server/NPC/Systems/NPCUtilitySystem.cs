@@ -1,5 +1,6 @@
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Hands.Systems;
+using Content.Server.NPC.Components;
 using Content.Server.NPC.Queries;
 using Content.Server.NPC.Queries.Considerations;
 using Content.Server.NPC.Queries.Curves;
@@ -484,6 +485,26 @@ public sealed partial class NPCUtilitySystem : EntitySystem
             }
             case NearbyHostilesQuery:
             {
+                // NPC с NpcAggressiveToAll нападает на любых мобов вокруг,
+                // не глядя на фракции. Своих всё равно не трогаем.
+                if (HasComp<NpcAggressiveToAllComponent>(owner))
+                {
+                    var mapPos = _transform.GetMapCoordinates(owner, xform: Transform(owner));
+
+                    foreach (var ent in _lookup.GetEntitiesInRange<MobStateComponent>(mapPos, vision))
+                    {
+                        if (ent.Owner == owner)
+                            continue;
+
+                        if (_npcFaction.IsEntityFriendly(owner, ent.Owner))
+                            continue;
+
+                        entities.Add(ent.Owner);
+                    }
+
+                    break;
+                }
+
                 foreach (var ent in _npcFaction.GetNearbyHostiles(owner, vision))
                 {
                     entities.Add(ent);

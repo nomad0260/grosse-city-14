@@ -2,9 +2,15 @@
   id: MobManhackc17
   name: manhack
   suffix: suppa manhack
-  parent: [ SynthMobBase, FlyingMobBase ]
+  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
   description: Мэнхэк, в терминологии Альянса — потрошитель, иногда именуемый повстанцами как хэк — небольшой робот, используемый Альянсом для сканирования и зачистки территории.
   components:
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Blood
+        Quantity: 50
+  - type: ZombieImmune
   - type: CombatMode
   - type: MeleeWeapon
     hidden: true
@@ -17,6 +23,9 @@
     damage:
       types:
         Piercing: 10
+  - type: NpcFactionMember
+    factions:
+      - Xenoborg
   - type: MindShield
     mindShieldStatusIcon: UnionFaction
   - type: InputMover
@@ -32,6 +41,9 @@
       NavClimb: !type:Bool
         true
       NavSmash: !type:Bool
+        true
+      # Открываем двери на пути вместо обхода по длинному маршруту.
+      NavInteract: !type:Bool
         true
   - type: Fixtures
     fixtures:
@@ -73,6 +85,13 @@
     range: 9
     sound:
       collection: Manhackloop
+  #- type: Flatpack
+  #  entity: ManhackInactiveC17
+  #  qualityNeeded: PulsingCombine
+  #  unpackSound:
+  #    path: /Audio/_Grosse/Mobs/Manhack/blade_loop1.ogg
+  #    params:
+  #      volume: 2
   - type: Construction
     graph: ManhackPulsing
     node: start

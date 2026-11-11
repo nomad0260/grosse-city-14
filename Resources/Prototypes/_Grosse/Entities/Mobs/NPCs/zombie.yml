@@ -23,7 +23,15 @@
     soundCooldownTime: 0.1
   - type: HTN
     rootTask:
-      task: SimpleHostileCompound
+      task: MonsterAssaultCompound
+    blackboard:
+      NavPry: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
+      # Открываем двери на пути вместо обхода по длинному маршруту.
+      NavInteract: !type:Bool
+        true
   - type: Prying
     pryPowered: !type:Bool
         true
@@ -31,6 +39,12 @@
       true
     useSound:
       path: /Audio/Items/crowbar.ogg
+  - type: NpcDevour
+    gibHits: 4
+    healAmount: 30
+    range: 1.5
+    devourSound:
+      path: /Audio/Items/eating_1.ogg
   - type: Reactive
   - type: MeleeWeapon
     angle: 0
@@ -64,6 +78,10 @@
     damageCap: 0
   - type: ReplacementAccent
     accent: zombie
+  - type: NpcPointTracker
+    faction: Zombie
+    strategicTags:
+    - monster_assault
 
 #- type: entity
 #  id: HeadcrabedZombieSleep
