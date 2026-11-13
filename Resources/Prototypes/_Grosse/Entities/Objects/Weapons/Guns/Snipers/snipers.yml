@@ -128,7 +128,7 @@
 - type: entity
   name: снайперская винтовка Альянса
   parent: BaseItem
-  id: WeaponSniperImpulse
+  id: WeaponSniperImpulseC17
   suffix: Винтовка, Оружие 17
   description: Оружие созданное для сил патруля, для точечной нейтрализации противников с дальнего расстояния. Использует переносные микро-импульсные боеприпасы для стрельбы.
   components:
