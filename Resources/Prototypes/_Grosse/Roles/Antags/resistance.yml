@@ -1,5 +1,5 @@
 - type: antag
-  id: Saboteur
+  id: ResistanceSaboteur
   name: roles-antag-resistance-saboteur-name
   antagonist: true
   setPreference: true
@@ -15,7 +15,7 @@
   parent: BaseNukeops
   id: ResistanceSaboteur
   prefRoles:
-  - Saboteur
+  - ResistanceSaboteur
   spawnerPrototype: SpawnPointNukeopsOperative
   startingGear: SaboteurGear
   components:

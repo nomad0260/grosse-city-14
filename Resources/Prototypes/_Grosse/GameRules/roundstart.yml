@@ -1,6 +1,6 @@
 - type: entity
   parent: [ BaseNukeopsRule, BaseRoundstartAntagRule ]
-  id: Saboteurs
+  id: ResistanceSaboteur
   components:
   - type: GameRule
     minPlayers: 20

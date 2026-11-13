@@ -51,7 +51,7 @@
       - CartridgeRifle762x54
 
 - type: entity
-  id: CartridgeImpulseC17
+  id: CartridgeImpulse
   name: микро импульсная батарея
   parent: BaseCartridgeRifleLightSniper
   components:
