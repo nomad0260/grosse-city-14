@@ -43,12 +43,6 @@ lobby_name = "️Grosse"
 
 [game.panic_bunker]
 enabled = false
-show_reason = true
-min_account_age = 0
-min_overall_minutes = 0
-deny_vpn = false
-enable_without_admins = false
-disable_with_admins = false
 
 [adminlogs]
 server_name="main"
