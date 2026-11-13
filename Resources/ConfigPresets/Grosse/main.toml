@@ -34,9 +34,6 @@ sendbuffersize=2471071
 lidgren_log_warning = false
 lidgren_log_error = false
 
-[looc]
-enabled_crit = true
-
 [server]
 rules_file = "CorvaxLRPRuleset"
 lobby_name = "️Grosse"
@@ -54,7 +51,6 @@ server_name="main"
 
 [ahelp]
 admin_prefix = true
-admin_prefix_webhook = true
 
 [afk]
 time = 9999999.0
