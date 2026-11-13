@@ -3,8 +3,16 @@
   name: Вселенский Союз Общий
 
 - type: accessLevel
+  id: UnionBaseSector
+  name: Вселенский Союз Сектор Администрации
+
+- type: accessLevel
   id: UnionCP
   name: Вселенский Союз Гражданская Оборона
+
+- type: accessLevel
+  id: UnionCPArmory
+  name: Вселенский Союз Оружейная
 
 - type: accessLevel
   id: UnionOTA

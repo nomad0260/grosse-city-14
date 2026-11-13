@@ -8,15 +8,15 @@
   },
   "states": [
     {
-      "name": "base",
+      "name": "Combine-APC-car",
       "directions": 4
     },
     {
-      "name": "destroyed",
+      "name": "Combine-APC-car-destroy",
       "directions": 4
     },
     {
-      "name": "window",
+      "name": "Combine-APC-wind",
       "directions": 4
     }
   ]

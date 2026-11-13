@@ -7,12 +7,12 @@ examine-headset-default-channel = Канал по умолчанию этой г
 chat-radio-common = Общий
 chat-radio-centcom = Центком
 chat-radio-command = Командный
-chat-radio-engineering = Инженерный
+chat-radio-engineering = Внешний
 chat-radio-medical = Медицинский
 chat-radio-science = Научный
 chat-radio-security = Безопасность
 chat-radio-service = Сервис
-chat-radio-supply = Снабжение
+chat-radio-supply = ГСР
 chat-radio-syndicate = Синдикат
 chat-radio-freelance = Фриланс
 

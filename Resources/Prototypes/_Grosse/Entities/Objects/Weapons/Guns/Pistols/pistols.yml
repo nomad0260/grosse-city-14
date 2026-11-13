@@ -27,7 +27,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazinePistol
+        startingItem: MagazinePistolC17
         insertSound: /Audio/_Grosse/Weapons/Ranged/pistol_reload1.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
         priority: 2

@@ -14,3 +14,6 @@
     magState: mag
     steps: 3
     zeroVisible: false
+  - type: Item
+    shape:
+    - 0,0,1,1

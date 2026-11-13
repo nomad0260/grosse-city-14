@@ -25,8 +25,8 @@
     maxAngle: -14
   - type: Gun
     cameraRecoilScalar: 5
-    angleIncrease: 10
-    angleDecay: 30
+    angleIncrease: 7
+    angleDecay: 40
     minAngle: 24
     maxAngle: 45
     fireRate: 8

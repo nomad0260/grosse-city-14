@@ -60,9 +60,9 @@
     engineStopSound:
       path: /Audio/_Grosse/Vehicles/engine_stop.ogg
     engineIdleSound:
-      path: /Audio/_Grosse/Vehicles/heli/rotor_loop.ogg
+      path: /Audio/_Grosse/Vehicles/engine_idle.ogg
     engineMoveStartSound:
-      path: /Audio/_Grosse/Vehicles/heli/rotor_loop.ogg
+      path: /Audio/_Grosse/Vehicles/engine_move_start.ogg
     engineMoveStartDuration: 4
     engineDriveSound:
       path: /Audio/_Grosse/Vehicles/engine_drive.ogg

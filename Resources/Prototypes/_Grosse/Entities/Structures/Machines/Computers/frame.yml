@@ -238,6 +238,8 @@
       - UnionOTA
       - UnionAdmin
       - Engineering
+      - UnionBaseSector
+      - UnionCPArmory
     privilegedIdSlot:
       name: id-card-console-privileged-id
       ejectSound: /Audio/Machines/id_swipe.ogg
@@ -379,7 +381,7 @@
     - map: ["computerLayerKeys"]
       state: console1-unshaded
   - type: AccessReader
-    access: [["UnionCP"]]
+    access: [["UnionAdmin"]]
   - type: CommunicationsConsole
     title: comms-console-announcement-title-alliance
 

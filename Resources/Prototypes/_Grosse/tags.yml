@@ -114,3 +114,9 @@
 
 - type: Tag
   id: MagazineSVD
+
+- type: Tag
+  id: MagazinePulseHeavyRifle
+
+- type: Tag
+  id: CartridgeImpulse

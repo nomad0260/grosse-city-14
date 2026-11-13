@@ -26,3 +26,25 @@
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
   - type: Prying
+
+- type: entity
+  parent: CombatKnife
+  id: CombatKnifeSovietC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Melee/product6x4.rsi
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Melee/product6x4.rsi
+  - type: EmbeddableProjectile
+    offset: -0.15,0.0
+  - type: ThrowingAngle
+    angle: 225
+  - type: LandAtCursor
+  - type: MeleeWeapon
+    clickDamageModifier: 2
+    wideAnimationRotation: -135
+    angle: 0
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Piercing: 24

@@ -12,3 +12,18 @@
     layers:
     - state: crypt_blue
     - state: com_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyCMBCommandC17
+  name: ключ шифрования Вселеннского Союза
+  description: An encryption key used by captain's bosses.
+  components:
+  - type: EncryptionKey
+    channels:
+    - CMBCommand
+    defaultChannel: CMBCommand
+  - type: Sprite
+    layers:
+    - state: crypt_blue
+    - state: com_label

@@ -88,6 +88,20 @@
     - state: windows_tainted_rust
 
 - type: entity
+  id: UAZStructureCrushedPoliceC17
+  parent: UAZStructureC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/uaz.rsi
+    layers:
+    - state: crash_police
+    - state: dirt
+    - state: gunshot
+    - state: painting
+    - state: rust2
+    - state: windows_tainted_rust
+
+- type: entity
   id: OldCarGreenC17
   parent: BaseDecorVehicle
   name: старая машина
@@ -198,6 +212,54 @@
         shape:
           !type:PhysShapeAabb
           bounds: "-0.5,-1.5,0.5,1.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: CombineAPCDestroyedC17
+  parent: BaseDecorVehicle
+  name: бронетранспартер патруля
+  description: Броневик сил патруля Альянса, основная наземная техника надзора.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/combineAPC.rsi
+    scale: 1, 1
+    state: Combine-APC-car-destroy
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.5,0.8,1.5"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - WallLayer
+
+- type: entity
+  id: HunterChopperPropC17
+  parent: BaseDecorVehicle
+  name: вертолет-охотник
+  description: Боевой вертолет надзора, для подавления превосходящих наземных сил, воздушного минирование территории и воздушный патруль.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Vehicles/hunter-helicopter.rsi
+    scale: 1, 1
+    state: staying
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-1.7,0.5,1.5"
         density: 155
         mask:
         - MachineMask

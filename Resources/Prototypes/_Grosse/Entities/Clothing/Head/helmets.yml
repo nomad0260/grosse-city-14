@@ -6,15 +6,6 @@
   name: overwatch soldier unit helmet
   description: Military-grade helmet for special overwatch units.
   components:
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: SlotBlock
-      slots: [ head ]
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/helmets/ota.rsi
   - type: Clothing
@@ -29,6 +20,7 @@
   - type: ExplosionResistance
     damageCoefficient: 0.8
   - type: ToggleableClothing
+    action: ActionToggleSuitPiece
     clothingPrototype: ClothingMaskOTAC17
     slot: mask
     requiredSlot:
@@ -51,22 +43,13 @@
     clothingPrototype: ClothingMaskOTAC17Shotgunner
 
 - type: entity
-  parent: 
+  parent:
   - MaskGasTankBase
   - ClothingHeadHelmetBase
   id: ClothingHeadCPC17
   name: overwatch CP unit helmet
   description: Police helmet for civil protection overwatch units.
   components:
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: SlotBlock
-      slots: [ head ]
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
   - type: Clothing
@@ -90,22 +73,13 @@
   #    toggleable-clothing: !type:ContainerSlot {}
 
 - type: entity
-  parent: 
+  parent:
   - MaskGasTankBase
   - ClothingHeadEVAHelmetBase
   id: ClothingHeadOTAEliteC17
   name: overwatch soldier elite unit helmet
   description: Military-grade helmet for special overwatch units.
   components:
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: SlotBlock
-      slots: [ head ]
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/helmets/otaking.rsi
   - type: Clothing
@@ -120,6 +94,7 @@
   - type: ExplosionResistance
     damageCoefficient: 0.8
   - type: ToggleableClothing
+    action: ActionToggleSuitPiece
     clothingPrototype: ClothingMaskOTAEliteC17
     slot: mask
     requiredSlot:
@@ -129,7 +104,7 @@
       toggleable-clothing: !type:ContainerSlot {}
 
 - type: entity
-  parent: 
+  parent:
   - MaskGasTankBase
   - ClothingHeadBase
   id: ClothingHeadWorkerC17
@@ -151,6 +126,7 @@
         Slash: 0.9
         Heat: 0.8
   - type: ToggleableClothing
+    action: ActionToggleSuitPiece
     clothingPrototype: ClothingMaskWorkerC17
     slot: mask
     requiredSlot:
@@ -166,9 +142,10 @@
   description: Тяжелый защитный с Шестого уровнем защиты "Вулкан" предназначен для использования в комплекте боевого снаряжения с целью круговой защиты головы человека шестого класса от пуль стрелкового оружия.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/Vityaz1C.rsi
+    scale: 0.8, 0.8
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/Vityaz1C.rsi
   - type: FlashImmunity
   - type: EyeProtection
     protectionTime: 5
@@ -186,3 +163,34 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: ClothingHeadHelmet6B7
+  name: шлем "6Б7"
+  description: Общевойсковой шлем 6Б7 используемый военными формирования до войны.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Head/Helmets/6b7.rsi
+    scale: 0.7, 0.7
+  - type: Clothing
+    sprite: _Grosse/Clothing/Head/Helmets/6b7.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+
+- type: entity
+  parent: ClothingHeadHelmetRiot
+  id: ClothingHeadHelmetRiotRU
+  name: шлем "ПШ97"
+  description: Полицейский шлем против митингов, каким-то чудом он до сих пор уцелел.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Head/Helmets/psh97.rsi
+    scale: 0.7, 0.7
+  - type: Clothing
+    sprite: _Grosse/Clothing/Head/Helmets/psh97.rsi

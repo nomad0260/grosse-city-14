@@ -15,9 +15,13 @@
   weight: -16
   isCity14: true
   roles:
+  - Citizen
   - Worker
   - UnionMiner
+  - CWUDoctor
   - UnionResearcher
+  - UnionFactoryHead
+  - UnionWorkersHead
 
 - type: department
   id: City14CivilProtection
@@ -42,3 +46,4 @@
   roles:
   - UnionFactoryHead
   - UnionWorkersHead
+  - UnionResearcher
