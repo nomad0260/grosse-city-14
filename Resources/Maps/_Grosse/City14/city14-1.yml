@@ -4,7 +4,7 @@ meta:
   engineVersion: 278.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/01/2026 02:35:32
+  time: 11/13/2026 16:11:31
   entityCount: 12069
 maps:
 - 1
@@ -105,7 +105,7 @@ entities:
   - uid: 1
     components:
     - type: MetaData
-      name: Map Entity
+      name: Mapping City 14 [-1]
     - type: Transform
     - type: Map
       mapPaused: True
@@ -3096,6 +3096,7 @@ entities:
     - type: ExplosionAirtightGrid
     - type: TileHistory
       chunkHistory: {}
+    - type: ImplicitRoof
 - proto: ADTSofaRedLeftSide
   entities:
   - uid: 106509
