@@ -1,4 +1,6 @@
+// grosse-edit-start: троттлинг действий с дверями (нужен TimeSpan).
 using System;
+// grosse-edit-end
 using Content.Server.Destructible;
 using Content.Server.NPC.Components;
 using Content.Server._Grosse.NPC.Components;
@@ -42,11 +44,13 @@ public sealed partial class NPCSteeringSystem
     [Dependency] private EntityQuery<ClimbableComponent> _climbableQuery = default!;
     [Dependency] private EntityQuery<DestructibleComponent> _destructibleQuery = default!;
 
+    // grosse-edit-start: троттлинг действий с дверями.
     /// <summary>
     /// Запертая дверь не откроется от повторного действия, поэтому пытаемся
     /// не чаще раза в секунду, а не каждый тик.
     /// </summary>
     private static readonly TimeSpan DoorRetryInterval = TimeSpan.FromSeconds(1);
+    // grosse-edit-end
 
     private SteeringObstacleStatus TryHandleFlags(EntityUid uid, NPCSteeringComponent component, PathPoly poly)
     {
@@ -110,10 +114,12 @@ public sealed partial class NPCSteeringSystem
                     {
                         if (door.State != DoorState.Opening)
                         {
+                            // grosse-edit-start: не дёргаем дверь чаще раза в секунду.
                             if (_timing.CurTime < component.NextDoorAction)
                                 return SteeringObstacleStatus.Continuing;
 
                             component.NextDoorAction = _timing.CurTime + DoorRetryInterval;
+                            // grosse-edit-end
                             _interaction.InteractionActivate(uid, ent);
                             return SteeringObstacleStatus.Continuing;
                         }
@@ -134,10 +140,12 @@ public sealed partial class NPCSteeringSystem
 
                         if (door.State != DoorState.Opening)
                         {
+                            // grosse-edit-start: не пытаемся вскрыть дверь чаще раза в секунду.
                             if (_timing.CurTime < component.NextDoorAction)
                                 return SteeringObstacleStatus.Continuing;
 
                             component.NextDoorAction = _timing.CurTime + DoorRetryInterval;
+                            // grosse-edit-end
                             _pryingSystem.TryPry(ent, uid, out id, uid);
                         }
 

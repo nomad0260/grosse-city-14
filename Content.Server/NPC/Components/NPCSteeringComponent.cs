@@ -121,12 +121,14 @@ public sealed partial class NPCSteeringComponent : Component
     [DataField("doAfterId")]
     public DoAfterId? DoAfterId = null;
 
+    // grosse-edit-start: троттлинг повторных попыток открыть/вскрыть дверь (NPCSteeringSystem.Obstacles.cs).
     /// <summary>
     /// Раньше этого момента NPC не пытается снова открыть или вскрыть дверь.
     /// Без ограничения запертую дверь он дёргал бы каждый тик.
     /// </summary>
     [ViewVariables]
     public TimeSpan NextDoorAction;
+    // grosse-edit-end
 }
 
 public enum SteeringStatus : byte

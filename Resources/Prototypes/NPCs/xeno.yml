@@ -4,6 +4,11 @@
     - tasks:
         - !type:HTNCompoundTask
           task: MeleeCombatCompound
+    # grosse-edit-start: ксеносы занимают стратегические точки.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    # grosse-edit-end
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound
