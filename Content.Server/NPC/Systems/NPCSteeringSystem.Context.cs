@@ -112,6 +112,8 @@ public sealed partial class NPCSteeringSystem
         {
             // TODO: use vision range
             // grosse-edit-start: LOS по маске столкновений: стекло и решётки не считаются прибытием.
+            // grosse-edit-removed: апстрим проверял только Opaque:
+            //   inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f);
             // Стекло и решётки не входят в Opaque, поэтому NPC видят сквозь них,
             // но пройти не могут. Проверяем обзор по маске столкновений NPC: иначе
             // монстр считает, что уже дошёл до цели за стеклом, и топчется у него,

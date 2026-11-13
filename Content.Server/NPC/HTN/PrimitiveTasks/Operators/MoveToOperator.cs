@@ -148,6 +148,12 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         if (differentMaps)
         {
+            // grosse-edit-removed: апстрим здесь сразу возвращал OwnerCoordinates при разных картах:
+            //   return (true, new Dictionary<string, object>()
+            //   {
+            //       {NPCBlackboard.OwnerCoordinates, blackboard.GetValueOrDefault<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, _entManager)}
+            //   });
+            // Форк убрал ранний выход: карты могут быть уровнями одной Z-сети, и тогда путь идёт через лестницу.
             // Check if both maps are in the same Z-level network
             // Get EntityUid of the maps from MapId
             var ownerMapUid = _mapSystem.GetMap(ownerMapCoords.MapId);
