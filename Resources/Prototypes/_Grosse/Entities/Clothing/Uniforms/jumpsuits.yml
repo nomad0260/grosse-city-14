@@ -117,3 +117,33 @@
     sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitParadeMVD
+  name: Parade uniform for MVD
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/parade-jacket.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/parade-jacket.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitMVD
+  name: Uniform for MVD
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/jacket.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/jacket.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitShirtMVD
+  name: Shirt for MVD
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/shirt.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/shirt.rsi

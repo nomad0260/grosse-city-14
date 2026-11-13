@@ -186,3 +186,14 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: ClothingHeadCapMVD
+  name: MVD Cap
+  description: Cap for MVD units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
