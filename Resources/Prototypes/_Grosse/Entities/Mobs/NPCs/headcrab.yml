@@ -20,11 +20,21 @@
     - type: IdentityBlocker
     - type: HTN
       rootTask:
-        task: HeadCrabCompound
+        task: MonsterAssaultCompound
+      blackboard:
+        NavSmash: !type:Bool
+          true
+        # Открываем двери на пути вместо обхода по длинному маршруту.
+        NavInteract: !type:Bool
+          true
     - type: CombatMode
     - type: NpcFactionMember
       factions:
         - Zombie
+    - type: NpcPointTracker
+      faction: Zombie
+      strategicTags:
+        - monster_assault
     - type: MeleeWeapon
       hidden: true
       soundHit:
@@ -86,3 +96,21 @@
       jumpThrowSpeed: 10
       jumpSound: /Audio/_Grosse/Mobs/Headcrab/attack2.ogg
       canCollide: false
+
+# Патрульный хедкраб: ходит между PatrolPointHeadcrab, атакует всё враждебное.
+- type: entity
+  id: MobHeadcrabPatrol
+  name: headcrab (patrol)
+  parent: MobHeadcrabNPC
+  suffix: suppa Zombie Patrol
+  components:
+    - type: NpcPointTracker
+      patrolGroup: headcrab
+    - type: HTN
+      rootTask:
+        task: MonsterPatrolCompound
+      blackboard:
+        NavSmash: !type:Bool
+          true
+        NavInteract: !type:Bool
+          true

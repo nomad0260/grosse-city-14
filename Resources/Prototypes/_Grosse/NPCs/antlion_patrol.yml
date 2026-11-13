@@ -1,0 +1,33 @@
+# HTN Compound для патрулирующего антлайона с умным закапыванием
+- type: htnCompound
+  id: AntlionPatrolCompound
+  branches:
+  - tasks:
+    - !type:HTNCompoundTask
+      task: PatrolBurrowCompound
+
+# HTN Compound для патрулирующего рабочего антлайона
+- type: htnCompound
+  id: AntlionWorkerPatrolCompound
+  branches:
+  # Стрельба вместо melee. UtilityOperator выбирает цель до проверки
+  # дистанции: без него Target в blackboard нет и ветка не срабатывает.
+  - tasks:
+      - !type:HTNPrimitiveTask
+        operator: !type:UtilityOperator
+          proto: NearbyMeleeTargets
+
+      - !type:HTNPrimitiveTask
+        operator: !type:UnburrowOperator
+        preconditions:
+          - !type:TargetInRangePrecondition
+            targetKey: Target
+            rangeKey: VisionRadius
+
+      - !type:HTNCompoundTask
+        task: CombineSoldierCompound
+
+  # Остальное как у обычного антлайона с патрулем
+  - tasks:
+    - !type:HTNCompoundTask
+      task: PatrolBurrowCompound
