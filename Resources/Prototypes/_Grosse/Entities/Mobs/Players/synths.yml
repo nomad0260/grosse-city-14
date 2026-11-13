@@ -12,6 +12,14 @@
   - type: Body
   - type: Hands
     showInHands: false
+    hands:
+      hand1:
+        location: Right
+      hand2:
+        location: Left
+    sortedHands:
+    - hand1
+    - hand2
   - type: MovementSpeedModifier
     baseWalkSpeed : 2.5
     baseSprintSpeed : 4.5
@@ -46,7 +54,7 @@
   - type: Bloodstream
     bloodReferenceSolution:
       reagents:
-      - ReagentId: Blood
+      - ReagentId: FluorosulfuricAcid
         Quantity: 50
   - type: MeleeWeapon
     soundHit:
@@ -55,16 +63,16 @@
     animation: WeaponArcBite
     damage:
       types:
-        Piercing: 15
+        Piercing: 25
   - type: MobThresholds
     thresholds:
       0: Alive
-      260: Dead
+      560: Dead
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 260
+        damage: 560
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -83,10 +91,10 @@
   #  - TauCetiBasic
   #  understands:
   #  - TauCetiBasic
-  #- type: Access
-  #  tags:
-  #  - UnionBase
-  #  - Engineering
-  #  - UnionCP
-  #  - UnionOTA
-  #  - UnionAdmin
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionOTA
+    - UnionAdmin

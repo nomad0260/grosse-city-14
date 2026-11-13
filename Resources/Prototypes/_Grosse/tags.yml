@@ -117,3 +117,6 @@
 
 - type: Tag
   id: MagazinePulseHeavyRifle
+
+- type: Tag
+  id: CartridgeImpulse

@@ -236,9 +236,9 @@
     sprite: Objects/Devices/communication.rsi
     state: old-radio
   content:
-    - MagazinePistol
-    - MagazinePistol
-    - MagazinePistol
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - MagazinePistolC17
     - MagazinePistolSubMachineGun
     - MagazinePistolSubMachineGun
     - MedkitC17
@@ -262,18 +262,16 @@
     sprite: _Grosse/rsi/Objects/Weapons/Guns/gunsx64/akms/big.rsi
     state: icon
   content:
-    - MagazinePistol
-    - MagazinePistol
-    - MagazinePistol
-    - MagazineLightRifle
-    - MagazineLightRifle
-    - MagazineLightRifle
-    - MagazineLightRifle
-    - MagazineLightRifle
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - MagazineRifleLight762x39
+    - MagazineRifleLight762x39
+    - MagazineRifleLight762x39
+    - MagazineRifleLight762x39
+    - MagazineRifleLight762x39
     - HealthvialC17
     - HealthvialC17
-    - MedkitCombatFilled
-    - MedkitCombatFilled
     - MedkitCombatFilled
     - MedkitCombatFilled
     - BookOfBaseCQC
@@ -282,8 +280,8 @@
     - CombineGrenadeC17
     - WeaponPistolC17
     - WeaponAKMSRifleResistance
-    - ClothingOuterArmorBulletproof
-    - ClothingHeadHelmetMerc
+    - ClothingOuterArmor6B13
+    - ClothingHeadHelmet6B7
 
 - type: thiefBackpackSet
   id: RebelSupperterSet

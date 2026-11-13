@@ -11,6 +11,7 @@
       - NamesMilitaryCMBCivilProtectionFirst
       - NamesMilitaryCMBCivilProtectionLast
     nameFormat: name-format-civil-protection
+  - type: IdBind
   - type: Icon
     sprite: Markers/jobs.rsi
     state: ertmedicaleva
@@ -42,15 +43,9 @@
   - type: Temperature
   - type: TemperatureDamage
     damageCap: 0
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: Crawler
-  #  - type: SleepOnSSD
+  - type: GrosseHeldGunBonus
+    angleDecay: 8
+    angleIncrease: -1.5
   - type: Fixtures
     fixtures:
       fix1:
@@ -84,6 +79,10 @@
       - UniversalUnion
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
+  - type: IdBind
+  - type: GrosseHeldGunBonus
+    angleDecay: 20
+    angleIncrease: -6
   - type: Tag
     tags:
       - CombineUnit
@@ -162,6 +161,9 @@
       - NamesMilitaryCMBCivilProtectionFirst
       - NamesMilitaryCMBEliteLast
     nameFormat: name-format-combine-soldier
+  - type: GrosseHeldGunBonus
+    angleDecay: 90
+    angleIncrease: -8
   - type: Loadout
     prototypes: [OTAEliteGear]
   - type: MindShield
@@ -197,6 +199,9 @@
       - NamesMilitaryCMBCivilProtectionFirst
       - NamesMilitaryCMBCivilProtectionLastOfficer
     nameFormat: name-format-civil-protection
+  - type: GrosseHeldGunBonus
+    angleDecay: 16
+    angleIncrease: -3
 
 - type: entity
   name: секториальный командующий
@@ -421,6 +426,9 @@
     prototypes:
       - SaboteurGear
       - Saboteur2Gear
+  - type: GrosseHeldGunBonus
+    angleDecay: 20
+    angleIncrease: -3
 
 - type: entity
   name: Повстанец
@@ -436,3 +444,6 @@
       - RebelGear
       - RebelGear2
       - RebelGear3
+  - type: GrosseHeldGunBonus
+    angleDecay: 8
+    angleIncrease: -1.5

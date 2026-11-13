@@ -49,3 +49,23 @@
     tags:
       - Cartridge
       - CartridgeRifle762x54
+
+- type: entity
+  id: CartridgeImpulseC17
+  name: микро импульсная батарея
+  parent: BaseCartridgeRifleLightSniper
+  components:
+  - type: Sprite
+    scale: 1, 1
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/cmb_ammo_casing.rsi
+    layers:
+    - state: impulse
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: CartridgeAmmo
+    proto: SniperPulseBulletCombine
+  - type: Tag
+    tags:
+      - Cartridge
+      - CartridgeImpulse
+  - type: SpentAmmoVisuals
+    state: impulse

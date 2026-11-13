@@ -67,7 +67,7 @@
       - CombineLeader
 
 - type: entity
-  parent: 
+  parent:
   - BaseFoldable
   - ClothingUniformBase
   id: ClothingUniformJumpsuitCitizenC17
@@ -114,6 +114,16 @@
   name: армейская одежда
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+    sprite: _Grosse/Clothing/Uniforms/military2_uniform.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+    sprite: _Grosse/Clothing/Uniforms/military2_uniform.rsi
+
+- type: entity
+  parent: UnsensoredClothingUniformBase
+  id: ClothingUniformPoliceMP
+  name: форма внутренних войск МВД
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Uniforms/police_mp_uniform.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Uniforms/police_mp_uniform.rsi

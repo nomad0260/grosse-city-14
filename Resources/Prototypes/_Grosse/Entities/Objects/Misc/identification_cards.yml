@@ -2,7 +2,6 @@
   parent: IDCardStandard
   id: UnionIDCard
   name: union ID card
-  description: A shoulder strap necessary to access various areas.
   abstract: true
   categories: [ HideSpawnMenu ]
   components:

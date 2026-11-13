@@ -17,4 +17,7 @@
     zeroVisible: false
   - type: BallisticAmmoProvider
     proto: ShellShotgunMagnum12
-    capacity: 12
+    capacity: 16
+  - type: Item
+    shape:
+    - 0,0,1,1

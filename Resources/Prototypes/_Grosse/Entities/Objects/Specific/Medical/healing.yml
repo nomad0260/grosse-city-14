@@ -7,6 +7,9 @@
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/medical.rsi
     state: aptejka-mini
+  - type: Item
+    shape:
+    - 0,0,0,0
   - type: Healing
     damageContainers:
     - Biological
@@ -39,6 +42,8 @@
     state: aptejka
   - type: Item
     size: Normal
+    shape:
+    - 0,0,0,1
   - type: Healing
     damageContainers:
     - Biological
