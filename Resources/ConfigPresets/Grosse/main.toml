@@ -1,0 +1,70 @@
+[game]
+hostname = "Grosse"
+desc = "Гроссе типо."
+maxplayers = 120
+soft_max_players = 100
+map_rotation = false
+role_timers = false
+ipintel_enabled = false
+peaceful_end = false
+
+#map_pool="BackmenDefaultMapPool"
+#defaultpreset="secret"
+#secret_weight_prototype = "BackmenSecret"
+
+[infolinks]
+discord="https://discord.gg/S5fBBE2ypX"
+#wiki="http://wiki.backmen.ru"
+github="https://github.com/nomad0260/grosse-city-14"
+
+[admin]
+admins_count_in_playercount = true
+
+[shuttle]
+arrivals = false
+
+[net]
+max_connections = 1024
+log_late_msg=false
+# Automatic port forwarding!
+# Disabled by default because you may not want to do this.
+# upnp = true
+sendbuffersize=2471071
+#receivebuffersize=1471071
+lidgren_log_warning = false
+lidgren_log_error = false
+
+[server]
+rules_file = "CorvaxLRPRuleset"
+lobby_name = "️Grosse"
+
+[game.panic_bunker]
+enabled = false
+show_reason = true
+min_account_age = 0
+min_overall_minutes = 0
+enable_without_admins = false
+disable_with_admins = false
+
+[adminlogs]
+server_name="main"
+enabled = false
+
+[ahelp]
+admin_prefix = true
+
+[afk]
+time = 9999999.0
+
+[rules]
+time = 180.0
+
+[whitelist]
+enabled = true
+
+[hub]
+advertise = false
+tags = "lang:ru,rp:mid,rp:med,region:eu_e,tts"
+
+[viewport]
+maximum_width = 26
