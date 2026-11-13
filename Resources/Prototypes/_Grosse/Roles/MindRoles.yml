@@ -7,5 +7,5 @@
     roleType: TeamAntagonist
     subtype: role-subtype-nukie
     exclusiveAntag: true
-    antagPrototype: Saboteur
+    antagPrototype: ResistanceSaboteur
   - type: NukeopsRole
