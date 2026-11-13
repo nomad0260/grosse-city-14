@@ -1,0 +1,35 @@
+[game]
+hostname = "Grosse"
+desc = "Гроссе типо."
+maxplayers = 120
+soft_max_players = 100
+map_rotation = false
+role_timers = false
+ipintel_enabled = false
+peaceful_end = false
+
+[admin]
+admins_count_in_playercount = true
+
+[server]
+rules_file = "CorvaxLRPRuleset"
+lobby_name = "️Grosse"
+
+[game.panic_bunker]
+enabled = false
+show_reason = true
+min_account_age = 0
+min_overall_minutes = 0
+deny_vpn = false
+enable_without_admins = true
+disable_with_admins = true
+
+[rules]
+time = 180.0
+
+[whitelist]
+enabled = true
+
+[hub]
+advertise = false
+tags = "lang:ru,rp:mid,rp:med,region:eu_e,tts"
