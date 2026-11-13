@@ -20,6 +20,9 @@ github="https://github.com/nomad0260/grosse-city-14"
 [admin]
 admins_count_in_playercount = true
 
+[adminlogs]
+enabled = false
+
 [shuttle]
 arrivals = false
 
