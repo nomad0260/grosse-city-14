@@ -1,0 +1,11 @@
+- type: entity
+  parent: BaseMindRoleAntag
+  id: MindRoleSaboteur
+  name: Saboteur Role
+  components:
+  - type: MindRole
+    roleType: TeamAntagonist
+    subtype: role-subtype-nukie
+    exclusiveAntag: true
+    antagPrototype: Saboteur
+  - type: NukeopsRole

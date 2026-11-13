@@ -3,7 +3,7 @@
   name: chat-radio-cmb
   keycode: 'е'
   frequency: 1725
-  color: "#fc0303"
+  color: "#eb4034"
   longRange: true
 
 - type: radioChannel
@@ -12,4 +12,12 @@
   keycode: 'у'
   frequency: 2009
   color: "#d4d104"
+  longRange: true
+
+- type: radioChannel
+  id: CMBCommand
+  name: chat-radio-cmb-command
+  keycode: 'я'
+  frequency: 1925
+  color: "#fc0303"
   longRange: true

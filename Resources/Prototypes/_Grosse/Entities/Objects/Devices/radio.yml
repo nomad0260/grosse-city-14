@@ -1,4 +1,48 @@
 - type: entity
+  name: рация ГСР
+  description: Портативная рация.
+  parent: RadioHandheld
+  id: RadioHandheldCWUC17
+  components:
+  - type: RadioMicrophone
+    broadcastChannel: Supply
+    listenRange: 1
+  - type: RadioSpeaker
+    channels:
+    - Supply
+
+- type: entity
+  name: рация внешнего периметра
+  description: Портативная рация.
+  parent: RadioHandheld
+  id: RadioHandheldShaftsC17
+  components:
+  - type: RadioMicrophone
+    broadcastChannel: Engineering
+    listenRange: 1
+  - type: RadioSpeaker
+    channels:
+    - Engineering
+
+- type: entity
+  name: довоенная рация
+  description: Портативная рация используемая силовыми структурами, настроенна на защищенную частоту.
+  parent: RadioHandheld
+  id: RadioHandheldMilitaryC17
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/communication.rsi
+    layers:
+    - state: radio
+  - type: RadioMicrophone
+    broadcastChannel: Freelance
+    listenRange: 1
+  - type: RadioSpeaker
+    channels:
+    - Freelance
+
+#region Спавнеры
+- type: entity
   parent: BaseItem
   id: ReinforcementRadioCombineC17
   name: рация подкрепления

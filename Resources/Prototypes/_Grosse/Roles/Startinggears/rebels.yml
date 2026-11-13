@@ -521,6 +521,8 @@
     neck: ClothingNeckRebelBand
     pocket1: SaboteurBackpackEquip
     pocket2: CombatKnifeSovietC17
+  inhand:
+    - RadioHandheldMilitaryC17
 
 - type: startingGear
   id: Saboteur2Gear
@@ -532,3 +534,5 @@
     neck: ClothingNeckRebelBand
     pocket1: SaboteurBackpackEquip
     pocket2: CombatKnifeSovietC17
+  inhand:
+    - RadioHandheldMilitaryC17

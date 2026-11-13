@@ -291,15 +291,6 @@
   id: MobHumanCitizenC17
   suffix: Citizen
   components:
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: Crawler
-  #  - type: SleepOnSSD
   - type: RandomMetadata
   - type: RandomHumanoidAppearance
   - type: GhostTakeoverAvailable
@@ -428,7 +419,7 @@
       - Saboteur2Gear
   - type: GrosseHeldGunBonus
     angleDecay: 20
-    angleIncrease: -3
+    angleIncrease: -2
 
 - type: entity
   name: Повстанец

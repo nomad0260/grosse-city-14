@@ -5,7 +5,7 @@
     back: ClothingBackpackCombineC17Filled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
-    ears: ClothingHeadsetCMBC17
+    ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorOTAC17
     suitstorage: WeaponSubMachineGunC17
     id: UnionIDCardOTASoldier
@@ -22,7 +22,7 @@
     back: ClothingBackpackCombineC17AR2Filled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
-    ears: ClothingHeadsetCMBC17
+    ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorOTAC17
     suitstorage: WeaponPulseRifleAR2C17
     id: UnionIDCardOTASoldier
@@ -39,7 +39,7 @@
     back: ClothingBackpackCombineC17ShotgunFilled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
-    ears: ClothingHeadsetCMBC17
+    ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorOTAC17Shotgunner
     suitstorage: WeaponShotgun12CombineC17
     id: UnionIDCardOTASoldier
@@ -56,7 +56,7 @@
     back: ClothingBackpackCombineEliteC17Filled
     shoes: ClothingShoesBootsSpetsnaz
     gloves: ClothingHandsGlovesCombat
-    ears: ClothingHeadsetCMBC17
+    ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorOTAEliteC17
     suitstorage: WeaponPulseRifleAR2C17
     id: UnionIDCardOTASoldierElite

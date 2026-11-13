@@ -127,3 +127,29 @@
     sprite: _Grosse/Clothing/Uniforms/police_mp_uniform.rsi
   - type: Clothing
     sprite: _Grosse/Clothing/Uniforms/police_mp_uniform.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformCWUWorkerC17
+  name: cwu worker uniform
+  description: Uniform who wears cwu workers.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Uniforms/cwu_worker.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Uniforms/cwu_worker.rsi
+  - type: SuitSensor
+    controlsLocked: true
+    randomMode: false
+    mode: SensorCords
+
+- type: entity
+  parent: ClothingUniformCWUWorkerC17
+  id: ClothingUniformCWUHeadC17
+  name: cwu head uniform
+  description: Uniform who wears cwu head.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Uniforms/cwu_head.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Uniforms/cwu_head.rsi

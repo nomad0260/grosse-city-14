@@ -56,6 +56,9 @@
   - type: Access
     tags:
     - UnionBase
+    - Engineering
+    - UnionAdmin
+    - UnionBaseSector
 
 - type: entity
   parent: UnionIDCardWorker
@@ -93,6 +96,8 @@
     - Engineering
     - UnionCP
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
 
 - type: entity
   parent: UnionIDCard
@@ -115,6 +120,7 @@
     - Engineering
     - UnionCP
     - UnionAdmin
+    - UnionBaseSector
 
 - type: entity
   parent: UnionIDCard
@@ -136,6 +142,7 @@
     - UnionBase
     - Engineering
     - UnionAdmin
+    - UnionBaseSector
 
 - type: entity
   parent: UnionIDCard
@@ -157,6 +164,7 @@
     - UnionBase
     - Engineering
     - UnionAdmin
+    - UnionBaseSector
 
 - type: entity
   parent: UnionIDCard
@@ -180,6 +188,8 @@
     - UnionCP
     - UnionOTA
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
 
 - type: entity
   parent: UnionIDCard
@@ -203,6 +213,8 @@
     - UnionCP
     - UnionOTA
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
 
 - type: entity
   parent: UnionIDCard
@@ -224,6 +236,7 @@
     - UnionBase
     - Engineering
     - UnionCP
+    - UnionBaseSector
 
 - type: entity
   parent: UnionIDCardCivilProtection
@@ -242,6 +255,8 @@
     - Engineering
     - UnionCP
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
 
 - type: entity
   parent: UnionIDCardCivilProtection
@@ -260,6 +275,8 @@
     - Engineering
     - UnionCP
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
 
 - type: entity
   parent: UnionIDCard
@@ -282,3 +299,5 @@
     - Engineering
     - UnionCP
     - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory

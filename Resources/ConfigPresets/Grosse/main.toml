@@ -8,9 +8,11 @@ role_timers = false
 ipintel_enabled = false
 peaceful_end = false
 
-#map_pool="BackmenDefaultMapPool"
-#defaultpreset="secret"
-#secret_weight_prototype = "BackmenSecret"
+map_pool="GrosseDefaultMapPool"
+defaultpreset="City14Extended"
+secret_weight_prototype = "GrosseSecret"
+
+maxcharacterslots = 4
 
 [infolinks]
 discord="https://discord.gg/S5fBBE2ypX"
@@ -22,6 +24,7 @@ admins_count_in_playercount = true
 
 [shuttle]
 arrivals = false
+auto_call_time = 190
 
 [net]
 max_connections = 1024
@@ -57,7 +60,7 @@ admin_prefix = true
 time = 9999999.0
 
 [rules]
-time = 180.0
+time = 30.0
 
 [whitelist]
 enabled = true
