@@ -4,6 +4,7 @@
   description: department-City14-citizen-description
   color: "#9e6715"
   weight: -15
+  primary: false
   roles:
   - Citizen
 
@@ -42,7 +43,9 @@
   description: department-City14-command-description
   color: "Red"
   weight: -18
+  primary: false
   roles:
+  - CivilProtactionUnitOfficer
   - UnionFactoryHead
   - UnionWorkersHead
   - UnionResearcher
