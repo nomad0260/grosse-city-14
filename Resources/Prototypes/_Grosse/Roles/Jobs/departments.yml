@@ -42,7 +42,6 @@
   description: department-City14-command-description
   color: "Red"
   weight: -18
-  isCity14: true
   roles:
   - UnionFactoryHead
   - UnionWorkersHead
