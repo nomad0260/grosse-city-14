@@ -16,7 +16,7 @@
   id: ResistanceSaboteur
   prefRoles:
   - ResistanceSaboteur
-  spawnerPrototype: SpawnPointNukeopsOperative
+  spawnerPrototype: SpawnPointSaboteur
   startingGear: SaboteurGear
   components:
   - type: NukeOperative
