@@ -17,4 +17,4 @@
     components:
     - AntagImmune
   mindRoles:
-  - MindRoleTraitor
+  - MindRoleResistanceAgent
