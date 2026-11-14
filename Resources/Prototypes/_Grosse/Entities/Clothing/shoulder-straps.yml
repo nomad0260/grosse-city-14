@@ -10,8 +10,6 @@
   components:
   - type: Clothing
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
-    layers:
-    - state: equipped
 
 - type: entity
   parent: ShoulderStraps
