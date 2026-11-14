@@ -11,9 +11,13 @@ jobs:
     if: github.event.review.state == 'changes_requested'
     runs-on: ubuntu-latest
     steps:
+    # Для PR из форков pull_request_review получает read-only GITHUB_TOKEN,
+    # запись меток недоступна, поэтому не роняем проверку из-за этого.
     - uses: actions-ecosystem/action-add-labels@v1
+      continue-on-error: true
       with:
         labels: "Status: Awaiting Changes"
     - uses: actions-ecosystem/action-remove-labels@v1
+      continue-on-error: true
       with:
         labels: "Status: Needs Review"

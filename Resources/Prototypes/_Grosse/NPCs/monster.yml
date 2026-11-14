@@ -1,0 +1,140 @@
+# Штурм для зомби и другой нечисти:
+# сначала бой, затем активная стратегическая точка,
+# если активных точек нет — обычное поведение монстра.
+- type: htnCompound
+  id: MonsterAssaultCompound
+  branches:
+    # Сначала забиваем живую добычу и сразу рвём её на гибы.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourLivingCompound
+    # Затем доедаем беспомощную (крит) добычу рядом.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourCritCompound
+    # Затем трупы: подходим и рвём на части, а не бродим вокруг.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourCorpseCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: SimpleHostileCompound
+
+# Патрульная версия монстра: те же ветки пожирания и боя, но между ними —
+# обход патрульных точек своей группы (zombie, headcrab).
+- type: htnCompound
+  id: MonsterPatrolCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourLivingCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourCritCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: DevourCorpseCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: PatrolCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+# Антлайон-охотник: сначала бой, затем стратегическая точка.
+# Для закопанного антлайона точка доступна только после выкапывания.
+- type: htnCompound
+  id: AntlionAssaultCompound
+  branches:
+    # UtilityOperator выбирает цель и кладёт её в Target; без него
+    # precondition на Target всегда ложный, и антлайон не атакует.
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: VisionRadius
+            - !type:BurrowStatePrecondition
+              state: Active
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: VisionRadius
+            - !type:BurrowStatePrecondition
+              state: Burrowed
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Active
+      tasks:
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Burrowed
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: HostileBurrowCompound
+
+# Рабочий антлайон: стрельба, затем стратегическая точка,
+# затем обычное поведение без ссылки на комбайновский compound.
+- type: htnCompound
+  id: AntlionWorkerAssaultCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: RunAndGunCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: FollowCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: InnateRangedCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+# Ксенос-плевун: стрельба, затем стратегическая точка,
+# затем обычное поведение.
+- type: htnCompound
+  id: XenoSpitterAssaultCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: InnateRangedCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: StrategicPointCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: SimpleRangedHostileCompound

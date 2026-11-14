@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
 using Content.Server.DoAfter;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.Events;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.CCVar;
@@ -14,9 +15,12 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Content.Shared.NPC.Components;
+using Content.Shared._Grosse.NPC.Components;
 using Content.Shared.NPC.Systems;
 using Content.Shared.NPC.Events;
+using Content.Shared._Grosse.NPC.Events;
 using Content.Shared.Physics;
 using Content.Shared.Weapons.Melee;
 using Robust.Shared.Configuration;
@@ -31,6 +35,7 @@ using Robust.Shared.Utility;
 using Content.Shared.Prying.Systems;
 using Microsoft.Extensions.ObjectPool;
 using Prometheus;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Systems;
 
@@ -165,10 +170,19 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     /// </summary>
     public NPCSteeringComponent Register(EntityUid uid, EntityCoordinates coordinates, NPCSteeringComponent? component = null)
     {
+
         if (Resolve(uid, ref component, false))
         {
+            // grosse-edit-start: обновляем флаги при повторной регистрации steering (NavSmash и т.п.).
+            // Флаги могли измениться после предыдущего движения,
+            // например после включения NavSmash.
+            component.Flags = _pathfindingSystem.GetFlags(uid);
+            // grosse-edit-end
+
             if (component.Coordinates.Equals(coordinates))
+            {
                 return component;
+            }
 
             component.PathfindToken?.Cancel();
             component.PathfindToken = null;
@@ -237,6 +251,10 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         {
             npcs[index] = (uid, steering, mover, xform);
             index++;
+        }
+
+        if (index > 0 && _timing.CurTime.TotalSeconds % 2.0 < frameTime)
+        {
         }
 
         // Dependency issues across threads.
@@ -309,6 +327,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     {
         if (Deleted(steering.Coordinates.EntityId))
         {
+            Log.Warning($"[STEER] {ToPrettyString(uid)} has deleted target coordinates");
             SetDirection(uid, mover, steering, Vector2.Zero);
             steering.Status = SteeringStatus.NoPath;
             return;
@@ -324,6 +343,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         // Can't move at all, just noop input.
         if (!mover.CanMove)
         {
+            Log.Warning($"[STEER] {ToPrettyString(uid)} CanMove=false, setting zero direction");
             SetDirection(uid, mover, steering, Vector2.Zero);
             steering.Status = SteeringStatus.NoPath;
             return;
@@ -372,8 +392,29 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             return;
         }
 
+        // grosse-edit-start: не отталкиваемся от препятствия, которое ломаем.
+        // Не отталкиваемся от препятствия, которое пришли сломать: иначе
+        // collision avoidance не даёт подойти на дистанцию удара и NPC
+        // скользит вдоль стены, кружа вокруг неё.
+        var pressIntoObstacle = false;
+        // grosse-edit-end
+
+        if (steering.CurrentPath.TryPeek(out var nextNode) &&
+            (nextNode.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0)
+        {
+            var nodeMap = _transform.ToMapCoordinates(new EntityCoordinates(nextNode.GraphUid, nextNode.Box.Center));
+            var ourMap = _transform.ToMapCoordinates(xform.Coordinates);
+
+            if (nodeMap.MapId == ourMap.MapId &&
+                (nodeMap.Position - ourMap.Position).LengthSquared() <= 4f)
+            {
+                pressIntoObstacle = !IsFreeSpace(uid, steering, nextNode);
+            }
+        }
+
         // Avoid static objects like walls
-        CollisionAvoidance(uid, offsetRot, worldPos, agentRadius, layer, mask, xform, danger);
+        if (!pressIntoObstacle)
+            CollisionAvoidance(uid, offsetRot, worldPos, agentRadius, layer, mask, xform, danger);
         DebugTools.Assert(!float.IsNaN(danger[0]));
 
         Separation(uid, offsetRot, worldPos, agentRadius, layer, mask, body, xform, danger);
