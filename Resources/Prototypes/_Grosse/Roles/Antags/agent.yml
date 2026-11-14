@@ -1,20 +1,20 @@
-- type: antag
-  id: ResistanceAgent
-  name: roles-antag-resistance-agent-name
-  antagonist: true
-  setPreference: true
-  objective: roles-antag-resistance-agent-objective
-#  requirements:
-#  - !type:OverallPlaytimeRequirement
-#    time: 30h
-
-- type: antagSpecifier
-  parent: BaseTraitor
-  id: ResistanceAgent
-  prefRoles:
-  - ResistanceAgent
-  blacklist:
-    components:
-    - AntagImmune
-  mindRoles:
-  - MindRoleTraitor
+#- type: antag
+#  id: ResistanceAgent
+#  name: roles-antag-resistance-agent-name
+#  antagonist: true
+#  setPreference: true
+#  objective: roles-antag-resistance-agent-objective
+##  requirements:
+##  - !type:OverallPlaytimeRequirement
+##    time: 30h
+#
+#- type: antagSpecifier
+#  parent: BaseTraitor
+#  id: ResistanceAgent
+#  prefRoles:
+#  - ResistanceAgent
+#  blacklist:
+#    components:
+#    - AntagImmune
+#  mindRoles:
+#  - MindRoleResistanceAgent

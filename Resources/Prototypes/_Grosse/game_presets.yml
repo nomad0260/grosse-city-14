@@ -7,7 +7,7 @@
   description: Расширенный режим города 14, обычная жизнь в оккупационном мире, где человечеству пришлось пережить сразу 2 апокалипсиса. Режим без крупных угроз.
   rules:
   - CombineCityRoundstartVariation
-  - ResistanceAgent
+#  - ResistanceAgent
   - Smuggler
 
 - type: gamePreset
@@ -48,15 +48,15 @@
   #rules:
   #- CombineCityRoundstartVariation
 
-- type: gamePreset
-  id: City14Fall
-  name: Падение
-  showInVote: true
-  #showInAdminVote: true
-  #voteType: admin
-  description: Группа диверсантов присланная Белой Рощей должна уничтожить поле подавления города 14, что-бы город остался без защиты от фауны.
-  rules:
-  - CombineCityRoundstartVariation
-  - ResistanceSaboteur
-  - ResistanceAgent
-  - Smuggler
+#- type: gamePreset
+#  id: City14Fall
+#  name: Падение
+#  showInVote: true
+#  #showInAdminVote: true
+#  #voteType: admin
+#  description: Группа диверсантов присланная Белой Рощей должна уничтожить поле подавления города 14, что-бы город остался без защиты от фауны.
+#  rules:
+#  - CombineCityRoundstartVariation
+#  - ResistanceSaboteur
+#  - ResistanceAgent
+#  - Smuggler

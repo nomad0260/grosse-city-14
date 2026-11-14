@@ -1,27 +1,27 @@
-- type: antag
-  id: ResistanceSaboteur
-  name: roles-antag-resistance-saboteur-name
-  antagonist: true
-  setPreference: true
-  objective: roles-antag-resistance-saboteur-objective
-#  requirements:
-#  - !type:OverallPlaytimeRequirement
-#    time: 15h
-#  - !type:DepartmentTimeRequirement
-#    department: City14CivilProtection
-#    time: 5h
-
-- type: antagSpecifier
-  parent: BaseNukeops
-  id: ResistanceSaboteur
-  prefRoles:
-  - ResistanceSaboteur
-  spawnerPrototype: SpawnPointNukeopsOperative
-  startingGear: SaboteurGear
-  components:
-  - type: NukeOperative
-  - type: GrosseHeldGunBonus
-    angleDecay: 20
-    angleIncrease: -2
-  mindRoles:
-  - MindRoleSaboteur
+#- type: antag
+#  id: ResistanceSaboteur
+#  name: roles-antag-resistance-saboteur-name
+#  antagonist: true
+#  setPreference: true
+#  objective: roles-antag-resistance-saboteur-objective
+##  requirements:
+##  - !type:OverallPlaytimeRequirement
+##    time: 15h
+##  - !type:DepartmentTimeRequirement
+##    department: City14CivilProtection
+##    time: 5h
+#
+#- type: antagSpecifier
+#  parent: BaseNukeops
+#  id: ResistanceSaboteur
+#  prefRoles:
+#  - ResistanceSaboteur
+#  spawnerPrototype: SpawnPointSaboteur
+#  startingGear: SaboteurGear
+#  components:
+#  - type: NukeOperative
+#  - type: GrosseHeldGunBonus
+#    angleDecay: 20
+#    angleIncrease: -2
+#  mindRoles:
+#  - MindRoleSaboteur
