@@ -1,16 +1,16 @@
-- type: entity
-  parent: [ BaseNukeopsRule, BaseRoundstartAntagRule ]
-  id: ResistanceSaboteur
-  components:
-  - type: GameRule
-    minPlayers: 20
-  - type: AntagSelection
-    antags:
-    - !type:FixedAntagCount
-      proto: ResistanceSaboteur
-      count: 3
-  - type: DynamicRuleCost
-    cost: 200
+#- type: entity
+#  parent: [ BaseNukeopsRule, BaseRoundstartAntagRule ]
+#  id: ResistanceSaboteur
+#  components:
+#  - type: GameRule
+#    minPlayers: 20
+#  - type: AntagSelection
+#    antags:
+#    - !type:FixedAntagCount
+#      proto: ResistanceSaboteur
+#      count: 3
+#  - type: DynamicRuleCost
+#    cost: 200
 
 - type: entity
   parent: [ BaseTraitorRule, BaseRoundstartAntagRule ]
