@@ -21,6 +21,24 @@
   id: JobWorkerC17
 
 - type: job
+  id: CWUDoctor
+  name: job-name-doctor
+  description: job-description-doctor
+  playTimeTracker: JobCWUDoctor
+  startingGear: CWUMedicGear
+  icon: "JobIconMedicalDoctor"
+  supervisors: job-supervisors-gsr-and-factory
+  access:
+    - UnionBase
+  special:
+  - !type:GiveItemOnHolidaySpecial
+    holiday: DoctorDay
+    prototype: WehMedipen
+
+- type: playTimeTracker
+  id: JobCWUDoctor
+
+- type: job
   id: CWUEngineer
   name: job-title-cmb-engineer
   description: job-title-cmb-engineer-description
@@ -62,6 +80,7 @@
       - Human
   access:
     - UnionBase
+    - UnionBaseSector
     - Engineering
     - UnionAdmin
   special:
@@ -94,6 +113,7 @@
       - Human
   access:
     - UnionBase
+    - UnionBaseSector
     - Engineering
     - UnionAdmin
   special:
@@ -105,13 +125,14 @@
     - type: NpcFactionMember
       factions:
       - UniversalUnion
+
 - type: playTimeTracker
   id: JobUnionResearcher
 
 - type: job
   id: UnionResearcher
-  name: Исследователь
-  description: Исследуй неизвестные пустоши на окраине города 14.
+  name: Старший Внешний Сотрудник
+  description: Назначай работы происходящие вне города.
   playTimeTracker: JobUnionResearcher
   applyTraits: false
   joinNotifyCrew: false
@@ -121,6 +142,9 @@
   supervisors: job-supervisors-gsr-and-factory
   access:
     - UnionBase
+    - UnionBaseSector
+    - Engineering
+    - UnionAdmin
   requirements:
     - !type:SpeciesRequirement
       species:
@@ -135,8 +159,8 @@
 
 - type: job
   id: UnionMiner
-  name: Шахтер
-  description: добывай материалы на окраине города 14.
+  name: Внешний Сотрудник
+  description: Выполняй работы вне города.
   playTimeTracker: JobUnionMiner
   applyTraits: false
   joinNotifyCrew: false
@@ -146,6 +170,7 @@
   supervisors: job-supervisors-gsr-and-factory
   access:
     - UnionBase
+    - Engineering
   requirements:
     - !type:SpeciesRequirement
       species:

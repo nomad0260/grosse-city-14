@@ -12,6 +12,10 @@
             "directions": 4
         },
         {
+            "name": "z1-clear",
+            "directions": 4
+        },
+        {
             "name": "z2",
             "directions": 4
         },

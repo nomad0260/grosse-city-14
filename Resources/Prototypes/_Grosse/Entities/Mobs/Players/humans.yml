@@ -1,11 +1,17 @@
 - type: entity
-  name: CP unit
+  name: сотрудник ГэО
   parent: MobHuman
   suffix: Альянс Civil Protection unit
   id: MobHumanCPC17
   components:
-  - type: NameIdentifier
-    group: GenericNumber
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionLast
+    nameFormat: name-format-civil-protection
+  - type: IdBind
   - type: Icon
     sprite: Markers/jobs.rsi
     state: ertmedicaleva
@@ -37,15 +43,9 @@
   - type: Temperature
   - type: TemperatureDamage
     damageCap: 0
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: Crawler
-  #  - type: SleepOnSSD
+  - type: GrosseHeldGunBonus
+    angleDecay: 8
+    angleIncrease: -1.5
   - type: Fixtures
     fixtures:
       fix1:
@@ -65,14 +65,24 @@
   id: MobHumanCombineC17
   categories: [ HideSpawnMenu ]
   components:
-  - type: NameIdentifier
-    group: GenericNumber
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBSoldierLast
+    nameFormat: name-format-combine-soldier
   - type: MindShield
   - type: NpcFactionMember
     factions:
       - UniversalUnion
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
+  - type: IdBind
+  - type: GrosseHeldGunBonus
+    angleDecay: 20
+    angleIncrease: -6
   - type: Tag
     tags:
       - CombineUnit
@@ -81,7 +91,7 @@
       - DoorBumpOpener
 
 - type: entity
-  name: unit
+  name: солдат Альянса
   suffix: Альянс
   parent: MobHumanCombineC17
   description: Жалкая кучка спецназа.
@@ -91,7 +101,7 @@
     prototypes: [OTAGear]
 
 - type: entity
-  name: unit
+  name: солдат Альянса с АР2
   suffix: Альянс AR2
   parent: MobHumanCombineC17
   description: Жалкая кучка спецназа.
@@ -101,14 +111,20 @@
     prototypes: [OTAAR2Gear]
 
 - type: entity
-  name: leader
+  name: лидер отряда Альянса
   suffix: Альянс Leader
   parent: MobHumanCombineC17
   description: Жалкая кучка спецназа.
   id: MobHumanCombineOTAC17Leader
   components:
-  - type: NameIdentifier
-    group: GenericNumber
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBLeaderLast
+    nameFormat: name-format-combine-soldier
   - type: Loadout
     prototypes: [OTAAR2Gear]
   - type: MindShield
@@ -121,7 +137,7 @@
       - CombineLeader
 
 - type: entity
-  name: unit
+  name: солдат Альянса с дробовиком
   suffix: Альянс Shotgun
   parent: MobHumanCombineC17
   description: Жалкая кучка спецназа.
@@ -131,43 +147,77 @@
     prototypes: [OTAShotgunGear]
 
 - type: entity
-  name: elite
+  name: элитный солдат Альянса
   suffix: Альянс Elite unit
   parent: MobHumanCombineC17
   description: Жалкая кучка спецназа.
   id: MobHumanCombineEliteOTAC17
   components:
-  - type: NameIdentifier
-    group: GenericNumber
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBEliteLast
+    nameFormat: name-format-combine-soldier
+  - type: GrosseHeldGunBonus
+    angleDecay: 90
+    angleIncrease: -8
   - type: Loadout
     prototypes: [OTAEliteGear]
   - type: MindShield
 
 - type: entity
-  name: CP unit
+  name: сотрудник ГэО с ПП
   parent: MobHumanCPC17
   suffix: Альянс SMG
   id: MobHumanCPC17SMG
   components:
   - type: Loadout
     prototypes: [CivilProtectionSMGGear]
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionLast
+    nameFormat: name-format-civil-protection
 
 - type: entity
-  name: CP unit
+  name: локальный командир ГэО
   parent: MobHumanCPC17
   suffix: Альянс Officer
   id: MobHumanCPC17Officer
   components:
   - type: Loadout
-    prototypes: [CivilProtectionOfficerGear]
+    prototypes: [CivilProtection02Gear]
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionLastOfficer
+    nameFormat: name-format-civil-protection
+  - type: GrosseHeldGunBonus
+    angleDecay: 16
+    angleIncrease: -3
+
 - type: entity
-  name: CP Sectorial Commander
+  name: секториальный командующий
   parent: MobHumanCPC17
   suffix: Альянс SeC
   id: MobHumanCPC17SeC
   components:
   - type: Loadout
     prototypes: [SectorialCommanderGear]
+  - type: RandomMetadata
+    nameSegments:
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionFirst
+      - NamesMilitaryCMBCivilProtectionLastSeC
+    nameFormat: name-format-civil-protection
 
 - type: entity
   name: Референт Администрации
@@ -241,15 +291,6 @@
   id: MobHumanCitizenC17
   suffix: Citizen
   components:
-  - type: TriggerOnSpawn
-    keyOut: GotRemoved
-  - type: RemoveComponentsOnTrigger
-    targetUser: false
-    keysIn:
-    - GotRemoved
-    components:
-    - type: Crawler
-  #  - type: SleepOnSSD
   - type: RandomMetadata
   - type: RandomHumanoidAppearance
   - type: GhostTakeoverAvailable
@@ -376,6 +417,9 @@
     prototypes:
       - SaboteurGear
       - Saboteur2Gear
+  - type: GrosseHeldGunBonus
+    angleDecay: 20
+    angleIncrease: -2
 
 - type: entity
   name: Повстанец
@@ -391,3 +435,6 @@
       - RebelGear
       - RebelGear2
       - RebelGear3
+  - type: GrosseHeldGunBonus
+    angleDecay: 8
+    angleIncrease: -1.5

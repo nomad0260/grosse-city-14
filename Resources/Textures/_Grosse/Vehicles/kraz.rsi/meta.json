@@ -14,6 +14,14 @@
         {
             "name": "kraz2",
             "directions": 4
+        },
+        {
+            "name": "kraz1-clear",
+            "directions": 4
+        },
+        {
+            "name": "kraz2-clear",
+            "directions": 4
         }
     ]
 }

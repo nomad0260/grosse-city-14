@@ -30,6 +30,37 @@
         ents: []
 
 - type: entity
+  parent: BaseItem
+  id: SpeedLoaderCMBSniperRifleC17
+  name: "переноска для микро импульсных батарей"
+  description: Переноска в земном стиле для удобного ношения боеприпас.
+  components:
+  - type: SpeedLoader
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeImpulse
+    capacity: 5
+    proto: CartridgeImpulse
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/cmb_sniper_ammo.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-5
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+
+- type: entity
   id: MagazineSVD
   name: "магазин СВД (7.62x54)"
   parent: BaseMagazineRifle

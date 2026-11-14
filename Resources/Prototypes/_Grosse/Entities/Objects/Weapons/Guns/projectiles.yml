@@ -72,6 +72,18 @@
   #      - Opaque
 
 - type: entity
+  id: SniperPulseBulletCombine
+  name: pulse bullet
+  parent: PulseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Heat: 32
+        Piercing: 65
+
+- type: entity
   id: PelletShotgunMagnum12Spread
   categories: [ HideSpawnMenu ]
   parent: PelletShotgun

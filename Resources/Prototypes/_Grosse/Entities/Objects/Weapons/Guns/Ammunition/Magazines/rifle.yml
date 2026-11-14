@@ -34,6 +34,45 @@
     zeroVisible: false
 
 - type: entity
+  id: MagazinePulseHeavyRifleC17
+  name: тяжелый магазин черной материи
+  description: Крупный магазин с боеприпасами для стационарного пулемета АР3.
+  parent: BaseItem
+  components:
+  - type: Tag
+    tags:
+      - MagazinePulseHeavyRifle
+  - type: BallisticAmmoProvider
+    mayTransfer: false
+    cycleable: false
+    capacity: 90
+    proto: PulseBulletCombine
+    whitelist:
+      tags:
+        - PulseBullet
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Large
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/magazine_ar2_big.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Appearance
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+
+- type: entity
   id: MagazineRifleLight762x39
   name: магазин АК (7,62x39)
   parent: BaseMagazineRifle

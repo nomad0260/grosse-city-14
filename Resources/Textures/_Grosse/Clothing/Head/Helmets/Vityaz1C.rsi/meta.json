@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "license": "All right reserved",
+  "copyright": "Made for Stalker14, use with permission only.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+	{
+	  "name": "icon-visor-up"
+	},
+    {
+      "name": "equipped-HELMET",
+      "directions": 4
+    },
+	{
+	  "name": "visor-up-equipped-HELMET",
+	  "directions": 4
+	}
+  ]
+}

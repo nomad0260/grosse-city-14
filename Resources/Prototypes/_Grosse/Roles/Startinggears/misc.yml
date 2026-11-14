@@ -11,6 +11,11 @@
     - DrobshipPod
 
 - type: startingGear
+  id: HunterChopper
+  inhand:
+    - WeaponPulseMinigunC17
+
+- type: startingGear
   id: NPCCombineSoldierElite
   equipment:
     pocket1: CombineSoldierElite

@@ -16,15 +16,15 @@
           availableJobs:
             Citizen: [ -1, -1 ]
             # ГСР
-            Worker: [ 15, 15 ]
-            UnionMiner: [ 5, 5 ]
-            UnionResearcher: [ 3, 3 ]
+            Worker: [ 10, 10 ]
+            UnionMiner: [ 10, 10 ]
             # Главы
+            UnionResearcher: [ 1, 1 ]
             UnionFactoryHead: [ 1, 1 ]
             UnionWorkersHead: [ 1, 1 ]
             # ГэО
-            CivilProtactionUnit: [ 18, 18 ]
-            CivilProtactionUnit02: [ 4, 4 ]
+            CivilProtactionUnit: [ 20, 20 ]
+            CivilProtactionUnit02: [ 8, 8 ]
             CivilProtactionUnitDispetcher: [ 1, 1 ]
             CivilProtactionUnitJudge: [ 1, 1 ]
             CivilProtactionUnitOfficer: [ 1, 1 ]
@@ -33,12 +33,12 @@
             - Citizen
             - Worker
             - UnionMiner
-            - UnionResearcher
             - CivilProtactionUnit
         - type: GrosseStationZLevels
           mapsBelow:
           - /Maps/_Grosse/City14/city14-1.yml
           mapsAbove:
+          - /Maps/_Grosse/City14/city141.yml
           - /Maps/_Grosse/City14/city141.yml
 
 - type: entity

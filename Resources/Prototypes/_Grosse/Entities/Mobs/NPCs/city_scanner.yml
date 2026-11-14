@@ -93,7 +93,7 @@
     - UnionBase
     - Engineering
     - UnionCP
-    - UnionAdmin
+    - UnionBaseSector
   - type: Loadout
     prototypes:
       - CityScanner

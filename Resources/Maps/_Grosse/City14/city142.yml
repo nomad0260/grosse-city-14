@@ -1,0 +1,28 @@
+meta:
+  format: 7
+  category: Map
+  engineVersion: 278.0.0
+  forkId: ""
+  forkVersion: ""
+  time: 11/13/2026 16:11:31
+  entityCount: 1
+maps:
+- 1
+grids: []
+orphans: []
+nullspace: []
+tilemap: {}
+entities:
+- proto: ""
+  entities:
+  - uid: 1
+    components:
+    - type: MetaData
+      name: Mapping City 14 [2]
+    - type: Transform
+    - type: Map
+      mapPaused: True
+    - type: GridTree
+    - type: Broadphase
+    - type: OccluderTree
+...

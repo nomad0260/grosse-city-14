@@ -18,6 +18,8 @@
     sprite: _Grosse/Objects/Weapons/Guns/LMGs/pkm/tiny.rsi
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/LMGs/pkm/tiny.rsi
+    shape:
+    - 0,0,4,1
   - type: GrosseGunWieldBonus
     cameraRecoilScalar: -4.7
   - type: GunWieldBonus
