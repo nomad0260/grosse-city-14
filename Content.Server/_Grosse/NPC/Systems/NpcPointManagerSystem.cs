@@ -21,10 +21,10 @@ namespace Content.Server._Grosse.NPC.Systems;
 /// в следующий раз запрашивают. Отдельный <c>Update</c> для этого не нужен.
 /// </para>
 /// </summary>
-public sealed class NpcPointManagerSystem : EntitySystem
+public sealed partial class NpcPointManagerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
 
     private readonly Dictionary<string, List<EntityUid>> _patrolByGroup = new();
     private readonly Dictionary<string, List<EntityUid>> _strategicByTag = new();
@@ -647,7 +647,7 @@ public sealed class NpcPointManagerSystem : EntitySystem
 
     private float GetSquaredDistance(EntityUid npc, EntityUid point)
     {
-        if (!TryComp<TransformComponent>(npc, out var npcXform) || !TryComp<TransformComponent>(point, out var pointXform))
+        if (!TryComp(npc, out TransformComponent? npcXform) || !TryComp(point, out TransformComponent? pointXform))
             return float.MaxValue;
 
         // Только в пределах одной карты: сравнивать локальные координаты разных

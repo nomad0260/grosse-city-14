@@ -24,7 +24,7 @@ namespace Content.Server._Grosse.NPC.Systems;
 /// нет ни логирования, ни аллокаций.
 /// </para>
 /// </summary>
-public sealed class BurrowableSystem : EntitySystem
+public sealed partial class BurrowableSystem : EntitySystem
 {
     [Dependency] private MovementSpeedModifierSystem _movementSpeed = default!;
     [Dependency] private AppearanceSystem _appearance = default!;

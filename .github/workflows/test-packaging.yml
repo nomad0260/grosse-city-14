@@ -25,11 +25,12 @@ on:
       - '**.yml'
       - 'RobustToolbox'
       - 'RobustToolbox/**'
+  workflow_dispatch:
 
 jobs:
   build:
     name: Test Packaging
-    if: github.actor != 'IanComradeBot' && github.event.pull_request.draft == false
+    if: github.actor != 'IanComradeBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
 
     steps:
