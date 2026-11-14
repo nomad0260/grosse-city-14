@@ -10,16 +10,16 @@
 #    antagPrototype: ResistanceSaboteur
 #  - type: NukeopsRole
 
-- type: entity
-  parent: BaseMindRoleAntag
-  id: MindRoleResistanceAgent
-  name: Resistance Agent Role
-  components:
-  - type: MindRole
-    antagPrototype: ResistanceAgent
-    exclusiveAntag: true
-    subtype: role-subtype-traitor
-  - type: TraitorRole
+#- type: entity
+#  parent: BaseMindRoleAntag
+#  id: MindRoleResistanceAgent
+#  name: Resistance Agent Role
+#  components:
+#  - type: MindRole
+#    antagPrototype: ResistanceAgent
+#    exclusiveAntag: true
+#    subtype: role-subtype-traitor
+#  - type: TraitorRole
 
 #- type: entity
 #  categories: [ HideSpawnMenu, Spawner ]

@@ -7,7 +7,7 @@
   description: Расширенный режим города 14, обычная жизнь в оккупационном мире, где человечеству пришлось пережить сразу 2 апокалипсиса. Режим без крупных угроз.
   rules:
   - CombineCityRoundstartVariation
-  - ResistanceAgent
+#  - ResistanceAgent
   - Smuggler
 
 - type: gamePreset

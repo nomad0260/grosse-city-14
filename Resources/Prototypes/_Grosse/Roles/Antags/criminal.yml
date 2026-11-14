@@ -21,6 +21,5 @@
 
 - type: startingGear
   id: SmugglerGear
-  storage:
-    back:
+  inhand:
     - SatchelThief
