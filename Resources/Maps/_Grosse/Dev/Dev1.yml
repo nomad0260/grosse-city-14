@@ -4,7 +4,7 @@ meta:
   engineVersion: 278.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/15/2026 10:24:13
+  time: 11/15/2026 10:28:01
   entityCount: 324
 maps:
 - 1
@@ -32,6 +32,38 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: Gravity
+      gravityShakeSound: !type:SoundPathSpecifier
+        path: /Audio/Effects/alert.ogg
+      inherent: True
+      enabled: True
+    - type: MapLight
+      ambientLightColor: '#D8B059FF'
+    - type: Roof
+      data: {}
+    - type: LightCycle
+    - type: SunShadow
+    - type: SunShadowCycle
+      directions:
+      - direction: 0,3
+      - alpha: 0.5
+        direction: -3,-0.1
+        ratio: 0.25
+      - alpha: 0.8
+        direction: 0,-3
+        ratio: 0.5
+      - alpha: 0.5
+        direction: 3,-0.1
+        ratio: 0.75
+    - type: MapAtmosphere
+      space: False
+      mixture:
+        volume: 2500
+        immutable: True
+        temperature: 293.15
+        moles:
+          Oxygen: 21.82478
+          Nitrogen: 82.10312
   - uid: 2
     components:
     - type: MetaData
@@ -156,28 +188,13 @@ entities:
         tiles:
           0,0:
             0: 4095
-            1: 61440
           -1,0:
             0: 32767
-            1: 32768
-          0,1:
-            1: 20224
-          -1,1:
-            1: 2048
-            0: 6007
           0,-1:
             0: 53247
-          0,2:
-            1: 17476
-          0,3:
-            1: 17476
-          0,4:
-            1: 244
           1,0:
-            1: 28672
             0: 34952
           1,1:
-            1: 1792
             0: 34952
           2,0:
             0: 65535
@@ -196,11 +213,9 @@ entities:
           3,2:
             0: 65535
           2,3:
-            1: 136
             0: 34816
           3,3:
             0: 65408
-            1: 8
           2,4:
             0: 65535
           3,4:
@@ -225,15 +240,12 @@ entities:
             0: 16383
           -4,2:
             0: 13107
-            1: 16384
           -5,2:
             0: 60928
           -4,3:
             0: 819
-            1: 13380
           -5,3:
             0: 4094
-            1: 49152
           -3,0:
             0: 65535
           -3,1:
@@ -242,9 +254,7 @@ entities:
             0: 65527
           -3,2:
             0: 3276
-            1: 16384
           -3,3:
-            1: 68
             0: 52224
           -3,4:
             0: 65532
@@ -254,14 +264,14 @@ entities:
             0: 65535
           -2,2:
             0: 1911
-            1: 16384
           -2,3:
             0: 30464
-            1: 68
           -2,-1:
             0: 65515
           -2,4:
             0: 65527
+          -1,1:
+            0: 6007
           -1,-1:
             0: 65535
           0,-4:
@@ -348,7 +358,6 @@ entities:
             0: 4080
           -9,3:
             0: 4095
-            1: 28672
           -7,3:
             0: 4080
           -6,3:
@@ -357,7 +366,6 @@ entities:
             0: 65280
           -9,-1:
             0: 65280
-            1: 112
           -7,-1:
             0: 65280
           -6,-1:
@@ -388,9 +396,6 @@ entities:
             0: 30583
           5,-5:
             0: 30583
-          -1,4:
-            1: 128
-            0: 65392
           1,4:
             0: 65532
           1,5:
@@ -429,6 +434,8 @@ entities:
             0: 65535
           -2,7:
             0: 255
+          -1,4:
+            0: 65392
           -1,5:
             0: 30719
           -1,6:
@@ -438,17 +445,13 @@ entities:
           5,5:
             0: 4369
           -10,0:
-            1: 68
             0: 34952
-          -10,-1:
-            1: 17536
-            0: 34816
           -10,2:
-            1: 16384
             0: 34952
           -10,3:
-            1: 33860
             0: 2184
+          -10,-1:
+            0: 34816
           -9,0:
             0: 8191
           -10,1:
@@ -463,9 +466,6 @@ entities:
           moles:
             Oxygen: 21.824879
             Nitrogen: 82.10312
-        - volume: 2500
-          immutable: True
-          moles: {}
         chunkSize: 4
     - type: GasTileOverlay
     - type: GravityShake
