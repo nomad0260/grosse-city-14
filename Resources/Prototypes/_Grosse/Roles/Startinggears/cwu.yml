@@ -5,6 +5,7 @@
     ears: ClothingHeadsetCMBHeadsC17
     shoes: ClothingShoesBootsLaceup
     id: UnionIDCardUnionWorkersHead
+    back: ClothingBackpackSatchelLeatherC17
     pocket1: CouponC17
     pocket2: Pen
 
@@ -16,6 +17,7 @@
     shoes: ClothingShoesBootsLaceup
     outerClothing: ClothingOuterVestHazard
     head: ClothingHeadHatHardhatWhite
+    back: ClothingBackpackSatchelLeatherC17
     id: UnionIDCardUnionFactoryHead
     pocket1: CouponC17
     pocket2: Pen
@@ -52,6 +54,7 @@
     jumpsuit: ClothingUniformCWUWorkerC17
     ears: ClothingHeadsetCMBHeadsC17
     shoes: ClothingShoesBootsWork
+    back: ClothingBackpackSatchelLeatherC17
     id: UnionIDCardResearcher
     pocket2: CouponC17
 
@@ -61,6 +64,7 @@
     jumpsuit: ClothingUniformJumpsuitCitizenC17
     shoes: ClothingShoesBootsWork
     id: UnionIDCardMiner
+    back: ClothingBackpackSatchelLeatherC17
     pocket1: RadioHandheldShaftsC17
     pocket2: CouponC17
 
@@ -69,4 +73,19 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitCitizenC17
     shoes: ClothingShoesColorBlack
+    back: ClothingBackpackSatchelMedicalC17
+    neck: ClothingNeckMedicBand
     id: UnionIDCardCivil
+    pocket1: RadioHandheldCWUC17
+  storage:
+    back:
+    - Ointment
+    - Ointment
+    - Gauze
+    - Gauze
+    - Brutepack
+    - Brutepack
+    - Bloodpack
+    - Bloodpack
+    - SyringeSaline
+    - SyringeSaline

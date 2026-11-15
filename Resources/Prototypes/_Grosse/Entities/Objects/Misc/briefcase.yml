@@ -8,3 +8,6 @@
     state: icon
   - type: Item
     sprite: _Grosse/rsi/hlstaff/misc/case.rsi
+  - type: Storage
+    grid:
+    - 0,0,3,2

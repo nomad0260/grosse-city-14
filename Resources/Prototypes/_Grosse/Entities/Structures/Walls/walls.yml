@@ -311,6 +311,7 @@
     mode: AlignTileAny
   components:
   - type: Sprite
+    drawdepth: Mobs
     layers:
     - sprite: _Grosse/Structures/Walls/beton.rsi
       state: full

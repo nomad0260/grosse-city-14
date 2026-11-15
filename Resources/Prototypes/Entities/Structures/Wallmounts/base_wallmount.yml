@@ -22,7 +22,7 @@
     tags:
     - Structure
   - type: Sprite
-    drawdepth: WallMountedItems
+    drawdepth: OverMobs #grosse-edit
 
 - type: entity
   parent: BaseWallmount
