@@ -19,7 +19,7 @@
     speechSounds: Pai
   - type: AccessReader
     access:
-    - [ UnionCP ]
+    - [ UnionCPArmory ]
   - type: ActivatableUIRequiresAccess
   - type: CommanderTerminal
   - type: ActivatableUI

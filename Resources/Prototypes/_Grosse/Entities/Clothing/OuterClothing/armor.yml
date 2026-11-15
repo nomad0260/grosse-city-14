@@ -37,7 +37,7 @@
       coefficients:
         Blunt: 0.6
         Slash: 0.6
-        Piercing: 0.45
+        Piercing: 0.5
         Heat: 0.6
 
 - type: entity
@@ -67,7 +67,7 @@
         Caustic: 0.5
         Shock: 0.2
   - type: PoweredArmor
-    coefficientBonus: 0.25
+    coefficientBonus: 0.3
     energyPerDamage: 10
     powerOnSound:
       path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
@@ -108,11 +108,31 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.55
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.6
         Heat: 0.5
         Shock: 0.5
+  - type: PoweredArmor
+    coefficientBonus: 0.3
+    energyPerDamage: 50
+    powerOnSound:
+      path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
+    powerOffSound:
+      path: /Audio/_Grosse/Effects/Armor/armor_gone.ogg
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellCombineUnion17
+        whitelist:
+          tags:
+          - PowerCellCombineUnion
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
@@ -178,7 +198,7 @@
   description: На форме присутствует маркировка «CMB Worker Group 6». На груди заметна крупная «6», а под ней написано — «Бригада».
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/vests/cmbworker.rsi
+    sprite: _Grosse/Clothing/OuterClothing/workersuit.rsi
     layers:
     - state: icon
     - state: icon-unshaded
@@ -188,7 +208,7 @@
     - state: icon-shaded
       shader: shaded
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/vests/cmbworker.rsi
+    sprite: _Grosse/Clothing/OuterClothing/workersuit.rsi
     stripDelay: 5
     unequipDelay: 5
     equipDelay: 5
@@ -225,3 +245,88 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.95
     sprintModifier: 0.95
+
+- type: entity
+  parent: ClothingOuterWorkerCMBC17
+  id: ClothingOuterEngineerCMBC17
+  name: CMB engineer suit
+  description: На форме присутствует маркировка «CMB Engineer Group 2». На груди заметна крупная «2», а под ней написано — «Бригада».
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/engineersuit.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/engineersuit.rsi
+
+- type: entity
+  parent: ClothingOuterWorkerCMBC17
+  id: ClothingOuterHeadCMBC17
+  name: CMB head suit
+  description: На форме присутствует маркировка «CMB Administration». На груди заметна крупная «Head».
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/headsuit.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/headsuit.rsi
+
+- type: entity
+  parent: ClothingOuterArmorBasic
+  id: ClothingOuterArmor6B2
+  name: бронежилет 6Б2
+  description: Довоенный старый бронежилет, на этом все еще есть бирка, но имя не разобрать... Ему этот бронежилет не помог.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/6B2.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/6B2.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.6
+        Heat: 0.9
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: ClothingOuterArmor6B2
+  id: ClothingOuterArmor6B2Police
+  description: Довоенный старый полицейский бронежилет, на этом все еще есть бирка, но имя не разобрать... Ему этот бронежилет не помог.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/6B2_police.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/6B2_police.rsi
+
+- type: entity
+  parent: ClothingOuterArmorBasic
+  id: ClothingOuterArmor6B13
+  name: бронежилет 6Б13
+  description: Довоенный старый бронежилет, на этом все еще есть бирка, но имя не разобрать... Ему этот бронежилет не помог.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/6b13.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/6b13.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.75
+        Piercing: 0.4
+        Heat: 0.9
+  - type: ExplosionResistance
+    damageCoefficient: 0.8
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+
+- type: entity
+  parent: ClothingOuterArmor6B13
+  id: ClothingOuterArmor6B13Police
+  description: Довоенный старый полицейский бронежилет, на этом все еще есть бирка, но имя не разобрать... Ему этот бронежилет не помог.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/6b13_police.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/6b13_police.rsi

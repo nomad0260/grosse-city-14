@@ -8,25 +8,24 @@
     ears: ClothingHeadsetCMBC17
     outerClothing: ClothingOuterArmorCPC17
     id: UnionIDCardCivilProtection
-    belt: WeaponPistolC17
+    belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
     pocket1: MagazinePistol
     pocket2: HealthvialC17
   storage:
     back:
-    - MagazinePistol
-    - MagazinePistol
-    - Handcuffs
-    - Handcuffs
-    - Handcuffs
+    - HealthvialC17
+    - HealthvialC17
+    belt:
+    - WeaponPistolC17
     - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - Handcuffs
+    - Handcuffs
     - GrenadeFlashBang
     - GrenadeFlashBang
-    - GrenadeFlashBang
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
 
 - type: startingGear
   id: CivilProtectionSMGGear
@@ -39,28 +38,30 @@
     outerClothing: ClothingOuterArmorCPC17
     id: UnionIDCardCivilProtection
     suitstorage: WeaponSubMachineGunC17
-    belt: WeaponPistolC17
+    belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
     pocket1: MagazinePistol
     pocket2: MagazinePistol
   storage:
     back:
-    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    belt:
+    - WeaponPistolC17
     - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
     - Handcuffs
     - Handcuffs
     - GrenadeFlashBang
     - GrenadeFlashBang
-    - GrenadeFlashBang
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
 
 - type: startingGear
   id: CivilProtectionOfficerGear
@@ -73,26 +74,26 @@
     outerClothing: ClothingOuterArmorCPC17
     suitstorage: WeaponSubMachineGunC17
     id: UnionIDCardCivilProtectionOfficer
-    belt: WeaponPistolC17
+    belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
     pocket1: MagazinePistol
     pocket2: MagazinePistol
   storage:
     back:
-    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    belt:
+    - WeaponPistolC17
     - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
     - Handcuffs
     - Handcuffs
     - GrenadeFlashBang
     - GrenadeFlashBang
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
 
 - type: startingGear
   id: SectorialCommanderGear
@@ -104,27 +105,26 @@
     ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorCPSeCC17
     id: UnionIDCardSectorialCommander
-    belt: WeaponPistolC17
+    belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPSeCC17
     pocket1: MagazinePistol
     pocket2: MagazinePistol
   storage:
     back:
-    - MagazinePistol
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    belt:
+    - WeaponPistolC17
     - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
     - Handcuffs
     - Handcuffs
     - GrenadeFlashBang
     - GrenadeFlashBang
-    - GrenadeFlashBang
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
-    - MagazinePistolSubMachineGun
 
 - type: startingGear
   id: CivilProtection02Gear
@@ -133,25 +133,27 @@
     back: ClothingBackpackCPC17
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
-    ears: ClothingHeadsetCMBLeaderC17
+    ears: ClothingHeadsetCMB02C17
     outerClothing: ClothingOuterArmorCPC17
     id: UnionIDCardCivilProtectionLocalCommander
-    belt: WeaponPistolC17
+    suitstorage: WeaponSubMachineGunC17
+    belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
     pocket1: MagazinePistol
     pocket2: HealthvialC17
   storage:
     back:
-    - MagazinePistol
-    - MagazinePistol
-    - Handcuffs
-    - Handcuffs
-    - Handcuffs
+    - HealthvialC17
+    - HealthvialC17
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGun
+    belt:
+    - WeaponPistolC17
     - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - Handcuffs
+    - Handcuffs
     - GrenadeFlashBang
     - GrenadeFlashBang
-    - GrenadeFlashBang
-    - HealthvialC17
-    - HealthvialC17
-    - HealthvialC17

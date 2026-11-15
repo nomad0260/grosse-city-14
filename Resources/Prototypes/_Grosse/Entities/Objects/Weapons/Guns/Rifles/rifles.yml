@@ -18,6 +18,8 @@
     sprite: _Grosse/Objects/Weapons/Guns/Rifles/ak/tiny.rsi
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/Rifles/ak/tiny.rsi
+    shape:
+    - 0,0,3,1
   - type: GrosseGunWieldBonus
     cameraRecoilScalar: -4
   - type: GunWieldBonus
@@ -89,6 +91,8 @@
     sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksupriklad/tiny.rsi
   - type: Item
     sprite: _Grosse/Objects/Weapons/Guns/Rifles/aksupriklad/tiny.rsi
+    shape:
+    - 0,0,2,1
     size: Large
   - type: Foldable
     canFoldInsideContainer: true

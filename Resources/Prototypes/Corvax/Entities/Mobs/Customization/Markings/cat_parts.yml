@@ -1,7 +1,7 @@
 - type: marking
   id: CatEarsStubby
   bodyPart: HeadTop
-  groupWhitelist: [Human]
+  groupWhitelist: [Ipc] #Grosse-edit
   sponsorOnly: true # Corvax-Sponsors
   coloring:
     default:
@@ -24,7 +24,7 @@
 - type: marking
   id: CatEarsCurled
   bodyPart: HeadTop
-  groupWhitelist: [Human]
+  groupWhitelist: [Ipc] #Grosse-edit
   sponsorOnly: true # Corvax-Sponsors
   coloring:
     default:
@@ -47,7 +47,7 @@
 - type: marking
   id: CatEarsTorn
   bodyPart: HeadTop
-  groupWhitelist: [Human]
+  groupWhitelist: [Ipc] #Grosse-edit
   sponsorOnly: true # Corvax-Sponsors
   coloring:
     default:
@@ -70,7 +70,7 @@
 - type: marking
   id: CatTailStripes
   bodyPart: Tail
-  groupWhitelist: [Human]
+  groupWhitelist: [Ipc] #Grosse-edit
   sponsorOnly: true # Corvax-Sponsors
   coloring:
     default:

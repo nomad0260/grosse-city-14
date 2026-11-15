@@ -36,6 +36,7 @@
       time: 60h
   access:
     - UnionBase
+    - UnionBaseSector
     - UnionCP
     - Engineering
   special:
@@ -89,9 +90,10 @@
       time: 100h
   access:
     - UnionBase
+    - UnionBaseSector
     - UnionCP
     - Engineering
-    - UnionAdmin
+    - UnionCPArmory
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
@@ -125,6 +127,8 @@
     callsign: "DSP"
   access:
     - UnionBase
+    - UnionBaseSector
+    - UnionCPArmory
     - UnionCP
     - Engineering
     - UnionAdmin
@@ -161,6 +165,8 @@
     callsign: "JDG"
   access:
     - UnionBase
+    - UnionBaseSector
+    - UnionCPArmory
     - UnionCP
     - Engineering
     - UnionAdmin
@@ -193,10 +199,12 @@
       species:
       - Human
   playTimeRanks:
-  - name: Офицер Гражданской Обороны
+  - name: Командир Дивизии Гражданской Обороны
     callsign: "DvL"
   access:
     - UnionBase
+    - UnionBaseSector
+    - UnionCPArmory
     - UnionCP
     - Engineering
     - UnionAdmin

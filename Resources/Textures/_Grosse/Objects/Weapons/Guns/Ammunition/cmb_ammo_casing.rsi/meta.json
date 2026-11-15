@@ -1,0 +1,18 @@
+
+{
+    "version": 1,
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "license": "Grosse Private Licence",
+    "copyright": "Made for Grosse-city-14 Project by yri_nouri",
+    "states": [
+        {
+            "name": "impulse"
+        },
+        {
+            "name": "impulse-spent"
+        }
+    ]
+}

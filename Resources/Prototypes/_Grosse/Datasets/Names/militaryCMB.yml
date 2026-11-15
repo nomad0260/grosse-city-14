@@ -1,0 +1,47 @@
+- type: localizedDataset
+  id: NamesMilitaryCMBCivilProtectionFirst
+  values:
+    prefix: names-military-combine-civil-protection-first-dataset-
+    count: 9
+
+- type: localizedDataset
+  id: NamesMilitaryCMBCivilProtectionLast
+  values:
+    prefix: names-military-combine-civil-protection-dataset-
+    count: 3
+
+- type: localizedDataset
+  id: NamesMilitaryCMBCivilProtectionLastOfficer
+  values:
+    prefix: names-military-combine-civil-protection-dataset-officer-
+    count: 2
+
+- type: localizedDataset
+  id: NamesMilitaryCMBCivilProtectionLastDvL
+  values:
+    prefix: names-military-combine-civil-protection-dataset-dvl-
+    count: 1
+
+- type: localizedDataset
+  id: NamesMilitaryCMBCivilProtectionLastSeC
+  values:
+    prefix: names-military-combine-civil-protection-dataset-sec-
+    count: 1
+
+- type: localizedDataset
+  id: NamesMilitaryCMBSoldierLast
+  values:
+    prefix: names-military-combine-soldier-dataset-
+    count: 1
+
+- type: localizedDataset
+  id: NamesMilitaryCMBLeaderLast
+  values:
+    prefix: names-military-combine-leader-dataset-
+    count: 1
+
+- type: localizedDataset
+  id: NamesMilitaryCMBEliteLast
+  values:
+    prefix: names-military-combine-elite-dataset-
+    count: 1

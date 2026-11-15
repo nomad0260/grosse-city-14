@@ -14,6 +14,9 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    shape:
+    - 0,0,0,0
   - type: MagazineVisuals
     magState: mag
     steps: 6
@@ -22,3 +25,27 @@
     tags:
       - MagazinePistol
       - MagazinePistolPM
+
+- type: entity
+  parent: MagazinePistol
+  id: MagazinePistolC17
+  name: pistol magazine
+  description: 17-round single-stack magazine for pistols. Intended to hold general-purpose kinetic ammunition.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 17
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      right:
+      - state: inhand-right-mag
+    shape:
+    - 0,0,0,1
