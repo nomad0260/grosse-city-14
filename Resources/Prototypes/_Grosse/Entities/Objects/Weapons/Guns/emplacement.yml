@@ -46,7 +46,7 @@
     transferDamage: false
   - type: GrosseEmplacement
     maxYawDeviation: 22.5
-    damageSplit: 0
+    damageSplit: 0.5
   - type: Strap
     buckleOffset: "0, 0.5"
     position: Stand
