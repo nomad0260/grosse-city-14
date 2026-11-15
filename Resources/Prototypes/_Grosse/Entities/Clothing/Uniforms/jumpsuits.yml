@@ -116,7 +116,7 @@
   - type: Sprite
     sprite: _Grosse/Clothing/Uniforms/military2_uniform.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+    sprite: _Grosse/Clothing/Uniforms/military2_uniform.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -147,7 +147,6 @@
     sprite: _Grosse/Entities/Clothing/mvd/shirt.rsi
   - type: Clothing
     sprite: _Grosse/Entities/Clothing/mvd/shirt.rsi
-    sprite: _Grosse/Clothing/Uniforms/military2_uniform.rsi
 
 - type: entity
   parent: UnsensoredClothingUniformBase
