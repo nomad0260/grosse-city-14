@@ -1,12 +1,19 @@
 using System.Numerics;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.Events;
 using Content.Server.Weapons.Melee;
+using Content.Shared.Interaction;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
+using Content.Shared.Physics;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Systems;
 
@@ -18,6 +25,8 @@ public sealed partial class NPCJukeSystem : EntitySystem
     [Dependency] private MeleeWeaponSystem _melee = default!;
     [Dependency] private SharedMapSystem _mapSystem = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
 
     [Dependency] private EntityQuery<NPCMeleeCombatComponent> _npcMeleeQuery = default!;
     [Dependency] private EntityQuery<NPCRangedCombatComponent> _npcRangedQuery = default!;
@@ -33,11 +42,23 @@ public sealed partial class NPCJukeSystem : EntitySystem
     {
         if (component.JukeType == JukeType.AdjacentTile)
         {
-            if (_npcRangedQuery.TryGetComponent(uid, out var ranged) &&
-                ranged.Status == CombatStatus.NotInSight)
+            if (_npcRangedQuery.TryGetComponent(uid, out var ranged))
             {
-                component.TargetTile = null;
-                return;
+                if (ranged.Status == CombatStatus.NotInSight)
+                {
+                    component.TargetTile = null;
+                    return;
+                }
+
+                // grosse-edit-start: не уклоняемся от цели за препятствием — сначала ломаем его.
+                // Цель за стеной или стеклом: уклоняться бессмысленно, нужно
+                // дойти до препятствия и сломать его, а не танцевать рядом.
+                if (IsTargetObstructed(uid, ranged.Target))
+                {
+                    component.TargetTile = null;
+                    return;
+                }
+                // grosse-edit-end
             }
 
             if (_timing.CurTime < component.NextJuke)
@@ -139,6 +160,13 @@ public sealed partial class NPCJukeSystem : EntitySystem
                 if (!HasComp<TransformComponent>(melee.Target))
                     return;
 
+                // grosse-edit-start: не отходим от цели за препятствием — сначала ломаем его.
+                // Цель за стеной или стеклом: не отходим назад, а даём steering
+                // довести NPC до препятствия и разбить его.
+                if (IsTargetObstructed(uid, melee.Target))
+                    return;
+                // grosse-edit-end
+
                 var cdRemaining = weapon.NextAttack - _timing.CurTime;
                 var attackCooldown = TimeSpan.FromSeconds(1f / _melee.GetAttackRate(weaponUid, uid, weapon));
 
@@ -198,4 +226,25 @@ public sealed partial class NPCJukeSystem : EntitySystem
             args.Steering.CanSeek = false;
         }
     }
+
+    // grosse-edit-start: проверка препятствия между NPC и целью (для уклонения).
+    /// <summary>
+    /// Есть ли между NPC и целью жёсткое препятствие (стена, стекло, решётка).
+    /// Если да, уклонение только мешает: NPC отходит от цели и никогда не
+    /// доходит до препятствия, которое должен сломать.
+    /// </summary>
+    private bool IsTargetObstructed(EntityUid uid, EntityUid target)
+    {
+        if (!HasComp<TransformComponent>(target))
+            return false;
+
+        var (_, hardMask) = _physics.GetHardCollision(uid);
+
+        return !_interaction.InRangeUnobstructed(
+            uid,
+            Transform(target).Coordinates,
+            range: 0f,
+            (CollisionGroup) hardMask);
+    }
+    // grosse-edit-end
 }

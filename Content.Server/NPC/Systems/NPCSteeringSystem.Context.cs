@@ -2,17 +2,21 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.Examine;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.Climbing;
 using Content.Shared.Interaction;
 using Content.Shared.Movement.Components;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 using ClimbingComponent = Content.Shared.Climbing.Components.ClimbingComponent;
 using Robust.Shared.Random;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Systems;
 
@@ -107,7 +111,16 @@ public sealed partial class NPCSteeringSystem
         if (!steering.ForceMove && steering.ArriveOnLineOfSight)
         {
             // TODO: use vision range
-            inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f);
+            // grosse-edit-start: LOS по маске столкновений: стекло и решётки не считаются прибытием.
+            // grosse-edit-removed: апстрим проверял только Opaque:
+            //   inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f);
+            // Стекло и решётки не входят в Opaque, поэтому NPC видят сквозь них,
+            // но пройти не могут. Проверяем обзор по маске столкновений NPC: иначе
+            // монстр считает, что уже дошёл до цели за стеклом, и топчется у него,
+            // так и не начав ломать препятствие.
+            var (_, hardMask) = _physics.GetHardCollision(uid);
+            inLos = _interaction.InRangeUnobstructed(uid, steering.Coordinates, 10f, (CollisionGroup) hardMask);
+            // grosse-edit-end
 
             if (inLos)
             {
@@ -214,10 +227,15 @@ public sealed partial class NPCSteeringSystem
                 lock (_obstacles)
                 {
                     // We're still coming to a stop so wait for the do_after.
+                    // grosse-edit-start: останавливаемся у узла препятствия, чтобы начать ломать.
+                    // Тормозим явно: иначе NPC проскакивает узел препятствия
+                    // и кружит вокруг него, так и не начав ломать.
                     if (body.LinearVelocity.LengthSquared() > 0.01f)
                     {
+                        SetDirection(uid, mover, steering, Vector2.Zero, false);
                         return true;
                     }
+                    // grosse-edit-end
 
                     status = TryHandleFlags(uid, steering, node);
                 }
@@ -235,6 +253,18 @@ public sealed partial class NPCSteeringSystem
                         return false;
                     case SteeringObstacleStatus.Continuing:
                         CheckPath(uid, steering, xform, needsPath, targetDistance);
+
+                        // grosse-edit-start: давим на препятствие вместо seek во время его разбивания.
+                        // Давим на препятствие, пока ждём кулдаун/удар. Обычный
+                        // seek здесь не работает, а collision avoidance отталкивает
+                        // от стены, из-за чего NPC кружит вокруг неё, не ломая.
+                        if (direction.LengthSquared() > 0f)
+                        {
+                            steering.LastSteerDirection = offsetRot.RotateVec(direction.Normalized());
+                            forceSteer = false;
+                        }
+                        // grosse-edit-end
+
                         return true;
                     default:
                         throw new ArgumentOutOfRangeException();

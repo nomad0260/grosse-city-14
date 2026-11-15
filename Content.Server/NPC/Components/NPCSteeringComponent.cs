@@ -3,6 +3,7 @@ using System.Threading;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.DoAfter;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
@@ -119,6 +120,15 @@ public sealed partial class NPCSteeringComponent : Component
     /// </summary>
     [DataField("doAfterId")]
     public DoAfterId? DoAfterId = null;
+
+    // grosse-edit-start: троттлинг повторных попыток открыть/вскрыть дверь (NPCSteeringSystem.Obstacles.cs).
+    /// <summary>
+    /// Раньше этого момента NPC не пытается снова открыть или вскрыть дверь.
+    /// Без ограничения запертую дверь он дёргал бы каждый тик.
+    /// </summary>
+    [ViewVariables]
+    public TimeSpan NextDoorAction;
+    // grosse-edit-end
 }
 
 public enum SteeringStatus : byte

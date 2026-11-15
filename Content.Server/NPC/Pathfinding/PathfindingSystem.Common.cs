@@ -1,8 +1,10 @@
 using Content.Shared.Gravity;
 using Content.Shared.Maps;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Spawners;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Pathfinding;
 
@@ -68,12 +70,16 @@ public sealed partial class PathfindingSystem
             // Door we can force open one way or another
             else if (isDoor && isAccess && (request.Flags & PathFlags.Prying) != 0x0)
             {
-                modifier += 10f;
+                modifier += 4f;
             }
+            // grosse-edit-start: штраф за разрушение стены/стекла, чтобы обход через дверь выигрывал.
+            // Разрушение стены/стекла — последнее средство: обход через дверь
+            // должен выигрывать, даже если к двери идти заметно дальше.
             else if ((request.Flags & PathFlags.Smashing) != 0x0 && end.Data.Damage > 0f)
             {
-                modifier += 10f + end.Data.Damage / 100f;
+                modifier += 50f + end.Data.Damage / 100f;
             }
+            // grosse-edit-end
             else if (isClimb && (request.Flags & PathFlags.Climbing) != 0x0)
             {
                 modifier += 0.5f;

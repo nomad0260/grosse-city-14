@@ -1,0 +1,82 @@
+# Точки патруля. Один прототип на группу NPC — цвет и маршрут задаются
+# полями компонента, отдельные цветные копии не нужны.
+
+# Универсальная точка: группа 'default' ( Syndicate, охрана, любой NPC без
+# своего трекера).
+- type: entity
+  id: PatrolPoint
+  parent: MarkerBase
+  name: patrol point (default)
+  description: NPC patrol marker for the 'default' group.
+  components:
+  - type: PatrolPoint
+    group: default
+    capacity: 1
+    waitTime: 2.0
+    cooldownTime: 5.0
+    reservationTimeout: 30.0
+    spreadRadius: 0.0
+  - type: Sprite
+    state: red
+
+# Взрослые антлайоны: ходят парами, ждут дольше.
+- type: entity
+  id: PatrolPointAntlion
+  parent: PatrolPoint
+  name: antlion patrol point
+  description: Patrol point for the 'antlion' group.
+  components:
+  - type: PatrolPoint
+    group: antlion
+    capacity: 2
+    waitTime: 3.0
+    cooldownTime: 1.5
+    reservationTimeout: 40.0
+    spreadRadius: 1.0
+
+# Зомби: патрульные версии ходят между этими точками.
+- type: entity
+  id: PatrolPointZombie
+  parent: PatrolPoint
+  name: zombie patrol point
+  description: Patrol point for the 'zombie' group.
+  components:
+  - type: PatrolPoint
+    group: zombie
+    capacity: 2
+    waitTime: 3.0
+    cooldownTime: 1.5
+    reservationTimeout: 40.0
+    spreadRadius: 1.0
+  - type: Sprite
+    state: green
+
+# Хедкрабы.
+- type: entity
+  id: PatrolPointHeadcrab
+  parent: PatrolPoint
+  name: headcrab patrol point
+  description: Patrol point for the 'headcrab' group.
+  components:
+  - type: PatrolPoint
+    group: headcrab
+    capacity: 3
+    waitTime: 2.0
+    cooldownTime: 1.5
+    reservationTimeout: 30.0
+    spreadRadius: 0.8
+  - type: Sprite
+    state: blue
+
+# Молодые антлайоны: своя группа, могут кучковаться.
+- type: entity
+  id: PatrolPointAntlionYoung
+  parent: PatrolPointAntlion
+  name: young antlion patrol point
+  description: Patrol point for the 'antlion_young' group.
+  components:
+  - type: PatrolPoint
+    group: antlion_young
+    capacity: 3
+    waitTime: 2.0
+    spreadRadius: 0.8

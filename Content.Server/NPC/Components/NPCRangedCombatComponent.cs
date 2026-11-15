@@ -1,5 +1,7 @@
 using Content.Server.NPC.Systems;
+using Content.Server._Grosse.NPC.Systems;
 using Robust.Shared.Audio;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Components;
 
@@ -42,9 +44,9 @@ public sealed partial class NPCRangedCombatComponent : Component
 
     /// <summary>
     /// If true, only opaque objects will block line of sight.
+    /// Glass and grilles are not opaque, so NPCs can see through them.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
-    // ReSharper disable once InconsistentNaming
     public bool UseOpaqueForLOSChecks = false;
 
     /// <summary>

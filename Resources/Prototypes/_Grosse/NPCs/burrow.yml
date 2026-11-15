@@ -1,0 +1,147 @@
+# Враждебный compound с умным закапыванием
+- type: htnCompound
+  id: HostileBurrowCompound
+  branches:
+    # Приоритет 1: есть цель рядом — выкапываемся и атакуем.
+    # UtilityOperator идёт первым: он кладёт Target в blackboard, а
+    # precondition ниже проверяет уже выбранную цель.
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: VisionRadius
+
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+    # Приоритет 2: Закопан - ждём в засаде и выкапываемся по таймеру.
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Burrowed
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 3: Наблюдаем - пытаемся закопаться
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Observing
+      tasks:
+        # Пытаемся закопаться
+        - !type:HTNPrimitiveTask
+          operator: !type:BurrowOperator
+
+        # Генерируем время ожидания
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        # Ждём
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 4: Активны - начинаем наблюдение
+    - tasks:
+        # Начинаем наблюдать
+        - !type:HTNPrimitiveTask
+          operator: !type:StartObservingOperator
+
+        # Генерируем время ожидания
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+
+# Патруль с умным закапыванием и таймерами
+- type: htnCompound
+  id: PatrolBurrowCompound
+  branches:
+    # Приоритет 1: есть цель рядом — выкапываемся и атакуем
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: VisionRadius
+
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+    # Приоритет 2: Закопан - ждём в засаде, затем выкапываемся по таймеру
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Burrowed
+      tasks:
+        # Пытаемся выкопаться (проверяет таймер внутри)
+        - !type:HTNPrimitiveTask
+          operator: !type:UnburrowOperator
+
+        # Если не вышло (еще не время) - немного ждём и повторяем
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 3: Наблюдаем - пытаемся закопаться
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Observing
+      tasks:
+        # Пытаемся закопаться
+        - !type:HTNPrimitiveTask
+          operator: !type:BurrowOperator
+
+        # Небольшая пауза перед следующей проверкой
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+
+    # Приоритет 4: Активен - патрулируем и проверяем таймер
+    - preconditions:
+        - !type:BurrowStatePrecondition
+          state: Active
+      tasks:
+        # Патрулируем
+        - !type:HTNCompoundTask
+          task: SimplePatrolCompound
+
+        # Пытаемся начать наблюдение (проверяет таймер внутри)
+        - !type:HTNPrimitiveTask
+          operator: !type:StartObservingOperator
+
+        # Если не вышло (еще не время) - генерируем паузу
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        # Ждём и повторяем
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime

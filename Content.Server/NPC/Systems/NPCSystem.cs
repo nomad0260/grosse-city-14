@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.NPC.Components;
+using Content.Server._Grosse.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Shared.CCVar;
 using Content.Shared.Mind;
@@ -7,11 +8,13 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC;
+using Content.Shared._Grosse.NPC;
 using Content.Shared.NPC.Systems;
 using Prometheus;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
+// Grosse: файл изменён нашим форком (NPC: патруль, стратегические точки, поиск пути, двери). При мердже апстрима учитывай правки ниже.
 
 namespace Content.Server.NPC.Systems
 {
@@ -115,7 +118,12 @@ namespace Content.Server.NPC.Systems
                 return;
             }
 
-            Log.Debug($"Waking {ToPrettyString(uid)}");
+
+            // grosse-edit-start: задержка первого планирования, чтобы точки патруля успели инициализироваться.
+            // Задержка перед первым планированием чтобы все компоненты и точки патруля успели инициализироваться
+            component.PlanAccumulator = 0.5f; // 500ms задержка
+            // grosse-edit-end
+
             EnsureComp<ActiveNPCComponent>(uid);
         }
 
