@@ -58,15 +58,41 @@
     - GrenadeFlashBang
 
 - type: startingGear
-  id: CivilProtectionGear
+  id: CivilProtectionJudgeGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitCPC17
+    jumpsuit: ClothingUniformJumpsuitCPHighCommandC17
     back: ClothingBackpackCPC17
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
     ears: ClothingHeadsetCMBC17
     outerClothing: ClothingOuterArmorCPC17
-    id: UnionIDCardCivilProtection
+    id: UnionIDCardCivilProtectionOfficer
+    belt: ClothingBeltCivilProtectionC17
+    head: ClothingHeadCPC17
+  storage:
+    back:
+    - HealthvialC17
+    - HealthvialC17
+    belt:
+    - WeaponPistolC17
+    - Stunbaton
+    - MagazinePistolC17
+    - MagazinePistolC17
+    - Handcuffs
+    - Handcuffs
+    - GrenadeFlashBang
+    - GrenadeFlashBang
+
+- type: startingGear
+  id: CivilProtectionDispetcherGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCPOfficer2C17
+    back: ClothingBackpackCPC17
+    shoes: ClothingShoesBootsNedoSpetsnaz
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetCMBC17
+    outerClothing: ClothingOuterArmorCPC17
+    id: UnionIDCardCivilProtectionOfficer
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
   storage:
@@ -115,14 +141,14 @@
 - type: startingGear
   id: CivilProtectionOfficerGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitCPC17
+    jumpsuit: ClothingUniformJumpsuitCPHighCommandC17
     back: ClothingBackpackCPC17
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
     ears: ClothingHeadsetCMBLeaderC17
     outerClothing: ClothingOuterArmorCPHighCommandC17
     suitstorage: WeaponSubMachineGunC17
-    id: UnionIDCardCivilProtectionOfficer
+    id: UnionIDCardSectorialCommander
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPEliteC17
   storage:

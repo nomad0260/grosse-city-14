@@ -106,8 +106,8 @@
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
-  startingGear: CivilProtection02Gear
-  icon: "JobIconUnionGold"
+  startingGear: CivilProtectionDispetcherGear
+  icon: "JobIconUnionCommander"
   supervisors: job-supervisors-divison-leader
   requirements:
     - !type:SpeciesRequirement
@@ -141,8 +141,8 @@
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
-  startingGear: CivilProtection02Gear
-  icon: "JobIconUnionGold"
+  startingGear: CivilProtectionJudgeGear
+  icon: "JobIconUnionCommander"
   supervisors: job-supervisors-divison-leader
   requirements:
     - !type:SpeciesRequirement
@@ -177,7 +177,7 @@
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CivilProtectionOfficerGear
-  icon: "JobIconUnionCommander"
+  icon: "JobIconUnionElite"
   supervisors: job-supervisors-sectorial-commander
   requirements:
     - !type:SpeciesRequirement

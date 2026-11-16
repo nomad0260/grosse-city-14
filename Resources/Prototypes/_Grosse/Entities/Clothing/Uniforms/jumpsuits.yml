@@ -38,6 +38,26 @@
   - type: Clothing
     sprite: _Grosse/Clothing/Uniforms/cpofficeruniform.rsi
 
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCPOfficer2C17
+  name: overwatch officer CP unit jumpsuit
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Uniforms/cpofficeruniform1.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Uniforms/cpofficeruniform1.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCPHighCommandC17
+  name: overwatch CP high command unit jumpsuit
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Uniforms/cpheaduniform.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Uniforms/cpheaduniform.rsi
+
 #- type: entity
 #  parent: ClothingUniformBase
 #  id: ClothingUniformJumpsuitCPHightCommanderC17

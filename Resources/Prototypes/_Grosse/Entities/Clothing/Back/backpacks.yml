@@ -9,6 +9,7 @@
     color: black
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/field.rsi
+  - type: Unremoveable
   - type: Storage
     grid:
     - 0,0,10,5

@@ -153,7 +153,7 @@
     access: [ [ "UnionAdmin" ] ]
 
 - type: entity
-  id: ForceHoloDoorAdminC17
+  id: ForceHoloDoorAdminSectorC17
   parent: ForceHoloDoorC17
   suffix: Админ Сектор доступ
   components:
@@ -161,7 +161,7 @@
     access: [ [ "UnionBaseSector" ] ]
 
 - type: entity
-  id: ForceFieldHoloDoorAdminC17
+  id: ForceFieldHoloDoorAdminSectorC17
   parent: ForceFieldHoloDoorC17
   suffix: Админ Сектор доступ
   components:
@@ -169,7 +169,7 @@
     access: [ [ "UnionBaseSector" ] ]
 
 - type: entity
-  id: ForceHoloDoorAdminC17
+  id: ForceHoloDoorCPC17
   parent: ForceHoloDoorC17
   suffix: ГэО доступ
   components:
@@ -177,7 +177,7 @@
     access: [ [ "UnionCP" ] ]
 
 - type: entity
-  id: ForceFieldHoloDoorAdminC17
+  id: ForceFieldHoloDoorCPC17
   parent: ForceFieldHoloDoorC17
   suffix: ГэО доступ
   components:

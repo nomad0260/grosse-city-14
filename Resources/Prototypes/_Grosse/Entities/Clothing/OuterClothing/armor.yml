@@ -20,9 +20,9 @@
     size: Huge
   - type: Tag
     tags:
+    - TranshumanGear
     - Hardsuit
     - WhitelistChameleon
-
 
 - type: entity
   parent: ClothingOuterArmorBasic
@@ -34,7 +34,7 @@
     sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
     scale: 0.8, 0.8
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+    sprite: _Grosse/Clothing/OuterClothing/cparmor.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -198,9 +198,9 @@
     sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
 
 - type: entity
-  parent: ClothingOuterCoatHoSGreatcoat
+  parent: ClothingOuterArmorBaseCarapace
   id: ClothingOuterArmorCPHighCommandC17
-  name: high commander coat
+  name: high commander armor
   description: Coat of High Commander of Civil Protection.
   components:
   - type: Sprite

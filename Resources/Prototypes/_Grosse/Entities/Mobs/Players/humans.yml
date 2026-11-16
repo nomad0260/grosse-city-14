@@ -122,7 +122,7 @@
       - NamesMilitaryCMBLeaderLast
     nameFormat: name-format-combine-soldier
   - type: Loadout
-    prototypes: [OTAAR2Gear]
+    prototypes: [OTALeaderGear]
   - type: MindShield
   - type: Tag
     tags:
