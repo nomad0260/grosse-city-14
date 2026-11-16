@@ -4,9 +4,47 @@
     - tasks:
         - !type:HTNCompoundTask
           task: MeleeCombatCompound
+    # The target is known but can't be reached on foot: break through what's in the way.
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+        - !type:HTNCompoundTask
+          task: SmashBlockingObstacleCompound
     - tasks:
         - !type:HTNCompoundTask
           task: FollowCompound
+    # Dig in when there was nothing to hunt for a while (requires Burrow + NPCIdleTracker components).
+    - tasks:
+        - !type:HTNCompoundTask
+          task: AntlionBurrowCompound
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound
+
+# Digs in after a long period without targets and resurfaces after a while (or when damaged).
+- type: htnCompound
+  id: AntlionBurrowCompound
+  branches:
+    - preconditions:
+        - !type:IdleTimePrecondition
+          minimum: 30
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:BurrowOperator
+
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: BurrowTime
+            minKey: MinimumBurrowTime
+            maxKey: MaximumBurrowTime
+
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: BurrowTime
+          preconditions:
+            - !type:KeyExistsPrecondition
+              key: BurrowTime
+
+        - !type:HTNPrimitiveTask
+          operator: !type:SurfaceOperator

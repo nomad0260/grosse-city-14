@@ -13,7 +13,7 @@
             shutdownState: PlanFinished
             pathfindInPlanning: true
             removeKeyOnFinish: false
-            targetKey: FollowTarget
+            targetKey: TargetCoordinates
             pathfindKey: TargetPathfind
             stopOnLineOfSight: true
             rangeKey: FollowCloseRange
