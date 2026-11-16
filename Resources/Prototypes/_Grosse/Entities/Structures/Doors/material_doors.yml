@@ -182,6 +182,28 @@
     access: [["UnionOTA"]]
 
 - type: entity
+  id: MetalAltDoorFalloutUnionCPArmory
+  parent: MetalAltDoorFalloutUnionBase
+  description: Крепкая стальная дверь с надёжным замком.
+  suffix: Альянс, CP Armory
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+  - type: AccessReader
+    access: [["UnionCPArmory"]]
+
+- type: entity
+  id: MetalAltDoorFalloutUnionBaseSector
+  parent: MetalAltDoorFalloutUnionBase
+  description: Крепкая стальная дверь с надёжным замком.
+  suffix: Альянс, Base Sector
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+  - type: AccessReader
+    access: [["UnionBaseSector"]]
+
+- type: entity
   parent: BaseStructureComputer
   id: IndestructibleDoorFalloutWall
   name: стальная дверь
