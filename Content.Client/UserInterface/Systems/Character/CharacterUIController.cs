@@ -220,7 +220,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             return;
 
         _memoSecond = second;
-        ApplyMemo();
+        _window.PhaseTime.Text = Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(end - _timing.CurTime)));
     }
 
     private void OnStationMemo(StationMemoEvent ev, EntitySessionEventArgs _)
@@ -237,37 +237,31 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
 
         if (_memo == null)
         {
-            _window.MemoHeading.Visible = false;
-            _window.StationMemo.Visible = false;
+            _window.MemoBox.Visible = false;
             return;
         }
 
-        var message = new FormattedMessage();
-        message.AddText(Loc.GetString("character-info-station-memo-alert-prefix"));
-        message.PushColor(Color.FromHex(_memo.AlertColorHex, Color.White));
-        message.AddText(_memo.AlertName);
-        message.Pop();
-        message.AddText("\n");
-        message.AddText(Loc.GetString("character-info-station-memo-phase-prefix"));
-        message.PushColor(Color.FromHex(_memo.PhaseColorHex, Color.White));
-        message.AddText(_memo.PhaseName);
-        message.Pop();
+        _window.AlertValue.Text = _memo.AlertName;
+        _window.AlertValue.FontColorOverride = Color.FromHex(_memo.AlertColorHex, Color.White);
+        _window.PhaseValue.Text = _memo.PhaseName;
+        _window.PhaseValue.FontColorOverride = Color.FromHex(_memo.PhaseColorHex, Color.White);
 
         if (_memo.UntilLifted)
         {
-            message.AddText("\n");
-            message.AddText(Loc.GetString("work-phase-until-lifted"));
+            _window.PhaseTime.Text = Loc.GetString("work-phase-until-lifted");
+            _window.PhaseTime.Visible = true;
         }
         else if (_memo.PhaseEnd is { } end)
         {
-            var remaining = end - _timing.CurTime;
-            message.AddText("\n");
-            message.AddText(Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(remaining))));
+            _window.PhaseTime.Text = Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(end - _timing.CurTime)));
+            _window.PhaseTime.Visible = true;
+        }
+        else
+        {
+            _window.PhaseTime.Visible = false;
         }
 
-        _window.MemoHeading.Visible = true;
-        _window.StationMemo.Visible = true;
-        _window.StationMemo.SetMessage(message);
+        _window.MemoBox.Visible = true;
     }
 
     private void OnRoleTypeChanged(MindRoleTypeChangedEvent ev, EntitySessionEventArgs _)
