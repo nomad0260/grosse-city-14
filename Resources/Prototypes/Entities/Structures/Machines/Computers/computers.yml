@@ -180,6 +180,7 @@
   parent: BaseComputerShuttle
   id: ComputerShuttleSyndie
   name: syndicate shuttle console
+  categories: [ HideSpawnMenu ]
   description: Used to pilot a syndicate shuttle.
   components:
   - type: Sprite
@@ -469,6 +470,7 @@
   parent: BaseComputerAiAccess
   id: ComputerResearchAndDevelopment
   name: R&D computer
+  categories: [ HideSpawnMenu ]
   description: A computer used to interface with R&D tools.
   components:
   - type: Sprite

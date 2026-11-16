@@ -2,6 +2,7 @@
   parent: BaseItem
   id: AnomalyScanner
   name: anomaly scanner
+  categories: [ HideSpawnMenu ]
   description: A hand-held scanner built to collect information on various anomalous objects.
   components:
   - type: Sprite

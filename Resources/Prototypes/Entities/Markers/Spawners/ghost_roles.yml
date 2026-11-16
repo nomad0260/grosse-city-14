@@ -16,6 +16,7 @@
 - type: entity
   id: SpawnPointGhostRatKing
   name: ghost role spawn point
+  categories: [ HideSpawnMenu ]
   suffix: rat king
   parent: MarkerBase
   components:

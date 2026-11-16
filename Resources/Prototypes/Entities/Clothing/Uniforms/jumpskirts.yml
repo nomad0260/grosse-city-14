@@ -269,6 +269,7 @@
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtMime
   name: mime jumpskirt
+  categories: [ HideSpawnMenu ]
   description: ...
   components:
   - type: Sprite

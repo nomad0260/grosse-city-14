@@ -160,6 +160,7 @@
   parent: [ClothingHeadsetAlt, BaseMagicalContraband]
   id: ClothingHeadsetAltWizard
   name: wizard's over-ear headset
+  categories: [ HideSpawnMenu ]
   components:
     - type: Headset
     - type: EncryptionKeyHolder

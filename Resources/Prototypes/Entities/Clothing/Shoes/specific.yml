@@ -28,6 +28,7 @@
   parent: ClothingShoesClownBase
   id: ClothingShoesClown
   name: clown shoes
+  categories: [ HideSpawnMenu ]
   description: "The prankster's standard-issue clowning shoes. Damn they're huge!"
   components:
   - type: Sprite

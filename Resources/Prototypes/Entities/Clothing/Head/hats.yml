@@ -532,6 +532,7 @@
   parent: ClothingHeadHatWizardBase
   id: ClothingHeadHatRedwizard
   name: red wizard hat
+  categories: [ HideSpawnMenu ]
   description: A strange-looking red hat that most certainly belongs to a powerful magic-user.
   components:
   - type: Sprite
@@ -813,6 +814,7 @@
   parent: ClothingHeadHatWizardBase
   id: ClothingHeadHatWizard
   name: wizard hat
+  categories: [ HideSpawnMenu ]
   description: A strange-looking blue hat that most certainly belongs to a powerful magic-user.
   components:
   - type: Sprite
@@ -1541,6 +1543,7 @@
   parent: ClothingHeadBase
   id: ClothingHeadHatMitreClown
   name: honkmother mitre
+  categories: [ HideSpawnMenu ]
   description: It's hard for parishoners to see a banana peel on the floor when they're looking up at your glorious chapeau.
   components:
   - type: Sprite

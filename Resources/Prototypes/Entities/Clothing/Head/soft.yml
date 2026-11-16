@@ -185,6 +185,7 @@
   parent: ClothingHeadHeadHatBaseFlippable
   id: ClothingHeadHatMimesoft
   name: white cap
+  categories: [ HideSpawnMenu ]
   description: A white baseball cap.
   components:
   - type: Sprite

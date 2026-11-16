@@ -293,6 +293,7 @@
   parent: [ClothingHeadset, BaseMagicalContraband]
   id: ClothingHeadsetWizard
   name: wizard headset
+  categories: [ HideSpawnMenu ]
   description: A headset used by the dreaded space wizards.
   components:
     - type: ContainerFill

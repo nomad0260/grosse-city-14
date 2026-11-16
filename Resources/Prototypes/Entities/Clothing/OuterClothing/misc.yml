@@ -194,6 +194,7 @@
   parent: ClothingOuterWizardBase
   id: ClothingOuterWizardViolet
   name: violet wizard robes
+  categories: [ HideSpawnMenu ]
   description: A bizarre gem-encrusted violet robe that radiates magical energies.
   components:
   - type: Sprite
@@ -208,6 +209,7 @@
   parent: ClothingOuterWizardBase
   id: ClothingOuterWizard
   name: wizard robes
+  categories: [ HideSpawnMenu ]
   description: A bizarre gem-encrusted blue robe that radiates magical energies.
   components:
   - type: Sprite

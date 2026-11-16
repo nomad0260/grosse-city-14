@@ -39,6 +39,7 @@
   parent: ClothingBackpack
   id: ClothingBackpackClown
   name: giggles von honkerton
+  categories: [ HideSpawnMenu ]
   description: It's a backpack made by Honk! Co.
   components:
   - type: Sprite

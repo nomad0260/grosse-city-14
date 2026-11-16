@@ -55,6 +55,7 @@
   parent: ClothingBackpackDuffel
   id: ClothingBackpackDuffelClown
   name: clown duffel bag
+  categories: [ HideSpawnMenu ]
   description: A large duffel bag for holding extra honk goods.
   components:
   - type: Sprite

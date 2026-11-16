@@ -43,6 +43,7 @@
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelClown
   name: clown satchel
+  categories: [ HideSpawnMenu ]
   description: For fast running from security.
   components:
   - type: Sprite

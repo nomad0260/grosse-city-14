@@ -194,7 +194,9 @@
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitClown
   name: clown suit
+  categories: [ HideSpawnMenu ]
   description: HONK!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/clown.rsi
@@ -209,6 +211,7 @@
   parent: ClothingUniformJumpsuitClown
   id: ClothingUniformJumpsuitClownBanana
   name: banana clown suit
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/clown_banana.rsi
@@ -432,6 +435,7 @@
   id: ClothingUniformJumpsuitMime
   name: mime suit
   description: ...
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/mime.rsi
