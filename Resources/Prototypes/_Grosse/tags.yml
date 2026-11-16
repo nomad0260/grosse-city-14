@@ -47,6 +47,9 @@
   id: CMBDispencer
 
 - type: Tag
+  id: DarkCoreSpentCartridge
+
+- type: Tag
   id: CMBBlackMaterial
 
 - type: Tag
@@ -102,21 +105,3 @@
 
 - type: Tag
   id: PulseBullet
-
-- type: Tag
-  id: MagazinePistolPM
-
-- type: Tag
-  id: CartridgeRifle762x39
-
-- type: Tag
-  id: CartridgeRifle762x54
-
-- type: Tag
-  id: MagazineSVD
-
-- type: Tag
-  id: MagazinePulseHeavyRifle
-
-- type: Tag
-  id: CartridgeImpulse
