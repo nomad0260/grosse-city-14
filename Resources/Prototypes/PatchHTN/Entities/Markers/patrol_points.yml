@@ -1,0 +1,48 @@
+# Legacy default network marker retained for existing maps/prototypes.
+- type: entity
+  id: PatrolPoint
+  parent: MarkerBase
+  name: patrol point
+  suffix: NPC
+  components:
+  - type: PatrolPoint
+  - type: Sprite
+    sprite: Markers/arrow.rsi
+    state: mono
+
+# Separate waypoint networks prevent unrelated mob types from sharing patrol routes.
+- type: entity
+  id: PatrolPointZombie
+  parent: MarkerBase
+  name: zombie patrol point
+  suffix: PatchHTN
+  components:
+  - type: PatrolPoint
+    network: Zombie
+  - type: Sprite
+    sprite: Markers/arrow.rsi
+    state: mono
+
+- type: entity
+  id: PatrolPointAntlion
+  parent: MarkerBase
+  name: antlion patrol point
+  suffix: PatchHTN
+  components:
+  - type: PatrolPoint
+    network: Antlion
+  - type: Sprite
+    sprite: Markers/arrow.rsi
+    state: mono
+
+- type: entity
+  id: PatrolPointHeadcrab
+  parent: MarkerBase
+  name: headcrab patrol point
+  suffix: PatchHTN
+  components:
+  - type: PatrolPoint
+    network: Headcrab
+  - type: Sprite
+    sprite: Markers/arrow.rsi
+    state: mono

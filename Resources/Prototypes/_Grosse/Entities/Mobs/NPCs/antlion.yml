@@ -1,9 +1,25 @@
 - type: entity
   name: муравьиный лев
   id: MobAntlion
-  description: Львиный муровей.
+  description: Львиный муравей.
   parent: BaseMobAntlion
   components:
+  - type: NPCIdleTracker
+  - type: Burrow
+    maxBurrowTime: 60
+    sound:
+      path: /Audio/_Grosse/Mobs/Antlion/digup1.ogg
+    allowedTiles:
+    - FloorDirt
+    - FloorPlanetDirt
+    - FloorPlanetGrass
+    - FloorDesert
+    - FloorLowDesert
+    - FloorSnow
+    - FloorSnowDug
+    - FloorBasalt
+    - FloorAsteroidSand
+    - FloorAsteroidSandDug
   - type: Sprite
     drawdepth: Mobs
     sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
@@ -44,6 +60,11 @@
       100: 0.8
   - type: NPCUseActionOnTarget
     actionId: ActionAntlionJump
+    # Leaping through a closed door or into a wall just wedges the antlion, so only jump at
+    # targets we can actually see and reach.
+    minRange: 3
+    maxRange: 10
+    requireLineOfSight: true
   - type: JumpAbility
     action: ActionAntlionJump
     jumpDistance: 10
@@ -80,7 +101,7 @@
 - type: entity
   name: муравьиный рабочий
   id: MobAntlionWorker
-  description: Белый муровей, если его товарищ лев, то он прав.
+  description: Белый муравей, если его товарищ лев, то он прав.
   parent: BaseMobAntlion
   components:
   - type: Sprite
@@ -256,6 +277,9 @@
         Structural: 200
   - type: NPCUseActionOnTarget
     actionId: ActionChargGuardian
+    minRange: 5
+    maxRange: 20
+    requireLineOfSight: true
   - type: JumpAbility
     action: ActionChargGuardian
     jumpDistance: 20
@@ -267,9 +291,25 @@
 - type: entity
   name: молодой муравьиный лев
   id: MobYoungAntlion
-  description: Львиный муровей.
+  description: Львиный муравей.
   parent: BaseMobAntlion
   components:
+  - type: NPCIdleTracker
+  - type: Burrow
+    maxBurrowTime: 60
+    sound:
+      path: /Audio/_Grosse/Mobs/Antlion/digup1.ogg
+    allowedTiles:
+    - FloorDirt
+    - FloorPlanetDirt
+    - FloorPlanetGrass
+    - FloorDesert
+    - FloorLowDesert
+    - FloorSnow
+    - FloorSnowDug
+    - FloorBasalt
+    - FloorAsteroidSand
+    - FloorAsteroidSandDug
   - type: Sprite
     drawdepth: Mobs
     sprite: _Grosse/rsi/hlstaff/mobs/antlions.rsi
@@ -333,7 +373,7 @@
 
 - type: entity
   name: личинка
-  description: Личинка муровьиного льва. Маленький.
+  description: Личинка муравьиного льва. Маленькая.
   id: MobAntlionLarva
   parent: BaseMobAntlion
   components:

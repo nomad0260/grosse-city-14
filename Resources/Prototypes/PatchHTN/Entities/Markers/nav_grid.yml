@@ -1,0 +1,12 @@
+# Mapper-placed strategic objective for NPCs using StrategicAssaultCompound.
+# Higher priority points are preferred, see NPCStrategicPointComponent.
+# MarkerBase makes the marker visible only in mapping mode.
+- type: entity
+  id: NPCStrategicPoint
+  parent: MarkerBase
+  name: strategic point
+  suffix: PatchHTN
+  components:
+  - type: NPCStrategicPoint
+  - type: Sprite
+    state: red

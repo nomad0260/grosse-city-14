@@ -1,0 +1,23 @@
+# Breaks through destructible obstacles that block the way to a blackboard target.
+# Only applies to NPCs that can smash obstacles (NavSmash blackboard key) and only plans when the target
+# in TargetCoordinates is not reachable. Intended to be used after a task that picked a target,
+# see StrategicAssaultCompound.
+- type: htnCompound
+  id: SmashBlockingObstacleCompound
+  branches:
+    - preconditions:
+        - !type:KeyBoolEqualsPrecondition
+          key: NavSmash
+          value: true
+        - !type:KeyExistsPrecondition
+          key: TargetCoordinates
+      tasks:
+        # Fails when the target is already reachable; otherwise picks the obstacle towards it.
+        - !type:HTNPrimitiveTask
+          operator: !type:PickBlockingObstacleOperator
+
+        # Steering smashes the blocking obstacle while walking into it (PathFlags.Smashing).
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            pathfindInPlanning: false
+            rangeKey: MovementRangeClose

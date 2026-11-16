@@ -1,0 +1,30 @@
+# Opt-in patrol variants. The ordinary mob prototypes retain their original HTN roots.
+- type: entity
+  id: MobPatrolZombie
+  name: патрулирующий зомбированный
+  parent: MobHeadcrabedZombie
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: ZombiePatrolCompound
+
+- type: entity
+  id: MobPatrolAntlion
+  name: патрулирующий муравьиный лев
+  parent: MobAntlion
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: AntlionPatrolCompound
+
+- type: entity
+  id: MobPatrolHeadcrab
+  name: патрулирующий хедкраб
+  parent: MobHeadcrabNPC
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: HeadcrabPatrolCompound

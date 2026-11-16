@@ -1,0 +1,42 @@
+# Assaults strategic points placed by mappers (NPCStrategicPoint markers) and breaks through obstacles
+# when needed. Intended for event NPCs, e.g. mass city assaults: assign it as the NPC's HTN rootTask.
+- type: htnCompound
+  id: StrategicAssaultCompound
+  branches:
+    # Walk to the best reachable objective and hold it for a while.
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:PickStrategicPointOperator
+            allowSmashing: false
+
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            pathfindInPlanning: false
+            rangeKey: MovementRangeClose
+
+        - !type:HTNPrimitiveTask
+          operator: !type:RandomOperator
+            targetKey: IdleTime
+            minKey: MinimumIdleTime
+            maxKey: MaximumIdleTime
+
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: IdleTime
+          preconditions:
+            - !type:KeyExistsPrecondition
+              key: IdleTime
+
+    # The objective can't be reached: smash through the obstacles in the way.
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:PickStrategicPointOperator
+            allowSmashing: true
+
+        - !type:HTNCompoundTask
+          task: SmashBlockingObstacleCompound
+
+    # No points available (or we couldn't pick one) so don't stand still doing nothing.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
