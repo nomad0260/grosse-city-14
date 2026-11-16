@@ -67,3 +67,4 @@
         UnionResearcher: 2
         UnionWorkersHead: 2
         UnionFactoryHead: 2
+    - type: WorkPhase

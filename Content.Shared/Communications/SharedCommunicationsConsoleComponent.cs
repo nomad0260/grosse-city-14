@@ -1,3 +1,4 @@
+using Content.Shared._Grosse.WorkPhase; //Grosse-edit
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Communications
@@ -18,8 +19,24 @@ namespace Content.Shared.Communications
         public List<string>? AlertLevels;
         public string CurrentAlert;
         public float CurrentAlertDelay;
+        public bool HasWorkPhase;   //Grosse-edit-start
+        public WorkPhase CurrentPhase;
+        public TimeSpan? PhaseEnd;
+        public int WorkDurationMinutes;
+        public int FreeDurationMinutes;
 
-        public CommunicationsConsoleInterfaceState(bool canAnnounce, bool canCall, List<string>? alertLevels, string currentAlert, float currentAlertDelay, TimeSpan? expectedCountdownEnd = null)
+        public CommunicationsConsoleInterfaceState(
+            bool canAnnounce,
+            bool canCall,
+            List<string>? alertLevels,
+            string currentAlert,
+            float currentAlertDelay,
+            TimeSpan? expectedCountdownEnd = null,
+            bool hasWorkPhase = false,
+            WorkPhase currentPhase = default,
+            TimeSpan? phaseEnd = null,
+            int workDurationMinutes = 0,
+            int freeDurationMinutes = 0)   //Grosse-edit-end
         {
             CanAnnounce = canAnnounce;
             CanCall = canCall;
@@ -28,6 +45,11 @@ namespace Content.Shared.Communications
             AlertLevels = alertLevels;
             CurrentAlert = currentAlert;
             CurrentAlertDelay = currentAlertDelay;
+            HasWorkPhase = hasWorkPhase;   //Grosse-edit-start
+            CurrentPhase = currentPhase;
+            PhaseEnd = phaseEnd;
+            WorkDurationMinutes = workDurationMinutes;
+            FreeDurationMinutes = freeDurationMinutes;   //Grosse-edit-end
         }
     }
 
