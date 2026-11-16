@@ -30,6 +30,7 @@
   icon: "JobIconCaptain"
   joinNotifyCrew: true
   supervisors: job-supervisors-centcom
+  overrideConsoleVisibility: false #Grosse-edit
   accessGroups:
   - AllAccess
   special:

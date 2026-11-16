@@ -3,6 +3,7 @@
   name: job-name-senior-researcher
   description: job-description-senior-researcher
   playTimeTracker: JobSeniorResearcher
+  overrideConsoleVisibility: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Science

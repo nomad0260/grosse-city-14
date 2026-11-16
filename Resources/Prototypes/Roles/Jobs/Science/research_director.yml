@@ -18,6 +18,7 @@
   startingGear: ResearchDirectorGear
   icon: "JobIconResearchDirector"
   supervisors: job-supervisors-captain
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Research
   - Command

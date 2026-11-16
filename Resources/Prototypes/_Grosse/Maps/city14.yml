@@ -18,6 +18,8 @@
             # ГСР
             Worker: [ 10, 10 ]
             UnionMiner: [ 10, 10 ]
+            CWUEngineer: [ 6, 6 ]
+            CWUDoctor: [ 4, 4 ]
             # Главы
             UnionResearcher: [ 1, 1 ]
             UnionFactoryHead: [ 1, 1 ]

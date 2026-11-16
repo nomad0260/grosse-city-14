@@ -5,7 +5,7 @@
   playTimeTracker: JobVisitor
   icon: JobIconVisitor
   setPreference: false
-  overrideConsoleVisibility: true
+  overrideConsoleVisibility: false #Grosse-edit
   # Corvax-MRP-Start
   # access:
   # - Maintenance

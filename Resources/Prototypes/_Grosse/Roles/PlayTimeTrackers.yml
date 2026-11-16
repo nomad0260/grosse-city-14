@@ -1,0 +1,41 @@
+- type: playTimeTracker
+  id: JobCityAdministrator
+
+- type: playTimeTracker
+  id: JobCivilianC17
+
+- type: playTimeTracker
+  id: JobCivilProtectionOfficer
+
+- type: playTimeTracker
+  id: JobCivilProtectionJudge
+
+- type: playTimeTracker
+  id: JobCivilProtectionDispetcher
+
+- type: playTimeTracker
+  id: JobCivilProtection02
+
+- type: playTimeTracker
+  id: JobCivilProtection
+
+- type: playTimeTracker
+  id: JobUnionMiner
+
+- type: playTimeTracker
+  id: JobUnionResearcher
+
+- type: playTimeTracker
+  id: JobUnionFactoryHead
+
+- type: playTimeTracker
+  id: JobCWUEngineerC17
+
+- type: playTimeTracker
+  id: JobUnionWorkersHead
+
+- type: playTimeTracker
+  id: JobCWUDoctor
+
+- type: playTimeTracker
+  id: JobWorkerC17

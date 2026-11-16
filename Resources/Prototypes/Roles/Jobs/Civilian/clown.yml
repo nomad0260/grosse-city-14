@@ -9,6 +9,7 @@
   startingGear: ClownGear
   icon: "JobIconClown"
   supervisors: job-supervisors-hop
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Theatre
   - Maintenance

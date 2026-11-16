@@ -1,12 +1,9 @@
-- type: playTimeTracker
-  id: JobCivilProtection
-
 - type: job
   id: CivilProtactionUnit
   name: job-title-civil-protection
   description: job-title-civil-protection-description
   playTimeTracker: JobCivilProtection
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CivilProtectionGear
@@ -17,15 +14,15 @@
       species:
       - Human
   playTimeRanks:
-  - name: Гражданская Оборона
+  - name: job-title-civil-protection-full
     callsign: "05"
-  - name: Гражданская Оборона
+  - name: job-title-civil-protection
     callsign: "04"
     requirements:
     - !type:RoleTimeRequirement
       role: JobCivilProtection
       time: 5h
-  - name: Гражданская Оборона
+  - name: job-title-civil-protection
     callsign: "03"
     requirements:
     - !type:RoleTimeRequirement
@@ -49,9 +46,6 @@
       factions:
       - UniversalUnion
 
-- type: playTimeTracker
-  id: JobCivilProtection02
-
 - type: job
   id: CivilProtactionUnit02
   name: job-title-civil-protection-local-commander
@@ -68,9 +62,9 @@
       species:
       - Human
   playTimeRanks:
-  - name: Локальный Командир Гражданской Обороны
+  - name: job-title-civil-protection-local-commander-full
     callsign: "02"
-  - name: Локальный Командир Гражданской Обороны
+  - name: job-title-civil-protection-local-commander-full
     callsign: "01"
     requirements:
     - !type:RoleTimeRequirement
@@ -79,7 +73,7 @@
     - !type:DepartmentTimeRequirement
       department: City14CivilProtection
       time: 20h
-  - name: Локальный Командир Гражданской Обороны
+  - name: job-title-civil-protection-local-commander
     callsign: "OFC"
     requirements:
     - !type:RoleTimeRequirement
@@ -104,9 +98,6 @@
       factions:
       - UniversalUnion
 
-- type: playTimeTracker
-  id: JobCivilProtectionDispetcher
-
 - type: job
   id: CivilProtactionUnitDispetcher
   name: job-title-civil-protection-dispetcher
@@ -123,7 +114,7 @@
       species:
       - Human
   playTimeRanks:
-  - name: Диспетчер Гражданской Обороны
+  - name: job-title-civil-protection-dispetcher
     callsign: "DSP"
   access:
     - UnionBase
@@ -142,9 +133,6 @@
       factions:
       - UniversalUnion
 
-- type: playTimeTracker
-  id: JobCivilProtectionJudge
-
 - type: job
   id: CivilProtactionUnitJudge
   name: job-title-civil-protection-judge
@@ -161,7 +149,7 @@
       species:
       - Human
   playTimeRanks:
-  - name: Судья Гражданской Обороны
+  - name: job-title-civil-protection-judge
     callsign: "JDG"
   access:
     - UnionBase
@@ -180,9 +168,6 @@
       factions:
       - UniversalUnion
 
-- type: playTimeTracker
-  id: JobCivilProtectionOfficer
-
 - type: job
   id: CivilProtactionUnitOfficer
   name: job-title-civil-protection-officer
@@ -199,7 +184,7 @@
       species:
       - Human
   playTimeRanks:
-  - name: Командир Дивизии Гражданской Обороны
+  - name: job-title-civil-protection-officer
     callsign: "DvL"
   access:
     - UnionBase

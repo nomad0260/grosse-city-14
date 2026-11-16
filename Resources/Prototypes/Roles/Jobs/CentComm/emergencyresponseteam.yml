@@ -8,6 +8,7 @@
   startingGear: ERTLeaderGearEVA
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
+  overrideConsoleVisibility: false #Grosse-edit
   accessGroups:
   - AllAccess
   access:

@@ -11,6 +11,7 @@
   startingGear: ResearchAssistantGear
   icon: "JobIconResearchAssistant"
   supervisors: job-supervisors-science
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Research
   - Maintenance

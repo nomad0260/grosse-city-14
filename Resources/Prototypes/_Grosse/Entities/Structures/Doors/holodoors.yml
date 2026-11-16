@@ -65,3 +65,35 @@
   components:
   - type: AccessReader
     access: [ [ "UnionAdmin" ] ]
+
+- type: entity
+  id: ForceHoloDoorAdminC17
+  parent: ForceHoloDoorC17
+  suffix: Админ Сектор доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionBaseSector" ] ]
+
+- type: entity
+  id: ForceFieldHoloDoorAdminC17
+  parent: ForceFieldHoloDoorC17
+  suffix: Админ Сектор доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionBaseSector" ] ]
+
+- type: entity
+  id: ForceHoloDoorAdminC17
+  parent: ForceHoloDoorC17
+  suffix: ГэО доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionCP" ] ]
+
+- type: entity
+  id: ForceFieldHoloDoorAdminC17
+  parent: ForceFieldHoloDoorC17
+  suffix: ГэО доступ
+  components:
+  - type: AccessReader
+    access: [ [ "UnionCP" ] ]

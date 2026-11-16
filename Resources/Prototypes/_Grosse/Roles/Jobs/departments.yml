@@ -19,6 +19,7 @@
   - Citizen
   - Worker
   - UnionMiner
+  - CWUEngineer
   - CWUDoctor
   - UnionResearcher
   - UnionFactoryHead
@@ -49,3 +50,4 @@
   - UnionFactoryHead
   - UnionWorkersHead
   - UnionResearcher
+  - CityAdministrator
