@@ -13,6 +13,8 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
+  - type: ClothingRequiredSlots
+    slots: [innerclothing]
   - type: HeldSpeedModifier
   - type: Item
     size: Huge
@@ -30,6 +32,7 @@
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
+    scale: 0.8, 0.8
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/vests/cp.rsi
   - type: Armor
@@ -47,9 +50,9 @@
   description: Military-grade suit for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+    sprite: _Grosse/Clothing/OuterClothing/ota.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/vests/ota.rsi
+    sprite: _Grosse/Clothing/OuterClothing/ota.rsi
     stripDelay: 10
     equipDelay: 5
   - type: ExplosionResistance
@@ -120,6 +123,8 @@
       path: /Audio/_Grosse/Effects/Armor/powerarmor_on.ogg
     powerOffSound:
       path: /Audio/_Grosse/Effects/Armor/armor_gone.ogg
+  - type: ClothingRequiredSlots
+    slots: [none]
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ItemSlots
@@ -144,9 +149,9 @@
   description: Military-grade suit for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
+    sprite: _Grosse/Clothing/OuterClothing/otashotgunner.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/vests/shotgunner.rsi
+    sprite: _Grosse/Clothing/OuterClothing/otashotgunner.rsi
 
 - type: entity
   parent: ClothingOuterArmorOTAC17
@@ -155,9 +160,9 @@
   description: Military-grade suit for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/vests/otaking.rsi
+    sprite: _Grosse/Clothing/OuterClothing/otaking.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/vests/otaking.rsi
+    sprite: _Grosse/Clothing/OuterClothing/otaking.rsi
   - type: Armor
     modifiers:
 #      armorLvls:
@@ -188,8 +193,20 @@
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
+    scale: 0.9, 0.9
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/vests/cpsec.rsi
+
+- type: entity
+  parent: ClothingOuterCoatHoSGreatcoat
+  id: ClothingOuterArmorCPHighCommandC17
+  name: high commander coat
+  description: Coat of High Commander of Civil Protection.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/OuterClothing/cphighcommand.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/OuterClothing/cphighcommand.rsi
 
 - type: entity
   parent: ClothingOuterEVASuitBaseC17

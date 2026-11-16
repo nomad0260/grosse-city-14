@@ -1,22 +1,22 @@
-- type: entity
-  parent: ClothingUniformBase
-  id: ClothingUniformJumpsuitOTAC17
-  name: overwatch soldier unit штаны
-  components:
-  - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
-  - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+#- type: entity
+#  parent: ClothingUniformBase
+#  id: ClothingUniformJumpsuitOTAC17
+#  name: overwatch soldier unit штаны
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
+#  - type: Clothing
+#    sprite: _Grosse/rsi/hlstaff/suit/ota.rsi
 
-- type: entity
-  parent: ClothingUniformBase
-  id: ClothingUniformJumpsuitOTAC17Shotgunner
-  name: overwatch soldier unit штаны
-  components:
-  - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
-  - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
+#- type: entity
+#  parent: ClothingUniformBase
+#  id: ClothingUniformJumpsuitOTAC17Shotgunner
+#  name: overwatch soldier unit штаны
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
+#  - type: Clothing
+#    sprite: _Grosse/rsi/hlstaff/suit/shotgunner.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -24,9 +24,9 @@
   name: overwatch CP patrol unit jumpsuit
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+    sprite: _Grosse/Clothing/Uniforms/cpuniform.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/cpuniform.rsi
+    sprite: _Grosse/Clothing/Uniforms/cpuniform.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -34,19 +34,29 @@
   name: overwatch officer CP unit jumpsuit
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/cpofficeruniform.rsi
+    sprite: _Grosse/Clothing/Uniforms/cpofficeruniform.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/cpofficeruniform.rsi
+    sprite: _Grosse/Clothing/Uniforms/cpofficeruniform.rsi
 
-- type: entity
-  parent: ClothingUniformBase
-  id: ClothingUniformJumpsuitOTAEliteC17
-  name: overwatch soldier elite unit штаны
-  components:
-  - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
-  - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
+#- type: entity
+#  parent: ClothingUniformBase
+#  id: ClothingUniformJumpsuitCPHightCommanderC17
+#  name: overwatch hight commander unit jumpsuit
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/Clothing/Uniforms/cpheaduniform.rsi
+#  - type: Clothing
+#    sprite: _Grosse/Clothing/Uniforms/cpheaduniform.rsi
+
+#- type: entity
+#  parent: ClothingUniformBase
+#  id: ClothingUniformJumpsuitOTAEliteC17
+#  name: overwatch soldier elite unit штаны
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
+#  - type: Clothing
+#    sprite: _Grosse/rsi/hlstaff/suit/otaking.rsi
 
 - type: entity
   id: CombineArmyFollower17

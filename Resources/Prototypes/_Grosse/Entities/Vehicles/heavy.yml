@@ -19,6 +19,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-2.5,0.8,2"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: GrosseCar
     engineForce: 100000
     brakeForce: 150000
@@ -128,6 +137,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.9,0.8,1.9"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: GrosseCar
     engineForce: 40000
     brakeForce: 100000
@@ -215,6 +233,15 @@
         mask:
         - MobMask
         - BulletImpassable
+        layer:
+        - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-2,0.8,2"
+        hard: false
+        mask:
+        - MidImpassable
         layer:
         - MachineLayer
   - type: GrosseCar

@@ -1,4 +1,90 @@
 - type: entity
+  id: ForceHoloDoorC17
+  name: force field generator
+  description: The words flicker as if they mean nothing.
+  suffix: CP доступ
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: AmbientSound
+    volume: -12
+    range: 2
+    sound:
+      path: /Audio/_Grosse/Effects/force_field_loop1.ogg
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/field.rsi
+    layers:
+    - state: buttom-layer
+      shader: unshaded
+    - state: generator
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: generator-layer
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      shader: unshaded
+    - state: up-layer
+      shader: unshaded
+    - state: generator
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+      visible: false
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: AnimationPlayer
+  - type: Airlock
+    powered: true
+    openUnlitVisible: true
+    emergencyAccessLayer: false
+    animatePanel: false
+    autoCloseDelay: 0.01
+    openingSpriteState: generator
+    openingPanelSpriteState: generator
+    closingSpriteState: generator
+    closingPanelSpriteState: generator
+    openSpriteState: generator
+    closedSpriteState: generator
+    denySpriteState: generator
+  - type: DoorBolt
+  - type: Door
+    bumpOpen: true
+    clickOpen: true
+    canCrush: false
+    canPry: false
+    closeTimeOne: 0.01
+    closeTimeTwo: 0.01
+    openTimeOne: 0.01
+    openTimeTwo: 0.01
+    openSound: null
+    closeSound: null
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.5"
+        layer:
+        - LowImpassable
+        - Impassable
+        - MidImpassable
+  #- type: LitOnPowered
+  #- type: AmbientOnPowered
+  - type: PointLight
+    enabled: true
+    radius: 3
+    color: blue
+  - type: Clickable
+  - type: ContainmentField
+    throwForce: 0
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: AccessReader
+    access: [ [ "UnionCP" ] ]
+  - type: Tag
+    tags:
+      - CombineStructure
+
+- type: entity
   id: ForceFieldHoloDoorC17
   parent: ForceHoloDoorC17
   name: force field

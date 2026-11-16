@@ -1,7 +1,7 @@
 - type: startingGear
   id: OTAGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOTAC17
+#    jumpsuit: ClothingUniformJumpsuitOTAC17
     back: ClothingBackpackCombineC17Filled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
@@ -18,7 +18,7 @@
 - type: startingGear
   id: OTAAR2Gear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOTAC17
+#    jumpsuit: ClothingUniformJumpsuitOTAC17
     back: ClothingBackpackCombineC17AR2Filled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
@@ -35,7 +35,7 @@
 - type: startingGear
   id: OTAShotgunGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOTAC17Shotgunner
+#    jumpsuit: ClothingUniformJumpsuitOTAC17Shotgunner
     back: ClothingBackpackCombineC17ShotgunFilled
     shoes: ClothingShoesBootsNedoSpetsnaz
     gloves: ClothingHandsGlovesCombat
@@ -52,7 +52,7 @@
 - type: startingGear
   id: OTAEliteGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOTAEliteC17
+#    jumpsuit: ClothingUniformJumpsuitOTAEliteC17
     back: ClothingBackpackCombineEliteC17Filled
     shoes: ClothingShoesBootsSpetsnaz
     gloves: ClothingHandsGlovesCombat
