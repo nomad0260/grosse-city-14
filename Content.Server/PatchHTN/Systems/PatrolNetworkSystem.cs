@@ -7,7 +7,7 @@ namespace Content.Server.PatchHTN.Systems;
 /// Links mapper-placed <see cref="PatrolPointComponent"/> markers into patrol networks and answers
 /// queries about them for the patrol HTN task.
 /// </summary>
-public sealed class PatrolNetworkSystem : EntitySystem
+public sealed partial class PatrolNetworkSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;
 
@@ -22,7 +22,7 @@ public sealed class PatrolNetworkSystem : EntitySystem
     {
         component.Neighbors.Clear();
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         var mapId = _transform.GetMapId(xform.Coordinates);

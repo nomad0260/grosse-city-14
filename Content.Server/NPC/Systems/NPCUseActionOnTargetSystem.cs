@@ -109,7 +109,7 @@ public sealed partial class NPCUseActionOnTargetSystem : EntitySystem
 
     private void FaceTarget(EntityUid uid, MapCoordinates targetCoordinates)
     {
-        if (!TryComp(uid, out TransformComponent? xform) || xform.ParentUid == uid)
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         var ourMap = _transform.GetMapCoordinates(uid, xform);
@@ -118,8 +118,7 @@ public sealed partial class NPCUseActionOnTargetSystem : EntitySystem
         if (delta.LengthSquared() < 0.001f)
             return;
 
-        // The local rotation is relative to the parent, so convert the world direction into its space.
-        var parentRotation = _transform.GetWorldRotation(xform.ParentUid);
-        _transform.SetLocalRotation(uid, delta.ToWorldAngle() - parentRotation, xform);
+        // SetWorldRotation resolves the parent itself, so this is also safe when the NPC is in nullspace.
+        _transform.SetWorldRotation(xform, delta.ToWorldAngle());
     }
 }

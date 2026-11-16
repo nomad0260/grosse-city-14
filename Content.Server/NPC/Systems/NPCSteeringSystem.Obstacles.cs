@@ -166,7 +166,7 @@ public sealed partial class NPCSteeringSystem
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
             {
-                if (_melee.TryGetWeapon(uid, out _, out var meleeWeapon) && TryComp<CombatModeComponent>(uid, out var combatMode))
+                if (_melee.TryGetWeapon(uid, out var weaponUid, out var meleeWeapon) && TryComp<CombatModeComponent>(uid, out var combatMode))
                 {
                     // A weapon cooldown is a wait, not a path failure. Keep the blocking node so we
                     // can retry the attack when the weapon is ready instead of tearing down MoveTo.
@@ -177,20 +177,22 @@ public sealed partial class NPCSteeringSystem
                     if (!wasInCombatMode)
                         _combat.SetInCombatMode(uid, true, combatMode);
 
-                    // TODO: This is a hack around grilles and windows.
-                    _random.Shuffle(obstacleEnts);
                     var attackResult = false;
 
                     try
                     {
                         foreach (var ent in obstacleEnts)
                         {
-                            // TODO: Validate we can damage it
-                            if (_destructibleQuery.HasComponent(ent))
-                            {
-                                attackResult = _melee.AttemptLightAttack(uid, uid, meleeWeapon, ent);
-                                break;
-                            }
+                            // A node may hold several obstacles (e.g. a grille in front of a window),
+                            // and only the ones actually within melee range can be hit.
+                            if (!_destructibleQuery.HasComponent(ent))
+                                continue;
+
+                            if (!_melee.AttemptLightAttack(uid, weaponUid, meleeWeapon, ent))
+                                continue;
+
+                            attackResult = true;
+                            break;
                         }
                     }
                     finally

@@ -200,7 +200,9 @@ public sealed partial class NPCSteeringSystem
         {
             // The node may be on another grid (e.g. the next grid after a docking portal), so compare in
             // world space instead of mixing our parent's local space with the node's grid-local box.
-            arrived = _transform.GetWorldMatrix(node.GraphUid).TransformBox(node.Box).Contains(ourMap.Position);
+            // Test the point itself: the transformed AABB grows on grids rotated not by 90°.
+            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(node.GraphUid));
+            arrived = node.Box.Contains(nodeLocal);
         }
         // For destructible blockers, use the same nearest-entity range check as melee attacks.
         // A polygon's center or edge isn't necessarily the obstacle's physical surface.

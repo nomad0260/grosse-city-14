@@ -91,7 +91,7 @@ public sealed partial class BurrowSystem : EntitySystem
         if (burrow.AllowedTiles.Count == 0)
             return true;
 
-        if (!TryComp<TransformComponent>(uid, out var xform) ||
+        if (!TryComp(uid, out TransformComponent? xform) ||
             xform.GridUid is not { } gridUid ||
             !TryComp<MapGridComponent>(gridUid, out var grid))
         {

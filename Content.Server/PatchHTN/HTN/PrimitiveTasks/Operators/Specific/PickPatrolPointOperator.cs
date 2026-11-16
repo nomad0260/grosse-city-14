@@ -37,10 +37,11 @@ public sealed partial class PickPatrolPointOperator : HTNOperator
     public string PathfindKey = NPCBlackboard.PathfindKey;
 
     /// <summary>
-    /// How far away a point may be for us to treat it as our current position in the network.
+    /// How far away a point may be for us to treat it as our current position in the network. This is
+    /// deliberately large so an NPC that chased something across the map can find its way back.
     /// </summary>
     [DataField("pointRange")]
-    public float PointRange = 20f;
+    public float PointRange = 250f;
 
     /// <summary>
     /// How many candidate points we try to pathfind to before giving up.

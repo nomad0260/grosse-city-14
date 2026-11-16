@@ -10,7 +10,7 @@ namespace Content.Server.PatchHTN.Systems;
 /// Time only counts while the NPC has no target it could act on, so idle plans (e.g. burrowing)
 /// trigger after a while without prey.
 /// </summary>
-public sealed class NPCIdleTrackingSystem : EntitySystem
+public sealed partial class NPCIdleTrackingSystem : EntitySystem
 {
     /// <summary>
     /// Blackboard key set by target acquiring tasks (see <see cref="Content.Server.NPC.HTN.PrimitiveTasks.Operators.UtilityOperator"/>).
