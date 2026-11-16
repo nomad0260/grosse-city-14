@@ -6,6 +6,7 @@ using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Character.Controls;
 using Content.Client.UserInterface.Systems.Character.Windows;
 using Content.Client.UserInterface.Systems.Objectives.Controls;
+using Content.Shared._Grosse.WorkPhase;
 using Content.Shared.Input;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
@@ -18,6 +19,7 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 using static Robust.Client.UserInterface.Controls.BaseButton;
@@ -30,6 +32,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
     [Dependency] private IEntityManager _ent = default!;
     [Dependency] private IPlayerManager _player = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
     [UISystemDependency] private readonly SpriteSystem _sprite = default!;
@@ -39,9 +42,12 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         base.Initialize();
 
         SubscribeNetworkEvent<MindRoleTypeChangedEvent>(OnRoleTypeChanged);
+        SubscribeNetworkEvent<StationMemoEvent>(OnStationMemo);
     }
 
     private CharacterWindow? _window;
+    private StationMemoState? _memo;
+    private int _memoSecond = int.MinValue;
     private MenuButton? CharacterButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.CharacterButton;
 
     public void OnStateEntered(GameplayState state)
@@ -130,7 +136,10 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             return;
         }
 
-        var (entity, job, objectives, briefing, entityName) = data;
+        var (entity, job, objectives, briefing, entityName, memo) = data;
+        _memo = memo;
+        _memoSecond = int.MinValue;
+        ApplyMemo();
 
         _window.SpriteView.SetEntity(entity);
 
@@ -197,6 +206,68 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         }
 
         _window.RolePlaceholder.Visible = briefing == null && !controls.Any() && !objectives.Any();
+    }
+
+    public override void FrameUpdate(FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+
+        if (_window == null || !_window.IsOpen || _memo?.PhaseEnd is not { } end)
+            return;
+
+        var second = (int)Math.Floor((end - _timing.CurTime).TotalSeconds);
+        if (second == _memoSecond)
+            return;
+
+        _memoSecond = second;
+        ApplyMemo();
+    }
+
+    private void OnStationMemo(StationMemoEvent ev, EntitySessionEventArgs _)
+    {
+        _memo = ev.Memo;
+        _memoSecond = int.MinValue;
+        ApplyMemo();
+    }
+
+    private void ApplyMemo()
+    {
+        if (_window == null)
+            return;
+
+        if (_memo == null)
+        {
+            _window.MemoHeading.Visible = false;
+            _window.StationMemo.Visible = false;
+            return;
+        }
+
+        var message = new FormattedMessage();
+        message.AddText(Loc.GetString("character-info-station-memo-alert-prefix"));
+        message.PushColor(Color.FromHex(_memo.AlertColorHex, Color.White));
+        message.AddText(_memo.AlertName);
+        message.Pop();
+        message.AddText("\n");
+        message.AddText(Loc.GetString("character-info-station-memo-phase-prefix"));
+        message.PushColor(Color.FromHex(_memo.PhaseColorHex, Color.White));
+        message.AddText(_memo.PhaseName);
+        message.Pop();
+
+        if (_memo.UntilLifted)
+        {
+            message.AddText("\n");
+            message.AddText(Loc.GetString("work-phase-until-lifted"));
+        }
+        else if (_memo.PhaseEnd is { } end)
+        {
+            var remaining = end - _timing.CurTime;
+            message.AddText("\n");
+            message.AddText(Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(remaining))));
+        }
+
+        _window.MemoHeading.Visible = true;
+        _window.StationMemo.Visible = true;
+        _window.StationMemo.SetMessage(message);
     }
 
     private void OnRoleTypeChanged(MindRoleTypeChangedEvent ev, EntitySessionEventArgs _)

@@ -1,4 +1,5 @@
-﻿using Content.Shared.Objectives;
+﻿using Content.Shared._Grosse.WorkPhase;
+using Content.Shared.Objectives;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.CharacterInfo;
@@ -21,12 +22,14 @@ public sealed class CharacterInfoEvent : EntityEventArgs
     public readonly string JobTitle;
     public readonly Dictionary<string, List<ObjectiveInfo>> Objectives;
     public readonly string? Briefing;
+    public readonly StationMemoState? StationMemo;
 
-    public CharacterInfoEvent(NetEntity netEntity, string jobTitle, Dictionary<string, List<ObjectiveInfo>> objectives, string? briefing)
+    public CharacterInfoEvent(NetEntity netEntity, string jobTitle, Dictionary<string, List<ObjectiveInfo>> objectives, string? briefing, StationMemoState? stationMemo)
     {
         NetEntity = netEntity;
         JobTitle = jobTitle;
         Objectives = objectives;
         Briefing = briefing;
+        StationMemo = stationMemo;
     }
 }

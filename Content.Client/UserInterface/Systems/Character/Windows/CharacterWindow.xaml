@@ -15,6 +15,8 @@
                     <Label Name="SubText" VerticalAlignment="Top" StyleClasses="LabelSubText" Access="Public"/>
                 </BoxContainer>
             </BoxContainer>
+            <Label Name="MemoHeading" Access="Public" Text="{Loc 'character-info-station-memo-label'}" HorizontalAlignment="Center" Margin="0 8 0 0" Visible="False"/>
+            <RichTextLabel Name="StationMemo" Access="Public" Margin="8 0 8 8" Visible="False"/>
             <Label Name="ObjectivesLabel" Access="Public" Text="{Loc 'character-info-objectives-label'}" HorizontalAlignment="Center"/>
             <BoxContainer Orientation="Vertical" Name="Objectives" Access="Public"/>
             <cc:Placeholder Name="RolePlaceholder" Access="Public" PlaceholderText="{Loc 'character-info-roles-antagonist-text'}"/>

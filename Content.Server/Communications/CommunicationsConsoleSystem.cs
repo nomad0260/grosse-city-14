@@ -1,12 +1,14 @@
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Server.Chat.Systems;
+using Content.Server._Grosse.WorkPhase;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Popups;
 using Content.Server.RoundEnd;
 using Content.Server.Screens.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
+using Content.Shared._Grosse.WorkPhase;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -26,6 +28,7 @@ namespace Content.Server.Communications
     {
         [Dependency] private AccessReaderSystem _accessReaderSystem = default!;
         [Dependency] private AlertLevelSystem _alertLevelSystem = default!;
+        [Dependency] private WorkPhaseSystem _workPhase = default!;
         [Dependency] private ChatSystem _chatSystem = default!;
         [Dependency] private DeviceNetworkSystem _deviceNetworkSystem = default!;
         [Dependency] private EmergencyShuttleSystem _emergency = default!;
@@ -43,11 +46,14 @@ namespace Content.Server.Communications
         {
             // All events that refresh the BUI
             SubscribeLocalEvent<AlertLevelChangedEvent>(OnAlertLevelChanged);
+            SubscribeLocalEvent<WorkPhaseChangedEvent>(OnWorkPhaseChanged);
             SubscribeLocalEvent<RoundEndSystemChangedEvent>(_ => OnGenericBroadcastEvent());
             SubscribeLocalEvent<AlertLevelDelayFinishedEvent>(_ => OnGenericBroadcastEvent());
 
             // Messages from the BUI
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectAlertLevelMessage>(OnSelectAlertLevelMessage);
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectWorkPhaseMessage>(OnSelectWorkPhaseMessage);
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSetWorkPhaseDurationsMessage>(OnSetWorkPhaseDurationsMessage);
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleAnnounceMessage>(OnAnnounceMessage);
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleBroadcastMessage>(OnBroadcastMessage);
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleCallEmergencyShuttleMessage>(OnCallShuttleMessage);
@@ -106,11 +112,21 @@ namespace Content.Server.Communications
         /// <param name="args">Alert level changed event arguments</param>
         private void OnAlertLevelChanged(AlertLevelChangedEvent args)
         {
+            UpdateConsolesOnStation(args.Station);
+        }
+
+        private void OnWorkPhaseChanged(WorkPhaseChangedEvent args)
+        {
+            UpdateConsolesOnStation(args.Station);
+        }
+
+        private void UpdateConsolesOnStation(EntityUid station)
+        {
             var query = EntityQueryEnumerator<CommunicationsConsoleComponent>();
             while (query.MoveNext(out var uid, out var comp))
             {
                 var entStation = _stationSystem.GetOwningStation(uid);
-                if (args.Station == entStation)
+                if (station == entStation)
                     UpdateCommsConsoleInterface(uid, comp);
             }
         }
@@ -136,6 +152,11 @@ namespace Content.Server.Communications
             List<string>? levels = null;
             string currentLevel = default!;
             float currentDelay = 0;
+            var hasWorkPhase = false;
+            var currentPhase = WorkPhase.Free;
+            TimeSpan? phaseEnd = null;
+            var workMinutes = 0;
+            var freeMinutes = 0;
 
             if (stationUid != null)
             {
@@ -157,6 +178,15 @@ namespace Content.Server.Communications
                     currentLevel = alertComp.CurrentLevel;
                     currentDelay = _alertLevelSystem.GetAlertLevelDelay(stationUid.Value, alertComp);
                 }
+
+                if (TryComp(stationUid.Value, out WorkPhaseComponent? phaseComp))
+                {
+                    hasWorkPhase = true;
+                    currentPhase = phaseComp.CurrentPhase;
+                    phaseEnd = phaseComp.PhaseEnd;
+                    workMinutes = (int)Math.Round(phaseComp.WorkDuration.TotalMinutes);
+                    freeMinutes = (int)Math.Round(phaseComp.FreeDuration.TotalMinutes);
+                }
             }
 
             _uiSystem.SetUiState(uid, CommunicationsConsoleUiKey.Key, new CommunicationsConsoleInterfaceState(
@@ -165,7 +195,12 @@ namespace Content.Server.Communications
                 levels,
                 currentLevel,
                 currentDelay,
-                _roundEndSystem.ExpectedCountdownEnd
+                _roundEndSystem.ExpectedCountdownEnd,
+                hasWorkPhase,
+                currentPhase,
+                phaseEnd,
+                workMinutes,
+                freeMinutes
             ));
         }
 
@@ -224,6 +259,41 @@ namespace Content.Server.Communications
             {
                 _alertLevelSystem.SetLevel(stationUid.Value, message.Level, true, true);
             }
+        }
+
+        private void OnSelectWorkPhaseMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleSelectWorkPhaseMessage message)
+        {
+            if (message.Actor is not { Valid: true } mob)
+                return;
+
+            if (!CanUse(mob, uid))
+            {
+                _popupSystem.PopupCursor(Loc.GetString("comms-console-permission-denied"), message.Actor, PopupType.Medium);
+                return;
+            }
+
+            if (!Enum.IsDefined(message.Phase))
+                return;
+
+            var stationUid = _stationSystem.GetOwningStation(uid);
+            if (stationUid != null)
+                _workPhase.SetPhase(stationUid.Value, message.Phase, true);
+        }
+
+        private void OnSetWorkPhaseDurationsMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleSetWorkPhaseDurationsMessage message)
+        {
+            if (message.Actor is not { Valid: true } mob)
+                return;
+
+            if (!CanUse(mob, uid))
+            {
+                _popupSystem.PopupCursor(Loc.GetString("comms-console-permission-denied"), message.Actor, PopupType.Medium);
+                return;
+            }
+
+            var stationUid = _stationSystem.GetOwningStation(uid);
+            if (stationUid != null)
+                _workPhase.SetDurations(stationUid.Value, message.WorkMinutes, message.FreeMinutes);
         }
 
         private void OnAnnounceMessage(EntityUid uid, CommunicationsConsoleComponent comp,

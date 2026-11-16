@@ -1,4 +1,5 @@
-﻿using Content.Shared.CCVar;
+﻿using Content.Shared._Grosse.WorkPhase;
+using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Communications;
 using Robust.Client.UserInterface;
@@ -26,6 +27,8 @@ namespace Content.Client.Communications.UI
             _menu.OnAnnounce += AnnounceButtonPressed;
             _menu.OnBroadcast += BroadcastButtonPressed;
             _menu.OnAlertLevel += AlertLevelSelected;
+            _menu.OnWorkPhase += WorkPhaseSelected;
+            _menu.OnApplyPhaseTime += PhaseDurationsApplied;
             _menu.OnEmergencyLevel += EmergencyShuttleButtonPressed;
         }
 
@@ -36,6 +39,16 @@ namespace Content.Client.Communications.UI
                 _menu.CurrentLevel = level;
                 SendMessage(new CommunicationsConsoleSelectAlertLevelMessage(level));
             }
+        }
+
+        public void WorkPhaseSelected(WorkPhase phase)
+        {
+            SendMessage(new CommunicationsConsoleSelectWorkPhaseMessage(phase));
+        }
+
+        public void PhaseDurationsApplied(int workMinutes, int freeMinutes)
+        {
+            SendMessage(new CommunicationsConsoleSetWorkPhaseDurationsMessage(workMinutes, freeMinutes));
         }
 
         public void EmergencyShuttleButtonPressed()
@@ -87,6 +100,7 @@ namespace Content.Client.Communications.UI
 
                 _menu.UpdateCountdown();
                 _menu.UpdateAlertLevels(commsState.AlertLevels, _menu.CurrentLevel);
+                _menu.UpdateWorkPhase(commsState.HasWorkPhase, commsState.CurrentPhase, commsState.PhaseEnd, commsState.WorkDurationMinutes, commsState.FreeDurationMinutes);
                 _menu.AlertLevelButton.Disabled = !_menu.AlertLevelSelectable;
                 _menu.EmergencyShuttleButton.Disabled = !_menu.CanCall;
                 _menu.AnnounceButton.Disabled = !_menu.CanAnnounce;
