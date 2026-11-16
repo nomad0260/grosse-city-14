@@ -1,8 +1,8 @@
-﻿using Content.Server._Grosse.WorkPhase;
+﻿using Content.Server._Grosse.WorkPhase;   //Grosse-edit
 using Content.Server.Mind;
 using Content.Server.Roles;
 using Content.Server.Roles.Jobs;
-using Content.Server.Station.Systems;
+using Content.Server.Station.Systems;   //Grosse-edit
 using Content.Shared.CharacterInfo;
 using Content.Shared.Objectives;
 using Content.Shared.Objectives.Components;
@@ -17,8 +17,8 @@ public sealed partial class CharacterInfoSystem : EntitySystem
     [Dependency] private MindSystem _minds = default!;
     [Dependency] private RoleSystem _roles = default!;
     [Dependency] private SharedObjectivesSystem _objectives = default!;
-    [Dependency] private StationSystem _station = default!;
-    [Dependency] private WorkPhaseSystem _workPhase = default!;
+    [Dependency] private StationSystem _station = default!;   //Grosse-edit
+    [Dependency] private WorkPhaseSystem _workPhase = default!;   //Grosse-edit
     [Dependency] private IPrototypeManager _protoMan = default!;
 
     public override void Initialize()
@@ -68,7 +68,7 @@ public sealed partial class CharacterInfoSystem : EntitySystem
             briefing = _roles.MindGetBriefing(mindId);
         }
 
-        var memo = _station.GetOwningStation(entity) is { } station ? _workPhase.BuildMemo(station) : null;
-        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing, memo), args.SenderSession);
+        var memo = _station.GetOwningStation(entity) is { } station ? _workPhase.BuildMemo(station) : null;   //Grosse-edit
+        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing, memo), args.SenderSession);   //Grosse-edit
     }
 }

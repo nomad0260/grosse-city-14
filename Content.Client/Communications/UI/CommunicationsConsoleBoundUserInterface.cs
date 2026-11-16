@@ -1,4 +1,4 @@
-﻿using Content.Shared._Grosse.WorkPhase;
+﻿using Content.Shared._Grosse.WorkPhase; //Grosse-edit
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Communications;
@@ -27,8 +27,8 @@ namespace Content.Client.Communications.UI
             _menu.OnAnnounce += AnnounceButtonPressed;
             _menu.OnBroadcast += BroadcastButtonPressed;
             _menu.OnAlertLevel += AlertLevelSelected;
-            _menu.OnWorkPhase += WorkPhaseSelected;
-            _menu.OnApplyPhaseTime += PhaseDurationsApplied;
+            _menu.OnWorkPhase += WorkPhaseSelected; //Grosse-edit
+            _menu.OnApplyPhaseTime += PhaseDurationsApplied; //Grosse-edit
             _menu.OnEmergencyLevel += EmergencyShuttleButtonPressed;
         }
 
@@ -40,7 +40,7 @@ namespace Content.Client.Communications.UI
                 SendMessage(new CommunicationsConsoleSelectAlertLevelMessage(level));
             }
         }
-
+        //Grosse-edit-start
         public void WorkPhaseSelected(WorkPhase phase)
         {
             SendMessage(new CommunicationsConsoleSelectWorkPhaseMessage(phase));
@@ -50,7 +50,7 @@ namespace Content.Client.Communications.UI
         {
             SendMessage(new CommunicationsConsoleSetWorkPhaseDurationsMessage(workMinutes, freeMinutes));
         }
-
+        //Grosse-edit-end
         public void EmergencyShuttleButtonPressed()
         {
             if (_menu!.CountdownStarted)
@@ -100,7 +100,7 @@ namespace Content.Client.Communications.UI
 
                 _menu.UpdateCountdown();
                 _menu.UpdateAlertLevels(commsState.AlertLevels, _menu.CurrentLevel);
-                _menu.UpdateWorkPhase(commsState.HasWorkPhase, commsState.CurrentPhase, commsState.PhaseEnd, commsState.WorkDurationMinutes, commsState.FreeDurationMinutes);
+                _menu.UpdateWorkPhase(commsState.HasWorkPhase, commsState.CurrentPhase, commsState.PhaseEnd, commsState.WorkDurationMinutes, commsState.FreeDurationMinutes); //Grosse-edit
                 _menu.AlertLevelButton.Disabled = !_menu.AlertLevelSelectable;
                 _menu.EmergencyShuttleButton.Disabled = !_menu.CanCall;
                 _menu.AnnounceButton.Disabled = !_menu.CanAnnounce;

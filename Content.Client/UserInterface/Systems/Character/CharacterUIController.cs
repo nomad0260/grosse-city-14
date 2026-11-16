@@ -6,7 +6,7 @@ using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Character.Controls;
 using Content.Client.UserInterface.Systems.Character.Windows;
 using Content.Client.UserInterface.Systems.Objectives.Controls;
-using Content.Shared._Grosse.WorkPhase;
+using Content.Shared._Grosse.WorkPhase;   //Grosse-edit
 using Content.Shared.Input;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
@@ -19,7 +19,7 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
+using Robust.Shared.Timing;   //Grosse-edit
 using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 using static Robust.Client.UserInterface.Controls.BaseButton;
@@ -32,7 +32,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
     [Dependency] private IEntityManager _ent = default!;
     [Dependency] private IPlayerManager _player = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
-    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;   //Grosse-edit
 
     [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
     [UISystemDependency] private readonly SpriteSystem _sprite = default!;
@@ -42,12 +42,12 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         base.Initialize();
 
         SubscribeNetworkEvent<MindRoleTypeChangedEvent>(OnRoleTypeChanged);
-        SubscribeNetworkEvent<StationMemoEvent>(OnStationMemo);
+        SubscribeNetworkEvent<StationMemoEvent>(OnStationMemo);   //Grosse-edit
     }
 
     private CharacterWindow? _window;
-    private StationMemoState? _memo;
-    private int _memoSecond = int.MinValue;
+    private StationMemoState? _memo;   //Grosse-edit
+    private int _memoSecond = int.MinValue;   //Grosse-edit
     private MenuButton? CharacterButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.CharacterButton;
 
     public void OnStateEntered(GameplayState state)
@@ -136,10 +136,10 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             return;
         }
 
-        var (entity, job, objectives, briefing, entityName, memo) = data;
+        var (entity, job, objectives, briefing, entityName, memo) = data;   //Grosse-edit-start
         _memo = memo;
         _memoSecond = int.MinValue;
-        ApplyMemo();
+        ApplyMemo();   //Grosse-edit-end
 
         _window.SpriteView.SetEntity(entity);
 
@@ -208,7 +208,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         _window.RolePlaceholder.Visible = briefing == null && !controls.Any() && !objectives.Any();
     }
 
-    public override void FrameUpdate(FrameEventArgs args)
+    public override void FrameUpdate(FrameEventArgs args)   //Grosse-edit-start
     {
         base.FrameUpdate(args);
 
@@ -263,7 +263,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
 
         _window.MemoBox.Visible = true;
     }
-
+            //Grosse-edit-end
     private void OnRoleTypeChanged(MindRoleTypeChangedEvent ev, EntitySessionEventArgs _)
     {
         UpdateRoleType();

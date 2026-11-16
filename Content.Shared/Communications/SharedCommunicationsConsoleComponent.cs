@@ -1,4 +1,4 @@
-using Content.Shared._Grosse.WorkPhase;
+using Content.Shared._Grosse.WorkPhase; //Grosse-edit
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Communications
@@ -19,7 +19,7 @@ namespace Content.Shared.Communications
         public List<string>? AlertLevels;
         public string CurrentAlert;
         public float CurrentAlertDelay;
-        public bool HasWorkPhase;
+        public bool HasWorkPhase;   //Grosse-edit-start
         public WorkPhase CurrentPhase;
         public TimeSpan? PhaseEnd;
         public int WorkDurationMinutes;
@@ -36,7 +36,7 @@ namespace Content.Shared.Communications
             WorkPhase currentPhase = default,
             TimeSpan? phaseEnd = null,
             int workDurationMinutes = 0,
-            int freeDurationMinutes = 0)
+            int freeDurationMinutes = 0)   //Grosse-edit-end
         {
             CanAnnounce = canAnnounce;
             CanCall = canCall;
@@ -45,11 +45,11 @@ namespace Content.Shared.Communications
             AlertLevels = alertLevels;
             CurrentAlert = currentAlert;
             CurrentAlertDelay = currentAlertDelay;
-            HasWorkPhase = hasWorkPhase;
+            HasWorkPhase = hasWorkPhase;   //Grosse-edit-start
             CurrentPhase = currentPhase;
             PhaseEnd = phaseEnd;
             WorkDurationMinutes = workDurationMinutes;
-            FreeDurationMinutes = freeDurationMinutes;
+            FreeDurationMinutes = freeDurationMinutes;   //Grosse-edit-end
         }
     }
 

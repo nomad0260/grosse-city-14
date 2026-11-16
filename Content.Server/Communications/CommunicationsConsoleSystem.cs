@@ -1,14 +1,14 @@
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Server.Chat.Systems;
-using Content.Server._Grosse.WorkPhase;
+using Content.Server._Grosse.WorkPhase; //Grosse-edit
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Popups;
 using Content.Server.RoundEnd;
 using Content.Server.Screens.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
-using Content.Shared._Grosse.WorkPhase;
+using Content.Shared._Grosse.WorkPhase; //Grosse-edit
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -28,7 +28,7 @@ namespace Content.Server.Communications
     {
         [Dependency] private AccessReaderSystem _accessReaderSystem = default!;
         [Dependency] private AlertLevelSystem _alertLevelSystem = default!;
-        [Dependency] private WorkPhaseSystem _workPhase = default!;
+        [Dependency] private WorkPhaseSystem _workPhase = default!; //Grosse-edit
         [Dependency] private ChatSystem _chatSystem = default!;
         [Dependency] private DeviceNetworkSystem _deviceNetworkSystem = default!;
         [Dependency] private EmergencyShuttleSystem _emergency = default!;
@@ -46,14 +46,14 @@ namespace Content.Server.Communications
         {
             // All events that refresh the BUI
             SubscribeLocalEvent<AlertLevelChangedEvent>(OnAlertLevelChanged);
-            SubscribeLocalEvent<WorkPhaseChangedEvent>(OnWorkPhaseChanged);
+            SubscribeLocalEvent<WorkPhaseChangedEvent>(OnWorkPhaseChanged); //Grosse-edit
             SubscribeLocalEvent<RoundEndSystemChangedEvent>(_ => OnGenericBroadcastEvent());
             SubscribeLocalEvent<AlertLevelDelayFinishedEvent>(_ => OnGenericBroadcastEvent());
 
             // Messages from the BUI
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectAlertLevelMessage>(OnSelectAlertLevelMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectWorkPhaseMessage>(OnSelectWorkPhaseMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSetWorkPhaseDurationsMessage>(OnSetWorkPhaseDurationsMessage);
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectWorkPhaseMessage>(OnSelectWorkPhaseMessage); //Grosse-edit
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSetWorkPhaseDurationsMessage>(OnSetWorkPhaseDurationsMessage); //Grosse-edit
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleAnnounceMessage>(OnAnnounceMessage);
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleBroadcastMessage>(OnBroadcastMessage);
             SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleCallEmergencyShuttleMessage>(OnCallShuttleMessage);
@@ -111,7 +111,7 @@ namespace Content.Server.Communications
         /// </summary>
         /// <param name="args">Alert level changed event arguments</param>
         private void OnAlertLevelChanged(AlertLevelChangedEvent args)
-        {
+        {   //Grosse-edit-start
             UpdateConsolesOnStation(args.Station);
         }
 
@@ -120,13 +120,13 @@ namespace Content.Server.Communications
             UpdateConsolesOnStation(args.Station);
         }
 
-        private void UpdateConsolesOnStation(EntityUid station)
+        private void UpdateConsolesOnStation(EntityUid station)   //Grosse-edit-end
         {
             var query = EntityQueryEnumerator<CommunicationsConsoleComponent>();
             while (query.MoveNext(out var uid, out var comp))
             {
                 var entStation = _stationSystem.GetOwningStation(uid);
-                if (station == entStation)
+                if (station == entStation)   //Grosse-edit
                     UpdateCommsConsoleInterface(uid, comp);
             }
         }
@@ -152,11 +152,11 @@ namespace Content.Server.Communications
             List<string>? levels = null;
             string currentLevel = default!;
             float currentDelay = 0;
-            var hasWorkPhase = false;
+            var hasWorkPhase = false;   //Grosse-edit-start
             var currentPhase = WorkPhase.Free;
             TimeSpan? phaseEnd = null;
             var workMinutes = 0;
-            var freeMinutes = 0;
+            var freeMinutes = 0;   //Grosse-edit-end
 
             if (stationUid != null)
             {
@@ -178,7 +178,7 @@ namespace Content.Server.Communications
                     currentLevel = alertComp.CurrentLevel;
                     currentDelay = _alertLevelSystem.GetAlertLevelDelay(stationUid.Value, alertComp);
                 }
-
+                   //Grosse-edit-start
                 if (TryComp(stationUid.Value, out WorkPhaseComponent? phaseComp))
                 {
                     hasWorkPhase = true;
@@ -186,7 +186,7 @@ namespace Content.Server.Communications
                     phaseEnd = phaseComp.PhaseEnd;
                     workMinutes = (int)Math.Round(phaseComp.WorkDuration.TotalMinutes);
                     freeMinutes = (int)Math.Round(phaseComp.FreeDuration.TotalMinutes);
-                }
+                }   //Grosse-edit-end
             }
 
             _uiSystem.SetUiState(uid, CommunicationsConsoleUiKey.Key, new CommunicationsConsoleInterfaceState(
@@ -195,12 +195,12 @@ namespace Content.Server.Communications
                 levels,
                 currentLevel,
                 currentDelay,
-                _roundEndSystem.ExpectedCountdownEnd,
+                _roundEndSystem.ExpectedCountdownEnd,   //Grosse-edit-start
                 hasWorkPhase,
                 currentPhase,
                 phaseEnd,
                 workMinutes,
-                freeMinutes
+                freeMinutes   //Grosse-edit-end
             ));
         }
 
@@ -261,7 +261,7 @@ namespace Content.Server.Communications
             }
         }
 
-        private void OnSelectWorkPhaseMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleSelectWorkPhaseMessage message)
+        private void OnSelectWorkPhaseMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleSelectWorkPhaseMessage message)   //Grosse-edit-start
         {
             if (message.Actor is not { Valid: true } mob)
                 return;
@@ -295,7 +295,7 @@ namespace Content.Server.Communications
             if (stationUid != null)
                 _workPhase.SetDurations(stationUid.Value, message.WorkMinutes, message.FreeMinutes);
         }
-
+            //Grosse-edit-end
         private void OnAnnounceMessage(EntityUid uid, CommunicationsConsoleComponent comp,
             CommunicationsConsoleAnnounceMessage message)
         {
