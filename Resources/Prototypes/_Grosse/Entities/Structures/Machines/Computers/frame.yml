@@ -372,7 +372,7 @@
   parent: BaseUnionComputerC17
   id: UnionComputerCommsC17
   name: union communication console
-  description: Используется для объявлений по станции, установки уровня тревоги.
+  description: Используется для объявлений по станции, установки уровня тревоги и рабочих фаз.
   components:
   - type: Sprite
     layers:
