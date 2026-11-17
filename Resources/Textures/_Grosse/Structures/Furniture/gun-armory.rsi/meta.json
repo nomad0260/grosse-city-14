@@ -12,19 +12,24 @@
       "directions": 4
     },
     {
-      "name": "layer-1"
+      "name": "layer-1",
+      "directions": 4
     },
     {
-      "name": "layer-2"
+      "name": "layer-2",
+      "directions": 4
     },
     {
-      "name": "layer-3"
+      "name": "layer-3",
+      "directions": 4
     },
     {
-      "name": "layer-4"
+      "name": "layer-4",
+      "directions": 4
     },
     {
-      "name": "layer-5"
+      "name": "layer-5",
+      "directions": 4
     }
   ]
 }

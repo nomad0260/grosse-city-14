@@ -171,7 +171,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          - bounds: -0.3, -0.45, 0.3, 0.45
+          bounds: "-0.3,-0.45,0.3,0.45"
         density: 100
         hard: true
         layer:
@@ -274,7 +274,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shapes:
+        shape:
         - !type:PhysShapeAabb
           bounds: "-0.95, -0.95, -0.6, 0.95"
         - !type:PhysShapeAabb
@@ -294,8 +294,8 @@
 - type: entity
   id: ComputerC17
   parent: BaseStructure
-  name: компьютер
-  description: Старый компьютер. Клавиатура и мышь немного стерлись.
+  name: computer
+  description: Old computer. The keyboard and mouse are a bit scratched.
   components:
   - type: Transform
     noRot: true
@@ -330,8 +330,8 @@
 - type: entity
   id: ComputerTableC17
   parent: BaseStructure
-  name: компьютерный стол
-  description: Стол, за которым обычно сидят программисты.
+  name: computer table
+  description: Table for programmers, maintainers and prototypers.
   components:
   - type: Transform
     noRot: true
@@ -365,8 +365,8 @@
 - type: entity
   id: ServerC17
   parent: BaseStructure
-  name: сервер
-  description: Серверная стойка. Гудит как улей.
+  name: server
+  description: Server. Hums like a beehive.
   components:
   - type: Transform
     noRot: true
@@ -400,8 +400,8 @@
 - type: entity
   id: CylinderC17
   parent: BaseStructure
-  name: большой цилиндр
-  description: Нечто большое. Похоже на гигантскую цистерну.
+  name: big cylinder
+  description: Something big. This thing is similar to a giant barrel.
   components:
   - type: Transform
     noRot: true
@@ -435,8 +435,8 @@
 - type: entity
   id: CylinderRustyC17
   parent: CylinderC17
-  name: большой цилиндр
-  description: Нечто непонятное. Похоже на гигантскую цистерну.
+  name: big rusty cylinder
+  description: Something big. This thing is similar to a giant barrel.
   components:
   - type: Sprite
     state: cylinder-big-rust
@@ -444,8 +444,8 @@
 - type: entity
   id: SmallCylinderC17
   parent: CylinderC17
-  name: малый цилиндр
-  description: Нечто непонятное. Похоже на большую цистерну.
+  name: small cylinder
+  description: Something unknown. This thing is similar to a barrel.
   components:
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/cylinder.rsi
@@ -466,8 +466,8 @@
 - type: entity
   id: SmallCylinderRustyC17
   parent: SmallCylinderC17
-  name: малый цилиндр
-  description: Нечто непонятное. Похоже на большую цистерну.
+  name: small cylinder
+  description: Something unknown. This thing is similar to a barrel.
   components:
   - type: Sprite
     state: cylinder-small-rust

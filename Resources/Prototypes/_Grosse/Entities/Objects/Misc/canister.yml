@@ -1,0 +1,11 @@
+- type: entity
+  parent: BriefcaseBase
+  id: Canister
+  name: gas canister
+  description: Old gas canister. There are some holes on its bottom, so posessess no potential usage.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Misc/canister.rsi
+    state: icon
+  - type: Item
+    sprite: _Grosse/Objects/Misc/canister.rsi

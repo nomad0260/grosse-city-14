@@ -1,13 +1,119 @@
-# Tool closet
-#- type: entity
-#  id: ClosetTool
-#  name: tool closet
-#  parent: ClosetSteelBase
-#  description: It's a storage unit for tools.
-#  components:
-#  - type: Appearance
-#  - type: EntityStorageVisuals
-#    stateBaseClosed: eng
-#    stateDoorOpen: eng_open
-#    stateDoorClosed: eng_tool_door
-#
+- type: entity
+  id: RefrigeratorC17
+  name: refrigerator
+  parent: ClosetSteelBase
+  description: Giant industrial refrigerator for big kitchens.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/fridge.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
+
+- type: entity
+  id: RefrigeratorRustyC17
+  name: rusty refrigerator
+  parent: ClosetSteelBase
+  description: Giant industrial refrigerator for big kitchens. It's rusted.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/rusty_fridge.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
+
+- type: entity
+  id: HighClosetC17
+  name: high closet
+  parent: ClosetSteelBase
+  description: Big steel closet for some big stuff.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/high.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
+
+- type: entity
+  id: HighClosetRustyC17
+  name: rusty high closet
+  parent: ClosetSteelBase
+  description: Big steel closet for some big stuff. It's very rusty.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/rusty_high.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
+
+- type: entity
+  id: LongClosetC17
+  name: long closet
+  parent: ClosetSteelBase
+  description: Long closet for big teams.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/long.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
+
+- type: entity
+  id: LongClosetRustyC17
+  name: rusty long closet
+  parent: ClosetSteelBase
+  description: Long closet for big teams. It's rusty.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: secure
+    stateDoorOpen: secure_open
+    stateDoorClosed: secure_door
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Storage/rusty_long.rsi
+    layers:
+    - state: secure
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: secure_door
+      map: ["enum.StorageVisualLayers.Door"]
