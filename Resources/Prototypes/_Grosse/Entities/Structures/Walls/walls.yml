@@ -6,6 +6,8 @@
   - type: Occluder # Breaks on diagonal walls
   - type: Sprite
     drawdepth: Mobs
+  - type: GrosseZLevelHighGround
+  - type: GrosseZGridConnector
 
 - type: entity
   id: WallIndestructible

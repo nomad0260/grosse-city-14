@@ -34,9 +34,9 @@
     maxReverseSpeed: 3 #Макс. Скорость задним ходом
     steerRate: 2 #Скорость поворота
     minSteerSpeed: 0.5 #Мин. Скорость для поворота
-    minImpactSpeed: 4 #Мин. Скорость для удара
-    ramMinSpeed: 4 #Мин. Скорость для сбития препятствия (в то числе людей)
-    impactCooldown: 0.5 #Откат удара
+    minImpactSpeed: 5 #Мин. Скорость для сбития препятствия (в то числе людей)
+    ramMinSpeed: 3 #Мин. Скорость для удара
+    impactCooldown: 0.5 #Откат сбитияф
     impactRestitution: 0.3 #ХЗ, чет важное наверное
     pushMultiplier: 1 #Насколько далеко откинет препятствие
     knockdownTime: 1.5 #На сколько долго человек будет в стане
@@ -72,16 +72,17 @@
       collection: GrosseCarWall
     hitDamage:
       types:
-        Blunt: 15
+        Blunt: 35
     selfDamage:
       types:
         Blunt: 5
     wallDamage:
       types:
-        Blunt: 12
+        Blunt: 22
     ramBlacklist:
       tags:
       - Wall
+      - ImmovableObject
       components:
       - Door
     blacklistImpactCoefficient: 1.5

@@ -57,7 +57,7 @@
 
 - type: entity
   id: GroundClockC17
-  parent: BaseStructure
+  parent: BaseStructureC17
   name: наземные часы
   description: Часы которые давно сбились и вроде как, перестали двигаться.
   components:

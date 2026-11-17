@@ -273,9 +273,16 @@
       path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
       params:
         loop: true
+    hitDamage:
+      types:
+        Blunt: 55
     selfDamage:
       types:
-        Blunt: 0
+        Blunt: 15
+    wallDamage:
+      types:
+        Blunt: 25
+    occupantDamageMultiplier: 0.1
     slots:
     - id: driver
       name: grosse-car-slot-driver

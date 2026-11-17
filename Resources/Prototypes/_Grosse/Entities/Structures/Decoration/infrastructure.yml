@@ -61,6 +61,10 @@
         - WallLayer
   - type: RequireProjectileTarget
     active: true
+  - type: Tag
+    tags:
+      - Structure
+      - ImmovableObject
 
 - type: entity
   id: PoleC17
