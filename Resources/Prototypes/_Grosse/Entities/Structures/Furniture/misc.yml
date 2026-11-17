@@ -141,53 +141,6 @@
     - state: rust
 
 - type: entity
-  name: stove
-  id: StoveC17
-  parent: BaseStructure
-  description: This is just a stove. Or is it?
-  components:
-  - type: Sprite
-    sprite: _Grosse/Structures/Furniture/stove.rsi
-    layers:
-    - state: icon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 150
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetSteel1:
-            min: 5
-            max: 10
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.4,-0.45,0.4,0.45"
-        density: 155
-        mask:
-        - MachineMask
-        layer:
-        - TableLayer
-
-- type: entity
-  name: rusty stove
-  id: RustyStoveC17
-  parent: StoveC17
-  description: This is just a stove. Or is it?
-  components:
-  - type: Sprite
-    sprite: _Grosse/Structures/Furniture/stove.rsi
-    layers:
-    - state: icon
-    - state: rust
-
-- type: entity
   name: big table with sinks
   id: BigSinkC17
   parent: BaseStructure
@@ -225,7 +178,7 @@
 - type: entity
   name: big table with sinked sinks
   id: BigSinkFilledC17
-  parent: StoveC17
+  parent: BigSinkC17
   description: This is a big white table with doubled sink. Seems to be filled with water.
   components:
   - type: Sprite

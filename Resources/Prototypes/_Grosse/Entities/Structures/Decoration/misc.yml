@@ -257,7 +257,7 @@
   parent: BaseMachine
   id: CarLiftC17
   name: car lift
-  description: Тяжелый подъемник для транспортных средств. Панель управления выглядит настолько странно, что вы не понимаете, как его вообще запустить.
+  description: Heavy car lift. It's control panel is so complicated that you can't use it.
   components:
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/car-lift.rsi

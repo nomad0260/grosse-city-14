@@ -1,8 +1,8 @@
 - type: entity
   id: GasStationDirtyC17
   parent: BaseStructure
-  name: ржавая бензоколонка
-  description: Старая бензоколонка, врядли она работает.
+  name: dirty gas station
+  description: Old gas station, it's unlikely, that it works.
   placement:
     mode: SnapgridCenter
   components:
@@ -45,8 +45,8 @@
 - type: entity
   id: GasStation17
   parent: BaseStructure
-  name: бензоколонка
-  description: Старая бензоколонка, врядли она работает.
+  name: gas station
+  description: Old gas station, it's unlikely, that it works.
   placement:
     mode: SnapgridCenter
   components:
