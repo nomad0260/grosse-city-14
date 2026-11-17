@@ -1,8 +1,3 @@
-# City14: часть стандартных режимов выключена — они не используются на сервере City14.
-# Список и обоснование: PATCH_City14_Cleanup/README_CLEANUP_PATCH.txt
-# Оставлены включёнными режимы, на которые есть ссылки: Secret, Survival, Traitor, Nukeops,
-# Revolutionary, Zombie (secret_weights.yml), Extended/Traitor (game.fallbackpreset), Secret.
-
 - type: gamePreset
   id: Survival
   alias:
@@ -16,64 +11,64 @@
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: KesslerSyndrome
-#  alias:
-#    - kessler
-#    - junk
-#    - meteorhell
-#  name: kessler-syndrome-title
-#  showInVote: false # secret
-#  description: kessler-syndrome-description
-#  rules:
-#    - KesslerSyndromeScheduler
-#    - RampingStationEventScheduler
-#    - SpaceTrafficControlEventScheduler
-#    - BasicRoundstartVariation
+- type: gamePreset
+  id: KesslerSyndrome
+  alias:
+    - kessler
+    - junk
+    - meteorhell
+  name: kessler-syndrome-title
+  showInVote: false # secret
+  description: kessler-syndrome-description
+  rules:
+    - KesslerSyndromeScheduler
+    - RampingStationEventScheduler
+    - SpaceTrafficControlEventScheduler
+    - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: AllAtOnce
-#  alias:
-#  - all
-#  name: all-at-once-title
-#  description: all-at-once-description
-#  showInVote: false
-#  rules:
-#    - Nukeops
-#    - Traitor
-#    - Revolutionary
-#    - Zombie
-#    - Wizard
-#    - Xenoborgs
-#    - KesslerSyndromeScheduler
-#    - RampingStationEventScheduler
-#    - SpaceTrafficControlEventScheduler
-#    - BasicRoundstartVariation
+- type: gamePreset
+  id: AllAtOnce
+  alias:
+  - all
+  name: all-at-once-title
+  description: all-at-once-description
+  showInVote: false
+  rules:
+    - Nukeops
+    - Traitor
+    - Revolutionary
+    - Zombie
+    - Wizard
+    - Xenoborgs
+    - KesslerSyndromeScheduler
+    - RampingStationEventScheduler
+    - SpaceTrafficControlEventScheduler
+    - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: AllerAtOnce
-#  alias:
-#  - allall
-#  - aller
-#  - badidea
-#  - punishment
-#  name: aller-at-once-title
-#  description: aller-at-once-description
-#  showInVote: false #Please god dont do this
-#  rules:
-#    - Nukeops
-#    - Traitor
-#    - Revolutionary
-#    - Zombie
-#    - Wizard
-#    - Xenoborgs
-#    - BasicStationEventScheduler
-#    - KesslerSyndromeScheduler
-#    - MeteorSwarmMildScheduler
-#    - MeteorSwarmScheduler
-#    - RampingStationEventScheduler
-#    - SpaceTrafficControlEventScheduler
-#    - BasicRoundstartVariation
+- type: gamePreset
+  id: AllerAtOnce
+  alias:
+  - allall
+  - aller
+  - badidea
+  - punishment
+  name: aller-at-once-title
+  description: aller-at-once-description
+  showInVote: false #Please god dont do this
+  rules:
+    - Nukeops
+    - Traitor
+    - Revolutionary
+    - Zombie
+    - Wizard
+    - Xenoborgs
+    - BasicStationEventScheduler
+    - KesslerSyndromeScheduler
+    - MeteorSwarmMildScheduler
+    - MeteorSwarmScheduler
+    - RampingStationEventScheduler
+    - SpaceTrafficControlEventScheduler
+    - BasicRoundstartVariation
 
 - type: gamePreset
   id: Extended
@@ -89,33 +84,33 @@
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Greenshift
-#  alias:
-#  - greenshift
-#  - shittersafarideluxeedition
-#  name: greenshift-title
-#  showInVote: false #4boring4vote
-#  description: greenshift-description
-#  rules:
-#  - BasicRoundstartVariation
+- type: gamePreset
+  id: Greenshift
+  alias:
+  - greenshift
+  - shittersafarideluxeedition
+  name: greenshift-title
+  showInVote: false #4boring4vote
+  description: greenshift-description
+  rules:
+  - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Dynamic
-#  alias:
-#  - dynamic
-#  - multiantag
-#  - director
-#  name: dynamic-title
-#  showInVote: false # admin-only for now until we fix some bugs
-#  description: dynamic-description
-#  rules:
-#  - DynamicRule
-#  - DummyNonAntag
-#  - DynamicStationEventScheduler
-#  - MeteorSwarmScheduler
-#  - SpaceTrafficControlEventScheduler
-#  - BasicRoundstartVariation
+- type: gamePreset
+  id: Dynamic
+  alias:
+  - dynamic
+  - multiantag
+  - director
+  name: dynamic-title
+  showInVote: false # admin-only for now until we fix some bugs
+  description: dynamic-description
+  rules:
+  - DynamicRule
+  - DummyNonAntag
+  - DynamicStationEventScheduler
+  - MeteorSwarmScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
 
 - type: gamePreset
   id: Secret
@@ -128,16 +123,16 @@
   rules:
     - Secret
 
-#- type: gamePreset
-#  id: Sandbox
-#  alias:
-#    - sandbox
-#  name: sandbox-title
-#  description: sandbox-description
-#  showInVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
-#  maxPlayers: 5
-#  rules:
-#    - Sandbox
+- type: gamePreset
+  id: Sandbox
+  alias:
+    - sandbox
+  name: sandbox-title
+  description: sandbox-description
+  showInVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
+  maxPlayers: 5
+  rules:
+    - Sandbox
 
 - type: gamePreset
   id: Traitor
@@ -156,18 +151,18 @@
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Deathmatch
-#  alias:
-#    - deathmatch
-#    - dm
-#  name: death-match-title
-#  description: death-match-description
-#  maxPlayers: 15
-#  showInVote: true
-#  supportedMaps: DeathMatchMapPool
-#  rules:
-#    - DeathMatch31
+- type: gamePreset
+  id: Deathmatch
+  alias:
+    - deathmatch
+    - dm
+  name: death-match-title
+  description: death-match-description
+  maxPlayers: 15
+  showInVote: false # City14: unused, requires DeathMatchMapPool
+  supportedMaps: DeathMatchMapPool
+  rules:
+    - DeathMatch31
 
 - type: gamePreset
   id: Nukeops
@@ -203,37 +198,37 @@
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Wizard
-#  alias:
-#  - wizard
-#  name: wizard-title
-#  description: wizard-description
-#  showInVote: false
-#  rules:
-#  - Wizard
-#  - DummyNonAntagChance
-#  - SubGamemodesRuleNoWizard #No Dual Wizards at the start, midround is fine
-#  - BasicStationEventScheduler
-#  - MeteorSwarmScheduler
-#  - SpaceTrafficControlEventScheduler
-#  - BasicRoundstartVariation
+- type: gamePreset
+  id: Wizard
+  alias:
+  - wizard
+  name: wizard-title
+  description: wizard-description
+  showInVote: false
+  rules:
+  - Wizard
+  - DummyNonAntagChance
+  - SubGamemodesRuleNoWizard #No Dual Wizards at the start, midround is fine
+  - BasicStationEventScheduler
+  - MeteorSwarmScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Xenoborgs
-#  alias:
-#    - xenoborgs
-#  name: xenoborgs-title
-#  description: xenoborgs-description
-#  showInVote: false
-#  rules:
-#  - Xenoborgs
-#  - DummyNonAntagChance
-#  - SubGamemodesRuleNoWizardNoXenoborg # no two motherships
-#  - BasicStationEventScheduler
-#  - MeteorSwarmScheduler
-#  - SpaceTrafficControlEventScheduler
-#  - BasicRoundstartVariation
+- type: gamePreset
+  id: Xenoborgs
+  alias:
+    - xenoborgs
+  name: xenoborgs-title
+  description: xenoborgs-description
+  showInVote: false
+  rules:
+  - Xenoborgs
+  - DummyNonAntagChance
+  - SubGamemodesRuleNoWizardNoXenoborg # no two motherships
+  - BasicStationEventScheduler
+  - MeteorSwarmScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
 
 - type: gamePreset
   id: Zombie
@@ -253,18 +248,18 @@
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 
-#- type: gamePreset
-#  id: Zombieteors
-#  alias:
-#  - zombieteors
-#  - zombombies
-#  - meteombies
-#  name: zombieteors-title
-#  description: zombieteors-description
-#  showInVote: false
-#  rules:
-#  - Zombie
-#  - BasicStationEventScheduler
-#  - KesslerSyndromeScheduler
-#  - SpaceTrafficControlEventScheduler
-#  - BasicRoundstartVariation
+- type: gamePreset
+  id: Zombieteors
+  alias:
+  - zombieteors
+  - zombombies
+  - meteombies
+  name: zombieteors-title
+  description: zombieteors-description
+  showInVote: false
+  rules:
+  - Zombie
+  - BasicStationEventScheduler
+  - KesslerSyndromeScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
