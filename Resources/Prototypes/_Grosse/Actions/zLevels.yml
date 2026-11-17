@@ -1,4 +1,4 @@
-# Ported from crystallpunk-14/crystall-edge (MIT sublicense). Icons use stock SS14 paths.
+# Ported from crystallpunk-14/crystall-edge (MIT sublicense).
 - type: entity
   parent: BaseAction
   id: GrosseActionZLevelUp
@@ -8,8 +8,8 @@
   - type: Action
     checkCanInteract: false
     icon:
-      sprite: Interface/Actions/jump.rsi
-      state: icon
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: up
   - type: InstantAction
     event: !type:GrosseZLevelActionUp
 
@@ -22,8 +22,8 @@
   - type: Action
     checkCanInteract: false
     icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_eject
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: down
   - type: InstantAction
     event: !type:GrosseZLevelActionDown
 
@@ -36,11 +36,11 @@
   - type: Action
     checkCanInteract: false
     icon:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: camera_light
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: eye
     iconOn:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: camera_light
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: eye
 
 # Controllable flight (stock icons; no CE action RSI).
 - type: entity
@@ -53,8 +53,8 @@
     useDelay: 1.5
     checkCanInteract: false
     icon:
-      sprite: Interface/Actions/jump.rsi
-      state: icon
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: up
   - type: InstantAction
     event: !type:GrosseZFlightActionUp
 
@@ -68,8 +68,8 @@
     useDelay: 1.5
     checkCanInteract: false
     icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_eject
+      sprite: _Grosse/Interface/zLevels.rsi
+      state: down
   - type: InstantAction
     event: !type:GrosseZFlightActionDown
 
