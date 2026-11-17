@@ -1,0 +1,25 @@
+{
+"version": 1,
+"size": {
+  "x": 128,
+  "y": 128
+},
+"license": "Grosse Private Licence",
+"copyright": "made by HowJours AKA Howik",
+"states": [
+    {
+        "name": "train",
+        "directions": 4
+    },
+
+    {
+      "name": "wagon",
+      "directions": 4
+    },
+
+    {
+      "name": "wagon-open",
+      "directions": 4
+    }
+  ]
+}

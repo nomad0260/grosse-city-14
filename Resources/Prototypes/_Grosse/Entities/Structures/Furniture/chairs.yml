@@ -47,6 +47,226 @@
             min: 1
             max: 1
 
+- type: entity
+  parent: SeatBase
+  name: red sofa
+  id: RedSofaC17
+  description: A good old sofa with soft pillows. Ouch! A spring!
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _Grosse/Structures/Furniture/sofas.rsi
+    state: red
+
+- type: entity
+  parent: SeatBase
+  name: white sofa
+  id: WhiteSofaC17
+  description: A good old sofa with soft pillows. Ouch! A spring!
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _Grosse/Structures/Furniture/sofas.rsi
+    state: white
+
+- type: entity
+  abstract: true
+  id: CushySeatBaseC17
+  name: chairC17
+  description: You sit in this. Either by will or force.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Animateable
+  - type: Anchorable
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 100
+        mask:
+        - TableMask
+  - type: Sprite
+    sprite: _Grosse/Structures/Furniture/cushy_chairs.rsi
+    noRot: true
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,-0.05"
+  - type: Pullable
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+
+- type: entity
+  name: CushyChairRedc17
+  id: CushyChairRedC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: RedChair #this one is red and clear
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+- type: entity
+  name: CushyChairRedDirtyc17
+  id: CushyChairRedDirtyC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: RedChairDirty #This one red and dirty
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+- type: entity
+  name: CushyChairWhitec17
+  id: CushyChairWhiteC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: WhiteChair #This one white and clear
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+- type: entity
+  name: CushyChairWhiteDirtyc17
+  id: CushyChairWhiteDirtyC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: WhiteChairDirty #This one white and dirty
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+- type: entity
+  name: CushyChairYellowc17
+  id: CushyChairYellowC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: YellowChair #This one Yellow and clear
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+- type: entity
+  name: CushyChairYellowDirtyc17
+  id: CushyChairYellowDirtyC17
+  parent: CushySeatBaseC17
+  description: Did you scratch that? because you`re better not to.
+  components:
+  - type: Sprite
+    state: YellowChairDirty #This one Yellow and dirty
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 5
+            max: 10
+
+
 # Честно я хз зачем тут дубликат, поэтому временно оставлю так.
 #- type: entity
 #  id: ChairWood2C17
