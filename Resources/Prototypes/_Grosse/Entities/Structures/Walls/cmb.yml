@@ -1,0 +1,190 @@
+- type: entity
+  parent: BaseWallC17
+  id: BaseWallCombineC17
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceA.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceA.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 5000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: allianceA
+
+- type: entity
+  parent: RandomSpawner
+  id: WallCombineAVariationAC17
+  name: combine wall
+  suffix: WallC17 Variation Type A
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Grosse/Structures/Walls/allianceA.rsi
+      state: full
+  - type: EntityTableSpawner
+    offset: 0
+    table: !type:NestedSelector
+      tableId: CombineWallsTypeA
+
+- type: entityTable
+  id: CombineWallsTypeA
+  table: !type:GroupSelector
+    children:
+    - !type:GroupSelector
+      children:
+      - id: WallCombineAC17
+      - id: WallCombineACC17
+      - id: WallCombineADC17
+      - id: WallCombineAEC17
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineAC17
+  name: combine wall
+  suffix: WallC17 Type A
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceA.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceA.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceA
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineACC17
+  name: combine wall
+  suffix: WallC17 Type AC
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceAC.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceAC.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceAC
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineADC17
+  name: combine wall
+  suffix: WallC17 Type AD
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceAD.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceAD.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceAD
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineAEC17
+  name: combine wall
+  suffix: WallC17 Type AE
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceAE.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceAE.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceAE
+
+- type: entity
+  parent: RandomSpawner
+  id: WallCombineAVariationBC17
+  name: combine wall
+  suffix: WallC17 Variation Type B
+  placement:
+    mode: AlignTileAny
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Grosse/Structures/Walls/allianceB.rsi
+      state: full
+  - type: EntityTableSpawner
+    offset: 0
+    table: !type:NestedSelector
+      tableId: CombineWallsTypeB
+
+- type: entityTable
+  id: CombineWallsTypeB
+  table: !type:GroupSelector
+    children:
+    - !type:GroupSelector
+      children:
+      - id: WallCombineBC17
+      - id: WallCombineBCC17
+      - id: WallCombineBDC17
+      - id: WallCombineBEC17
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineBC17
+  name: combine wall
+  suffix: WallC17 Type B
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceB.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceB.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceB
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineBCC17
+  name: combine wall
+  suffix: WallC17 Type BC
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceBC.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceBC.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceBC
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineBDC17
+  name: combine wall
+  suffix: WallC17 Type BD
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceBD.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceBD.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceBD
+
+- type: entity
+  parent: BaseWallCombineC17
+  id: WallCombineBEC17
+  name: combine wall
+  suffix: WallC17 Type BE
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/allianceBE.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/allianceBE.rsi
+  - type: IconSmooth
+    key: walls
+    base: allianceBE
+
+

@@ -73,14 +73,15 @@ public sealed partial class SharedGrosseCarController : VirtualController
         var speed = Vector2.Dot(velocity, facing);
         var mass = Math.Max(physics.FixturesMass, 1f);
         var wrecked = _damageable.GetTotalDamage(uid).Float() >= car.MaxDriveDamage;
+        var powered = car.EngineState == GrosseCarEngineState.On;
 
-        if (throttle && !wrecked)
+        if (throttle && !wrecked && powered)
             speed = Math.Min(car.MaxForwardSpeed, speed + car.EngineForce / mass * frameTime);
         else if (reverseOrBrake)
         {
             if (speed > 0.15f)
                 speed = Math.Max(0f, speed - car.BrakeForce / mass * frameTime);
-            else if (!wrecked)
+            else if (!wrecked && powered)
                 speed = Math.Max(-car.MaxReverseSpeed, speed - car.EngineForce / mass * frameTime);
         }
         else if (Math.Abs(speed) > 0.001f)

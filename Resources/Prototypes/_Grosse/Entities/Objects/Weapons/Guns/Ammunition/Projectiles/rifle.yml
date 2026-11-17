@@ -1,0 +1,23 @@
+- type: entity
+  id: BulletRifle762x39
+  name: bullet (7,62x39)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 25
+        #ArmorPiercing: 10
+
+- type: entity
+  parent: BaseBullet
+  id: BulletLight762
+  name: bullet (7,62x54 rifle)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+        #ArmorPiercing: 15

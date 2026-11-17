@@ -1,0 +1,90 @@
+- type: entity
+  id: BarrierCMBC17
+  parent: BaseStructure
+  name: баррикада Альянса
+  description: Армированный баррьер Альянса, который защищает того кто стоит за ним.
+  suffix: Left
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/barrier.rsi
+    noRot: true
+    offset: 0.0, 1.0
+    layers:
+    - state: L
+  - type: SunShadowCast
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection:
+          MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection:
+          MetalLaserImpact
+  #- type: Occluder
+  #  boundingBox: "-0.5,-0.5,0.5,-0.5"
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 155
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: Climbable
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 5000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: BarrierRCMBC17
+  parent: BarrierCMBC17
+  suffix: Right
+  components:
+  - type: Sprite
+    layers:
+    - state: R
+
+- type: entity
+  id: BarrierLAltCMBC17
+  parent: BarrierCMBC17
+  name: оконная баррикада Альянса
+  suffix: Left
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/barrierAlt.rsi
+    layers:
+    - state: L
+
+- type: entity
+  id: BarrierRAltCMBC17
+  parent: BarrierCMBC17
+  name: оконная баррикада Альянса
+  suffix: Right
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/barrierAlt.rsi
+    layers:
+    - state: R
+
+- type: entity
+  id: BarrierGateCMBC17
+  parent: BarrierCMBC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/barrierGate.rsi
+    layers:
+    - state: 1

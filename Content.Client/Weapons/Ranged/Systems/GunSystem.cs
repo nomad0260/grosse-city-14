@@ -31,6 +31,10 @@ using Robust.Shared.Input;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Collision.Shapes;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
+using PhysicsTransform = Robust.Shared.Physics.Transform;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using SharedGunSystem = Content.Shared.Weapons.Ranged.Systems.SharedGunSystem;
@@ -54,6 +58,7 @@ public sealed partial class GunSystem : SharedGunSystem
     [Dependency] private SharedTransformSystem _xform = default!;
     [Dependency] private SpriteSystem _sprite = default!;
     [Dependency] private SpriteTreeSystem _spriteTree = default!;
+    [Dependency] private FixtureSystem _fixtures = default!;
 
     public static readonly EntProtoId HitscanProto = "HitscanEffect";
     private GunTargetEntityComparer _comparer = default!;
@@ -440,11 +445,19 @@ public sealed partial class GunSystem : SharedGunSystem
 
         foreach (var entity in entities)
         {
-            // Don't add the target if we can't shoot the target!
-            if (!CheckFixtures(entity.Uid))
+            // No bullet fixture (flash, impact effect, catwalk): not a target, and not an error.
+            // A sprite that only sticks out past its fixture is the same — the shot flies through
+            // unless the cursor is on that fixture, or on a living body.
+            var aim = GetBulletAim(entity.Uid, coordinates.Position);
+            if (!aim.BlocksBullets)
                 continue;
 
             var entry = CheckTarget((entity.Uid, entity.Component, entity.Transform), eye, coordinates);
+            var isAlive = entry.Item2;
+            var onSprite = entry.Item3;
+            if (!aim.CursorInside && !(isAlive && onSprite))
+                continue;
+
             foundEntities.Add(entry);
         }
 
@@ -562,22 +575,47 @@ public sealed partial class GunSystem : SharedGunSystem
         }
     }
 
-    private bool CheckFixtures(Entity<FixturesComponent?> entity)
-    {
-        if (!Resolve(entity, ref entity.Comp))
-            return false;
+    private readonly record struct BulletAim(bool BlocksBullets, bool CursorInside);
 
-        foreach (var fix in entity.Comp.Fixtures)
+    /// <summary>
+    /// Missing <see cref="FixturesComponent"/> is normal for effects and catwalks, so this does not log.
+    /// </summary>
+    private BulletAim GetBulletAim(EntityUid uid, Vector2 worldPoint)
+    {
+        if (!TryComp<FixturesComponent>(uid, out var fixtures))
+            return default;
+
+        if (TryComp<PhysicsComponent>(uid, out var body) && !body.CanCollide)
+            return default;
+
+        var xform = Physics.GetPhysicsTransform(uid);
+        var blocks = false;
+        var inside = false;
+
+        foreach (var fixture in fixtures.Fixtures.Values)
         {
-            if (!fix.Value.Hard || (fix.Value.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0)
+            if (!fixture.Hard || (fixture.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0)
                 continue;
 
-            // Only need to check if we're hitting one fixture
-            return true;
+            blocks = true;
+            if (!inside && PointInFixture(fixture.Shape, xform, worldPoint))
+                inside = true;
         }
 
-        // If we cannot collide then we absolutely do not want to target it!
-        return false;
+        return new BulletAim(blocks, inside);
+    }
+
+    private bool PointInFixture(IPhysShape shape, PhysicsTransform xform, Vector2 worldPoint)
+    {
+        // Runtime fixtures are polygons, but a raw AABB must not go through TestPoint:
+        // that cast to PolygonShape throws.
+        if (shape is PhysShapeAabb aabb)
+        {
+            var local = PhysicsTransform.MulT(xform.Quaternion2D, worldPoint - xform.Position);
+            return aabb.LocalBounds.Contains(local);
+        }
+
+        return _fixtures.TestPoint(shape, xform, worldPoint);
     }
 
     public override void PlayImpactSound(EntityUid otherEntity, DamageSpecifier? modifiedDamage, SoundSpecifier? weaponSound, bool forceWeaponSound) { }

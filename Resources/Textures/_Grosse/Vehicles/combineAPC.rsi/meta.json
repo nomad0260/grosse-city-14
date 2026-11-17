@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by yri_nouri",
+  "size": {
+    "x": 128,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "Combine-APC-car",
+      "directions": 4
+    },
+    {
+      "name": "Combine-APC-car-destroy",
+      "directions": 4
+    },
+    {
+      "name": "Combine-APC-wind",
+      "directions": 4
+    }
+  ]
+}

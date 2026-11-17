@@ -1,6 +1,8 @@
 pvp-lobby-header = Teams
 pvp-lobby-random = Random
-pvp-lobby-select-class = Class
+pvp-lobby-summary-empty = No loadout selected
+pvp-lobby-summary-random = Random loadout
+pvp-lobby-summary-team = Team selected
 pvp-lobby-cost = { $cost } pts
 pvp-lobby-selected-random = Random loadout selected
 pvp-lobby-ready-hint = Team and class or Random required

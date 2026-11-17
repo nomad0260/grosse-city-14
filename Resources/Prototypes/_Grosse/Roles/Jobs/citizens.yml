@@ -3,49 +3,16 @@
 
 - type: job
   id: Citizen
-  name: Гражданин
-  description: Живи и работай
+  name: job-title-citizen
+  description: job-title-citizen-description
   playTimeTracker: JobCivilianC17
   applyTraits: false
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CitizenGear
   icon: "JobIconUnionCivilian"
-  supervisors: job-supervisors-everyone
-
+  supervisors: job-supervisors-universal-union
   requirements:
     - !type:SpeciesRequirement
       species:
       - Human
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: AntagImmune
-
-
-- type: playTimeTracker
-  id: JobWorkerC17
-
-- type: job
-  id: Worker
-  name: Разнорабочий
-  description: Живи и работай
-  playTimeTracker: JobWorkerC17
-  applyTraits: false
-  joinNotifyCrew: false
-  overrideConsoleVisibility: true
-  startingGear: CMBWorkerNotReadyGear
-  icon: "JobIconUnionPerson"
-  supervisors: job-supervisors-gsr-and-factory
-
-  access:
-    - UnionBase
-    - Engineering
-  requirements:
-    - !type:SpeciesRequirement
-      species:
-      - Human
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: AntagImmune

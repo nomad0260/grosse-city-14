@@ -8,7 +8,7 @@
     containers:
       key_slots:
       - EncryptionKeyCMBC17
-      - EncryptionKeyService
+      - EncryptionKeyEngineering
       - EncryptionKeyCargo
   - type: Sprite
     sprite: _Grosse/rsi/Ears/Headsets/base.rsi
@@ -29,7 +29,19 @@
     containers:
       key_slots:
       - EncryptionKeyCommand
-      - EncryptionKeyService
+      - EncryptionKeyEngineering
+      - EncryptionKeyCargo
+
+- type: entity
+  parent: ClothingHeadsetCMBC17
+  id: ClothingHeadsetCMB02C17
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCMBCommandC17
+      - EncryptionKeyCMBC17
+      - EncryptionKeyEngineering
       - EncryptionKeyCargo
 
 - type: entity
@@ -40,5 +52,7 @@
     containers:
       key_slots:
       - EncryptionKeyCommand
+      - EncryptionKeyCMBCommandC17
       - EncryptionKeyCMBC17
-      - EncryptionKeyService
+      - EncryptionKeyEngineering
+      - EncryptionKeyCargo

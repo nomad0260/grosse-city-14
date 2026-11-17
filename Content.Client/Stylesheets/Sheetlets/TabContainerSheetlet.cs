@@ -1,4 +1,5 @@
-﻿using Content.Client.Stylesheets.SheetletConfigs;
+﻿using Content.Client.Stylesheets.Colorspace;
+using Content.Client.Stylesheets.SheetletConfigs;
 using Content.Client.Stylesheets.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
@@ -12,15 +13,36 @@ public sealed class TabContainerSheetlet<T> : Sheetlet<T> where T: PalettedStyle
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        ITabContainerConfig tabCfg = sheet;
+        var tabContainerPanel = new RoundedStyleBox
+        {
+            BackgroundColor = Color.FromHex("#2C303A").WithAlpha(0.97f),
+            BorderColor = Color.FromHex("#4C5665"),
+            BorderThickness = 1f,
+            CornerRadius = 10f,
+        };
 
-        var tabContainerPanel = sheet.GetTextureOr(tabCfg.TabContainerPanelPath, NanotrasenStylesheet.TextureRoot)
-            .IntoPatch(StyleBox.Margin.All, 2);
-
-        var tabContainerBoxActive = new StyleBoxFlat(sheet.SecondaryPalette.Element);
-        tabContainerBoxActive.SetContentMarginOverride(StyleBox.Margin.Horizontal, 5);
-        var tabContainerBoxInactive = new StyleBoxFlat(sheet.SecondaryPalette.Background);
-        tabContainerBoxInactive.SetContentMarginOverride(StyleBox.Margin.Horizontal, 5);
+        var tabContainerBoxActive = new RoundedStyleBox
+        {
+            BackgroundColor = sheet.SecondaryPalette.Element.NudgeLightness(0.14f),
+            BorderColor = Color.White,
+            BorderThickness = 1f,
+            RadiusTopLeft = 8f,
+            RadiusTopRight = 8f,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(6f, 3f, 6f, 3f),
+        };
+        var tabContainerBoxInactive = new RoundedStyleBox
+        {
+            BackgroundColor = sheet.SecondaryPalette.Background.NudgeLightness(0.10f),
+            BorderColor = Color.FromHex("#4C5665"),
+            BorderThickness = 1f,
+            RadiusTopLeft = 8f,
+            RadiusTopRight = 8f,
+            RadiusBottomLeft = 0f,
+            RadiusBottomRight = 0f,
+            Padding = new Thickness(6f, 3f, 6f, 3f),
+        };
 
         return
         [

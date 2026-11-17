@@ -6,6 +6,8 @@ namespace Content.Shared._Grosse.Cars;
 
 public sealed partial class GrosseCarExitEvent : InstantActionEvent;
 
+public sealed partial class GrosseCarToggleEngineEvent : InstantActionEvent;
+
 [Serializable, NetSerializable]
 public sealed partial class GrosseCarEnterDoAfterEvent : DoAfterEvent
 {
@@ -45,5 +47,10 @@ public sealed partial class GrosseCarEjectDoAfterEvent : DoAfterEvent
     public override DoAfterEvent Clone()
     {
         return new GrosseCarEjectDoAfterEvent(SlotId);
+    }
+
+    public override bool IsDuplicate(DoAfterEvent other)
+    {
+        return other is GrosseCarEjectDoAfterEvent eject && eject.SlotId == SlotId;
     }
 }

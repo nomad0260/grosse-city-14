@@ -1,0 +1,16 @@
+ghost-respawn-return-to-round = Return to round
+ghost-respawn-command-desc = Open the return-to-round menu
+ghost-respawn-command-help = grosse_return_to_round
+ghost-respawn-not-player = Only a player can run this command.
+ghost-respawn-not-ghost = Only a ghost can return to the round.
+ghost-respawn-unavailable = Returning to the round is unavailable.
+ghost-respawn-window-title = Return to round
+ghost-respawn-role-label = Role
+ghost-respawn-character-label = Character
+ghost-respawn-confirm = Join
+ghost-respawn-no-characters = No unused characters left. You cannot respawn.
+ghost-respawn-role-slots = { $job } ({ $slots })
+ghost-respawn-role-full = { $job } (no slots)
+ghost-respawn-role-unavailable = That role cannot be selected.
+ghost-respawn-character-used = That character was already used this round.
+ghost-respawn-role-requirements = That character cannot take the selected role.

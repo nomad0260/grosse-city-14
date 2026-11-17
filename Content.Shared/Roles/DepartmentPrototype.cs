@@ -47,6 +47,12 @@ public sealed partial class DepartmentPrototype : IPrototype
     /// </summary>
     [DataField]
     public bool EditorHidden;
+
+    /// <summary>
+    /// Jobs in this department are City 14 ration jobs.
+    /// </summary>
+    [DataField]
+    public bool IsCity14;
 }
 
 /// <summary>

@@ -1,0 +1,51 @@
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazinePistolPMC17
+  name: довоенный пистолетный магазин
+  description: Магазин используемый до 7-ми часовой войны, подходит для оружия того времени, почему-то.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 8
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/pm_ammo.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    shape:
+    - 0,0,0,0
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Tag
+    tags:
+      - MagazinePistol
+      - MagazinePistolPM
+
+- type: entity
+  parent: MagazinePistol
+  id: MagazinePistolC17
+  name: pistol magazine
+  description: 17-round single-stack magazine for pistols. Intended to hold general-purpose kinetic ammunition.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 17
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      right:
+      - state: inhand-right-mag
+    shape:
+    - 0,0,0,1

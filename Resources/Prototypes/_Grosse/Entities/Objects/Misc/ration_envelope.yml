@@ -1,0 +1,21 @@
+- type: entity
+  parent: Envelope
+  id: RationEnvelope
+  name: ration envelope
+  description: A sealed envelope of ration coupons.
+  components:
+  - type: RationEnvelope
+  - type: FingerprintReader
+  - type: SimpleToolUsage
+    doAfter: 4
+    usageVerb: ration-envelope-slice-verb
+  - type: ItemSlots
+    slots:
+      letter_slot:
+        name: envelope-letter-slot
+        insertSound: /Audio/Effects/packetrip.ogg
+        ejectSound: /Audio/Effects/packetrip.ogg
+        whitelist:
+          tags:
+          - CouponC17
+          - Paper

@@ -105,3 +105,21 @@
 
 - type: Tag
   id: KalashnikovGun
+  
+- type: Tag
+  id: MagazinePistolPM
+
+- type: Tag
+  id: CartridgeRifle762x39
+
+- type: Tag
+  id: CartridgeRifle762x54
+
+- type: Tag
+  id: MagazineSVD
+
+- type: Tag
+  id: MagazinePulseHeavyRifle
+
+- type: Tag
+  id: CartridgeImpulse

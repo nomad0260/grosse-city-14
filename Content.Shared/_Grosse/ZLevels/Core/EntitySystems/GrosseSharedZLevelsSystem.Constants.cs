@@ -11,7 +11,7 @@ public abstract partial class GrosseSharedZLevelsSystem
 {
     public static int MaxZLevelsBelowRendering = 5;
     public static int MaxZLevelsAboveRendering = 3;
-    public const float ZLevelOffset = 0.7f;
+    public const float ZLevelOffset = 0.1f;
 
     public const float ZGravityForce = 9.8f;
     private const float ZVelocityLimit = 20.0f;

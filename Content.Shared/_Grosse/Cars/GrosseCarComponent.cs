@@ -1,12 +1,23 @@
 using System.Numerics;
 using Content.Shared.Damage;
 using Content.Shared.Decals;
+using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._Grosse.Cars;
+
+[Serializable, NetSerializable]
+public enum GrosseCarEngineState : byte
+{
+    Off,
+    Starting,
+    On,
+    Stopping,
+}
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GrosseCarComponent : Component
@@ -92,6 +103,20 @@ public sealed partial class GrosseCarComponent : Component
     [DataField]
     public DamageSpecifier WallDamage = new();
 
+    /// <summary>
+    /// Entities the car can crash into without damaging or tossing them. The car and crew still take impact damage.
+    /// An empty list rams every damageable target. Set tags on the vehicle prototype.
+    /// </summary>
+    [DataField]
+    public EntityWhitelist RamBlacklist = new();
+
+    /// <summary>
+    /// Multiplies <see cref="WallDamage"/> dealt to the car and crew when the target is on <see cref="RamBlacklist"/>.
+    /// Null leaves that damage unchanged.
+    /// </summary>
+    [DataField]
+    public float? BlacklistImpactCoefficient;
+
     [DataField]
     public TimeSpan ImpactCooldown = TimeSpan.FromSeconds(0.5);
 
@@ -116,6 +141,13 @@ public sealed partial class GrosseCarComponent : Component
     [DataField]
     public float DriftDecalSpacing = 0.35f;
 
+    /// <summary>
+    /// Shifts both tire marks in the car's local space, same axes as the physics box.
+    /// Use this when the entity origin is not the visual center.
+    /// </summary>
+    [DataField]
+    public Vector2 DriftDecalOffset = Vector2.Zero;
+
     [DataField]
     public Color DriftDecalColor = Color.Black;
 
@@ -123,7 +155,49 @@ public sealed partial class GrosseCarComponent : Component
     public SoundSpecifier? DriftSound;
 
     [DataField]
-    public float EngineSoundSpeed = 0.4f;
+    public SoundSpecifier? EngineStartSound;
+
+    [DataField]
+    public SoundSpecifier? EngineStopSound;
+
+    [DataField]
+    public SoundSpecifier? EngineIdleSound;
+
+    /// <summary>
+    /// Played once when the driver presses forward. The drive loop takes over after <see cref="EngineMoveStartDuration"/>.
+    /// </summary>
+    [DataField]
+    public SoundSpecifier? EngineMoveStartSound;
+
+    /// <summary>
+    /// Seconds to keep the pull-away clip before the cruise loop. Set this to the clip length so a shorter file is not cut off.
+    /// </summary>
+    [DataField]
+    public float EngineMoveStartDuration = 7.42f;
+
+    [DataField]
+    public SoundSpecifier? EngineDriveSound;
+
+    [DataField]
+    public float IdlePitch = 1f;
+
+    [DataField]
+    public float RevPitch = 1.45f;
+
+    [DataField]
+    public float RpmRiseRate = 2.2f;
+
+    [DataField]
+    public float RpmFallRate = 1.1f;
+
+    [DataField]
+    public float IdleVolume = -4f;
+
+    [DataField]
+    public float DriveVolume = -2f;
+
+    [DataField]
+    public EntProtoId EngineToggleAction = "ActionGrosseCarToggleEngine";
 
     [DataField]
     public SoundSpecifier? ImpactSound = new SoundCollectionSpecifier("MetalThud");
@@ -158,9 +232,27 @@ public sealed partial class GrosseCarComponent : Component
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
     public TimeSpan LastImpact;
 
+    [AutoNetworkedField]
+    public GrosseCarEngineState EngineState = GrosseCarEngineState.Off;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
+    public TimeSpan EngineTransitionEnd;
+
+    /// <summary>
+    /// True while the driver is holding forward, so a shove does not retrigger the pull-away clip.
+    /// </summary>
+    [AutoNetworkedField]
+    public bool ThrottleHeld;
+
     public Vector2 LastSkidPosition;
-    public EntityUid? EngineSoundEntity;
+    public EntityUid? IdleSoundEntity;
+    public EntityUid? DriveSoundEntity;
+    public EntityUid? MoveStartSoundEntity;
+    public EntityUid? IdleSoundExcluded;
+    public EntityUid? DriveSoundExcluded;
     public EntityUid? DriftSoundEntity;
+    public TimeSpan MoveStartUntil;
+    public float CurrentRpm;
     public bool VisualRunning;
 
     /// <summary>

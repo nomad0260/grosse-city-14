@@ -1,4 +1,5 @@
-﻿using Content.Shared.CharacterInfo;
+﻿using Content.Shared._Grosse.WorkPhase; //Grosse-edit
+using Content.Shared.CharacterInfo;
 using Content.Shared.Objectives;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
@@ -32,7 +33,7 @@ public sealed partial class CharacterInfoSystem : EntitySystem
     private void OnCharacterInfoEvent(CharacterInfoEvent msg, EntitySessionEventArgs args)
     {
         var entity = GetEntity(msg.NetEntity);
-        var data = new CharacterData(entity, msg.JobTitle, msg.Objectives, msg.Briefing, Name(entity));
+        var data = new CharacterData(entity, msg.JobTitle, msg.Objectives, msg.Briefing, Name(entity), msg.StationMemo); //Grosse-edit
 
         OnCharacterUpdate?.Invoke(data);
     }
@@ -49,7 +50,8 @@ public sealed partial class CharacterInfoSystem : EntitySystem
         string Job,
         Dictionary<string, List<ObjectiveInfo>> Objectives,
         string? Briefing,
-        string EntityName
+        string EntityName,
+        StationMemoState? StationMemo //Grosse-edit
     );
 
     /// <summary>

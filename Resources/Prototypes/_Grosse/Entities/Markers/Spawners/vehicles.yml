@@ -3,12 +3,13 @@
   id: SpawnerVehicleMoskvich17
   parent: MarkerBase
   suffix: City Spawner
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
     - state: red
       scale: 3, 3
-    - sprite: _Grosse/rsi/Structures/Decoration/Transport/moskvich.rsi
+    - sprite: _Grosse/Vehicles/moskvich.rsi
       state: m1
   - type: RandomSpawner
     offset: 0
@@ -20,12 +21,13 @@
   name: спавнер грузовика
   id: SpawnerVehicleZIL17
   parent: SpawnerVehicleMoskvich17
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
     - state: red
       scale: 3, 3
-    - sprite: _Grosse/Structures/Decoration/Vehicles/zil.rsi
+    - sprite: _Grosse/Vehicles/zil.rsi
       scale: 1.1, 1.1
       state: z2
   - type: RandomSpawner
@@ -36,12 +38,13 @@
   name: спавнер КрАЗа
   id: SpawnerVehicleKraz17
   parent: SpawnerVehicleMoskvich17
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
     - state: red
       scale: 3, 3
-    - sprite: _Grosse/rsi/Structures/Decoration/Transport/kraz.rsi
+    - sprite: _Grosse/Vehicles/kraz.rsi
       state: kraz1
   - type: RandomSpawner
     prototypes:
@@ -51,12 +54,13 @@
   name: спавнер танка
   id: SpawnerGrosseTank
   parent: SpawnerVehicleMoskvich17
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
     - state: red
       scale: 3, 3
-    - sprite: _Grosse/rsi/Structures/Decoration/Transport/grosse-tank.rsi
+    - sprite: _Grosse/Vehicles/grosse-tank.rsi
       state: frame
   - type: RandomSpawner
     prototypes:

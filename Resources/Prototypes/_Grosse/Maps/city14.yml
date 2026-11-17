@@ -1,7 +1,7 @@
 - type: gameMap
   id: City14
   mapName: 'City 14'
-  mapPath: /Maps/_Grosse/city14.yml
+  mapPath: /Maps/_Grosse/City14/city140.yml
   minPlayers: 0
   maxPlayers: 140
   maxRandomOffset: 0
@@ -16,16 +16,30 @@
           availableJobs:
             Citizen: [ -1, -1 ]
             # ГСР
-            Worker: [ 15, 15 ]
-            UnionMiner: [ 5, 5 ]
-            UnionResearcher: [ 3, 3 ]
+            Worker: [ 10, 10 ]
+            UnionMiner: [ 10, 10 ]
             # Главы
+            UnionResearcher: [ 1, 1 ]
             UnionFactoryHead: [ 1, 1 ]
             UnionWorkersHead: [ 1, 1 ]
             # ГэО
-            CivilProtactionUnit: [ 18, 18 ]
-            CivilProtactionUnit02: [ 4, 4 ]
+            CivilProtactionUnit: [ 20, 20 ]
+            CivilProtactionUnit02: [ 8, 8 ]
+            CivilProtactionUnitDispetcher: [ 1, 1 ]
+            CivilProtactionUnitJudge: [ 1, 1 ]
             CivilProtactionUnitOfficer: [ 1, 1 ]
+        - type: GhostRespawnWhitelist
+          jobs:
+            - Citizen
+            - Worker
+            - UnionMiner
+            - CivilProtactionUnit
+        - type: GrosseStationZLevels
+          mapsBelow:
+          - /Maps/_Grosse/City14/city14-1.yml
+          mapsAbove:
+          - /Maps/_Grosse/City14/city141.yml
+          - /Maps/_Grosse/City14/city141.yml
 
 - type: entity
   id: StandardCombineCity
@@ -43,3 +57,12 @@
     - type: StationCargoBountyDatabase
       group: CombineJob
       maxBounties: 3
+    - type: RationQuota
+      quotas:
+        Citizen: 1
+        Worker: 2
+        UnionMiner: 3
+        UnionResearcher: 2
+        UnionWorkersHead: 2
+        UnionFactoryHead: 2
+    - type: WorkPhase

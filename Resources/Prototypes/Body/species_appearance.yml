@@ -37,9 +37,9 @@
     - map: [ "shoes" ]
     - map: [ "ears" ]
     - map: [ "eyes" ]
-    - map: [ "belt" ]
     - map: [ "id" ]
     - map: [ "outerClothing" ]
+    - map: [ "belt" ] #grosse-edit
     - map: [ "back" ]
     - map: [ "neck" ]
     - map: [ "suitstorage" ]

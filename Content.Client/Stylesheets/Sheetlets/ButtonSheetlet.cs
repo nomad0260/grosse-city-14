@@ -1,4 +1,5 @@
-using System.Numerics;
+using System.Collections.Generic;
+using Content.Client.Stylesheets.Colorspace;
 using Content.Client.Stylesheets.Palette;
 using Content.Client.Stylesheets.SheetletConfigs;
 using Content.Client.Stylesheets.Stylesheets;
@@ -23,24 +24,24 @@ public sealed class ButtonSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet
 
         var rules = new List<StyleRule>
         {
-            // Set textures for the kinds of buttons
+            // Every button in the game shares these flat, rounded shapes.
             CButton()
-                .Box(StyleBoxHelpers.BaseStyleBox(sheet)),
+                .Box(StyleBoxHelpers.ButtonStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonOpenLeft)
-                .Box(StyleBoxHelpers.OpenLeftStyleBox(sheet)),
+                .Box(StyleBoxHelpers.OpenLeftStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonOpenRight)
-                .Box(StyleBoxHelpers.OpenRightStyleBox(sheet)),
+                .Box(StyleBoxHelpers.OpenRightStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonOpenBoth)
-                .Box(StyleBoxHelpers.SquareStyleBox(sheet)),
+                .Box(StyleBoxHelpers.SquareStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonSquare)
-                .Box(StyleBoxHelpers.SquareStyleBox(sheet)),
+                .Box(StyleBoxHelpers.SquareStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonSmall)
-                .Box(StyleBoxHelpers.SmallStyleBox(sheet)),
+                .Box(StyleBoxHelpers.SmallStyleBox()),
             CButton()
                 .Class(StyleClass.ButtonSmall)
                 .ParentOf(E<Label>())
@@ -106,19 +107,19 @@ public sealed class ButtonSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet
             CButton()
                 .MaybeClass(styleclass)
                 .PseudoNormal()
-                .Prop(Control.StylePropertyModulateSelf, palette.Element),
+                .Prop(Control.StylePropertyModulateSelf, ButtonStateLift.NormalColor(palette)),
             CButton()
                 .MaybeClass(styleclass)
                 .PseudoHovered()
-                .Prop(Control.StylePropertyModulateSelf, palette.HoveredElement),
+                .Prop(Control.StylePropertyModulateSelf, ButtonStateLift.HoverColor(palette)),
             CButton()
                 .MaybeClass(styleclass)
                 .PseudoPressed()
-                .Prop(Control.StylePropertyModulateSelf, palette.PressedElement),
+                .Prop(Control.StylePropertyModulateSelf, ButtonStateLift.PressedColor(palette)),
             CButton()
                 .MaybeClass(styleclass)
                 .PseudoDisabled()
-                .Prop(Control.StylePropertyModulateSelf, palette.DisabledElement),
+                .Prop(Control.StylePropertyModulateSelf, ButtonStateLift.Disabled),
         ]);
     }
 
@@ -128,68 +129,109 @@ public sealed class ButtonSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet
     }
 }
 
+/// <summary>
+/// Shared lightness lifts applied to the theme palettes. The raw palettes are dark enough
+/// that buttons blended into panels, so every state is brightened by a fixed amount.
+/// Shared by every button-like sheetlet so they all stay consistent.
+/// </summary>
+public static class ButtonStateLift
+{
+    public const float Normal = 0.14f;
+    public const float Hover = 0.19f;
+    public const float Pressed = 0.07f;
+
+    /// <summary>Neutral grey: visible, but clearly not the normal button color.</summary>
+    public static readonly Color Disabled = Color.FromHex("#565B66");
+
+    public static Color NormalColor(ColorPalette palette) => palette.Element.NudgeLightness(Normal);
+
+    public static Color HoverColor(ColorPalette palette) => palette.HoveredElement.NudgeLightness(Hover);
+
+    public static Color PressedColor(ColorPalette palette) => palette.PressedElement.NudgeLightness(Pressed);
+}
+
 // this is currently the only other "helper" type class, if any more crop up consider making a specific directory for them
 public static class StyleBoxHelpers
 {
-    // TODO: Figure out a nicer way to store/represent these hardcoded margins. This is icky.
-    public static StyleBoxTexture BaseStyleBox<T>(T sheet) where T : PalettedStylesheet, IButtonConfig
+    /// <summary>
+    /// The shared shape of every button and panel in the game: a flat, rounded rectangle
+    /// with a one pixel outline. Both fills are near-white so the theme palette's modulate
+    /// decides the final color; the brighter outline comes from the border being full white.
+    /// Buttons get a much lighter fill than panels so they never blend into the background.
+    /// </summary>
+    private static readonly Color FlatFill = new(0.98f, 0.98f, 1.0f);
+    private static readonly Color PanelFill = new(0.58f, 0.58f, 0.62f);
+    private static readonly Color FlatBorder = Color.White;
+
+    public const float ButtonRadius = 8f;
+    public const float PanelRadius = 10f;
+
+    // Tight paddings: the old Nano boxes used 14px a side, which looked bloated on flat buttons.
+    private const float ButtonPadH = 10f;
+    private const float ButtonPadV = 3f;
+    private const float JoinedPadH = 7f;
+    private const float PanelPadH = 10f;
+    private const float PanelPadV = 4f;
+
+    public static RoundedStyleBox ButtonStyleBox()
     {
-        var baseBox = new StyleBoxTexture
+        return new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(sheet.BaseButtonPath, NanotrasenStylesheet.TextureRoot),
+            BackgroundColor = FlatFill,
+            BorderColor = FlatBorder,
+            BorderThickness = 1f,
+            CornerRadius = ButtonRadius,
+            Padding = new Thickness(ButtonPadH, ButtonPadV, ButtonPadH, ButtonPadV),
         };
-        baseBox.SetPatchMargin(StyleBox.Margin.All, 10);
-        baseBox.SetPadding(StyleBox.Margin.All, 1);
-        baseBox.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
-        baseBox.SetContentMarginOverride(StyleBox.Margin.Horizontal, 14);
-        return baseBox;
     }
 
-    public static StyleBoxTexture OpenLeftStyleBox<T>(T sheet) where T : PalettedStylesheet, IButtonConfig
+    public static RoundedStyleBox OpenLeftStyleBox()
     {
-        var openLeftBox = new StyleBoxTexture(BaseStyleBox(sheet))
-        {
-            Texture = new AtlasTexture(sheet.GetTextureOr(sheet.OpenLeftButtonPath, NanotrasenStylesheet.TextureRoot),
-                UIBox2.FromDimensions(new Vector2(10, 0), new Vector2(14, 24))),
-        };
-        openLeftBox.SetPatchMargin(StyleBox.Margin.Left, 0);
-        openLeftBox.SetContentMarginOverride(StyleBox.Margin.Left, 8);
-        // openLeftBox.SetPadding(StyleBox.Margin.Left, 1);
-        return openLeftBox;
+        var box = RoundedStyleBox.OpenLeft(FlatFill, FlatBorder, 1f, ButtonRadius);
+        box.Padding = new Thickness(JoinedPadH, ButtonPadV, ButtonPadH, ButtonPadV);
+        return box;
     }
 
-    public static StyleBoxTexture OpenRightStyleBox<T>(T sheet) where T : PalettedStylesheet, IButtonConfig
+    public static RoundedStyleBox OpenRightStyleBox()
     {
-        var openRightBox = new StyleBoxTexture(BaseStyleBox(sheet))
-        {
-            Texture = new AtlasTexture(sheet.GetTextureOr(sheet.OpenRightButtonPath, NanotrasenStylesheet.TextureRoot),
-                UIBox2.FromDimensions(new Vector2(0, 0), new Vector2(14, 24))),
-        };
-        openRightBox.SetPatchMargin(StyleBox.Margin.Right, 0);
-        openRightBox.SetContentMarginOverride(StyleBox.Margin.Right, 8);
-        openRightBox.SetPadding(StyleBox.Margin.Right, 1);
-        return openRightBox;
+        var box = RoundedStyleBox.OpenRight(FlatFill, FlatBorder, 1f, ButtonRadius);
+        box.Padding = new Thickness(ButtonPadH, ButtonPadV, JoinedPadH, ButtonPadV);
+        return box;
     }
 
-    public static StyleBoxTexture SquareStyleBox<T>(T sheet) where T : PalettedStylesheet, IButtonConfig
+    public static RoundedStyleBox SquareStyleBox()
     {
-        var openBothBox = new StyleBoxTexture(BaseStyleBox(sheet))
+        return new RoundedStyleBox
         {
-            Texture = new AtlasTexture(sheet.GetTextureOr(sheet.OpenBothButtonPath, NanotrasenStylesheet.TextureRoot),
-                UIBox2.FromDimensions(new Vector2(10, 0), new Vector2(3, 24))),
+            BackgroundColor = FlatFill,
+            BorderColor = FlatBorder,
+            BorderThickness = 1f,
+            CornerRadius = 0f,
+            Padding = new Thickness(JoinedPadH, ButtonPadV, JoinedPadH, ButtonPadV),
         };
-        openBothBox.SetPatchMargin(StyleBox.Margin.Horizontal, 0);
-        openBothBox.SetContentMarginOverride(StyleBox.Margin.Horizontal, 8);
-        openBothBox.SetPadding(StyleBox.Margin.Horizontal, 1);
-        return openBothBox;
     }
 
-    public static StyleBoxTexture SmallStyleBox<T>(T sheet) where T : PalettedStylesheet, IButtonConfig
+    public static RoundedStyleBox SmallStyleBox()
     {
-        var smallBox = new StyleBoxTexture
+        return new RoundedStyleBox
         {
-            Texture = sheet.GetTextureOr(sheet.SmallButtonPath, NanotrasenStylesheet.TextureRoot),
+            BackgroundColor = FlatFill,
+            BorderColor = FlatBorder,
+            BorderThickness = 1f,
+            CornerRadius = 5f,
+            Padding = new Thickness(4f, 1f, 4f, 1f),
         };
-        return smallBox;
+    }
+
+    public static RoundedStyleBox PanelStyleBox()
+    {
+        return new RoundedStyleBox
+        {
+            BackgroundColor = PanelFill,
+            BorderColor = FlatBorder,
+            BorderThickness = 1f,
+            CornerRadius = PanelRadius,
+            Padding = new Thickness(PanelPadH, PanelPadV, PanelPadH, PanelPadV),
+        };
     }
 }

@@ -178,7 +178,7 @@
   components:
   - type: NpcFactionMember
     factions:
-      - Xenoborg
+      - UniversalUnion
   - type: MindShield
     mindShieldStatusIcon: UnionFaction
   - type: StatusIcon

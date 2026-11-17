@@ -10,6 +10,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: NanoTrasen
@@ -23,6 +25,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Mouse
@@ -45,6 +49,8 @@
   - Xeno
   - AllHostile
   - Dragon
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: SimpleHostile
@@ -60,6 +66,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: SimpleNeutral
@@ -76,6 +84,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Xeno
@@ -90,6 +100,8 @@
   - Wizard
   - Dragon
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Zombie
@@ -105,6 +117,8 @@
   - Wizard
   - Dragon
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Revolutionary
@@ -116,6 +130,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: AllHostile
@@ -133,6 +149,8 @@
   - Revolutionary
   - Wizard
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Wizard
@@ -150,6 +168,8 @@
   - Revolutionary
   - AllHostile
   - Xenoborg
+  # Grosse-edit
+  - UniversalUnion
 
 - type: npcFaction
   id: Xenoborg
@@ -166,3 +186,5 @@
   # cause they are hostile to them
   - SimpleHostile
   - AllHostile
+  # Grosse-edit
+  - UniversalUnion

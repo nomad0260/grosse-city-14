@@ -7,6 +7,8 @@
   - CargoTechnician
   - Quartermaster
   - SalvageSpecialist
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Civilian
@@ -30,6 +32,8 @@
   - Reporter
   - Visitor
   - ServiceWorker
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: CentralCommand
@@ -73,6 +77,8 @@
   - DeathSquad
   primary: false
   weight: 100
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Engineering
@@ -85,6 +91,8 @@
   - SeniorEngineer # Corvax-MentorRoles
   - StationEngineer
   - TechnicalAssistant
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Medical
@@ -99,6 +107,8 @@
   - Psychologist
   - Paramedic
   - SeniorPhysician # Corvax-MentorRoles
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Security
@@ -115,6 +125,8 @@
   - Detective
   - Warden
   - Brigmedic # Corvax-Brigmedic
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Science
@@ -126,6 +138,8 @@
   - SeniorResearcher # Corvax-MentorRoles
   - Scientist
   - ResearchAssistant
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Silicon
@@ -135,6 +149,8 @@
   roles:
   - Borg
   - StationAi
+  #Grosse-edit
+  editorHidden: true
 
 - type: department
   id: Specific
@@ -147,3 +163,5 @@
   - Psychologist
   - Pilot # Corvax-Pilot
   primary: false
+  #Grosse-edit
+  editorHidden: true

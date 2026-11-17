@@ -1,20 +1,16 @@
 using Content.Client._Grosse.Pvp;
-using Content.Client.Audio;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
 using Content.Client.Lobby.UI;
-using Content.Client.Message;
-using Content.Client.Playtime;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.Client.Voting;
 using Content.Shared.CCVar;
+using Content.Shared._Grosse.Pvp;
 using Robust.Client;
 using Robust.Client.Console;
-using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Lobby
@@ -25,16 +21,15 @@ namespace Content.Client.Lobby
         [Dependency] private IConfigurationManager _cfg = default!;
         [Dependency] private IClientConsoleHost _consoleHost = default!;
         [Dependency] private IEntityManager _entityManager = default!;
-        [Dependency] private IResourceCache _resourceCache = default!;
         [Dependency] private IUserInterfaceManager _userInterfaceManager = default!;
         [Dependency] private IGameTiming _gameTiming = default!;
         [Dependency] private IVoteManager _voteManager = default!;
-        [Dependency] private ClientsidePlaytimeTrackingManager _playtimeTracking = default!;
-        [Dependency] private IPrototypeManager _protoMan = default!;
 
         private ClientGameTicker _gameTicker = default!;
-        private ContentAudioSystem _contentAudioSystem = default!;
         private PvpClientSystem _pvp = default!;
+
+        // Перестаём авто-раскрывать меню режима после первого ручного клика по кнопке.
+        private bool _pvpMenuTouched;
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -50,13 +45,13 @@ namespace Content.Client.Lobby
 
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
-            _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
             _pvp = _entityManager.System<PvpClientSystem>();
-            _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
 
             chatController.SetMainChat(true);
 
+            // Vote popups are parented here; without a container active votes never show up.
             _voteManager.SetPopupContainer(Lobby.VoteContainer);
+
             LayoutContainer.SetAnchorPreset(Lobby, LayoutContainer.LayoutPreset.Wide);
 
             var lobbyNameCvar = _cfg.GetCVar(CCVars.ServerLobbyName);
@@ -66,15 +61,15 @@ namespace Content.Client.Lobby
                 ? Loc.GetString("ui-lobby-title", ("serverName", serverName))
                 : lobbyNameCvar;
 
-            var width = _cfg.GetCVar(CCVars.ServerLobbyRightPanelWidth);
-            Lobby.RightSide.SetWidth = width;
-
             UpdateLobbyUi();
 
-            Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
+            Lobby.CharacterSetupButton.OnPressed += OnSetupPressed;
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
+            Lobby.PvpMenuButton.OnToggled += OnPvpMenuToggled;
             Lobby.PvpLoadout.LoadoutSelected += OnPvpLoadoutSelected;
+            Lobby.PvpLoadout.SummaryChanged += OnPvpSummaryChanged;
+            Lobby.PvpLoadout.CollapseRequested += OnPvpCollapseRequested;
             _pvp.LobbyStateChanged += OnPvpLobbyState;
 
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
@@ -89,15 +84,19 @@ namespace Content.Client.Lobby
             _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
-            _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
 
             _voteManager.ClearPopupContainer();
 
-            Lobby!.CharacterPreview.CharacterSetupButton.OnPressed -= OnSetupPressed;
+            Lobby!.CharacterSetupButton.OnPressed -= OnSetupPressed;
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
+            Lobby!.PvpMenuButton.OnToggled -= OnPvpMenuToggled;
             Lobby!.PvpLoadout.LoadoutSelected -= OnPvpLoadoutSelected;
+            Lobby!.PvpLoadout.SummaryChanged -= OnPvpSummaryChanged;
+            Lobby!.PvpLoadout.CollapseRequested -= OnPvpCollapseRequested;
             _pvp.LobbyStateChanged -= OnPvpLobbyState;
+
+            _pvpMenuTouched = false;
 
             Lobby = null;
         }
@@ -180,7 +179,6 @@ namespace Content.Client.Lobby
 
         private void LobbyStatusUpdated()
         {
-            UpdateLobbyBackground();
             UpdateLobbyUi();
         }
 
@@ -215,75 +213,6 @@ namespace Content.Client.Lobby
             {
                 Lobby!.ServerInfo.SetInfoBlob(_gameTicker.ServerInfoBlob);
             }
-
-            var minutesToday = _playtimeTracking.PlaytimeMinutesToday;
-            if (minutesToday > 60)
-            {
-                Lobby!.PlaytimeComment.Visible = true;
-
-                var hoursToday = Math.Round(minutesToday / 60f, 1);
-
-                var chosenString = minutesToday switch
-                {
-                    < 180 => "lobby-state-playtime-comment-normal",
-                    < 360 => "lobby-state-playtime-comment-concerning",
-                    < 720 => "lobby-state-playtime-comment-grasstouchless",
-                    _ => "lobby-state-playtime-comment-selfdestructive"
-                };
-
-                Lobby.PlaytimeComment.SetMarkup(Loc.GetString(chosenString, ("hours", hoursToday)));
-            }
-            else
-                Lobby!.PlaytimeComment.Visible = false;
-        }
-
-        private void UpdateLobbySoundtrackInfo(LobbySoundtrackChangedEvent ev)
-        {
-            if (ev.SoundtrackFilename == null)
-            {
-                Lobby!.LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
-            }
-            else if (
-                ev.SoundtrackFilename != null
-                && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
-                )
-            {
-                var lobbyStream = lobbySongResource.AudioStream;
-
-                var title = string.IsNullOrEmpty(lobbyStream.Title)
-                    ? Loc.GetString("lobby-state-song-unknown-title")
-                    : lobbyStream.Title;
-
-                var artist = string.IsNullOrEmpty(lobbyStream.Artist)
-                    ? Loc.GetString("lobby-state-song-unknown-artist")
-                    : lobbyStream.Artist;
-
-                var markup = Loc.GetString("lobby-state-song-text",
-                    ("songTitle", title),
-                    ("songArtist", artist));
-
-                Lobby!.LobbySong.SetMarkup(markup);
-            }
-        }
-
-        private void UpdateLobbyBackground()
-        {
-            if (_protoMan.TryIndex(_gameTicker.LobbyBackground, out var proto))
-            {
-                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(proto.Background);
-
-                var markup = Loc.GetString("lobby-state-background-text",
-                    ("backgroundTitle", Loc.GetString(proto.Title)),
-                    ("backgroundArtist", Loc.GetString(proto.Artist)));
-
-                Lobby!.LobbyBackground.SetMarkup(markup);
-            }
-            else
-            {
-                Lobby!.Background.Texture = null;
-
-                Lobby!.LobbyBackground.SetMarkup(Loc.GetString("lobby-state-background-no-background-text"));
-            }
         }
 
         private void OnPvpLoadoutSelected(bool random, Content.Shared._Grosse.Pvp.PvpTeam? team, string? classId)
@@ -291,9 +220,56 @@ namespace Content.Client.Lobby
             _pvp.SelectLoadout(random, team, classId);
         }
 
+        private void OnPvpMenuToggled(BaseButton.ButtonToggledEventArgs args)
+        {
+            _pvpMenuTouched = true;
+            if (Lobby == null)
+                return;
+
+            Lobby.PvpLoadout.SetOpen(args.Pressed);
+            Lobby.PvpMenuChevron.Text = args.Pressed ? "-" : "+";
+        }
+
+        private void OnPvpSummaryChanged(string summary)
+        {
+            if (Lobby != null)
+                Lobby.PvpMenuSummary.Text = summary;
+        }
+
+        private void OnPvpCollapseRequested()
+        {
+            _pvpMenuTouched = true;
+            if (Lobby == null)
+                return;
+
+            Lobby.PvpLoadout.SetOpen(false);
+            if (Lobby.PvpMenuButton.Pressed)
+                Lobby.PvpMenuButton.Pressed = false;
+            Lobby.PvpMenuChevron.Text = "+";
+        }
+
         private void OnPvpLobbyState(Content.Shared._Grosse.Pvp.PvpLobbyStateEvent state)
         {
-            Lobby?.PvpLoadout.UpdateState(state);
+            if (Lobby == null)
+                return;
+
+            Lobby.PvpLoadout.UpdateState(state);
+
+            // Карточка режима видна только когда PvP-лобби активно (Штурм, Контроль и т.п.).
+            Lobby.PvpCard.Visible = state.Enabled;
+            Lobby.PvpMenuButton.Visible = state.Enabled;
+            Lobby.PvpMenuButton.Pressed = Lobby.PvpLoadout.Visible;
+            if (!string.IsNullOrEmpty(state.Header))
+                Lobby.PvpMenuTitle.Text = state.Header;
+
+            // Пока игрок не выбрал набор, само раскрываем меню, чтобы её заметили.
+            if (state.Enabled && !state.CanReady && !_pvpMenuTouched)
+            {
+                Lobby.PvpMenuButton.Pressed = true;
+                Lobby.PvpLoadout.SetOpen(true);
+                Lobby.PvpMenuChevron.Text = "-";
+            }
+
             UpdateLobbyUi();
         }
 

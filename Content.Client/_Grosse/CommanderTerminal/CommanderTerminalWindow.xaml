@@ -1,0 +1,54 @@
+<ui:CommanderTerminalWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:ui="clr-namespace:Content.Client._Grosse.CommanderTerminal"
+                      Title="{Loc commander-terminal-title}"
+                      SetSize="1100 700"
+                      MinSize="900 640">
+    <BoxContainer Orientation="Vertical">
+        <Label Name="StationLabel" Margin="8 4" />
+        <TabContainer Name="Tabs" VerticalExpand="True" Margin="4">
+            <BoxContainer Orientation="Vertical" VerticalExpand="True">
+                <Label Name="CrewEmpty" Text="{Loc commander-terminal-no-crew}" Visible="False" Margin="8" />
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="True">
+                    <BoxContainer Name="CrewList" Orientation="Vertical" Margin="4" />
+                </ScrollContainer>
+            </BoxContainer>
+            <BoxContainer Orientation="Vertical" VerticalExpand="True">
+                <BoxContainer Name="FloorBar" Orientation="Horizontal" Margin="4 0" />
+                <BoxContainer Orientation="Horizontal" Margin="4">
+                    <Label Name="OrderHint" HorizontalExpand="True" />
+                    <OptionButton Name="OrderGroup" MinWidth="180" />
+                </BoxContainer>
+                <ui:CommanderTerminalNavMapControl Name="NavMap" HorizontalExpand="True" VerticalExpand="True" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" MinWidth="280" Margin="4">
+                    <BoxContainer Orientation="Horizontal" Margin="0 0 0 4">
+                        <LineEdit Name="NewGroupName"
+                                  PlaceHolder="{Loc commander-terminal-group-placeholder}"
+                                  HorizontalExpand="True" />
+                        <Button Name="CreateGroupButton" Text="{Loc commander-terminal-create}" />
+                    </BoxContainer>
+                    <ScrollContainer VerticalExpand="True">
+                        <BoxContainer Name="GroupList" Orientation="Vertical" />
+                    </ScrollContainer>
+                </BoxContainer>
+                <BoxContainer Name="GroupDetail" Orientation="Vertical" HorizontalExpand="True" Margin="8">
+                    <Label Name="GroupDetailEmpty" Text="{Loc commander-terminal-select-group}" />
+                    <BoxContainer Name="GroupDetailBody" Orientation="Vertical" Visible="False" VerticalExpand="True">
+                        <BoxContainer Orientation="Horizontal" Margin="0 0 0 4">
+                            <LineEdit Name="RenameEdit" HorizontalExpand="True" />
+                            <Button Name="RenameButton" Text="{Loc commander-terminal-rename}" />
+                            <Button Name="DeleteButton" Text="{Loc commander-terminal-delete}" />
+                        </BoxContainer>
+                        <Label Name="LeaderLabel" Margin="0 0 0 4" />
+                        <Label Text="{Loc commander-terminal-members}" Margin="0 0 0 4" />
+                        <ScrollContainer VerticalExpand="True">
+                            <BoxContainer Name="MemberList" Orientation="Vertical" />
+                        </ScrollContainer>
+                    </BoxContainer>
+                </BoxContainer>
+            </BoxContainer>
+        </TabContainer>
+    </BoxContainer>
+</ui:CommanderTerminalWindow>

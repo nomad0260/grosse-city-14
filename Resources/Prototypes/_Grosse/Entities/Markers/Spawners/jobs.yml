@@ -33,6 +33,28 @@
       - state: green
 
 - type: entity
+  id: SpawnPointCWUDoctor
+  parent: SpawnPointCivilProtactionUnit
+  name: врач гср
+  components:
+  - type: SpawnPoint
+    job_id: CWUDoctor
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCWUEngineer
+  parent: SpawnPointCivilProtactionUnit
+  name: инженер гср
+  components:
+  - type: SpawnPoint
+    job_id: CWUEngineer
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
   id: SpawnPointUnionFactoryHead
   parent: SpawnPointCivilProtactionUnit
   name: начальник завода
@@ -88,9 +110,31 @@
       - state: green
 
 - type: entity
+  id: SpawnPointCivilProtactionUnitJudge
+  parent: SpawnPointCivilProtactionUnit
+  name: судья гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnitJudge
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCivilProtactionUnitDispetcher
+  parent: SpawnPointCivilProtactionUnit
+  name: диспетчер гэо
+  components:
+  - type: SpawnPoint
+    job_id: CivilProtactionUnitDispetcher
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
   id: SpawnPointCivilProtactionUnitOfficer
   parent: SpawnPointCivilProtactionUnit
-  name: офицер гэо
+  name: командир дивизии гэо
   components:
   - type: SpawnPoint
     job_id: CivilProtactionUnitOfficer

@@ -15,20 +15,25 @@ namespace Content.Client.Info
 
         private ValueList<(CVarDef<string> cVar, Button button)> _infoLinks;
 
+        private readonly GridContainer _buttons;
+
         public LinkBanner()
         {
-            var buttons = new BoxContainer
+            _buttons = new GridContainer
             {
-                Orientation = LayoutOrientation.Horizontal
+                Columns = 3,
+                HSeparationOverride = 4,
+                VSeparationOverride = 4,
+                HorizontalExpand = true,
             };
-            AddChild(buttons);
+            AddChild(_buttons);
 
             var uriOpener = IoCManager.Resolve<IUriOpener>();
             _cfg = IoCManager.Resolve<IConfigurationManager>();
 
-            var rulesButton = new Button() {Text = Loc.GetString("server-info-rules-button")};
+            var rulesButton = new Button() {Text = Loc.GetString("server-info-rules-button"), HorizontalExpand = true};
             rulesButton.OnPressed += args => new RulesAndInfoWindow().Open();
-            buttons.AddChild(rulesButton);
+            _buttons.AddChild(rulesButton);
 
             AddInfoButton("server-info-discord-button", CCVars.InfoLinksDiscord);
             AddInfoButton("server-info-website-button", CCVars.InfoLinksWebsite);
@@ -37,24 +42,32 @@ namespace Content.Client.Info
             AddInfoButton("server-info-telegram-button", CCVars.InfoLinksTelegram);
 
             var guidebookController = UserInterfaceManager.GetUIController<GuidebookUIController>();
-            var guidebookButton = new Button() { Text = Loc.GetString("server-info-guidebook-button") };
+            var guidebookButton = new Button { Text = Loc.GetString("server-info-guidebook-button"), HorizontalExpand = true };
             guidebookButton.OnPressed += _ =>
             {
                 guidebookController.ToggleGuidebook();
             };
-            buttons.AddChild(guidebookButton);
+            _buttons.AddChild(guidebookButton);
 
-            var changelogButton = new ChangelogButton();
+            var changelogButton = new ChangelogButton { HorizontalExpand = true };
             changelogButton.OnPressed += args => UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
-            buttons.AddChild(changelogButton);
+            _buttons.AddChild(changelogButton);
 
             void AddInfoButton(string loc, CVarDef<string> cVar)
             {
-                var button = new Button { Text = Loc.GetString(loc) };
+                var button = new Button { Text = Loc.GetString(loc), HorizontalExpand = true };
                 button.OnPressed += _ => uriOpener.OpenUri(_cfg.GetCVar(cVar));
-                buttons.AddChild(button);
+                _buttons.AddChild(button);
                 _infoLinks.Add((cVar, button));
             }
+        }
+
+        /// <summary>
+        /// Перестраивает ссылки в заданное число колонок, чтобы подписи не вылезали за край.
+        /// </summary>
+        public void SetCompact(int columns)
+        {
+            _buttons.Columns = Math.Clamp(columns, 1, 3);
         }
 
         protected override void EnteredTree()

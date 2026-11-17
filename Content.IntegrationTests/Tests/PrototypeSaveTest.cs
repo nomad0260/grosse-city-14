@@ -76,87 +76,93 @@ public sealed class PrototypeSaveTest : GameTest
 
         var context = new TestEntityUidContext();
 
+        // Collect messages here and assert after WaitAssertion returns. NUnit records an assertion
+        // on the thread that calls it, and this callback runs on the pooled server thread, which
+        // still belongs to whichever test started the pair.
+        var failures = new List<string>();
         await server.WaitAssertion(() =>
         {
-            Assert.That(!mapSystem.IsInitialized(mapId));
+            if (mapSystem.IsInitialized(mapId))
+                failures.Add("Test map was initialized before spawn.");
+
             var testLocation = grid.Owner.ToCoordinates();
 
-            Assert.Multiple(() =>
+            foreach (var prototype in prototypes)
             {
-                //Iterate list of prototypes to spawn
-                foreach (var prototype in prototypes)
-                {
-                    uid = entityMan.SpawnEntity(prototype.ID, testLocation);
-                    context.Prototype = prototype;
+                uid = entityMan.SpawnEntity(prototype.ID, testLocation);
+                context.Prototype = prototype;
 
-                    // get default prototype data
-                    Dictionary<string, MappingDataNode> protoData = new();
+                Dictionary<string, MappingDataNode> protoData = new();
+                try
+                {
+                    context.WritingReadingPrototypes = true;
+
+                    foreach (var (compType, comp) in prototype.Components)
+                    {
+                        context.WritingComponent = compType;
+                        protoData.Add(compType, seriMan.WriteValueAs<MappingDataNode>(comp.Component.GetType(), comp.Component, alwaysWrite: true, context: context));
+                    }
+
+                    context.WritingComponent = string.Empty;
+                    context.WritingReadingPrototypes = false;
+                }
+                catch (Exception e)
+                {
+                    failures.Add($"Failed to convert prototype {prototype.ID} into yaml. Exception: {e.Message}");
+                    if (!entityMan.Deleted(uid))
+                        entityMan.DeleteEntity(uid);
+                    continue;
+                }
+
+                var comps = new HashSet<IComponent>(entityMan.GetComponents(uid));
+                var compNames = new HashSet<string>(comps.Count);
+                foreach (var component in comps)
+                {
+                    var compType = component.GetType();
+                    var compName = compFact.GetComponentName(compType);
+                    compNames.Add(compName);
+
+                    if (compType == typeof(MetaDataComponent) || compType == typeof(TransformComponent) || compType == typeof(FixturesComponent))
+                        continue;
+
+                    MappingDataNode compMapping;
                     try
                     {
-                        context.WritingReadingPrototypes = true;
-
-                        foreach (var (compType, comp) in prototype.Components)
-                        {
-                            context.WritingComponent = compType;
-                            protoData.Add(compType, seriMan.WriteValueAs<MappingDataNode>(comp.Component.GetType(), comp.Component, alwaysWrite: true, context: context));
-                        }
-
-                        context.WritingComponent = string.Empty;
-                        context.WritingReadingPrototypes = false;
+                        context.WritingComponent = compName;
+                        compMapping = seriMan.WriteValueAs<MappingDataNode>(compType, component, alwaysWrite: true, context: context);
                     }
                     catch (Exception e)
                     {
-                        Assert.Fail($"Failed to convert prototype {prototype.ID} into yaml. Exception: {e.Message}");
+                        failures.Add($"Failed to serialize {compName} component of entity prototype {prototype.ID}. Exception: {e.Message}");
                         continue;
                     }
 
-                    var comps = new HashSet<IComponent>(entityMan.GetComponents(uid));
-                    var compNames = new HashSet<string>(comps.Count);
-                    foreach (var component in comps)
+                    if (protoData.TryGetValue(compName, out var protoMapping))
                     {
-                        var compType = component.GetType();
-                        var compName = compFact.GetComponentName(compType);
-                        compNames.Add(compName);
+                        var diff = compMapping.Except(protoMapping);
 
-                        if (compType == typeof(MetaDataComponent) || compType == typeof(TransformComponent) || compType == typeof(FixturesComponent))
-                            continue;
-
-                        MappingDataNode compMapping;
-                        try
-                        {
-                            context.WritingComponent = compName;
-                            compMapping = seriMan.WriteValueAs<MappingDataNode>(compType, component, alwaysWrite: true, context: context);
-                        }
-                        catch (Exception e)
-                        {
-                            Assert.Fail($"Failed to serialize {compName} component of entity prototype {prototype.ID}. Exception: {e.Message}");
-                            continue;
-                        }
-
-                        if (protoData.TryGetValue(compName, out var protoMapping))
-                        {
-                            var diff = compMapping.Except(protoMapping);
-
-                            if (diff != null && diff.Children.Count != 0)
-                                Assert.Fail($"Prototype {prototype.ID} modifies component on spawn: {compName}. Modified yaml:\n{diff}");
-                        }
-                        else
-                        {
-                            Assert.Fail($"Prototype {prototype.ID} gains a component on spawn: {compName}");
-                        }
+                        if (diff != null && diff.Children.Count != 0)
+                            failures.Add($"Prototype {prototype.ID} modifies component on spawn: {compName}. Modified yaml:\n{diff}");
                     }
-
-                    // An entity may also remove components on init -> check no components are missing.
-                    foreach (var (compType, comp) in prototype.Components)
+                    else
                     {
-                        Assert.That(compNames, Does.Contain(compType), $"Prototype {prototype.ID} removes component {compType} on spawn.");
+                        failures.Add($"Prototype {prototype.ID} gains a component on spawn: {compName}");
                     }
-
-                    if (!entityMan.Deleted(uid))
-                        entityMan.DeleteEntity(uid);
                 }
-            });
+
+                foreach (var (compType, _) in prototype.Components)
+                {
+                    if (!compNames.Contains(compType))
+                        failures.Add($"Prototype {prototype.ID} removes component {compType} on spawn.");
+                }
+
+                if (!entityMan.Deleted(uid))
+                    entityMan.DeleteEntity(uid);
+            }
         });
+
+        if (failures.Count > 0)
+            Assert.Fail(string.Join("\n", failures));
     }
 
     public sealed class TestEntityUidContext : ISerializationContext,
@@ -189,7 +195,7 @@ public sealed class PrototypeSaveTest : GameTest
                 // Maybe this will be necessary in the future, but at the moment it just indicates that there is some
                 // issue, like a non-nullable entityUid data-field. If a component MUST have an entity uid to work with,
                 // then the prototype very likely has to be a no-spawn entity that is never meant to be directly spawned.
-                Assert.Fail($"Uninitialized entities should not be saving entity Uids. Component: {WritingComponent}. Prototype: {Prototype.ID}");
+                throw new InvalidOperationException($"Uninitialized entities should not be saving entity Uids. Component: {WritingComponent}. Prototype: {Prototype.ID}");
             }
 
             return new ValueDataNode(value.ToString());

@@ -1,5 +1,5 @@
 ent-UnionIDCard = ID-карта Альянса
-    .desc = Наплечный ремень, необходимый для доступа к различным зонам.
+    .desc = { ent-IDCardStandard.desc }
 ent-UnionIDCardCivil = ID-карта гражданского Альянса
     .desc = { ent-UnionIDCard.desc }
 ent-UnionIDCardWorker = ID-карта рабочего Альянса

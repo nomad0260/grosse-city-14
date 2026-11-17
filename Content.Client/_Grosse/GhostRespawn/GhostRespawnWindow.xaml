@@ -1,0 +1,17 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      Title="{Loc ghost-respawn-window-title}"
+                      MinSize="420 460">
+    <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6">
+        <Label Text="{Loc ghost-respawn-role-label}" />
+        <ScrollContainer VerticalExpand="True" MinHeight="180">
+            <BoxContainer Name="RoleList" Orientation="Vertical" HorizontalExpand="True" />
+        </ScrollContainer>
+        <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+            <Label Text="{Loc ghost-respawn-character-label}" VerticalAlignment="Center" />
+            <OptionButton Name="CharacterSelect" HorizontalExpand="True" />
+        </BoxContainer>
+        <Label Name="NoCharactersLabel" Text="{Loc ghost-respawn-no-characters}" Visible="False" />
+        <Button Name="ConfirmButton" Text="{Loc ghost-respawn-confirm}" Disabled="True" />
+    </BoxContainer>
+</controls:FancyWindow>

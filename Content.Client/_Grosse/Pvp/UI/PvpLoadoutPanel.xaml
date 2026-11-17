@@ -1,18 +1,23 @@
 <Control xmlns="https://spacestation14.io"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls">
-    <BoxContainer Name="Contents" Orientation="Vertical" Visible="False">
-        <controls:NanoHeading Name="Header" Text="{Loc 'pvp-lobby-header'}" />
-        <Label Name="TeamCounts" HorizontalAlignment="Center" Margin="3 3" />
-        <Label Name="StatusLabel" HorizontalAlignment="Center" Margin="3 0 3 3" />
-        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="6" Margin="0 0 0 4">
-            <Button Name="AttackersButton" Text="{Loc 'pvp-team-attackers'}" ToggleMode="True" />
-            <Button Name="DefendersButton" Text="{Loc 'pvp-team-defenders'}" ToggleMode="True" />
-            <Button Name="RandomButton" Text="{Loc 'pvp-lobby-random'}" ToggleMode="True" />
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Компактное меню предвыбора: две команды, «Рандом» и короткий список классов. -->
+    <PanelContainer Name="MenuPanel" StyleClasses="PvpMenuPanel" Visible="False">
+        <BoxContainer Name="Contents" Orientation="Vertical" SeparationOverride="6">
+            <GridContainer Name="TeamButtons" Columns="2" HorizontalExpand="True"
+                           HSeparationOverride="4" VSeparationOverride="4">
+                <Button Name="AttackersButton" Text="{Loc 'pvp-team-attackers'}" ToggleMode="True"
+                        HorizontalExpand="True" MinHeight="34" StyleClasses="PvpTeamAttackers" />
+                <Button Name="DefendersButton" Text="{Loc 'pvp-team-defenders'}" ToggleMode="True"
+                        HorizontalExpand="True" MinHeight="34" StyleClasses="PvpTeamDefenders" />
+            </GridContainer>
+            <Button Name="RandomButton" Text="{Loc 'pvp-lobby-random'}" ToggleMode="True"
+                    HorizontalExpand="True" MinHeight="28" />
+            <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" Margin="0 1" />
+            <ScrollContainer Name="ClassScroll" Access="Public" MaxHeight="168" HorizontalExpand="True"
+                             HScrollEnabled="False" ReserveScrollbarSpace="True" ReturnMeasure="True">
+                <BoxContainer Name="ClassList" Orientation="Vertical" HorizontalExpand="True"
+                              SeparationOverride="3" />
+            </ScrollContainer>
         </BoxContainer>
-        <Label Text="{Loc 'pvp-lobby-select-class'}" HorizontalAlignment="Center" />
-        <ScrollContainer MinHeight="140" MaxHeight="220" HorizontalExpand="True">
-            <BoxContainer Name="ClassList" Orientation="Vertical" HorizontalExpand="True" />
-        </ScrollContainer>
-    </BoxContainer>
+    </PanelContainer>
 </Control>

@@ -23,6 +23,5 @@ runTestsIntegration
     Runs the integration tests, makes sure various C# systems work as intended
 runTestsYAML
     Runs the YAML linter and finds issues with the YAML files that you probably wouldn't otherwise
-
 updateEngine
     Updates the engine. If you are setting up for the first time or your fork updated the engine, run this.

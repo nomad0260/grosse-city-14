@@ -122,13 +122,22 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
 
         if (!skipDelay)
         {
-            var args = new DoAfterArgs(EntityManager, user, hull.Comp.EntryDelay, new GrosseTankGunnerEjectDoAfterEvent(), hull, occupant, hull)
+            // Target the hull. The gunner is inside the turret container, so a range check against them always fails.
+            var args = new DoAfterArgs(EntityManager, user, hull.Comp.EntryDelay, new GrosseTankGunnerEjectDoAfterEvent(), hull, hull, hull)
             {
                 BreakOnMove = true,
                 BreakOnDamage = true,
                 NeedHand = false,
             };
-            return _doAfter.TryStartDoAfter(args);
+            if (!_doAfter.TryStartDoAfter(args))
+                return false;
+
+            _popup.PopupPredicted(
+                Loc.GetString("grosse-car-eject-others", ("target", occupant)),
+                hull,
+                user,
+                PopupType.Large);
+            return true;
         }
 
         return _container.Remove(occupant, container, destination: _transform.GetMoverCoordinates(hull));
@@ -187,7 +196,7 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
             var target = occupant;
             args.Verbs.Add(new AlternativeVerb
             {
-                Text = Loc.GetString("grosse-car-verb-eject", ("target", target)),
+                Text = Loc.GetString("grosse-car-verb-eject", ("target", target), ("slot", Loc.GetString("grosse-tank-slot-gunner"))),
                 Priority = -2,
                 Act = () => TryEjectGunner(ent, target, user, skipDelay: false),
             });
@@ -232,8 +241,12 @@ public sealed partial class SharedGrosseCarJointSystem : EntitySystem
         if (args.Cancelled || args.Handled)
             return;
 
-        var occupant = args.Target ?? args.User;
-        args.Handled = TryEjectGunner(ent, occupant, args.User, skipDelay: true);
+        if (ent.Comp.Turret is not { } turret || TerminatingOrDeleted(turret) ||
+            !_container.TryGetContainer(turret, ent.Comp.GunnerContainer, out var container) ||
+            container.ContainedEntities.Count == 0)
+            return;
+
+        args.Handled = TryEjectGunner(ent, container.ContainedEntities[0], args.User, skipDelay: true);
     }
 
     private void OnInteractUsing(Entity<GrosseCarJointComponent> ent, ref InteractUsingEvent args)

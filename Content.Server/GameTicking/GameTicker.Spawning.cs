@@ -162,7 +162,9 @@ namespace Content.Server.GameTicking
             EntityUid station,
             string? jobId = null,
             bool lateJoin = true,
-            bool silent = false)
+            bool silent = false,
+            bool assignJob = true,
+            bool keepCharacter = false)
         {
             // Can't spawn players with a dummy ticker!
             if (DummyTicker)
@@ -185,7 +187,7 @@ namespace Content.Server.GameTicking
             }
 
             string speciesId;
-            if (_randomizeCharacters)
+            if (_randomizeCharacters && !keepCharacter)
             {
                 var weightId = _cfg.GetCVar(CCVars.ICRandomSpeciesWeights);
 
@@ -293,7 +295,8 @@ namespace Content.Server.GameTicking
                 }
             }
 
-            _stationJobs.TryAssignJob(station, jobPrototype, player.UserId);
+            if (assignJob)
+                _stationJobs.TryAssignJob(station, jobPrototype, player.UserId);
 
             if (lateJoin)
             {
@@ -374,6 +377,32 @@ namespace Content.Server.GameTicking
             _roles.MindAddJobRole(newMind, silent: silent, jobPrototype: jobId);
             jobName = _jobs.MindTryGetJobName(newMind);
             _admin.UpdatePlayerList(player);
+        }
+
+        /// <summary>
+        /// Spawns a player who is already in the round as the given character and job.
+        /// The job slot is reserved once here. Does not send the player to the lobby.
+        /// </summary>
+        public bool TrySpawnGhostRespawn(
+            ICommonSession player,
+            HumanoidCharacterProfile character,
+            EntityUid station,
+            string jobId)
+        {
+            if (DummyTicker || DisallowLateJoin)
+                return false;
+
+            if (!_prototypeManager.TryIndex<JobPrototype>(jobId, out var job))
+                return false;
+
+            if (!_stationJobs.TryGetJobSlot(station, job, out var slots) || slots == 0)
+                return false;
+
+            if (!_stationJobs.TryAssignJob(station, job, player.UserId))
+                return false;
+
+            SpawnPlayer(player, character, station, jobId, lateJoin: true, silent: false, assignJob: false, keepCharacter: true);
+            return true;
         }
 
         public void Respawn(ICommonSession player)
