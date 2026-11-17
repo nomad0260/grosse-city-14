@@ -150,6 +150,7 @@
     sprite: _Grosse/Structures/sink.rsi
     layers:
     - state: icon
+    offset: "0.5, 0"
   - type: Destructible
     thresholds:
     - trigger:
