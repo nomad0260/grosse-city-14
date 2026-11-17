@@ -197,6 +197,7 @@
     sprite: _Grosse/Structures/sink.rsi
     layers:
     - state: icon
+    offset: "0.5, 0"
   - type: Destructible
     thresholds:
     - trigger:
@@ -225,7 +226,7 @@
 - type: entity
   name: big table with sinked sinks
   id: BigSinkFilledC17
-  parent: StoveC17
+  parent: BigSinkC17
   description: This is a big white table with doubled sink. Seems to be filled with water.
   components:
   - type: Sprite
