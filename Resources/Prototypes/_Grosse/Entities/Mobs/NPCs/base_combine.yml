@@ -212,6 +212,8 @@
     sound:
       collection: SoldierDeath
   - type: HTN
+    # Crowded maps: replan on demand (NPCThreatWakeSystem) instead of every planCooldown.
+    constantlyReplan: false
     rootTask:
       task: SimpleHostileCompound
   - type: Tool

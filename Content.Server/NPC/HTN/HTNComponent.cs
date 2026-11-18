@@ -38,11 +38,24 @@ public sealed partial class HTNComponent : NPCComponent
     [ViewVariables(VVAccess.ReadWrite)]
     public float PlanAccumulator = 0f;
 
+    /// <summary>
+    /// Re-plan every <see cref="PlanCooldown"/> while a plan is running, instead of only when the plan finishes.
+    /// Grosse: the default is unchanged (on). Crowded maps switch it off for specific mobs in YAML with
+    /// <c>constantlyReplan: false</c>, so the shared default keeps behaving as before for every other NPC;
+    /// <see cref="Content.Server.NPC.Systems.NPCThreatWakeSystem"/> then asks for a new plan when a threat appears.
+    /// </summary>
     [DataField]
     public bool ConstantlyReplan = true;
 
     [ViewVariables]
     public HTNPlanJob? PlanningJob = null;
+
+    /// <summary>
+    /// Grosse: a replan was requested while a plan job was already in flight, so it has to run once
+    /// that job finishes instead of being dropped.
+    /// </summary>
+    [ViewVariables]
+    public bool ReplanPending;
 
     [ViewVariables]
     public CancellationTokenSource? PlanningToken = null;

@@ -78,6 +78,12 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         new DefaultObjectPool<HashSet<EntityUid>>(new SetPolicy<EntityUid>());
 
     /// <summary>
+    /// Grosse: reused buffer for the per-tick steering work list, so it is not reallocated every tick.
+    /// </summary>
+    private (EntityUid, NPCSteeringComponent, InputMoverComponent, TransformComponent)[] _steeringBuffer =
+        Array.Empty<(EntityUid, NPCSteeringComponent, InputMoverComponent, TransformComponent)>();
+
+    /// <summary>
     /// Enabled antistuck detection so if an NPC is in the same spot for a while it will re-path.
     /// </summary>
     public bool AntiStuck = true;
@@ -228,7 +234,14 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             return;
 
         // Not every mob has the modifier component so do it as a separate query.
-        var npcs = new (EntityUid, NPCSteeringComponent, InputMoverComponent, TransformComponent)[Count<ActiveNPCComponent>()];
+        var npcs = _steeringBuffer;
+        var capacity = Count<ActiveNPCComponent>();
+
+        if (npcs.Length < capacity)
+        {
+            npcs = new (EntityUid, NPCSteeringComponent, InputMoverComponent, TransformComponent)[capacity];
+            _steeringBuffer = npcs;
+        }
 
         var query = EntityQueryEnumerator<ActiveNPCComponent, NPCSteeringComponent, InputMoverComponent, TransformComponent>();
         var index = 0;
@@ -239,20 +252,17 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             index++;
         }
 
-        // Dependency issues across threads.
-        var options = new ParallelOptions
-        {
-            MaxDegreeOfParallelism = 1,
-        };
         var curTime = _timing.CurTime;
 
         _activeSteeringCount = 0;
 
-        Parallel.For(0, index, options, i =>
+        // Steering needs to stay on this thread (entity dependencies), and the old Parallel.For with one
+        // degree of parallelism was only ever doing that while paying for a closure and work scheduling.
+        for (var i = 0; i < index; i++)
         {
             var (uid, steering, mover, xform) = npcs[i];
             Steer(uid, steering, mover, xform, frameTime, curTime);
-        });
+        }
 
         ActiveSteeringGauge.Set(_activeSteeringCount);
 
@@ -330,6 +340,17 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         }
 
         Interlocked.Increment(ref _activeSteeringCount);
+
+        // Grosse: steering is the most expensive per-NPC work in the tick, and its result cannot change
+        // meaningfully within 100 ms, so each NPC recomputes it on one tick in three and keeps walking along
+        // the previous direction in between (that path already exists: SetDirection with clear=false). The
+        // phase comes from the entity id so the groups are stable and spread out instead of all NPCs
+        // recomputing on the same tick. Forced moves bypass the throttle and keep steering every tick.
+        if (!steering.ForceMove && ((uint) uid.Id + _timing.CurTick.Value) % 3 != 0)
+        {
+            SetDirection(uid, mover, steering, steering.LastSteerDirection, false);
+            return;
+        }
 
         var agentRadius = steering.Radius;
         var worldPos = _transform.GetWorldPosition(xform);

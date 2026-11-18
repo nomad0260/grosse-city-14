@@ -401,8 +401,11 @@ namespace Content.Server.NPC.Pathfinding
             if (!TryGetChunk(origin, comp, out var chunk))
                 return null;
 
-            var chunkPos = new Vector2(MathHelper.Mod(localPos.X, ChunkSize), MathHelper.Mod(localPos.Y, ChunkSize));
-            var polys = chunk.Polygons[(int)chunkPos.X * ChunkSize + (int)chunkPos.Y];
+            // Grosse: a position sitting a hair outside the chunk (a collision push leaves e.g. -1e-7) makes
+            // Mod return exactly ChunkSize, and the index below then runs past Polygons and crashes the server.
+            var chunkX = Math.Clamp((int) MathHelper.Mod(localPos.X, ChunkSize), 0, ChunkSize - 1);
+            var chunkY = Math.Clamp((int) MathHelper.Mod(localPos.Y, ChunkSize), 0, ChunkSize - 1);
+            var polys = chunk.Polygons[chunkX * ChunkSize + chunkY];
 
             foreach (var poly in polys)
             {

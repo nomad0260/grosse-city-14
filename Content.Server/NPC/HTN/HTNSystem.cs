@@ -23,7 +23,9 @@ public sealed partial class HTNSystem : EntitySystem
     [Dependency] private NPCSystem _npc = default!;
     [Dependency] private NPCUtilitySystem _utility = default!;
 
-    private readonly JobQueue _planQueue = new(0.004);
+    // Grosse: 4ms starved the planner on crowded maps (hundreds of NPCs re-plan every PlanCooldown),
+    // leaving most of them frozen mid-plan. 8ms keeps the same per-tick slicing but lets plans finish.
+    private readonly JobQueue _planQueue = new(0.008);
 
     private readonly HashSet<ICommonSession> _subscribers = new();
 
@@ -173,7 +175,20 @@ public sealed partial class HTNSystem : EntitySystem
     [PublicAPI]
     public void Replan(HTNComponent component)
     {
-        component.PlanAccumulator = 0f;
+        if (!component.Enabled)
+            return;
+
+        // Grosse: ask the planner directly instead of flagging the component for a later update, so a
+        // reaction does not wait for the next periodic pass. RequestPlan refuses to stack jobs, so a request
+        // that arrives while a plan is already being prepared is remembered and applied once that job is done;
+        // otherwise a one-shot caller (a cursed mask, a rat king) would silently lose its replan.
+        if (component.PlanningJob != null)
+        {
+            component.ReplanPending = true;
+            return;
+        }
+
+        RequestPlan(component);
     }
 
     public void UpdateNPC(ref int count, int maxUpdates, float frameTime)
@@ -216,7 +231,19 @@ public sealed partial class HTNSystem : EntitySystem
 
                 // If a new planning job has finished then handle it.
                 if (comp.PlanningJob.Status != JobStatus.Finished)
+                {
+                    // Grosse: keep running the current plan while the next one is being prepared. Freezing
+                    // the NPC here stalled every mob on the map as soon as the plan queue backed up, which
+                    // made them all stand still and react seconds late.
+                    if (comp.Plan != null)
+                    {
+                        Update(comp, frameTime);
+                        count++;
+                        updates++;
+                    }
+
                     continue;
+                }
 
                 var newPlanBetter = false;
 
@@ -282,6 +309,11 @@ public sealed partial class HTNSystem : EntitySystem
                     comp.CheckServices = true;
                 }
 
+                // Grosse: a mob whose root compound cannot produce a plan would otherwise ask again every
+                // PlanCooldown forever, which on a crowded map is pure planner load. Back off instead.
+                if (comp.Plan == null && comp.PlanningJob.Result == null)
+                    comp.PlanAccumulator = MathF.Max(comp.PlanAccumulator, comp.PlanCooldown * 4f);
+
                 comp.PlanningJob = null;
                 comp.PlanningToken = null;
             }
@@ -346,9 +378,14 @@ public sealed partial class HTNSystem : EntitySystem
         if (component.PlanningJob == null)
             component.PlanAccumulator -= frameTime;
 
-        // We'll still try re-planning occasionally even when we're updating in case new data comes in.
-        if ((component.ConstantlyReplan || component.Plan is null) && component.PlanAccumulator <= 0f)
+        // We'll still try re-planning occasionally even when we're updating in case new data comes in, plus
+        // immediately for a request that had to wait for the plan job in flight. The cooldown gate is what
+        // stops a repeated request (a hostile standing in front of an unreachable mob) from chaining plans
+        // back to back on a crowded map.
+        if (component.PlanAccumulator <= 0f &&
+            (component.ReplanPending || component.ConstantlyReplan || component.Plan is null))
         {
+            component.ReplanPending = false;
             RequestPlan(component);
         }
 

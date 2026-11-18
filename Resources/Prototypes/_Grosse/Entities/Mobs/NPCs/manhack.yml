@@ -22,6 +22,8 @@
   - type: InputMover
   - type: MobMover
   - type: HTN
+    # Crowded maps: replan on demand (NPCThreatWakeSystem) instead of every planCooldown.
+    constantlyReplan: false
     rootTask:
       task: SimpleHostileCompound
     blackboard:
