@@ -282186,7 +282186,7 @@ entities:
     - type: Transform
       pos: 14.5,-167.5
       parent: 1
-- proto: MeteorRockIndestructibleOccluded
+- proto: RockDebrisIndestructibleOccludedC17
   entities:
   - uid: 783
     components:

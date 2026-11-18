@@ -55,3 +55,80 @@
   parent: BaseTileC17
   name: tiles-metal-plate-c17
   sprite: /Textures/_Grosse/Tiles/metalplate.png
+
+- type: tile
+  id: Floorgrass1C17
+  parent: BaseTileC17
+  name: tiles-metal-grass-c17
+  sprite: /Textures/_Grosse/Tiles/grass.rsi/grass.png
+  variants: 7
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+
+- type: tile
+  id: Floorgravvv1C17
+  parent: BaseTileC17
+  name: tiles-metal-grav-plate-c17
+  sprite: /Textures/_Grosse/Tiles/gravvv1.png
+
+- type: tile
+  id: Floorgravvv2C17
+  parent: BaseTileC17
+  name: tiles-metal-grav-plate-c17
+  sprite: /Textures/_Grosse/Tiles/gravvv2.png
+
+- type: tile
+  id: Floorkamn1C17
+  parent: BaseTileC17
+  name: tiles-metal-rock-plate-c17
+  sprite: /Textures/_Grosse/Tiles/kamn1.png
+
+- type: tile
+  id: Floorkamn2C17
+  parent: BaseTileC17
+  name: tiles-metal-rock-plate-c17
+  sprite: /Textures/_Grosse/Tiles/kamn2.png
+
+- type: tile
+  id: FloorgraviyC17
+  parent: BaseTileC17
+  name: tiles-metal-grav-c17
+  sprite: /Textures/_Grosse/Tiles/graviy.png
+
+- type: tile
+  id: FlooroakplateC17
+  parent: BaseTileC17
+  name: tiles-oak-plate-c17
+  sprite: /Textures/_Grosse/Tiles/oakplate.png
+
+- type: tile
+  id: FloorAsphaltC17
+  parent: BaseTileC17
+  name: tiles-asphalt-c17
+  sprite: /Textures/_Grosse/Tiles/long/asphalt.png
+  variants: 8
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+
+- type: tile
+  id: FloorSandC17
+  parent: BaseTileC17
+  name: tiles-sand-c17
+  sprite: /Textures/_Grosse/Tiles/long/sand.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0

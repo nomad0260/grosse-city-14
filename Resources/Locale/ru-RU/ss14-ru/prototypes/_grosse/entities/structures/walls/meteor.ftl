@@ -1,2 +1,16 @@
-ent-MeteorRockIndestructibleOccluded = обломки
+ent-RockDebrisC17 = обломки
     .desc = Куски бетона.
+ent-BigRockDebrisC17 = большие обломки
+    .desc = Большие куски бетона.
+ent-RockDebrisOccludedC17 = { ent-RockDebrisC17 }
+    .desc = { ent-RockDebrisC17.desc }
+ent-BigRockDebrisOccludedC17 = { ent-BigRockDebrisC17 }
+    .desc = { ent-BigRockDebrisC17.desc }
+ent-RockDebrisIndestructibleC17 = { ent-RockDebrisC17 }
+    .desc = { ent-RockDebrisC17.desc }
+ent-BigRockDebrisIndestructibleC17 = { ent-BigRockDebrisC17 }
+    .desc = { ent-BigRockDebrisC17.desc }
+ent-RockDebrisIndestructibleOccludedC17 = { ent-RockDebrisC17 }
+    .desc = { ent-RockDebrisC17.desc }
+ent-BigRockDebrisIndestructibleOccludedC17 = { ent-BigRockDebrisC17 }
+    .desc = { ent-BigRockDebrisC17.desc }

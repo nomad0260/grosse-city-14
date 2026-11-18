@@ -1,6 +1,7 @@
 - type: entity
   id: BaseStructureC17
   parent: BaseStructure
+  abstract: true
   components:
   - type: Damageable
     damageModifierSet: StructuralSandbags

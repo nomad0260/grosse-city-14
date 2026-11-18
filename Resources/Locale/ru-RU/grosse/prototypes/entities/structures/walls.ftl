@@ -77,3 +77,39 @@ ent-WallCombineBEC17 = стена Альянса
 ent-WallCombineAVariationBC17 = стена Альянса
     .desc = Стена созданная нашими Покровителями для нас.
     .suffix = WallC17 Тип B Вариативность
+
+ent-WallConcreteC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Тип AB
+
+ent-WallConcreteCAC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Тип AC
+
+ent-WallConcreteCVariationC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Вариативность Тип A
+
+ent-WallConcreteCAGreyC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Тип ВA
+
+ent-WallConcreteGreyC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Тип ВC
+
+ent-WallConcreteCGreyVariationC17 = бетонная стена
+    .desc = Обычная бетонная стена обычного здания.
+    .suffix = WallC17 Вариативность Тип B
+
+ent-WallWoodenOakC17 = деревянная стена
+    .desc = Обычная стена из дерева для обычного здания.
+    .suffix = WallC17
+
+ent-WallSandstoneC17 = песчаник
+    .desc = Не обычная стена из песка.
+    .suffix = WallC17
+
+ent-WallSandstoneIndestructibleC17 = песчаник
+    .desc = Не обычная стена из песка.
+    .suffix = WallC17, неразрушаемый
