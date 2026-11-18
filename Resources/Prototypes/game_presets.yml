@@ -159,7 +159,7 @@
   name: death-match-title
   description: death-match-description
   maxPlayers: 15
-  showInVote: true
+  showInVote: false # City14: unused, requires DeathMatchMapPool
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31

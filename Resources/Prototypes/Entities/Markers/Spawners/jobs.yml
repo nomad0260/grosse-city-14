@@ -15,6 +15,7 @@
   name: observer spawn point
   id: SpawnPointObserver
   parent: MarkerBase
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Markers/jobs.rsi
@@ -30,6 +31,7 @@
   name: latejoin spawn point
   id: SpawnPointLatejoin
   parent: SpawnPointJobBase
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     state: green
