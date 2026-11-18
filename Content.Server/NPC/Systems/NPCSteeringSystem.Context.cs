@@ -179,11 +179,17 @@ public sealed partial class NPCSteeringSystem
 
         var direction = targetMap.Position - ourMap.Position;
 
+        // This runs every steering tick, and IsFreeSpace does a static entity lookup for a blocked node, so
+        // the next poly and whether it is free are resolved once here instead of once per branch below.
+        // Nothing between here and the last use modifies the path.
+        var nextNode = steering.CurrentPath.Count > 0 ? steering.CurrentPath.Peek() : null;
+        var nextNodeFree = nextNode != null && IsFreeSpace(uid, steering, nextNode);
+
         // Cache smash-target range once; this method runs every steering tick.
         var hasSmashTarget = false;
         var smashTargetInRange = false;
-        if (steering.CurrentPath.TryPeek(out var blockedNode) && !IsFreeSpace(uid, steering, blockedNode))
-            hasSmashTarget = TryGetSmashTargetInRange(uid, steering, blockedNode, out smashTargetInRange);
+        if (nextNode != null && !nextNodeFree)
+            hasSmashTarget = TryGetSmashTargetInRange(uid, steering, nextNode, out smashTargetInRange);
 
         // Need to be pretty close if it's just a node to make sure LOS for door bashes or the likes.
         bool arrived;
@@ -192,17 +198,22 @@ public sealed partial class NPCSteeringSystem
         {
             // What's our tolerance for arrival.
             // If it's a pathfinding node it might be different to the destination.
-            arrived = direction.Length() <= steering.Range;
+            // The blocked node can be the destination itself (the only path poly left), and a polygon's
+            // centre or edge is not the obstacle's physical surface: there the melee range check decides,
+            // otherwise the NPC stops a poly short of the wall and never starts smashing it.
+            arrived = nextNode != null && !nextNodeFree && hasSmashTarget
+                ? smashTargetInRange
+                : direction.Length() <= steering.Range;
         }
         // If next node is a free tile then get within its bounds.
         // This is to avoid popping it too early
-        else if (steering.CurrentPath.TryPeek(out var node) && IsFreeSpace(uid, steering, node))
+        else if (nextNode != null && nextNodeFree)
         {
             // The node may be on another grid (e.g. the next grid after a docking portal), so compare in
             // world space instead of mixing our parent's local space with the node's grid-local box.
             // Test the point itself: the transformed AABB grows on grids rotated not by 90°.
-            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(node.GraphUid));
-            arrived = node.Box.Contains(nodeLocal);
+            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(nextNode.GraphUid));
+            arrived = nextNode.Box.Contains(nodeLocal);
         }
         // For destructible blockers, use the same nearest-entity range check as melee attacks.
         // A polygon's center or edge isn't necessarily the obstacle's physical surface.
@@ -219,7 +230,7 @@ public sealed partial class NPCSteeringSystem
         if (arrived)
         {
             // Node needs some kind of special handling like access or smashing.
-            if (steering.CurrentPath.TryPeek(out var node) && !IsFreeSpace(uid, steering, node))
+            if (nextNode != null && !nextNodeFree)
             {
                 // Ignore stuck while handling obstacles.
                 ResetStuck(steering, ourCoordinates);
@@ -242,7 +253,7 @@ public sealed partial class NPCSteeringSystem
                 // Breaking behaviours and the likes.
                 lock (_obstacles)
                 {
-                    status = TryHandleFlags(uid, steering, node);
+                    status = TryHandleFlags(uid, steering, nextNode);
                 }
 
                 // TODO: Need to handle re-pathing in case the target moves around.

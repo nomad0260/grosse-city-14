@@ -6,17 +6,24 @@ using Content.Server.NPC;
 using Content.Server.NPC.HTN.PrimitiveTasks;
 using Content.Server.NPC.Pathfinding;
 using Robust.Shared.Map;
+using Robust.Shared.Random;
 
 namespace Content.Server.PatchHTN.HTN.PrimitiveTasks.Operators.Specific;
 
 /// <summary>
-/// Picks a reachable neighbor of the nearest point in a mapper-defined patrol network
-/// (see <see cref="PatrolPointComponent"/>) and stores it as a movement target. The path is validated
-/// during planning so NPCs don't pick points they can't reach.
+/// Picks a random point of a mapper-defined patrol network (see <see cref="PatrolPointComponent"/>) and stores
+/// it as a movement target. Only the destination tile is checked during planning; the actual path is built by
+/// the steering system when the mob starts moving.
 /// </summary>
+/// <remarks>
+/// The point is random across the whole network, including the far side of the map, and is not limited by
+/// distance. Picking the nearest point instead made a crowd spawned on one marker walk the same route in
+/// single file, and left anything further than <c>pointRange</c> from a marker without a patrol at all.
+/// </remarks>
 public sealed partial class PickPatrolPointOperator : HTNOperator
 {
     [Dependency] private IEntityManager _entManager = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private PathfindingSystem _pathfinding = default!;
     private PatrolNetworkSystem _patrol = default!;
@@ -33,33 +40,17 @@ public sealed partial class PickPatrolPointOperator : HTNOperator
     [DataField("targetKey")]
     public string TargetKey = "TargetCoordinates";
 
-    [DataField("pathfindKey")]
-    public string PathfindKey = NPCBlackboard.PathfindKey;
-
     /// <summary>
-    /// How far away a point may be for us to treat it as our current position in the network. This is
-    /// deliberately large so an NPC that chased something across the map can find its way back.
-    /// </summary>
-    [DataField("pointRange")]
-    public float PointRange = 250f;
-
-    /// <summary>
-    /// How many candidate points we try to pathfind to before giving up.
+    /// How many random points we try before giving up.
     /// </summary>
     [DataField("maxAttempts")]
-    public int MaxAttempts = 2;
+    public int MaxAttempts = 3;
 
     /// <summary>
     /// Blackboard key used to remember the last visited point so we don't backtrack immediately.
     /// </summary>
     [DataField("lastPointKey")]
     public string LastPointKey = "PatrolPoint";
-
-    /// <summary>
-    /// How close we need to get to the point for the movement to be considered done.
-    /// </summary>
-    [DataField("arriveRange")]
-    public float ArriveRange = 0.5f;
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
@@ -68,71 +59,78 @@ public sealed partial class PickPatrolPointOperator : HTNOperator
         _patrol = sysManager.GetEntitySystem<PatrolNetworkSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+    public override Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
         NPCBlackboard blackboard,
         CancellationToken cancelToken)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_entManager.TryGetComponent<TransformComponent>(owner, out var xform) ||
-            !_patrol.TryGetNearestPoint(xform.Coordinates, Network, PointRange, out var current))
+        if (!_entManager.TryGetComponent<TransformComponent>(owner, out var xform))
+            return Task.FromResult<(bool, Dictionary<string, object>?)>((false, null));
+
+        // Remember the point we are walking to so the next plan does not turn around immediately.
+        var excluded = EntityUid.Invalid;
+
+        if (blackboard.TryGetValue<EntityUid>(LastPointKey, out var last, _entManager))
+            excluded = last;
+
+        var hasFallback = false;
+        var fallbackPoint = EntityUid.Invalid;
+        var fallback = EntityCoordinates.Invalid;
+
+        for (var attempt = 0; attempt < MaxAttempts; attempt++)
         {
-            return (false, null);
-        }
-
-        var neighbors = new List<EntityUid>();
-        _patrol.GetNeighbors(current, neighbors);
-
-        // Don't walk straight back where we came from unless that is the only option.
-        if (neighbors.Count > 1 &&
-            blackboard.TryGetValue<EntityUid>(LastPointKey, out var last, _entManager))
-        {
-            neighbors.Remove(last);
-        }
-
-        // Try the closest points first so the NPC always takes the shortest hop.
-        var candidates = new List<(float Distance, EntityCoordinates Coordinates)>(neighbors.Count);
-
-        foreach (var neighbor in neighbors)
-        {
-            if (!_entManager.TryGetComponent<TransformComponent>(neighbor, out var neighborXform) ||
-                !xform.Coordinates.TryDistance(_entManager, neighborXform.Coordinates, out var distance))
+            if (!_patrol.TryGetRandomPoint(xform.Coordinates, Network, _random, excluded, out var point))
             {
+                // A network with a single marker, or one where the only other point is the excluded one, must
+                // still give us a destination. Bailing out here would drop the NPC into the burrow branch and
+                // leave it standing in one place.
+                excluded = EntityUid.Invalid;
+
+                if (!_patrol.TryGetRandomPoint(xform.Coordinates, Network, _random, excluded, out point))
+                    return Task.FromResult<(bool, Dictionary<string, object>?)>((false, null));
+            }
+
+            if (!_entManager.TryGetComponent<TransformComponent>(point, out var pointXform))
+                continue;
+
+            excluded = point;
+            var destination = pointXform.Coordinates;
+
+            // Only a cheap "is there a walkable poly here" check. A full A* per plan made planning so
+            // expensive that a crowd of spawned NPCs took seconds to get through the planner queue, and
+            // the steering system pathfinds for real once the mob actually starts moving anyway.
+            if (_pathfinding.GetPoly(destination) == null)
+            {
+                // Pathfinding data is rebuilt on a cooldown, so right after a map loads or terrain changes
+                // every destination can come back empty. Failing here would leave freshly spawned NPCs
+                // without a plan and make them wait out the replan backoff instead of walking off.
+                if (!hasFallback)
+                {
+                    hasFallback = true;
+                    fallback = destination;
+                    fallbackPoint = point;
+                }
+
                 continue;
             }
 
-            candidates.Add((distance, neighborXform.Coordinates));
-        }
-
-        candidates.Sort((a, b) => a.Distance.CompareTo(b.Distance));
-
-        var flags = _pathfinding.GetFlags(blackboard);
-        var attempts = Math.Min(MaxAttempts, candidates.Count);
-
-        for (var i = 0; i < attempts; i++)
-        {
-            var destination = candidates[i].Coordinates;
-
-            var path = await _pathfinding.GetPath(
-                owner,
-                xform.Coordinates,
-                destination,
-                ArriveRange,
-                cancelToken,
-                flags);
-
-            if (path.Result != PathResult.Path)
-                continue;
-
-            return (true, new Dictionary<string, object>
+            return Task.FromResult<(bool, Dictionary<string, object>?)>((true, new Dictionary<string, object>
             {
                 { TargetKey, destination },
-                { PathfindKey, path },
-                // Remember where we came from so the next plan can avoid immediately backtracking.
-                { LastPointKey, current },
-            });
+                { LastPointKey, point },
+            }));
         }
 
-        return (false, null);
+        if (hasFallback)
+        {
+            return Task.FromResult<(bool, Dictionary<string, object>?)>((true, new Dictionary<string, object>
+            {
+                { TargetKey, fallback },
+                { LastPointKey, fallbackPoint },
+            }));
+        }
+
+        return Task.FromResult<(bool, Dictionary<string, object>?)>((false, null));
     }
 }

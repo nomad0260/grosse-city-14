@@ -1,5 +1,6 @@
 using Content.Server.PatchHTN.Components;
 using Robust.Shared.Map;
+using Robust.Shared.Random;
 
 namespace Content.Server.PatchHTN.Systems;
 
@@ -76,6 +77,47 @@ public sealed partial class PatrolNetworkSystem : EntitySystem
             if (TryComp<PatrolPointComponent>(neighbor, out var neighborComponent) && neighborComponent.Enabled)
                 neighbors.Add(neighbor);
         }
+    }
+
+    /// <summary>
+    /// Picks a random enabled point of the specified network on the same map.
+    /// </summary>
+    /// <remarks>
+    /// Distance is deliberately ignored: NPCs spawned in a crowd all stand on the same marker, so a
+    /// nearest-point pick sent every one of them down the same route. The sample is reservoir based,
+    /// so it costs a single pass and no allocation per call.
+    /// </remarks>
+    /// <param name="exclude">Point to skip, usually the one the NPC is walking to; pass
+    /// <see cref="EntityUid.Invalid"/> to allow every point.</param>
+    public bool TryGetRandomPoint(
+        EntityCoordinates coordinates,
+        string network,
+        IRobustRandom random,
+        EntityUid exclude,
+        out EntityUid point)
+    {
+        point = EntityUid.Invalid;
+        var mapId = _transform.GetMapId(coordinates);
+        var query = EntityQueryEnumerator<PatrolPointComponent, TransformComponent>();
+        var count = 0;
+
+        while (query.MoveNext(out var uid, out var component, out var xform))
+        {
+            if (!component.Enabled ||
+                component.Network != network ||
+                _transform.GetMapId(xform.Coordinates) != mapId ||
+                uid == exclude)
+            {
+                continue;
+            }
+
+            count++;
+
+            if (random.Next(count) == 0)
+                point = uid;
+        }
+
+        return point.IsValid();
     }
 
     /// <summary>
