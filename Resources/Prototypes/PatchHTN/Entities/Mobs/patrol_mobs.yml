@@ -1,0 +1,49 @@
+# Opt-in patrol variants. The ordinary mob prototypes retain their original HTN roots.
+- type: entity
+  id: MobPatrolZombie
+  name: патрулирующий зомбированный
+  parent: MobHeadcrabedZombie
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: ZombiePatrolCompound
+
+- type: entity
+  id: MobPatrolAntlion
+  name: патрулирующий муравьиный лев
+  parent: MobAntlion
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: AntlionPatrolCompound
+    # Overriding the HTN component replaces the parent's blackboard wholesale, so everything the antlion
+    # relies on has to be repeated here. Without it the patrol variant is blind and never reacts to anything.
+    blackboard:
+      VisionRadius: !type:Single
+        86
+      AggroVisionRadius: !type:Single
+        80
+      NavClimb: !type:Bool
+        true
+      NavInteract: !type:Bool
+        true
+      NavPry: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
+      MinimumBurrowTime: !type:Single
+        20
+      MaximumBurrowTime: !type:Single
+        45
+
+- type: entity
+  id: MobPatrolHeadcrab
+  name: патрулирующий хедкраб
+  parent: MobHeadcrabNPC
+  suffix: PatchHTN, патруль
+  components:
+  - type: HTN
+    rootTask:
+      task: HeadcrabPatrolCompound

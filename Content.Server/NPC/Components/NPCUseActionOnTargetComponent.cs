@@ -24,4 +24,23 @@ public sealed partial class NPCUseActionOnTargetComponent : Component
 
     [DataField]
     public EntityUid? ActionEnt;
+
+    /// <summary>
+    /// Only use the action when the target is at least this far away. 0 disables the check.
+    /// </summary>
+    [DataField]
+    public float MinRange;
+
+    /// <summary>
+    /// Only use the action when the target is at most this far away. 0 disables the check.
+    /// </summary>
+    [DataField]
+    public float MaxRange;
+
+    /// <summary>
+    /// Only use the action when there is an unobstructed line to the target, so e.g. a leaping
+    /// mob doesn't throw itself into a wall.
+    /// </summary>
+    [DataField]
+    public bool RequireLineOfSight;
 }

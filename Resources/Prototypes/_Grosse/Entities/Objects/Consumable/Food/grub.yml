@@ -1,5 +1,5 @@
 - type: entity
-  name: ядро муровьиной личинки
+  name: ядро муравьиной личинки
   parent: FoodProduceBase
   id: FoodAntlionGrubCore
   description: It's a little piece of Eden.

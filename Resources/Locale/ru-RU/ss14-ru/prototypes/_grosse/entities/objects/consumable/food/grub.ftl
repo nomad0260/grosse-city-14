@@ -1,2 +1,2 @@
-ent-FoodAntlionGrubCore = ядро муровьиной личинки
+ent-FoodAntlionGrubCore = ядро муравьиной личинки
     .desc = Это маленький кусочек Эдема.
