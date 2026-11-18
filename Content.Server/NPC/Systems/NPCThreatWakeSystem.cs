@@ -99,11 +99,11 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
 
             htn.NextThreatWake = _timing.CurTime + WakeCooldown;
 
-            // Don't pull the key out from under a plan that is still being prepared: a task starting from that
-            // plan reads Target without a null check. The next pass removes it once no job is in flight.
-            if (!htn.Planning)
-                htn.Blackboard.Remove<EntityUid>(TargetKey);
-
+            // The key is deliberately left in place. An NPC keeps running its current plan while the next one
+            // is prepared (see HTNSystem.UpdateNPC), and operators such as MeleeOperator or GunOperator read
+            // Target without a null check in Startup, so removing it here could throw KeyNotFoundException
+            // mid-plan. A stale target makes the running plan fail on its own (operators use TryGetValue) and
+            // that shutdown removes the key, exactly as when a target dies during combat.
             _htn.Replan(htn);
             return;
         }

@@ -88,8 +88,8 @@ public sealed partial class NPCSteeringSystem
             var isAccessRequired = (poly.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;
             var isClimbable = (poly.Data.Flags & PathfindingBreadcrumbFlag.Climb) != 0x0;
 
-            // Doors are handled first: they are never worth smashing and have their own ways of
-            // being opened (walking into them, clicking, prying).
+            // Doors are handled first: walking into them, clicking or prying is cheaper than breaking
+            // them, but if none of that works they fall through to smashing like any other obstacle.
             if (isDoor)
             {
                 foreach (var ent in obstacleEnts)
