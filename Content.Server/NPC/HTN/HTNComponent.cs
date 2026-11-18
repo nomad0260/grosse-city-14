@@ -57,6 +57,13 @@ public sealed partial class HTNComponent : NPCComponent
     [ViewVariables]
     public bool ReplanPending;
 
+    /// <summary>
+    /// Earliest time <see cref="Content.Server.NPC.Systems.NPCThreatWakeSystem"/> may ask for a new plan again.
+    /// Set after a wake attempt that produced no target, so an unreachable hostile cannot chain plans.
+    /// </summary>
+    [ViewVariables]
+    public TimeSpan NextThreatWake;
+
     [ViewVariables]
     public CancellationTokenSource? PlanningToken = null;
 

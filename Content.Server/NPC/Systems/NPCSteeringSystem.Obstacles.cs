@@ -130,6 +130,10 @@ public sealed partial class NPCSteeringSystem
                     }
                 }
 
+                // Nothing here can open it (locked, welded, no access): break it down if this NPC can smash.
+                if ((component.Flags & PathFlags.Smashing) != 0x0)
+                    return TrySmashObstacles(uid, obstacleEnts);
+
                 return SteeringObstacleStatus.Failed;
             }
 
@@ -166,53 +170,59 @@ public sealed partial class NPCSteeringSystem
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
             {
-                if (_melee.TryGetWeapon(uid, out var weaponUid, out var meleeWeapon) && TryComp<CombatModeComponent>(uid, out var combatMode))
-                {
-                    // A weapon cooldown is a wait, not a path failure. Keep the blocking node so we
-                    // can retry the attack when the weapon is ready instead of tearing down MoveTo.
-                    if (meleeWeapon.NextAttack > _timing.CurTime)
-                        return SteeringObstacleStatus.Waiting;
-
-                    var wasInCombatMode = combatMode.IsInCombatMode;
-                    if (!wasInCombatMode)
-                        _combat.SetInCombatMode(uid, true, combatMode);
-
-                    var attackResult = false;
-
-                    try
-                    {
-                        foreach (var ent in obstacleEnts)
-                        {
-                            // A node may hold several obstacles (e.g. a grille in front of a window),
-                            // and only the ones actually within melee range can be hit.
-                            if (!_destructibleQuery.HasComponent(ent))
-                                continue;
-
-                            if (!_melee.AttemptLightAttack(uid, weaponUid, meleeWeapon, ent))
-                                continue;
-
-                            attackResult = true;
-                            break;
-                        }
-                    }
-                    finally
-                    {
-                        if (!wasInCombatMode)
-                            _combat.SetInCombatMode(uid, false, combatMode);
-                    }
-
-                    // Blocked or the likes?
-                    if (!attackResult)
-                        return SteeringObstacleStatus.Failed;
-
-                    return SteeringObstacleStatus.Continuing;
-                }
+                return TrySmashObstacles(uid, obstacleEnts);
             }
 
             return SteeringObstacleStatus.Failed;
         }
 
         return SteeringObstacleStatus.Completed;
+    }
+
+    /// <summary>
+    /// Attacks a blocking obstacle with the NPC's melee weapon. A weapon cooldown is reported as
+    /// <see cref="SteeringObstacleStatus.Waiting"/> so the blocking node is kept instead of failing the path.
+    /// </summary>
+    private SteeringObstacleStatus TrySmashObstacles(EntityUid uid, List<EntityUid> obstacleEnts)
+    {
+        if (!_melee.TryGetWeapon(uid, out var weaponUid, out var meleeWeapon) ||
+            !TryComp<CombatModeComponent>(uid, out var combatMode))
+        {
+            return SteeringObstacleStatus.Failed;
+        }
+
+        if (meleeWeapon.NextAttack > _timing.CurTime)
+            return SteeringObstacleStatus.Waiting;
+
+        var wasInCombatMode = combatMode.IsInCombatMode;
+        if (!wasInCombatMode)
+            _combat.SetInCombatMode(uid, true, combatMode);
+
+        var attackResult = false;
+
+        try
+        {
+            foreach (var ent in obstacleEnts)
+            {
+                // A node may hold several obstacles (e.g. a grille in front of a window),
+                // and only the ones actually within melee range can be hit.
+                if (!_destructibleQuery.HasComponent(ent))
+                    continue;
+
+                if (!_melee.AttemptLightAttack(uid, weaponUid, meleeWeapon, ent))
+                    continue;
+
+                attackResult = true;
+                break;
+            }
+        }
+        finally
+        {
+            if (!wasInCombatMode)
+                _combat.SetInCombatMode(uid, false, combatMode);
+        }
+
+        return attackResult ? SteeringObstacleStatus.Continuing : SteeringObstacleStatus.Failed;
     }
 
     private void GetObstacleEntities(PathPoly poly, int mask, int layer, List<EntityUid> ents)

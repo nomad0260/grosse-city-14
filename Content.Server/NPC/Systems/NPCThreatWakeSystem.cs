@@ -6,6 +6,7 @@ using Content.Shared.NPC;
 using Content.Shared.NPC.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Timing;
 
 namespace Content.Server.NPC.Systems;
 
@@ -17,8 +18,8 @@ namespace Content.Server.NPC.Systems;
 /// hostile can wait seconds before the mob in front of it gets a plan that includes it. This system keeps a
 /// cheap check running (faction hostiles within a capped range) and asks the planner for a new plan the moment
 /// something hostile appears, which lets <see cref="HTNComponent.ConstantlyReplan"/> stay off and stops every
-/// NPC from re-planning on a timer for nothing. Scans are incremental, so the cost per tick does not grow with
-/// the map's NPC count.
+/// NPC from re-planning on a timer for nothing. Scans are incremental (32 entities per tick), so the per-tick
+/// cost is capped; a full pass over the map takes N/32 ticks at 30 TPS.
 /// Sleeping NPCs are deliberately not scanned: they have no plan and no active updates, and the engine wakes
 /// them itself (map init, mob state change, player detaching).
 /// </remarks>
@@ -28,6 +29,7 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
     [Dependency] private NpcFactionSystem _faction = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private const string TargetKey = "Target";
 
@@ -41,6 +43,13 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
     /// How many NPCs one tick may check, so the cost stays flat regardless of the map's NPC count.
     /// </summary>
     private const int ScansPerTick = 32;
+
+    /// <summary>
+    /// How long a mob waits before the wake system may ask for another plan. It only applies after an attempt:
+    /// a hostile the plan cannot use leaves no target in the blackboard, and without this the mob would start
+    /// a new plan as soon as the previous one finished, for as long as that hostile stood there.
+    /// </summary>
+    private static readonly TimeSpan WakeCooldown = TimeSpan.FromSeconds(0.5);
 
     private int _cursor;
 
@@ -76,17 +85,25 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
         if (!htn.Enabled || htn.Planning || _container.IsEntityInContainer(uid))
             return;
 
-        // No extra throttle on purpose. HTNSystem.RequestPlan refuses to queue a second job while one is already
-        // running, and <see cref="ScansPerTick"/> caps wake-ups at 32 per tick, so a hostile the plan cannot use
-        // (unreachable, out of sight) cannot flood the planner. A PlanAccumulator-based cooldown was measured and
-        // pushed crowd reaction from 26 to 40 ticks, outside the one-second budget.
+        // One attempt per <see cref="WakeCooldown"/>. A hostile the plan cannot use (unreachable, out of sight)
+        // leaves no target in the blackboard, so without this the mob would ask for a new plan the moment the
+        // previous one finished and keep the planner busy for as long as that hostile stood there. The cooldown
+        // is only paid after an attempt, so a hostile appearing next to an idle mob is still noticed at once.
+        if (_timing.CurTime < htn.NextThreatWake)
+            return;
+
         if (htn.Blackboard.TryGetValue<EntityUid>(TargetKey, out var target, EntityManager))
         {
             if (IsValidTarget(target))
                 return;
 
-            // The plan still points at something that is gone, so let planning run again.
-            htn.Blackboard.Remove<EntityUid>(TargetKey);
+            htn.NextThreatWake = _timing.CurTime + WakeCooldown;
+
+            // Don't pull the key out from under a plan that is still being prepared: a task starting from that
+            // plan reads Target without a null check. The next pass removes it once no job is in flight.
+            if (!htn.Planning)
+                htn.Blackboard.Remove<EntityUid>(TargetKey);
+
             _htn.Replan(htn);
             return;
         }
@@ -103,6 +120,7 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
             if (!IsValidTarget(hostile))
                 continue;
 
+            htn.NextThreatWake = _timing.CurTime + WakeCooldown;
             _htn.Replan(htn);
             return;
         }

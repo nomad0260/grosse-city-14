@@ -252,6 +252,11 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             index++;
         }
 
+        // Drop references to mobs that were steered last time but are gone now, so the buffer doesn't keep
+        // their components alive.
+        if (index < npcs.Length)
+            Array.Clear(npcs, index, npcs.Length - index);
+
         var curTime = _timing.CurTime;
 
         _activeSteeringCount = 0;

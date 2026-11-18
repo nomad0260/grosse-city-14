@@ -176,7 +176,11 @@ public sealed partial class HTNSystem : EntitySystem
     public void Replan(HTNComponent component)
     {
         if (!component.Enabled)
+        {
+            // Keep the old side effect: a request still clears the cooldown for when the HTN is enabled again.
+            component.PlanAccumulator = 0f;
             return;
+        }
 
         // Grosse: ask the planner directly instead of flagging the component for a later update, so a
         // reaction does not wait for the next periodic pass. RequestPlan refuses to stack jobs, so a request
@@ -308,6 +312,11 @@ public sealed partial class HTNSystem : EntitySystem
                 {
                     comp.CheckServices = true;
                 }
+
+                // A request that arrived while this job was running was promised to run once it finished, so
+                // don't make it wait for another full cooldown.
+                if (comp.ReplanPending)
+                    comp.PlanAccumulator = 0f;
 
                 // Grosse: a mob whose root compound cannot produce a plan would otherwise ask again every
                 // PlanCooldown forever, which on a crowded map is pure planner load. Back off instead.
