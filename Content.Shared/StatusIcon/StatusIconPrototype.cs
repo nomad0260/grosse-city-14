@@ -79,6 +79,15 @@ public partial class StatusIconData : IComparable<StatusIconData>
     /// </summary>
     [DataField]
     public bool IsShaded = false;
+
+    //Grosse-edit-start
+    /// <summary>
+    /// Tint multiplied onto the icon. White leaves the sprite unchanged.
+    /// </summary>
+    [DataField]
+    public Color Modulate = Color.White;
+    //Grosse-edit-end
+
     public int CompareTo(StatusIconData? other)
     {
         return Priority.CompareTo(other?.Priority ?? int.MaxValue);

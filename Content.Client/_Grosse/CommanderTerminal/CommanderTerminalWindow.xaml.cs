@@ -17,19 +17,7 @@ namespace Content.Client._Grosse.CommanderTerminal;
 [GenerateTypedNameReferences]
 public sealed partial class CommanderTerminalWindow : FancyWindow
 {
-    private static readonly Color[] GroupColors =
-    [
-        new(60, 140, 255),
-        new(255, 170, 50),
-        new(70, 220, 130),
-        new(220, 80, 220),
-        new(255, 90, 90),
-        new(80, 220, 220),
-        new(230, 230, 80),
-        new(170, 170, 170),
-    ];
-
-    private static readonly Color UnassignedColor = new(150, 150, 150);
+    private static readonly Color UnassignedColor = CommanderGroupColors.Unassigned;
 
     [Dependency] private IEntityManager _entities = default!;
 
@@ -51,6 +39,8 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
     private string? _crewSignature;
     private string? _orderSignature;
     private bool _suppressOrderSelect;
+    private bool _commandsEnabled = true;
+    private bool _commandModeSet;
     private readonly Dictionary<string, Label> _crewLocations = new();
     private readonly Dictionary<string, string> _pendingAssign = new();
     private readonly Dictionary<string, CommanderMapEntry> _positions = new();
@@ -111,6 +101,7 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
 
     public void ApplyMenu(CommanderTerminalState state)
     {
+        ApplyCommandMode(state.CommandsEnabled);
         _members = state.Members;
         _groups = state.Groups;
         _floors = state.Floors;
@@ -145,6 +136,9 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
 
     private void OnMapClicked(MapCoordinates coordinates)
     {
+        if (!_commandsEnabled)
+            return;
+
         var group = SelectedGroup();
         if (group == null)
         {
@@ -248,7 +242,7 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
                 continue;
 
             var group = _groups.FirstOrDefault(candidate => candidate.GroupId == member.GroupId);
-            var color = group == null ? UnassignedColor : GroupColor(group.ColorIndex);
+            var color = group == null ? UnassignedColor : CommanderGroupColors.ForIndex(group.ColorIndex);
             NavMap.TrackedEntities[member.Body] = new NavMapBlip(
                 coordinates,
                 member.IsLeader ? _leaderBlip : _blip,
@@ -304,7 +298,7 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
                 Text = group?.Name ?? Loc.GetString("commander-terminal-unassigned"),
                 MinWidth = 120,
                 ClipText = true,
-                FontColorOverride = group == null ? UnassignedColor : GroupColor(group.ColorIndex),
+                FontColorOverride = group == null ? UnassignedColor : CommanderGroupColors.ForIndex(group.ColorIndex),
             });
 
             var options = new OptionButton { MinWidth = 160 };
@@ -420,7 +414,7 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
             var button = new Button
             {
                 Text = Loc.GetString("commander-terminal-group-entry", ("name", group.Name), ("count", group.Members.Count)),
-                Modulate = group.GroupId == _selectedGroupId ? GroupColor(group.ColorIndex) : Color.White,
+                Modulate = group.GroupId == _selectedGroupId ? CommanderGroupColors.ForIndex(group.ColorIndex) : Color.White,
             };
             button.OnPressed += _ =>
             {
@@ -506,8 +500,22 @@ public sealed partial class CommanderTerminalWindow : FancyWindow
         return _groups.FirstOrDefault(group => group.GroupId == _selectedGroupId);
     }
 
-    private static Color GroupColor(int index)
+    private void ApplyCommandMode(bool enabled)
     {
-        return GroupColors[Math.Abs(index) % GroupColors.Length];
+        if (_commandModeSet && _commandsEnabled == enabled)
+            return;
+
+        _commandModeSet = true;
+        _commandsEnabled = enabled;
+        Tabs.SetTabVisible(0, enabled);
+        Tabs.SetTabVisible(2, enabled);
+        OrderBar.Visible = enabled;
+
+        if (!enabled)
+            Tabs.CurrentTab = 1;
+
+        Title = Loc.GetString(enabled ? "commander-terminal-title" : "commander-terminal-handheld-title");
+        MinSize = enabled ? new Vector2(900, 640) : new Vector2(640, 520);
+        SetSize = enabled ? new Vector2(1100, 700) : new Vector2(760, 620);
     }
 }
