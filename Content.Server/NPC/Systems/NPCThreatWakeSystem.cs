@@ -1,9 +1,11 @@
 using System;
 using Content.Server.NPC.HTN;
+using Content.Shared.CCVar;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC;
 using Content.Shared.NPC.Systems;
+using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
@@ -18,8 +20,15 @@ namespace Content.Server.NPC.Systems;
 /// hostile can wait seconds before the mob in front of it gets a plan that includes it. This system keeps a
 /// cheap check running (faction hostiles within a capped range) and asks the planner for a new plan the moment
 /// something hostile appears, which lets <see cref="HTNComponent.ConstantlyReplan"/> stay off and stops every
-/// NPC from re-planning on a timer for nothing. Scans are incremental (32 entities per tick), so the per-tick
-/// cost is capped; a full pass over the map takes N/32 ticks at 30 TPS.
+/// NPC from re-planning on a timer for nothing. Scans are incremental (32 entities per tick by default), so the
+/// per-tick cost is capped; a full pass over the map takes N/32 ticks at 30 TPS.
+/// The budget and the scan interval are CVars (<see cref="CCVars.NPCThreatWakeScans"/>,
+/// <see cref="CCVars.NPCThreatWakeInterval"/>), so a crowded server can trade reaction latency for tick time
+/// without a rebuild.
+/// This runs on the tick thread on purpose: every step below reads the entity manager (container lookup,
+/// blackboard, component storage, the faction spatial query) or mutates the planner queue. None of that is
+/// thread-safe, so the scan cannot be handed to a worker thread; the planner itself is already time-sliced by
+/// <see cref="HTNSystem"/> and does not run here.
 /// Sleeping NPCs are deliberately not scanned: they have no plan and no active updates, and the engine wakes
 /// them itself (map init, mob state change, player detaching).
 /// </remarks>
@@ -30,6 +39,7 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IConfigurationManager _config = default!;
 
     private const string TargetKey = "Target";
 
@@ -40,9 +50,22 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
     private const float MaxReactionRange = 12f;
 
     /// <summary>
-    /// How many NPCs one tick may check, so the cost stays flat regardless of the map's NPC count.
+    /// How many NPCs one tick may check, so the cost stays flat regardless of the map's NPC count. Read from
+    /// <see cref="CCVars.NPCThreatWakeScans"/>; the value here is only a fallback for the first tick.
     /// </summary>
-    private const int ScansPerTick = 32;
+    private const int DefaultScansPerTick = 32;
+
+    /// <summary>
+    /// Upper bound for <see cref="CCVars.NPCThreatWakeScans"/>, so a typo in the config cannot turn this back
+    /// into an every-tick sweep over the whole map.
+    /// </summary>
+    private const int MaxScansPerTick = 256;
+
+    /// <summary>
+    /// Upper bound for <see cref="CCVars.NPCThreatWakeInterval"/>; anything above a couple of ticks already
+    /// fails the crowd reaction budget, so there is no reason to allow more.
+    /// </summary>
+    private const int MaxScanInterval = 30;
 
     /// <summary>
     /// How long a mob waits before the wake system may ask for another plan. It only applies after an attempt:
@@ -52,9 +75,37 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
     private static readonly TimeSpan WakeCooldown = TimeSpan.FromSeconds(0.5);
 
     private int _cursor;
+    private int _scansPerTick = DefaultScansPerTick;
+    private int _scanInterval = 1;
+    private int _tickCounter;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        Subs.CVar(_config, CCVars.NPCThreatWakeScans, SetScansPerTick, true);
+        Subs.CVar(_config, CCVars.NPCThreatWakeInterval, SetScanInterval, true);
+    }
+
+    private void SetScansPerTick(int value)
+    {
+        _scansPerTick = Math.Clamp(value, 1, MaxScansPerTick);
+    }
+
+    private void SetScanInterval(int value)
+    {
+        _scanInterval = Math.Clamp(value, 1, MaxScanInterval);
+    }
 
     public override void Update(float frameTime)
     {
+        // One scan per <see cref="CCVars.NPCThreatWakeInterval"/> ticks. Defaults to every tick; the counter is
+        // reset rather than decremented so a config change takes effect on the next scan.
+        if (++_tickCounter < _scanInterval)
+            return;
+
+        _tickCounter = 0;
+
         var query = EntityQueryEnumerator<ActiveNPCComponent, HTNComponent>();
         var skipped = 0;
         var scanned = 0;
@@ -67,7 +118,7 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
                 continue;
             }
 
-            if (scanned >= ScansPerTick)
+            if (scanned >= _scansPerTick)
                 break;
 
             scanned++;
@@ -75,7 +126,7 @@ public sealed partial class NPCThreatWakeSystem : EntitySystem
         }
 
         // Ran out of NPCs: start over next tick. Otherwise continue where this tick stopped.
-        _cursor = scanned >= ScansPerTick ? _cursor + scanned : 0;
+        _cursor = scanned >= _scansPerTick ? _cursor + scanned : 0;
     }
 
     private void WakeIfThreatened(EntityUid uid, HTNComponent htn)
