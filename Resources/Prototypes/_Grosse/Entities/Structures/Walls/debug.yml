@@ -1,10 +1,11 @@
 - type: entity
-  parent: TableBase
+  parent: BaseStructure
   id: WallReinforcedDown
   name: низкая стена
   components:
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
+    drawdepth: BelowMobs
   - type: Icon
     sprite: Structures/Walls/solid.rsi
   - type: Damageable
@@ -28,7 +29,7 @@
   - type: Appearance
   - type: WallReplacementMarker
   - type: Climbable
-    delay: 40
+    delay: 1
   - type: StaticPrice
     price: 150
   - type: RadiationBlocker
@@ -44,6 +45,14 @@
         - TableMask
         layer:
         - TableLayer
+  - type: Clickable
+  - type: PlaceableSurface
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepHull
+  - type: Tag
+    tags:
+    - ForceFixRotations
 
 - type: entity
   parent: TableBase

@@ -3,7 +3,7 @@
   name: combine post light
   description: "An always powered light."
   suffix: Always Powered
-  parent: BaseStructure
+  parent: BaseStructureC17
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/postlight.rsi

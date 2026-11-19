@@ -28,7 +28,7 @@
   description: Кухонная плита, использующая в качестве топлива горючий газ. Может использоваться природный газ из городской газовой сети или сжиженный газ.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/gas_stove.rsi
+    sprite: _Grosse/Structures/Decoration/gas_stove.rsi
     layers:
     - state: gs1
   - type: Destructible
@@ -46,9 +46,25 @@
         acts: [ "Destruction" ]
 
 - type: entity
+  id: GasStove5C17
+  parent: GasStoveC17
+  components:
+  - type: Sprite
+    layers:
+    - state: gs5
+
+- type: entity
   id: RustyGasStoveC17
   parent: GasStoveC17
   components:
   - type: Sprite
     layers:
     - state: gs3
+
+- type: entity
+  id: RustyGasStove6C17
+  parent: GasStoveC17
+  components:
+  - type: Sprite
+    layers:
+    - state: gs6

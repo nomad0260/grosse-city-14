@@ -32,7 +32,7 @@
   description: Емкость для мусора, чтобы складировать много мусор.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/Structures/Decoration/trashcan.rsi
+    sprite: _Grosse/Structures/Decoration/trashcan.rsi
     layers:
     - state: tc1
       map: [ "enum.DamageStateVisualLayers.Base" ]

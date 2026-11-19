@@ -8,3 +8,7 @@ ent-GasStoveC17 = газовая плита
     .desc = Кухонная плита, использующая в качестве топлива горючий газ. Может использоваться природный газ из городской газовой сети или сжиженный газ.
 ent-RustyGasStoveC17 = { ent-GasStoveC17 }
     .desc = { ent-GasStoveC17.desc }
+ent-GasStove5C17 = { ent-GasStoveC17 }
+    .desc = { ent-GasStoveC17.desc }
+ent-RustyGasStove6C17 = { ent-GasStoveC17 }
+    .desc = { ent-GasStoveC17.desc }

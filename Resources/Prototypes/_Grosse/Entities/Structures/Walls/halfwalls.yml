@@ -1,0 +1,26 @@
+- type: entity
+  parent: WallReinforcedDown
+  id: HalfWallBrickC17
+  name: brick halfwall
+  suffix: WallC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrick.rsi
+    layers:
+    - state: full
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrick.rsi
+    state: full
+  - type: IconSmooth
+    enabled: false
+    mode: NoSprite
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallBrickFacadeC17
+  name: brick halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickfacade.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickfacade.rsi
