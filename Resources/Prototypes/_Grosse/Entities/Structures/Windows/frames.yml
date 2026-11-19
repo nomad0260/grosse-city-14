@@ -88,8 +88,6 @@
     layers:
     - state: windows1
   - type: Icon
-    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi
-    state: full
   - type: IconSmooth
     enabled: false
     mode: NoSprite

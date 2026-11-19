@@ -202,7 +202,6 @@
     color: "#a3a3a3"
   - type: Icon
     sprite: _Grosse/Structures/Walls/betonca.rsi
-    color: "#a3a3a3"
   - type: IconSmooth
     key: walls
     base: betonca
@@ -327,10 +326,6 @@
         Blacblu20: ""
         Blacblu21: ""
         Blacblu22: ""
-  - type: Icon
-    sprite: _Grosse/Structures/Walls/tall-barrier.rsi
   - type: Occluder
-    boundingBox: -0.5, -0.5, 0.5, 0
     enabled: false
   - type: SunShadow
-    maxLength: 15

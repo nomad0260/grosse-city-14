@@ -7,7 +7,6 @@
     sprite: Structures/Walls/solid.rsi
     drawdepth: BelowMobs
   - type: Icon
-    sprite: Structures/Walls/solid.rsi
   - type: Damageable
     damageModifierSet: StructuralMetallicStrong
   - type: Injurable
