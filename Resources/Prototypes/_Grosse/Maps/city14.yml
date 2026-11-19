@@ -42,6 +42,23 @@
           mapsAbove:
           - /Maps/_Grosse/City14/city141.yml
           - /Maps/_Grosse/City14/city141.yml
+          - /Maps/_Grosse/City14/city141.yml
+          zLevelsComponentOverrides:
+            - type: MapAtmosphere
+              space: False
+              mixture:
+                volume: 2500
+                immutable: True
+                temperature: 293.15
+                moles:
+                  Oxygen: 21.82478
+                  Nitrogen: 82.10312
+            - type: SunShadowCycle
+            - type: LightCycle
+              originalColor: "#ffed75"
+            - type: SunShadow
+            - type: MapLight
+              ambientLightColor: "#ffed75"
 
 - type: entity
   id: StandardCombineCity

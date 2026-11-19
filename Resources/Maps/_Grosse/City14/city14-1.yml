@@ -112,6 +112,11 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: Gravity
+      gravityShakeSound: !type:SoundPathSpecifier
+        path: /Audio/Effects/alert.ogg
+      inherent: True
+      enabled: True
   - uid: 81589
     components:
     - type: MetaData
