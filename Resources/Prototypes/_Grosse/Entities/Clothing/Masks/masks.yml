@@ -67,6 +67,8 @@
   - type: FlashImmunity
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
+  - type: Mask
+    enabled: false
   - type: Tag
     tags:
     - HidesHair
