@@ -1,21 +1,19 @@
 - type: entity
-  parent: BaseStructureWall
+  parent: BaseStructure
   id: RockDebrisC17
   name: обломки
   description: Куски бетона.
   suffix: Разрушимый
   components:
+  - type: Anchorable
+    flags:
+    - Anchorable
   - type: Sprite
     sprite: _Grosse/Structures/Walls/rocks-small.rsi
     drawdepth: Mobs
     layers:
     - state: icon-1
       map: [ "enum.DamageStateVisualLayers.Base" ]
-  - type: Icon
-    state: icon-1
-  - type: IconSmooth
-    enabled: false
-    mode: NoSprite
   - type: RandomSprite
     available:
     - enum.DamageStateVisualLayers.Base:
@@ -52,6 +50,10 @@
         layer:
         - WallLayer
         density: 2000
+  - type: SunShadowCast
+  - type: Tag
+    tags:
+    - Wall
 
 - type: entity
   parent: RockDebrisC17

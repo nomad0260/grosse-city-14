@@ -1,6 +1,7 @@
 - type: tile
   id: BaseStationTile
   abstract: true
+  weather: true #Grosse-edit
   isSubfloor: false
   deconstructTools: [ Prying ]
   footstepSounds:
@@ -1797,7 +1798,7 @@
   isSubfloor: false
   deconstructTools: [ Cutting ]
   itemDrop: FloorTileItemMowedAstroGrass
-  weather: false # Corvax
+  weather: true #Grosse-edit
 
 - type: tile
   id: FloorJungleAstroGrass
@@ -1806,7 +1807,7 @@
   isSubfloor: false
   deconstructTools: [ Cutting ]
   itemDrop: FloorTileItemJungleAstroGrass
-  weather: false # Corvax
+  weather: true #Grosse-edit
 
 - type: tile
   parent: FloorGrassDark
@@ -1844,7 +1845,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroSnow
-  weather: false # Corvax
+  weather: true #Grosse-edit
 
 # Asteroid Sand
 - type: tile
@@ -1854,7 +1855,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroAsteroidSand
-  weather: false
+  weather: true #Grosse-edit
 
 - type: tile
   id: FloorAstroAsteroidSandBorderless
@@ -1863,7 +1864,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroAsteroidSand
-  weather: false
+  weather: true #Grosse-edit
 
 - type: tile
   parent: FloorDesert
@@ -1873,7 +1874,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemDesertAstroSand
-  weather: false
+  weather: true #Grosse-edit
 
 - type: tile
   id: FloorAstroIronsand
@@ -1883,7 +1884,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroIronsand
-  weather: false
+  weather: true #Grosse-edit
 
 - type: tile
   id: FloorAstroIronsandBorderless
@@ -1893,7 +1894,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroIronsandBorderless
-  weather: false
+  weather: true #Grosse-edit
 
 - type: tile
   id: FloorWoodLarge
