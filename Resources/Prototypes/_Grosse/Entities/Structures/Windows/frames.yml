@@ -72,7 +72,7 @@
       path: /Audio/Effects/glass_knock.ogg
   - type: Appearance
   - type: StaticPrice
-    price: 100
+    price: 1000
   - type: BlockWeather
 
 - type: entity

@@ -50,8 +50,8 @@
     sprite: _Grosse/Clothing/Head/Helmets/otashotgunner.rsi
   - type: Clothing
     sprite: _Grosse/Clothing/Head/Helmets/otashotgunner.rsi
-  - type: ToggleableClothing
-    clothingPrototype: ClothingMaskOTAC17Shotgunner
+  #- type: ToggleableClothing
+  #  clothingPrototype: ClothingMaskOTAC17Shotgunner
 
 - type: entity
   parent:

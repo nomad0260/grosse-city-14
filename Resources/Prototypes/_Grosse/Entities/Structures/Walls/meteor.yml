@@ -1,5 +1,5 @@
 - type: entity
-  parent: MeteorRock
+  parent: BaseWall
   id: RockDebrisC17
   name: обломки
   description: Куски бетона.
@@ -10,12 +10,45 @@
     layers:
     - state: icon-1
       map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: IconSmooth
+    enabled: false
+    mode: NoSprite
   - type: RandomSprite
     available:
     - enum.DamageStateVisualLayers.Base:
         icon-1: ""
         icon-2: ""
         icon-3: ""
+  - type: Transform
+    noRot: true
+  - type: Damageable
+    damageModifierSet: Rock
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 2000
 
 - type: entity
   parent: RockDebrisC17
