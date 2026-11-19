@@ -28,14 +28,3 @@
             max: 1
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-
-- type: entity
-  id: HalfReinforcedWindowC17
-  parent: FullReinforcedWindowC17
-  name: reinforced window
-  description: Don't smudge up the glass down there.
-  components:
-  - type: Sprite
-    sprite: _Grosse/Structures/Windows/half_reinforced_glass.rsi
-  - type: Icon
-    sprite: _Grosse/Structures/Windows/half_reinforced_glass.rsi
