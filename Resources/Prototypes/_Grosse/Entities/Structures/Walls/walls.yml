@@ -287,44 +287,48 @@
 
 - type: entity
   parent:
-  - BaseWallC17
+  - BaseStructure
   - WallIndestructible
   id: WallCombineBarrierC17
   name: barrier
   components:
   - type: Sprite
+    drawdepth: Mobs
     sprite: _Grosse/Structures/Walls/tall-barrier.rsi
-    offset: 0, 1.5
+    offset: 0.0, 1.5
     noRot: true
     layers:
     - state: Blacblu0
-      map: [ "enum.DamageStateVisualLayers.Base" ]
-  - type: RandomSprite
-    available:
-    - enum.DamageStateVisualLayers.Base:
-        Blacblu0: ""
-        Blacblu1: ""
-        Blacblu2: ""
-        Blacblu3: ""
-        Blacblu4: ""
-        Blacblu5: ""
-        Blacblu6: ""
-        Blacblu7: ""
-        Blacblu8: ""
-        Blacblu9: ""
-        Blacblu10: ""
-        Blacblu11: ""
-        Blacblu12: ""
-        Blacblu13: ""
-        Blacblu14: ""
-        Blacblu15: ""
-        Blacblu16: ""
-        Blacblu17: ""
-        Blacblu18: ""
-        Blacblu19: ""
-        Blacblu20: ""
-        Blacblu21: ""
-        Blacblu22: ""
+#      map: [ "enum.DamageStateVisualLayers.Base" ]
+#  - type: RandomSprite
+#    available:
+#    - enum.DamageStateVisualLayers.Base:
+#        Blacblu0: ""
+#        Blacblu1: ""
+#        Blacblu2: ""
+#        Blacblu3: ""
+#        Blacblu4: ""
+#        Blacblu5: ""
+#        Blacblu6: ""
+#        Blacblu7: ""
+#        Blacblu8: ""
+#        Blacblu9: ""
+#        Blacblu10: ""
+#        Blacblu11: ""
+#        Blacblu12: ""
+#        Blacblu13: ""
+#        Blacblu14: ""
+#        Blacblu15: ""
+#        Blacblu16: ""
+#        Blacblu17: ""
+#        Blacblu18: ""
+#        Blacblu19: ""
+#        Blacblu20: ""
+#        Blacblu21: ""
+#        Blacblu22: ""
   - type: Occluder
     enabled: false
-  - type: SunShadow
+  - type: Tag
+    tags:
+      - Structure
+      - ImmovableObject
