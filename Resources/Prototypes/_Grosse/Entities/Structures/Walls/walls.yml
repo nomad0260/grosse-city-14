@@ -33,10 +33,10 @@
     mode: AlignTileAny
   components:
   - type: Sprite
+    sprite: _Grosse/Structures/Walls/beton.rsi
     drawdepth: Mobs
     layers:
-    - sprite: _Grosse/Structures/Walls/beton.rsi
-      state: full
+    - state: full
   - type: EntityTableSpawner
     offset: 0
     table: !type:NestedSelector
@@ -187,7 +187,6 @@
     color: "#a3a3a3"
   - type: Icon
     sprite: _Grosse/Structures/Walls/betonc.rsi
-    color: "#a3a3a3"
   - type: IconSmooth
     key: walls
     base: betonc

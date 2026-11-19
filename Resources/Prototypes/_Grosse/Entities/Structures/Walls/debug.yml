@@ -2,6 +2,7 @@
   parent: BaseStructure
   id: WallReinforcedDown
   name: низкая стена
+  abstract: true
   components:
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
