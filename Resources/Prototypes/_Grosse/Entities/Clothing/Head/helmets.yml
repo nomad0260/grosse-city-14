@@ -74,15 +74,15 @@
   - type: HideLayerClothing
     slots:
     - HeadSide
-  - type: ToggleableClothing
-    action: ActionToggleSuitPiece
-    clothingPrototype: ClothingMaskCPC17
-    slot: mask
-    requiredSlot:
-    - head
-  - type: ContainerContainer
-    containers:
-      toggleable-clothing: !type:ContainerSlot {}
+  #- type: ToggleableClothing
+  #  action: ActionToggleSuitPiece
+  #  clothingPrototype: ClothingMaskCPC17
+  #  slot: mask
+  #  requiredSlot:
+  #  - head
+  #- type: ContainerContainer
+  #  containers:
+  #    toggleable-clothing: !type:ContainerSlot {}
 
 - type: entity
   parent: ClothingHeadCPC17
@@ -94,8 +94,8 @@
     sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
-  - type: ToggleableClothing
-    clothingPrototype: ClothingMaskCPSeCC17
+  #- type: ToggleableClothing
+  #  clothingPrototype: ClothingMaskCPSeCC17
 
 - type: entity
   parent:
