@@ -3,6 +3,7 @@
   id: AnomalyScanner
   name: anomaly scanner
   description: A hand-held scanner built to collect information on various anomalous objects.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Objects/Specific/Research/anomalyscanner.rsi

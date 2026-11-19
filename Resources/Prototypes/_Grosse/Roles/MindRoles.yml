@@ -1,11 +1,34 @@
-- type: entity
-  parent: BaseMindRoleAntag
-  id: MindRoleSaboteur
-  name: Saboteur Role
-  components:
-  - type: MindRole
-    roleType: TeamAntagonist
-    subtype: role-subtype-nukie
-    exclusiveAntag: true
-    antagPrototype: ResistanceSaboteur
-  - type: NukeopsRole
+#- type: entity
+#  parent: BaseMindRoleAntag
+#  id: MindRoleSaboteur
+#  name: Saboteur Role
+#  components:
+#  - type: MindRole
+#    roleType: TeamAntagonist
+#    subtype: role-subtype-nukie
+#    exclusiveAntag: true
+#    antagPrototype: ResistanceSaboteur
+#  - type: NukeopsRole
+
+#- type: entity
+#  parent: BaseMindRoleAntag
+#  id: MindRoleResistanceAgent
+#  name: Resistance Agent Role
+#  components:
+#  - type: MindRole
+#    antagPrototype: ResistanceAgent
+#    exclusiveAntag: true
+#    subtype: role-subtype-traitor
+#  - type: TraitorRole
+
+#- type: entity
+#  categories: [ HideSpawnMenu, Spawner ]
+#  parent: SpawnPointLoneNukeOperative
+#  id: SpawnPointSaboteur
+#  components:
+#  - type: GhostRole
+#    name: roles-antag-resistance-saboteur-name
+#    description: roles-antag-resistance-saboteur-objective
+#    rules: ghost-role-information-rules-default-team-antagonist
+#    mindRoles:
+#    - MindRoleSaboteur

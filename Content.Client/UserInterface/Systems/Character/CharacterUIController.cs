@@ -6,6 +6,7 @@ using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Character.Controls;
 using Content.Client.UserInterface.Systems.Character.Windows;
 using Content.Client.UserInterface.Systems.Objectives.Controls;
+using Content.Shared._Grosse.WorkPhase;   //Grosse-edit
 using Content.Shared.Input;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
@@ -18,6 +19,7 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;   //Grosse-edit
 using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 using static Robust.Client.UserInterface.Controls.BaseButton;
@@ -30,6 +32,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
     [Dependency] private IEntityManager _ent = default!;
     [Dependency] private IPlayerManager _player = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IGameTiming _timing = default!;   //Grosse-edit
 
     [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
     [UISystemDependency] private readonly SpriteSystem _sprite = default!;
@@ -39,9 +42,12 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         base.Initialize();
 
         SubscribeNetworkEvent<MindRoleTypeChangedEvent>(OnRoleTypeChanged);
+        SubscribeNetworkEvent<StationMemoEvent>(OnStationMemo);   //Grosse-edit
     }
 
     private CharacterWindow? _window;
+    private StationMemoState? _memo;   //Grosse-edit
+    private int _memoSecond = int.MinValue;   //Grosse-edit
     private MenuButton? CharacterButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.CharacterButton;
 
     public void OnStateEntered(GameplayState state)
@@ -130,7 +136,10 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             return;
         }
 
-        var (entity, job, objectives, briefing, entityName) = data;
+        var (entity, job, objectives, briefing, entityName, memo) = data;   //Grosse-edit-start
+        _memo = memo;
+        _memoSecond = int.MinValue;
+        ApplyMemo();   //Grosse-edit-end
 
         _window.SpriteView.SetEntity(entity);
 
@@ -199,6 +208,62 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         _window.RolePlaceholder.Visible = briefing == null && !controls.Any() && !objectives.Any();
     }
 
+    public override void FrameUpdate(FrameEventArgs args)   //Grosse-edit-start
+    {
+        base.FrameUpdate(args);
+
+        if (_window == null || !_window.IsOpen || _memo?.PhaseEnd is not { } end)
+            return;
+
+        var second = (int)Math.Floor((end - _timing.CurTime).TotalSeconds);
+        if (second == _memoSecond)
+            return;
+
+        _memoSecond = second;
+        _window.PhaseTime.Text = Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(end - _timing.CurTime)));
+    }
+
+    private void OnStationMemo(StationMemoEvent ev, EntitySessionEventArgs _)
+    {
+        _memo = ev.Memo;
+        _memoSecond = int.MinValue;
+        ApplyMemo();
+    }
+
+    private void ApplyMemo()
+    {
+        if (_window == null)
+            return;
+
+        if (_memo == null)
+        {
+            _window.MemoBox.Visible = false;
+            return;
+        }
+
+        _window.AlertValue.Text = _memo.AlertName;
+        _window.AlertValue.FontColorOverride = Color.FromHex(_memo.AlertColorHex, Color.White);
+        _window.PhaseValue.Text = _memo.PhaseName;
+        _window.PhaseValue.FontColorOverride = Color.FromHex(_memo.PhaseColorHex, Color.White);
+
+        if (_memo.UntilLifted)
+        {
+            _window.PhaseTime.Text = Loc.GetString("work-phase-until-lifted");
+            _window.PhaseTime.Visible = true;
+        }
+        else if (_memo.PhaseEnd is { } end)
+        {
+            _window.PhaseTime.Text = Loc.GetString("work-phase-remaining", ("time", WorkPhases.FormatRemaining(end - _timing.CurTime)));
+            _window.PhaseTime.Visible = true;
+        }
+        else
+        {
+            _window.PhaseTime.Visible = false;
+        }
+
+        _window.MemoBox.Visible = true;
+    }
+            //Grosse-edit-end
     private void OnRoleTypeChanged(MindRoleTypeChangedEvent ev, EntitySessionEventArgs _)
     {
         UpdateRoleType();

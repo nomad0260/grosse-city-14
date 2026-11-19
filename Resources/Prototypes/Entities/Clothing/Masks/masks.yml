@@ -213,6 +213,7 @@
   parent: [ClothingMaskClownBase, BaseFoldable]
   id: ClothingMaskClown
   description: A clown mask featuring a foldable wig; a true prankster's attire.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Foldable
     canFoldInsideContainer: true
@@ -304,6 +305,7 @@
   id: ClothingMaskMime
   name: mime mask
   description: The traditional mime's mask. It has an eerie facial posture.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Mask/mime.rsi
