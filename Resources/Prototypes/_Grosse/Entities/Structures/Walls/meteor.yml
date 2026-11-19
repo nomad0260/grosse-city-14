@@ -10,6 +10,7 @@
     layers:
     - state: icon-1
       map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: Icon
   - type: IconSmooth
     enabled: false
     mode: NoSprite
