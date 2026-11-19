@@ -41,8 +41,8 @@
           - /Maps/_Grosse/City14/city14-1.yml
           mapsAbove:
           - /Maps/_Grosse/City14/city141.yml
-          - /Maps/_Grosse/City14/city141.yml
-          - /Maps/_Grosse/City14/city141.yml
+          - /Maps/_Grosse/City14/city142.yml
+          - /Maps/_Grosse/City14/city143.yml
           zLevelsComponentOverrides:
             - type: MapAtmosphere
               space: False
