@@ -6,7 +6,6 @@
   name: shoulder Strap
   description: A shoulder strap necessary to access various areas.
   abstract: true
-  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     sprite: _Grosse/Entities/Clothing/mvd/shoulder-straps.rsi
