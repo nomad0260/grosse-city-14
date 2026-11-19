@@ -10,6 +10,7 @@
     id: UnionIDCardCivilProtection
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
   storage:
     back:
     - HealthvialC17
@@ -37,6 +38,7 @@
     suitstorage: WeaponSubMachineGunC17
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
   storage:
     back:
     - HealthvialC17
@@ -69,6 +71,7 @@
     id: UnionIDCardCivilProtectionOfficer
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
   storage:
     back:
     - HealthvialC17
@@ -95,6 +98,7 @@
     id: UnionIDCardCivilProtectionOfficer
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
   storage:
     back:
     - HealthvialC17
@@ -122,6 +126,7 @@
     suitstorage: WeaponSubMachineGunC17
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
+    mask: ClothingMaskCPC17
   storage:
     back:
     - HealthvialC17
@@ -151,6 +156,7 @@
     id: UnionIDCardSectorialCommander
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPEliteC17
+    mask: ClothingMaskCPSeCC17
   storage:
     back:
     - HealthvialC17
@@ -179,6 +185,7 @@
     id: UnionIDCardSectorialCommander
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPEliteC17
+    mask: ClothingMaskCPSeCC17
   storage:
     back:
     - HealthvialC17
