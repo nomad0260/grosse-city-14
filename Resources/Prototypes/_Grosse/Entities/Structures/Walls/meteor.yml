@@ -1,5 +1,5 @@
 - type: entity
-  parent: BaseWall
+  parent: BaseStructureWall
   id: RockDebrisC17
   name: обломки
   description: Куски бетона.
@@ -7,10 +7,12 @@
   components:
   - type: Sprite
     sprite: _Grosse/Structures/Walls/rocks-small.rsi
+    drawdepth: Mobs
     layers:
     - state: icon-1
       map: [ "enum.DamageStateVisualLayers.Base" ]
   - type: Icon
+    state: icon-1
   - type: IconSmooth
     enabled: false
     mode: NoSprite
