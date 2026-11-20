@@ -1,9 +1,137 @@
 - type: entity
-  parent: MeteorRock
-  id: MeteorRockIndestructibleOccluded
+  parent: BaseStructure
+  id: RockDebrisC17
   name: обломки
   description: Куски бетона.
+  suffix: Разрушимый
+  components:
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/rocks-small.rsi
+    drawdepth: Mobs
+    layers:
+    - state: icon-1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        icon-1: ""
+        icon-2: ""
+        icon-3: ""
+  - type: Transform
+    noRot: true
+  - type: Damageable
+    damageModifierSet: Rock
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 2000
+  - type: SunShadowCast
+  - type: Tag
+    tags:
+    - Wall
+
+- type: entity
+  parent: RockDebrisC17
+  id: BigRockDebrisC17
+  name: большие обломки
+  description: Большие куски бетона.
+  suffix: Разрушимый
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/rocks-big.rsi
+    offset: 0.5, 0.5
+    layers:
+    - state: icon-1
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        icon-1: ""
+        icon-2: ""
+        icon-3: ""
+  - type: Occluder
+    boundingBox: -0.5, -0.1, 1.5, 1.5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5, -0.1, 1.5, 1.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+
+- type: entity
+  parent: RockDebrisC17
+  id: RockDebrisOccludedC17
+  suffix: Разрушимый, просматриваемый
+  components:
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: BigRockDebrisC17
+  id: BigRockDebrisOccludedC17
+  suffix: Разрушимый, просматриваемый
+  components:
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: RockDebrisC17
+  id: RockDebrisIndestructibleOccludedC17
+  suffix: Неразрушимый, просматриваемый
   components:
   - type: Godmode
   - type: Occluder
     enabled: false
+
+- type: entity
+  parent: BigRockDebrisC17
+  id: BigRockDebrisIndestructibleOccludedC17
+  suffix: Неразрушимый, просматриваемый
+  components:
+  - type: Godmode
+  - type: Occluder
+    enabled: false
+
+- type: entity
+  parent: RockDebrisC17
+  id:  RockDebrisIndestructibleC17
+  suffix: Неразрушимый
+  components:
+  - type: Godmode
+
+- type: entity
+  parent: BigRockDebrisC17
+  id:  BigRockDebrisIndestructibleC17
+  suffix: Неразрушимый
+  components:
+  - type: Godmode

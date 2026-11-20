@@ -1,12 +1,9 @@
-- type: playTimeTracker
-  id: JobCivilianC17
-
 - type: job
   id: Citizen
   name: job-title-citizen
   description: job-title-citizen-description
   playTimeTracker: JobCivilianC17
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CitizenGear

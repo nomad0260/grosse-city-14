@@ -1,0 +1,192 @@
+- type: entity
+  id: BaseStolb17
+  parent: BaseStructureC17
+  name: столб
+  description: Столб который выполнял функции электро-передачи, еще до начала времен.
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Lighting/Stolb/128.rsi
+    drawdepth: Mobs
+    noRot: false
+    layers:
+    - state: stolb
+      offset: 0, 1.5
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.1"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 5
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: BaseImmovableStolb17
+  parent: BaseStolb17
+  name: железный столб
+  description: Столб из железа который выполнял функции электро-передачи, еще до начала времен.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Lighting/Stolb/128.rsi
+    layers:
+    - state: steel-stolb
+      offset: 0, 1.5
+  - type: Tag
+    tags:
+      - Structure
+      - ImmovableObject
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: BaseStolbDouble17
+  parent: BaseStolb17
+  name: двойной столб
+  description: Столб который выполнял функции электро-передачи, еще до начала времен.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Lighting/Stolb/128x64.rsi
+    drawdepth: Mobs
+    layers:
+    - state: stolb
+      offset: 0.5, 1.5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.1"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "1.1,-0.5,0.9,-0.3"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 8
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: Stolb17
+  parent: BaseStolb17
+  components:
+  - type: Sprite
+    layers:
+    - state: doski
+      offset: 0, 2.8
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+    - state: stolb
+      offset: 0, 1.5
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: doski
+      offset: 0, 2.6
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        stolb: ""
+        stolb2: ""
+        stolb3: ""
+        stolb4: ""
+        stolb5: ""
+
+- type: entity
+  id: StolbRock17
+  parent: BaseImmovableStolb17
+  name: заземленный столб
+  description: Столб привязанный к бетонной балке вбитый в землю, надежнинько.
+  components:
+  - type: Sprite
+    layers:
+    - state: doski
+      offset: 0, 2.8
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+    - state: stolb
+      offset: 0, 1.5
+    - state: stolb-rock
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+      map: [ "rocks" ]
+    - state: doski
+      offset: 0, 2.6
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+  - type: RandomSprite
+    available:
+    - rocks:
+        stolb-rock: ""
+        stolb-rock2: ""
+
+- type: entity
+  id: StolbDouble17
+  parent: BaseStolbDouble17
+  components:
+  - type: Sprite
+    layers:
+    - state: doski
+      offset: 0, 2.8
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+    - state: stolb
+      offset: 0.5, 1.5
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: doski
+      offset: 0, 2.6
+      sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        stolb: ""
+        stolb2: ""

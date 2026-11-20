@@ -10,6 +10,7 @@
   startingGear: DoctorGear
   icon: "JobIconMedicalDoctor"
   supervisors: job-supervisors-cmo
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Medical
   - Maintenance

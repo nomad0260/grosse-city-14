@@ -14,6 +14,7 @@
   startingGear: DetectiveGear
   icon: "JobIconDetective"
   supervisors: job-supervisors-hos
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Security
   - Brig

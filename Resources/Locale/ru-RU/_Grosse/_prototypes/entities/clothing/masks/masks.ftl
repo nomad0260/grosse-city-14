@@ -10,5 +10,5 @@ ent-ClothingMaskWorkerC17 = противогаз рабочего Альянса
     .desc = Рабочий противогаз, который можно подключить к баллону с воздухом.
 ent-ClothingMaskOTAC17Shotgunner = противогаз бойца ОТА
     .desc = Военный противогаз, который можно подключить к баллону с воздухом.
-ent-ClothingMaskCPSeCC17 = противогаз секториального командира
+ent-ClothingMaskCPSeCC17 = противогаз верховного командования
     .desc = { ent-ClothingMaskCPC17.desc }

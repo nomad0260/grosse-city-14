@@ -1,13 +1,10 @@
 - type: entity
-  id: BarricadaCMBC17
+  id: BaseBarricadaC17
   parent: BaseStructure
-  name: баррикада Альянса
-  description: Армированный баррьер Альянса, который защищает того кто стоит за ним.
+  abstract: true
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Decoration/Barricades/baricada.rsi
-    layers:
-    - state: combine
+    drawdepth: Mobs
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
@@ -36,6 +33,30 @@
         acts: [ "Destruction" ]
   - type: Cover
     shootThroughRadius: 3
+  - type: Tag
+    tags:
+      - Structure
+      - ImmovableObject
+
+- type: entity
+  id: BarricadaCMBC17
+  parent: BaseBarricadaC17
+  name: баррикада Альянса
+  description: Армированный баррьер Альянса, который защищает того кто стоит за ним.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/Barricades/baricada.rsi
+    layers:
+    - state: combine
+  - type: Climbable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: PointLight
     radius: 2
     energy: 3
@@ -45,7 +66,7 @@
 
 - type: entity
   id: BarricadaC17
-  parent: BarricadaCMBC17
+  parent: BaseBarricadaC17
   name: баррикада
   description: Бетонное сооружение для препятсвию прохода, довольно прочная.
   components:
@@ -63,8 +84,6 @@
         concrete_barrier_3: ""
         concrete_barrier_4: ""
         concrete_barrier_5: ""
-  - type: PointLight
-    enabled: false
 
 - type: entity
   id: BarricadaAltC17
@@ -82,8 +101,12 @@
 
 - type: entity
   id: BarricadaRoadC17
-  parent: BaseStructureDynamic
+  parent: BaseStructure
   components:
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
   - type: InteractionOutline
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/Barricades/baricada.rsi
@@ -100,12 +123,21 @@
         - MachineMask
         layer:
         - MachineLayer
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 500
+        damage: 10
       behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 2
+            max: 5
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
 
@@ -115,7 +147,7 @@
   id: BaseNeutralBarricadeC17
   name: баррикада
   description: Стандартная баррикада, помогающая не находить на вашем теле лишние дырки.
-  parent: BaseStructure
+  parent: BaseBarricadaC17
   abstract: true
   components:
   - type: Sprite
@@ -144,6 +176,10 @@
         acts: [ "Destruction" ]
   - type: Cover
     shootThroughRadius: 3
+  - type: Tag
+    tags:
+      - Structure
+      - ImmovableObject
 
 - type: entity
   id: BarricadeConcreteC17
@@ -224,6 +260,11 @@
           SteelOre1:
             min: 1
             max: 2
+  - type: Damageable
+    damageModifierSet: StructuralSandbags
+  - type: Tag
+    tags:
+      - Structure
 
 # region Wooden Barricades Full
 - type: entity
@@ -261,6 +302,9 @@
           MaterialWoodPlank1:
             min: 2
             max: 4
+  - type: Tag
+    tags:
+      - Structure
 
 - type: entity
   id: BarricadeWoodenBC17

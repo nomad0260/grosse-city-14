@@ -3,7 +3,7 @@
   name: combine post light
   description: "An always powered light."
   suffix: Always Powered
-  parent: BaseStructure
+  parent: BaseStructureC17
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/postlight.rsi
@@ -42,6 +42,18 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.3,0.2,0.3"
+        density: 60
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
   - type: StaticPrice
     price: 1575
   - type: RequireProjectileTarget

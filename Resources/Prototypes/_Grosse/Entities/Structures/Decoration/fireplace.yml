@@ -1,6 +1,6 @@
 - type: entity
   id: DisabledFireplace
-  parent: BaseStructure
+  parent: BaseStructureC17
   name: потухший костёр
   description: Это место имело огонь.
   components:
@@ -8,8 +8,6 @@
     sprite: Structures/Decoration/fireplace.rsi
     layers:
       - state: fireplace
-  - type: Damageable
-    damageModifierSet: Metallic
   - type: Injurable
     damageContainer: StructuralInorganic
   - type: Destructible

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by alze_1",
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "oakwall0",
+      "directions": 4
+    },
+    {
+      "name": "oakwall1",
+      "directions": 4
+    },
+    {
+      "name": "oakwall2",
+      "directions": 4
+    },
+    {
+      "name": "oakwall3",
+      "directions": 4
+    },
+    {
+      "name": "oakwall4",
+      "directions": 4
+    },
+    {
+      "name": "oakwall5",
+      "directions": 4
+    },
+    {
+      "name": "oakwall6",
+      "directions": 4
+    },
+    {
+      "name": "oakwall7",
+      "directions": 4
+    }
+  ]
+}

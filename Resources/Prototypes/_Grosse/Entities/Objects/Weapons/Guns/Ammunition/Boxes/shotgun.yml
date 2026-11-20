@@ -19,5 +19,6 @@
     proto: ShellShotgunMagnum12
     capacity: 16
   - type: Item
+    size: Normal
     shape:
     - 0,0,1,1

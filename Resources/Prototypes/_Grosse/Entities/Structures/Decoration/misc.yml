@@ -57,7 +57,7 @@
 
 - type: entity
   id: GroundClockC17
-  parent: BaseStructure
+  parent: BaseStructureC17
   name: наземные часы
   description: Часы которые давно сбились и вроде как, перестали двигаться.
   components:
@@ -86,7 +86,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 500
+        damage: 150
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
@@ -102,3 +102,44 @@
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/structure/decor.rsi
     state: public_phone
+
+- type: entity
+  id: ConcreteMixer17
+  parent: BaseStructureC17
+  name: бетономешалка
+  description: Бетономешалка, мешает бетон!
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/concrete_mixer.rsi
+    state: base
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

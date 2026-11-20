@@ -10,6 +10,7 @@
   startingGear: AtmosphericTechnicianGear
   icon: "JobIconAtmosphericTechnician"
   supervisors: job-supervisors-ce
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Maintenance
   - Engineering

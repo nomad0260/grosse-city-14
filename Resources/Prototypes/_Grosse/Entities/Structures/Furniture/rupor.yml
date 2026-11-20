@@ -1,0 +1,45 @@
+- type: entity
+  id: RuporC17
+  name: рупор
+  description: Довоенный рупор, используемый нынешними властями для оповещения народа. Удивительно что наши Покровители не создали что-нибудь по лучше, чем использование советского наследия. Это вам напоминает о довоенных временах...
+  parent: BaseStructure
+  components:
+  - type: EmergencyLight
+  - type: Sprite
+    sprite: _Grosse/Structures/Lighting/Stolb/32.rsi
+    offset: 0,1
+    drawdepth: OverMobs
+    noRot: true
+    layers:
+    - state: rupor
+    - state: rupor
+      map: [ "enum.EmergencyLightVisualLayers.LightOff" ]
+    - state: rupor
+      map: [ "enum.EmergencyLightVisualLayers.LightOn" ]
+      visible: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.1"
+        hard: false
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Appearance
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 3
+      - !type:DoActsBehavior
+        acts: ["Destruction"]

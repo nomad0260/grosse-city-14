@@ -5,6 +5,7 @@
   playTimeTracker: JobMagistrate
   whitelisted: true # No-Ki сказал, что договорился!
   setPreference: false # Увы
+  overrideConsoleVisibility: false
   requirements:
   - !type:TraitsRequirement
     inverted: true

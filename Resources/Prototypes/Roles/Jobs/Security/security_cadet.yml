@@ -17,6 +17,7 @@
   startingGear: SecurityCadetGear
   icon: "JobIconSecurityCadet"
   supervisors: job-supervisors-security
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Security
   - Brig
