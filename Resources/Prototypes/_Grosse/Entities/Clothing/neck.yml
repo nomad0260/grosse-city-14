@@ -15,3 +15,14 @@
         Slash: 0.9
         Piercing: 0.9
         Heat: 0.95
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckTieMVD
+  name: MVD Tie
+  description: Tie for MVD.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi
