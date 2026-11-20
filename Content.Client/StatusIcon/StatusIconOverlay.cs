@@ -119,7 +119,7 @@ public sealed partial class StatusIconOverlay : Overlay
                     handle.UseShader(_unshadedShader);
 
                 var position = new Vector2(xOffset, yOffset);
-                handle.DrawTexture(texture, position, proto.Modulate); //Grosse-edit
+                handle.DrawTexture(texture, position);
             }
 
             handle.UseShader(null);
