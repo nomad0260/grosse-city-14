@@ -70,6 +70,7 @@
     - BaseStationJobsSpawning
     - BaseStationRecords
     - BaseStationAlertLevels
+    - BaseStationAllEventsEligible
     - BaseCity14Jobs
   categories: [ HideSpawnMenu ]
   components:
