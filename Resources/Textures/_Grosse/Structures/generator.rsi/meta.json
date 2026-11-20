@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by yri_nuri",
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "generator",
+      "directions": 4
+    }
+  ]
+}

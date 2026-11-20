@@ -70,3 +70,38 @@
         - FullTileMask
         layer:
         - WallLayer
+
+- type: entity
+  id: TrashBinC17
+  parent: BaseStructure
+  name: мусорка
+  description: Ведро для мусора. Пахнет старым кофе.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Grosse/Structures/Furniture/trash-bin.rsi
+    state: trash-bin
+  - type: InteractionOutline
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,0.35,0.35,-0.35"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
