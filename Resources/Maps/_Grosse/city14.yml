@@ -492518,7 +492518,7 @@ entities:
     - type: Transform
       pos: 206.5,179.5
       parent: 29942
-- proto: WallReinforcedDown
+- proto: HalfWallBrickC17
   entities:
   - uid: 29
     components:
