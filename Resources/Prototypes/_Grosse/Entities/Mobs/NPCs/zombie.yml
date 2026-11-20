@@ -22,6 +22,8 @@
     speechSounds: ZombieScreemAlert
     soundCooldownTime: 0.1
   - type: HTN
+    # Crowded maps: replan on demand (NPCThreatWakeSystem) instead of every planCooldown.
+    constantlyReplan: false
     rootTask:
       task: SimpleHostileCompound
   - type: Prying
