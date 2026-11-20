@@ -2,6 +2,7 @@
   id: City14
   mapName: 'City 14'
   mapPath: /Maps/_Grosse/City14/city140.yml
+  fallback: true
   minPlayers: 0
   maxPlayers: 140
   maxRandomOffset: 0

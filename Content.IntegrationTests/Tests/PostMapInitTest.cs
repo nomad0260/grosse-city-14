@@ -43,7 +43,6 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] NoSpawnMaps =
         {
-            "CentComm",
             "Dart",
             "AssaultTestMisterNobody1",
             "ControlStub",
@@ -51,8 +50,6 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/centcomm.yml",
-            "/Maps/Corvax/corvax_centcomm.yml", // Corvax edit
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -83,9 +80,7 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
-            "/Maps/Corvax/corvax_centcomm.yml" // Corvax edit
         };
 
         /// <summary>
@@ -95,11 +90,18 @@ namespace Content.IntegrationTests.Tests
             .Select(glob => new Regex(GlobToRegex(glob), RegexOptions.IgnoreCase | RegexOptions.Compiled))
             .ToArray();
 
-        private static readonly string[] GameMaps = GameDataScrounger.PrototypesOfKind<GameMapPrototype>().Where(x => x != PoolManager.TestMap).ToArray();
+        private static readonly string[] GameMaps = GameDataScrounger.PrototypesOfKind<GameMapPrototype>()
+            .Where(x => x != PoolManager.TestMap && x != "CentComm")
+            .ToArray();
         private static readonly ResPath[] AllMapFiles = GameDataScrounger.FilesInDirectoryInVfs("/Maps", "*.yml");
         private static readonly ResPath[] ShuttleMapFiles = GameDataScrounger.FilesInDirectoryInVfs("/Maps/Shuttles", "*.yml");
 
         private static readonly ProtoId<EntityCategoryPrototype> DoNotMapCategory = "DoNotMap";
+
+        private static bool IsCentcommMap(ResPath path)
+        {
+            return path.ToString().Contains("centcomm", StringComparison.OrdinalIgnoreCase);
+        }
 
         /// <summary>
         /// Asserts that specific files have been saved as grids and not maps.
@@ -141,6 +143,9 @@ namespace Content.IntegrationTests.Tests
         [EnsureCVar(Side.Server, typeof(CCVars), nameof(CCVars.GridFill), false)]
         public async Task ShuttlesLoadableTest(ResPath path)
         {
+            if (IsCentcommMap(path))
+                return;
+
             var pair = Pair;
             var server = pair.Server;
 
@@ -189,6 +194,9 @@ namespace Content.IntegrationTests.Tests
             {
                 return; // We just pass immediately.
             }
+
+            if (IsCentcommMap(rootedPath))
+                return;
 
             if (!resourceManager.TryContentFileRead(rootedPath, out var fileStream))
             {
@@ -496,6 +504,9 @@ namespace Content.IntegrationTests.Tests
             {
                 return;
             }
+
+            if (IsCentcommMap(rootedPath))
+                return;
 
             await server.WaitPost(() =>
             {

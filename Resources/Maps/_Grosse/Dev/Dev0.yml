@@ -14121,6 +14121,13 @@ entities:
     - type: Transform
       pos: 33.5,18.5
       parent: 1
+- proto: SpawnPointWorker
+  entities:
+  - uid: 20000
+    components:
+    - type: Transform
+      pos: 32.5,18.5
+      parent: 1
 - proto: SpawnPointLatejoin
   entities:
   - uid: 2669

@@ -89,6 +89,9 @@ public sealed class JobTest : GameTest
         Assert.That(pair.Client.AttachedEntity, Is.Null);
         Assert.That(ticker.PlayerGameStatuses[pair.Client.User!.Value], Is.EqualTo(PlayerGameStatus.NotReadyToPlay));
 
+        // Default profile prefers the overflow job. This map's overflow is Passenger.
+        await pair.SetJobPriorities((Passenger, JobPriority.High));
+
         // Ready up and start the round
         ticker.ToggleReadyAll(true);
         Assert.That(ticker.PlayerGameStatuses[pair.Client.User!.Value], Is.EqualTo(PlayerGameStatus.ReadyToPlay));

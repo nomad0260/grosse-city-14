@@ -14,6 +14,31 @@
             Passenger: [ -1, -1 ]
             Citizen: [ -1, -1 ] # Grosse-edit: default overflow job
 
+- type: entity
+  id: DevStation # Grosse-edit: NT station without an evac shuttle. Dev0 has no docking ports.
+  parent:
+    - BaseStation
+    - BaseStationGoal
+    - BaseStationNews
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationShuttles
+    - BaseStationCentcomm
+    - BaseStationAlertLevels
+    - BaseStationMagnet
+    - BaseStationExpeditions
+    - BaseStationSalvageJobs
+    - BaseStationSiliconLawNTDefault
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+    - BaseStationDeliveries
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Transform
+
 - type: gameMap
   id: Dev
   mapName: Dev
@@ -21,7 +46,7 @@
   minPlayers: 0
   stations:
     Dev:
-      stationProto: StandardNanotrasenStation
+      stationProto: DevStation # Grosse-edit
       components:
         - type: StationNameSetup
           mapNameTemplate: "Dev"
