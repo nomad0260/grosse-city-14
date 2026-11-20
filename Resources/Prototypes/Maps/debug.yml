@@ -12,6 +12,7 @@
         - type: StationJobs
           availableJobs:
             Passenger: [ -1, -1 ]
+            Citizen: [ -1, -1 ] # Grosse-edit: default overflow job
 
 - type: gameMap
   id: Dev

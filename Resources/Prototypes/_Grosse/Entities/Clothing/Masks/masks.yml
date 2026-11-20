@@ -108,6 +108,8 @@
     - Snout
   - type: VoiceMask
   - type: IdBoundVoiceMask
+  - type: Mask
+    enabled: true
 
 - type: entity
   parent: ClothingMaskOTAC17
