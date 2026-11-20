@@ -10,6 +10,8 @@
   icon: "JobIconUnion"
   supervisors: job-supervisors-divison-leader
   requirements:
+    #- !type:OverallPlaytimeRequirement
+    #  time: 1h #когданибудь
     - !type:SpeciesRequirement
       species:
       - Human
@@ -58,6 +60,11 @@
   icon: "JobIconUnionGold"
   supervisors: job-supervisors-divison-leader
   requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14CivilProtection
+    #  time: 5h #когданибудь
+    - !type:OverallPlaytimeRequirement
+      time: 1h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -110,6 +117,9 @@
   icon: "JobIconUnionCommander"
   supervisors: job-supervisors-divison-leader
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14CivilProtection
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -145,6 +155,9 @@
   icon: "JobIconUnionCommander"
   supervisors: job-supervisors-divison-leader
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14CivilProtection
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -180,6 +193,14 @@
   icon: "JobIconUnionElite"
   supervisors: job-supervisors-sectorial-commander
   requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 15h
+    - !type:DepartmentTimeRequirement
+      department: City14HighRole
+      time: 5h
+    - !type:DepartmentTimeRequirement
+      department: City14CivilProtection
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human

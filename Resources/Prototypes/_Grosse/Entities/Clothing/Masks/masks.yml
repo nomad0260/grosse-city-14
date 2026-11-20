@@ -31,6 +31,8 @@
     sprite: Clothing/Mask/gas.rsi
   - type: Clothing
     sprite: Clothing/Mask/gas.rsi
+  - type: Mask
+    enabled: false
   - type: BreathMask
   - type: IngestionBlocker
   - type: IdentityBlocker

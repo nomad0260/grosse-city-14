@@ -31,6 +31,13 @@
   - !type:GiveItemOnHolidaySpecial
     holiday: DoctorDay
     prototype: WehMedipen
+  requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
+    - !type:SpeciesRequirement
+      species:
+      - Human
 
 - type: job
   id: CWUEngineer
@@ -47,6 +54,9 @@
     - UnionBase
     - Engineering
   requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -63,6 +73,14 @@
   icon: "JobIconUnionGrey"
   supervisors: job-supervisors-city-administrator
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14HighRole
+      time: 5h
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
+    - !type:OverallPlaytimeRequirement
+      time: 15h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -93,6 +111,9 @@
   icon: "JobIconUnionGrey"
   supervisors: job-supervisors-city-administrator
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -128,6 +149,9 @@
     - Engineering
     - UnionAdmin
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -151,6 +175,9 @@
     - UnionBase
     - Engineering
   requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
     - !type:SpeciesRequirement
       species:
       - Human

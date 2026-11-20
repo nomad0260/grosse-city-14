@@ -54,6 +54,8 @@ department-City14 = Гражданский Союз Рабочих
 department-City14-description = Объединенние рабочих групп в одну организацию.
 department-City14CivilProtection = Гражданская Оборона
 department-City14CivilProtection-description = Полицейские силы города.
+department-City14-high-role = Старшие Сотрудники
+department-City14-high-role-description = Старший состав отделов.
 department-City14-command = Городская Администрация
 department-City14-command-description = Руководящий состав города.
 

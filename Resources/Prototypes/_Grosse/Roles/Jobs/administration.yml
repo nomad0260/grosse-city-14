@@ -10,6 +10,14 @@
   icon: "JobIconUnionGold"
   supervisors: job-supervisors-our-benefactors
   requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 20h
+    - !type:DepartmentTimeRequirement
+      department: City14Command
+      time: 5h
+    - !type:RoleTimeRequirement
+      role: JobCivilianC17
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
