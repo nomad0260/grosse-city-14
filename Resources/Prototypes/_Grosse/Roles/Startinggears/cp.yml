@@ -145,6 +145,7 @@
     pocket2: HealthvialC17
   storage:
     back:
+    - HandheldCommanderTerminalC17
     - HealthvialC17
     - HealthvialC17
     - MagazinePistolSubMachineGun
