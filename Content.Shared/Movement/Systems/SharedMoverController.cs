@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
 using Content.Shared.CCVar;
+using Content.Shared.Damage.Systems; // Grosse-change
 using Content.Shared.Friction;
 using Content.Shared.Gravity;
 using Content.Shared.Inventory;
@@ -44,6 +45,7 @@ public abstract partial class SharedMoverController : VirtualController
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedMapSystem _mapSystem = default!;
+    [Dependency] private SharedStaminaSystem _stamina = default!; // Grosse-change
     [Dependency] private SharedGravitySystem _gravity = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private TagSystem _tags = default!;
@@ -74,6 +76,7 @@ public abstract partial class SharedMoverController : VirtualController
     private float _offGridDamping;
 
     private const LookupFlags _touchingFlags = LookupFlags.Approximate | LookupFlags.Dynamic | LookupFlags.Static;
+    private const float StaminaDrainPerSecond = 2f; // Grosse-change
 
     /// <summary>
     /// Cache the mob movement calculation to re-use elsewhere.
@@ -126,6 +129,14 @@ public abstract partial class SharedMoverController : VirtualController
     {
         var uid = entity.Owner;
         var mover = entity.Comp;
+
+        // Grosse-change start:
+        if (mover.Sprinting && TryComp<Damage.Components.StaminaComponent>(uid, out var staminaComp) &&
+            staminaComp.StaminaDamage >= staminaComp.AnimationThreshold)
+        {
+            SetMoveInput((uid, mover), ushort.MaxValue, true, MoveButtons.Walk);
+        }
+        // Grosse-change end
 
         // If we're a relay then apply all of our data to the parent instead and go next.
         if (RelayQuery.TryComp(uid, out var relay))
@@ -339,6 +350,13 @@ public abstract partial class SharedMoverController : VirtualController
         // Handle footsteps at the end
         if (wishDir != Vector2.Zero)
         {
+            // Grosse-change start
+            if (mover.Sprinting)
+            {
+                _stamina.TryTakeStamina(uid, StaminaDrainPerSecond * frameTime, source: uid);
+            }
+            // Grosse-change end
+
             if (!NoRotateQuery.HasComponent(uid))
             {
                 // TODO apparently this results in a duplicate move event because "This should have its event run during
