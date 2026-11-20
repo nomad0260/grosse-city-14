@@ -26,3 +26,14 @@
     sprite: _Grosse/Clothing/Neck/bandage_krest.rsi
   - type: Clothing
     sprite: _Grosse/Clothing/Neck/bandage_krest.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckTieMVD
+  name: MVD Tie
+  description: Tie for MVD.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi

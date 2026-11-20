@@ -96,6 +96,7 @@
   - type: FlashImmunity
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
+  - type: CommanderGroupMask
   - type: Tag
     tags:
     - HidesHair

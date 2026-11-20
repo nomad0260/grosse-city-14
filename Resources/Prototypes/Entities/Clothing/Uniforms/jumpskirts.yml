@@ -270,6 +270,7 @@
   id: ClothingUniformJumpskirtMime
   name: mime jumpskirt
   description: ...
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpskirt/mime.rsi

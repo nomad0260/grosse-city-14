@@ -28,6 +28,11 @@ commander-terminal-members = Members
 commander-terminal-no-crew = No Civil Protection personnel on station.
 commander-terminal-missing-member = out of contact
 commander-terminal-no-id = no ID
+commander-terminal-handheld-title = Portable commander map
+commander-terminal-party-order = Order: {$location}
 
 ent-CommanderTerminalC17 = commander terminal
     .desc = Civil Protection console. Shows the station map through beacons, forms groups, and radios them a destination.
+
+ent-HandheldCommanderTerminalC17 = portable commander map
+    .desc = A pocket map of Civil Protection squads. It shows them on the map and does not accept orders.

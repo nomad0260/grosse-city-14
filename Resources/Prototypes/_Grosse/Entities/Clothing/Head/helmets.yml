@@ -197,6 +197,17 @@
 
 - type: entity
   parent: ClothingHeadHelmetBase
+  id: ClothingHeadCapMVD
+  name: MVD Cap
+  description: Cap for MVD units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
+
+- type: entity
+  parent: ClothingHeadHelmetBase
   id: ClothingHeadHelmet6B7
   name: шлем "6Б7"
   description: Общевойсковой шлем 6Б7 используемый военными формирования до войны.

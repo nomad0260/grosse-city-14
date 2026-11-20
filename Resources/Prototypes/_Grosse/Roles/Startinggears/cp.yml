@@ -11,6 +11,8 @@
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: HealthvialC17
   storage:
     back:
     - HealthvialC17
@@ -39,6 +41,8 @@
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
   storage:
     back:
     - HealthvialC17
@@ -127,8 +131,11 @@
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPC17
     mask: ClothingMaskCPC17
+    pocket1: MagazinePistol
+    pocket2: HealthvialC17
   storage:
     back:
+    - HandheldCommanderTerminalC17
     - HealthvialC17
     - HealthvialC17
     - MagazinePistolSubMachineGun
@@ -157,6 +164,8 @@
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPEliteC17
     mask: ClothingMaskCPSeCC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
   storage:
     back:
     - HealthvialC17
@@ -186,8 +195,11 @@
     belt: ClothingBeltCivilProtectionC17
     head: ClothingHeadCPEliteC17
     mask: ClothingMaskCPSeCC17
+    pocket1: MagazinePistol
+    pocket2: MagazinePistol
   storage:
     back:
+    - HandheldCommanderTerminalC17
     - HealthvialC17
     - HealthvialC17
     - MagazinePistolSubMachineGun

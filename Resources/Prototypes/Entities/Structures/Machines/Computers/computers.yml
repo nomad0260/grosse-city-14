@@ -181,6 +181,7 @@
   id: ComputerShuttleSyndie
   name: syndicate shuttle console
   description: Used to pilot a syndicate shuttle.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
@@ -470,6 +471,7 @@
   id: ComputerResearchAndDevelopment
   name: R&D computer
   description: A computer used to interface with R&D tools.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:

@@ -186,6 +186,7 @@
   id: ClothingHeadHatMimesoft
   name: white cap
   description: A white baseball cap.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Head/Soft/mimesoft.rsi

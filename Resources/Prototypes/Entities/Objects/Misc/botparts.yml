@@ -37,6 +37,7 @@
   id: LeftArmBorg
   parent: PartSilicon
   name: cyborg left arm
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     state: borg_l_arm

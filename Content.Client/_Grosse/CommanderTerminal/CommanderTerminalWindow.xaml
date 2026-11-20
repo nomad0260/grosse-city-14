@@ -15,7 +15,7 @@
             </BoxContainer>
             <BoxContainer Orientation="Vertical" VerticalExpand="True">
                 <BoxContainer Name="FloorBar" Orientation="Horizontal" Margin="4 0" />
-                <BoxContainer Orientation="Horizontal" Margin="4">
+                <BoxContainer Name="OrderBar" Orientation="Horizontal" Margin="4">
                     <Label Name="OrderHint" HorizontalExpand="True" />
                     <OptionButton Name="OrderGroup" MinWidth="180" />
                 </BoxContainer>
