@@ -15,4 +15,10 @@ public sealed partial class CommanderTerminalComponent : Component
 
     [DataField]
     public ProtoId<DepartmentPrototype> Department = "City14CivilProtection";
+
+    /// <summary>
+    /// Wall consoles edit groups and issue orders. The portable map only displays them.
+    /// </summary>
+    [DataField]
+    public bool CommandsEnabled = true;
 }

@@ -8,6 +8,7 @@ using Content.Server.Roles.Jobs;
 using Content.Server.Station.Systems;
 using Content.Shared._Grosse.CommanderTerminal;
 using Content.Shared._Grosse.ZLevels.Core.Components;
+using Robust.Server.GameStates;
 using Content.Shared.GameTicking;
 using Content.Shared.Mind;
 using Content.Shared.Mobs.Components;
@@ -57,6 +58,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
         SubscribeLocalEvent<CommanderTerminalComponent, RemoveCommanderMemberMessage>(OnRemoveMember);
         SubscribeLocalEvent<CommanderTerminalComponent, SetCommanderLeaderMessage>(OnSetLeader);
         SubscribeLocalEvent<CommanderTerminalComponent, IssueCommanderOrderMessage>(OnIssueOrder);
+        SubscribeLocalEvent<CommanderGroupMemberComponent, ExpandPvsEvent>(OnExpandPvs);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
     }
 
@@ -73,12 +75,13 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnUiOpened(Entity<CommanderTerminalComponent> ent, ref BoundUIOpenedEvent args)
     {
+        SyncMembers();
         Publish(ent);
     }
 
     private void OnCreateGroup(Entity<CommanderTerminalComponent> ent, ref CreateCommanderGroupMessage args)
     {
-        if (!TryGetScope(ent, out var scope))
+        if (!ent.Comp.CommandsEnabled || !TryGetScope(ent, out var scope))
             return;
 
         var name = SanitizeName(args.Name);
@@ -93,7 +96,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnRenameGroup(Entity<CommanderTerminalComponent> ent, ref RenameCommanderGroupMessage args)
     {
-        if (!TryGetGroup(ent, args.GroupId, out var group))
+        if (!ent.Comp.CommandsEnabled || !TryGetGroup(ent, args.GroupId, out var group))
             return;
 
         var name = SanitizeName(args.Name);
@@ -106,7 +109,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnDeleteGroup(Entity<CommanderTerminalComponent> ent, ref DeleteCommanderGroupMessage args)
     {
-        if (!TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
+        if (!ent.Comp.CommandsEnabled || !TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
             return;
 
         var groupId = args.GroupId;
@@ -116,7 +119,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnAssignMember(Entity<CommanderTerminalComponent> ent, ref AssignCommanderMemberMessage args)
     {
-        if (!TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
+        if (!ent.Comp.CommandsEnabled || !TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
             return;
 
         var groupId = args.GroupId;
@@ -140,7 +143,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnRemoveMember(Entity<CommanderTerminalComponent> ent, ref RemoveCommanderMemberMessage args)
     {
-        if (!TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
+        if (!ent.Comp.CommandsEnabled || !TryGetScope(ent, out var scope) || !_scopes.TryGetValue(scope, out var data))
             return;
 
         foreach (var group in data.Groups)
@@ -157,7 +160,7 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnSetLeader(Entity<CommanderTerminalComponent> ent, ref SetCommanderLeaderMessage args)
     {
-        if (!TryGetGroup(ent, args.GroupId, out var group))
+        if (!ent.Comp.CommandsEnabled || !TryGetGroup(ent, args.GroupId, out var group))
             return;
 
         if (!group.Members.Contains(args.MemberId) || !IsKnownMember(ent, args.MemberId))
@@ -169,6 +172,9 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void OnIssueOrder(Entity<CommanderTerminalComponent> ent, ref IssueCommanderOrderMessage args)
     {
+        if (!ent.Comp.CommandsEnabled)
+            return;
+
         if (!TryGetGroup(ent, args.GroupId, out var group))
         {
             Popup(ent, args.Actor, "commander-terminal-no-group");
@@ -186,11 +192,22 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
         if (!Exists(grid) || !GetFloors(ent).Any(floor => floor.Grid == gridNet))
             return;
 
-        var coordinates = new MapCoordinates(args.Position, Transform(grid).MapID);
-        var location = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(coordinates));
+        var mapCoordinates = new MapCoordinates(args.Position, Transform(grid).MapID);
+        var location = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(mapCoordinates));
+        var depth = 0;
+        var mapUid = Transform(grid).MapUid;
+        if (mapUid != null && TryComp<GrosseZMapComponent>(mapUid.Value, out var zMap))
+            depth = zMap.Depth;
+
+        group.HasOrder = true;
+        group.OrderCoordinates = GetNetCoordinates(_transform.ToCoordinates(mapCoordinates));
+        group.OrderDepth = depth;
+        group.OrderLocation = location;
+
         var message = Loc.GetString("commander-terminal-order", ("group", group.Name), ("location", location));
         _radio.SendRadioMessage(ent.Owner, message, ent.Comp.RadioChannel, ent.Owner);
         Popup(ent, args.Actor, "commander-terminal-order-sent", ("group", group.Name));
+        RefreshOpenTerminals();
     }
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
@@ -200,6 +217,8 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
 
     private void RefreshOpenTerminals()
     {
+        SyncMembers();
+
         var query = EntityQueryEnumerator<CommanderTerminalComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
@@ -233,7 +252,8 @@ public sealed partial class CommanderTerminalSystem : EntitySystem
             consoleGrid == null ? null : GetNetEntity(consoleGrid.Value),
             members,
             CopyGroups(scope),
-            GetFloors(ent)));
+            GetFloors(ent),
+            ent.Comp.CommandsEnabled));
 
         _ui.ServerSendUiMessage(ent.Owner, CommanderTerminalUiKey.Key, new CommanderMapUpdateMessage(map));
     }
@@ -496,6 +516,10 @@ public sealed class CommanderGroupData
     public string? LeaderId;
     public int ColorIndex { get; }
     public List<string> Members { get; } = new();
+    public bool HasOrder;
+    public NetCoordinates OrderCoordinates;
+    public int OrderDepth;
+    public string OrderLocation = string.Empty;
 
     public CommanderGroupData(string groupId, string name, int colorIndex)
     {
