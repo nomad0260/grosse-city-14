@@ -7,10 +7,10 @@
   - type: Item
     size: Normal
   - type: Sprite
-    sprite: Objects/Devices/tablets.rsi
+    sprite: _Grosse/Objects/Devices/PDA.rsi
     layers:
-    - state: tablet
-    - state: generic
+    - state: icon
+    - state: icon-unshaded
       shader: unshaded
   - type: ActivatableUI
     inHandsOnly: true
