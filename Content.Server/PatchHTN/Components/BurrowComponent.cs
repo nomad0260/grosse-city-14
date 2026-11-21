@@ -15,10 +15,12 @@ public sealed partial class BurrowComponent : Component
     public bool Burrowed;
 
     /// <summary>
-    /// Safety net so an NPC can't stay buried forever if its plan gets interrupted.
+    /// Safety net so an NPC can't stay buried forever if its plan gets interrupted. Must stay above the
+    /// longest planned burrow time (see the MinimumBurrowTime/MaximumBurrowTime blackboard keys), otherwise
+    /// it cuts a normal burrow short.
     /// </summary>
     [DataField]
-    public float MaxBurrowTime = 60f;
+    public float MaxBurrowTime = 330f;
 
     /// <summary>
     /// When we burrowed, used for <see cref="MaxBurrowTime"/>.
@@ -27,16 +29,22 @@ public sealed partial class BurrowComponent : Component
     public TimeSpan BurrowedAt;
 
     /// <summary>
-    /// Whether the entity had the normal visibility layer before burrowing.
+    /// Whether the invisibility component was added by us, so surfacing only removes what burrowing added.
     /// </summary>
     [ViewVariables]
-    public bool HadNormalVisibilityLayer;
+    public bool AddedStealth;
 
     /// <summary>
-    /// Played when digging in and when resurfacing.
+    /// Played when digging in.
     /// </summary>
     [DataField]
-    public SoundSpecifier? Sound;
+    public SoundSpecifier? DigInSound;
+
+    /// <summary>
+    /// Played when resurfacing.
+    /// </summary>
+    [DataField]
+    public SoundSpecifier? DigOutSound;
 
     /// <summary>
     /// Tile IDs the NPC may burrow on, e.g. natural planet floors. Empty means any tile.

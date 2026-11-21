@@ -50,13 +50,14 @@
     - tasks:
         - !type:HTNCompoundTask
           task: FollowCompound
-    # Patrol before burrow: idle time also accrues while walking, so burrowing first would stop patrols mid-route.
-    - tasks:
-        - !type:HTNCompoundTask
-          task: PatrolAntlionCompound
+    # Burrow before patrol: a new plan starts where the previous one ended, which for a patrolling antlion is
+    # the patrol point it just walked to. With patrol first the antlion would patrol forever and never dig in.
     - tasks:
         - !type:HTNCompoundTask
           task: AntlionBurrowCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: PatrolAntlionCompound
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound

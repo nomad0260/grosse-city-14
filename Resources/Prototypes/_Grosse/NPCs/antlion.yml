@@ -14,27 +14,29 @@
     - tasks:
         - !type:HTNCompoundTask
           task: FollowCompound
-    # Walk a mapper-defined patrol network. Patrol comes before burrowing so a spawned antlion actually
-    # walks its route instead of digging in and standing still; on maps without points this branch fails
-    # and the antlion falls through to digging in as before.
-    - tasks:
-        - !type:HTNCompoundTask
-          task: PatrolAntlionCompound
-    # Dig in when there was nothing to hunt for a while (requires Burrow + NPCIdleTracker components).
+    # Dig in when nothing was hunted for 10 minutes (requires Burrow + NPCIdleTracker components). Burrowing
+    # comes before patrol because a new plan starts where the previous one ended, which for a patrolling
+    # antlion is the patrol point it just walked to; with the patrol branch first it would always win and the
+    # antlion would never dig in at all.
     - tasks:
         - !type:HTNCompoundTask
           task: AntlionBurrowCompound
+    # Walk a mapper-defined patrol network. On maps without points this branch fails.
+    - tasks:
+        - !type:HTNCompoundTask
+          task: PatrolAntlionCompound
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound
 
-# Digs in after a long period without targets and resurfaces after a while (or when damaged).
+# Digs in after 10 minutes without targets, stays down for 3..5 minutes (BurrowTime is rolled from the
+# MinimumBurrowTime/MaximumBurrowTime blackboard keys) and resurfaces earlier when it sees an enemy or is hit.
 - type: htnCompound
   id: AntlionBurrowCompound
   branches:
     - preconditions:
         - !type:IdleTimePrecondition
-          minimum: 30
+          minimum: 600
       tasks:
         - !type:HTNPrimitiveTask
           operator: !type:BurrowOperator

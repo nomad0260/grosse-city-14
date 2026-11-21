@@ -14,13 +14,11 @@ public sealed partial class SurfaceOperator : HTNOperator
     [Dependency] private IEntityManager _entManager = default!;
 
     private BurrowSystem _burrow = default!;
-    private NPCIdleTrackingSystem _idle = default!;
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
         base.Initialize(sysManager);
         _burrow = sysManager.GetEntitySystem<BurrowSystem>();
-        _idle = sysManager.GetEntitySystem<NPCIdleTrackingSystem>();
     }
 
     public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
@@ -31,7 +29,6 @@ public sealed partial class SurfaceOperator : HTNOperator
             return HTNOperatorStatus.Failed;
 
         _burrow.TrySurface(owner, burrow);
-        _idle.ResetIdleTime(owner);
 
         return HTNOperatorStatus.Finished;
     }

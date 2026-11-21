@@ -137,11 +137,11 @@
         true
       NavSmash: !type:Bool
         true
-      # How long an antlion stays buried (seconds), see AntlionBurrowCompound in PatchHTN.
+      # How long an antlion stays buried (seconds), see AntlionBurrowCompound in PatchHTN: 3..5 minutes.
       MinimumBurrowTime: !type:Single
-        20
+        180
       MaximumBurrowTime: !type:Single
-        45
+        300
   - type: Clickable
   - type: InteractionOutline
   - type: SolutionContainerManager

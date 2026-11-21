@@ -17,7 +17,6 @@ public sealed partial class BurrowOperator : HTNOperator, IHtnConditionalShutdow
     [Dependency] private IEntityManager _entManager = default!;
 
     private BurrowSystem _burrow = default!;
-    private NPCIdleTrackingSystem _idle = default!;
 
     /// <summary>
     /// Only run the shutdown logic when the whole plan ends: the NPC has to stay buried while the
@@ -30,7 +29,6 @@ public sealed partial class BurrowOperator : HTNOperator, IHtnConditionalShutdow
     {
         base.Initialize(sysManager);
         _burrow = sysManager.GetEntitySystem<BurrowSystem>();
-        _idle = sysManager.GetEntitySystem<NPCIdleTrackingSystem>();
     }
 
     public override Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
@@ -62,10 +60,8 @@ public sealed partial class BurrowOperator : HTNOperator, IHtnConditionalShutdow
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
+        // Surfacing resets the idle timer, so the NPC doesn't dig straight back in.
         if (_entManager.TryGetComponent<BurrowComponent>(owner, out var burrow))
             _burrow.TrySurface(owner, burrow);
-
-        // Don't dig in again as soon as we resurface; let the NPC do something first.
-        _idle.ResetIdleTime(owner);
     }
 }

@@ -6,8 +6,11 @@
   components:
   - type: NPCIdleTracker
   - type: Burrow
-    maxBurrowTime: 60
-    sound:
+    # A little above the 5 minute planned burrow, so the safety net never cuts a normal dig-in short.
+    maxBurrowTime: 330
+    digInSound:
+      path: /Audio/_Grosse/Mobs/Antlion/digdown1.ogg
+    digOutSound:
       path: /Audio/_Grosse/Mobs/Antlion/digup1.ogg
     allowedTiles:
     - FloorDirt
@@ -296,8 +299,11 @@
   components:
   - type: NPCIdleTracker
   - type: Burrow
-    maxBurrowTime: 60
-    sound:
+    # A little above the 5 minute planned burrow, so the safety net never cuts a normal dig-in short.
+    maxBurrowTime: 330
+    digInSound:
+      path: /Audio/_Grosse/Mobs/Antlion/digdown1.ogg
+    digOutSound:
       path: /Audio/_Grosse/Mobs/Antlion/digup1.ogg
     allowedTiles:
     - FloorDirt

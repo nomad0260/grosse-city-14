@@ -34,9 +34,9 @@
       NavSmash: !type:Bool
         true
       MinimumBurrowTime: !type:Single
-        20
+        180
       MaximumBurrowTime: !type:Single
-        45
+        300
 
 - type: entity
   id: MobPatrolHeadcrab
