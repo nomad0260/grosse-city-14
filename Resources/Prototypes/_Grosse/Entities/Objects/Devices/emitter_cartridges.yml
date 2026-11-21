@@ -1,0 +1,113 @@
+- type: entity
+  parent: BaseItem
+  id: DarkCoreCartridgeSpent
+  categories: [ HideSpawnMenu ]
+  name: отработанный патрон эмиттера РТМ
+  description: Пустой патрон с разрушенной стабилизирующей матрицей. Фонит так, что хранить его можно только в свинцовом контейнере.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-tox
+    scale: 1, 1
+  - type: DarkCoreCartridge
+    kind: Alpha
+    resource: 0
+    maxResource: 0
+  - type: Tag
+    tags:
+    - DarkCoreSpentCartridge
+  - type: RadiationSource
+    intensity: 250
+    slope: 0.35
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: BaseItem
+  id: DarkCoreCartridge
+  abstract: true
+  name: патрон эмиттера РТМ
+  description: Сменный картридж, задающий характер луча эмиттера.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart
+    scale: 1, 1
+  - type: DarkCoreCartridge
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+      Glass: 50
+      Plasma: 20
+
+- type: entity
+  parent: DarkCoreCartridge
+  id: DarkCoreCartridgeAlpha
+  name: альфа-патрон стабилизации
+  description: Базовый патрон. Хорошо стабилизирует ядро, умеренно греется и медленно расходуется.
+  components:
+  - type: Sprite
+    state: cart-a
+  - type: DarkCoreCartridge
+    kind: Alpha
+    resource: 10000
+    maxResource: 10000
+    stabilization: 1.0
+    compression: 0.5
+    energy: 1.0
+    heat: 0.5
+    wearRate: 10
+
+- type: entity
+  parent: DarkCoreCartridge
+  id: DarkCoreCartridgeBeta
+  name: бета-патрон форсирования
+  description: Увеличивает выработку и радиационную нагрузку. Быстрее изнашивается при высокой интенсивности.
+  components:
+  - type: Sprite
+    state: cart-b
+  - type: DarkCoreCartridge
+    kind: Beta
+    resource: 6000
+    maxResource: 6000
+    stabilization: 0.6
+    compression: 0.3
+    energy: 1.8
+    heat: 1.2
+    wearRate: 18
+
+- type: entity
+  parent: DarkCoreCartridge
+  id: DarkCoreCartridgeGamma
+  name: гамма-патрон стабилизации
+  description: Сильно стабилизирует ядро и гасит колебания, но даёт мало энергии и имеет ограниченный ресурс.
+  components:
+  - type: Sprite
+    state: cart-c
+  - type: DarkCoreCartridge
+    kind: Gamma
+    resource: 8000
+    maxResource: 8000
+    stabilization: 1.8
+    compression: 0.6
+    energy: 0.6
+    heat: 0.8
+    wearRate: 12
+
+- type: entity
+  parent: DarkCoreCartridge
+  id: DarkCoreCartridgeDigamma
+  name: дигамма-патрон
+  description: Экспериментальный патрон. Резко повышает выработку, но сильно греется и быстро изнашивает эмиттеры.
+  components:
+  - type: Sprite
+    state: cart-tox
+  - type: DarkCoreCartridge
+    kind: Digamma
+    resource: 3000
+    maxResource: 3000
+    stabilization: 0.8
+    compression: 0.6
+    energy: 2.5
+    heat: 2.0
+    wearRate: 45

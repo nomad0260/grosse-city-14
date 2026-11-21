@@ -1,0 +1,41 @@
+- type: latheRecipePack
+  id: DarkCoreReactorParts
+  recipes:
+  - DarkCoreCoolantCanisterFilled
+  - DarkCoreCoolantCanisterWaterFilled
+  - DarkCoreCoolantCanisterPlasmaFilled
+  - DarkCoreCoolantCanisterUraniumFilled
+  - DarkCoreCoolantCanisterCryogelFilled
+  - DarkCoreCoolantCanisterThermosilFilled
+  - DarkCoreCoolantCanisterRadiogelFilled
+  - DarkCoreCoolantCanisterIsotopeFilled
+  - DarkCoreCoolantCanisterDigammaFilled
+  - DarkCoreSpentCartridgeBarrel
+  - DarkCoreFabricator
+  - DarkCoreCartridgeAlpha
+  - DarkCoreCartridgeBeta
+  - DarkCoreCartridgeGamma
+  - DarkCoreCartridgeDigamma
+  - DarkCoreCoolingBlock
+  - DarkCoreCoolantSynthesizer
+  - DarkCoreCoolantWasteProcessor
+  - DarkCoreCoolantMixer
+  - DarkCoreCartridgeRecycler
+
+- type: latheRecipePack
+  id: DarkCoreFabricatorRecipes
+  recipes:
+  - DarkCoreCoolantCanisterFilled
+  - DarkCoreCoolantCanisterWaterFilled
+  - DarkCoreCoolantCanisterPlasmaFilled
+  - DarkCoreCoolantCanisterUraniumFilled
+  - DarkCoreCoolantCanisterCryogelFilled
+  - DarkCoreCoolantCanisterThermosilFilled
+  - DarkCoreCoolantCanisterRadiogelFilled
+  - DarkCoreCoolantCanisterIsotopeFilled
+  - DarkCoreCoolantCanisterDigammaFilled
+  - DarkCoreCartridgeAlphaScrap
+  - DarkCoreCartridgeBetaScrap
+  - DarkCoreCartridgeGammaScrap
+  - DarkCoreCartridgeDigammaScrap
+  - DarkCoreSpentCartridgeBarrel

@@ -1,0 +1,300 @@
+# Производство расходников и оборудования РТМ.
+# Пустые канистры больше не печатаются: и станок Альянса, и фабрикатор сразу выдают полные.
+
+# Альфа — стартовый патрон. Он печатается из обычных материалов, чтобы можно было
+# получить первые обломки и запустить цикл без готового запаса сырья.
+- type: latheRecipe
+  id: DarkCoreCartridgeAlpha
+  result: DarkCoreCartridgeAlpha
+  completetime: 5
+  materials:
+    Steel: 300
+    Glass: 200
+    Plastic: 100
+    Gold: 50
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "0"
+
+# Полные канистры отличаются содержимым: базовый, водяной, плазменный и урановый хладагент.
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterFilled
+  result: DarkCoreCoolantCanister
+  completetime: 4
+  materials:
+    Steel: 250
+    Plastic: 100
+    Plasma: 50
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: grey
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterWaterFilled
+  result: DarkCoreCoolantCanisterWater
+  completetime: 4
+  materials:
+    Steel: 200
+    Plastic: 100
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: blue
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterPlasmaFilled
+  result: DarkCoreCoolantCanisterPlasma
+  completetime: 5
+  materials:
+    Steel: 250
+    Plastic: 100
+    Plasma: 100
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: orange
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterUraniumFilled
+  result: DarkCoreCoolantCanisterUranium
+  completetime: 6
+  materials:
+    Steel: 300
+    Plastic: 100
+    Uranium: 50
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: green
+
+- type: latheRecipe
+  id: DarkCoreSpentCartridgeBarrel
+  result: DarkCoreSpentCartridgeBarrel
+  completetime: 5
+  materials:
+    Steel: 400
+    Plastic: 100
+  icon:
+    sprite: Structures/Storage/barrels.rsi
+    state: radbarrel
+
+- type: latheRecipe
+  id: DarkCoreFabricator
+  result: DarkCoreFabricator
+  completetime: 12
+  materials:
+    Steel: 2500
+    Glass: 800
+    Plasma: 300
+  icon:
+    sprite: Structures/Machines/autolathe.rsi
+    state: icon
+
+- type: latheRecipe
+  id: DarkCoreCartridgeBeta
+  result: DarkCoreCartridgeBeta
+  completetime: 6
+  materials:
+    Steel: 300
+    Plasma: 200
+    Gold: 100
+    Uranium: 100
+    Plastic: 100
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "1"
+
+- type: latheRecipe
+  id: DarkCoreCartridgeGamma
+  result: DarkCoreCartridgeGamma
+  completetime: 6
+  materials:
+    Steel: 200
+    Glass: 200
+    Silver: 100
+    Uranium: 100
+    Plastic: 100
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "2"
+
+- type: latheRecipe
+  id: DarkCoreCartridgeDigamma
+  result: DarkCoreCartridgeDigamma
+  completetime: 8
+  materials:
+    Steel: 400
+    Plasma: 300
+    Uranium: 200
+    Gold: 100
+    Silver: 100
+    Glass: 200
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: vbox_0
+
+# Альтернативные рецепты фабрикатора: патроны из обломков, полученных
+# при разрушении старых патронов. На станке Альянса доступны обычные рецепты.
+- type: latheRecipe
+  id: DarkCoreCartridgeAlphaScrap
+  result: DarkCoreCartridgeAlpha
+  completetime: 5
+  materials:
+    DarkCoreCartridgeScrap: 100
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "0"
+
+- type: latheRecipe
+  id: DarkCoreCartridgeBetaScrap
+  result: DarkCoreCartridgeBeta
+  completetime: 6
+  materials:
+    DarkCoreCartridgeScrap: 120
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "1"
+
+- type: latheRecipe
+  id: DarkCoreCartridgeGammaScrap
+  result: DarkCoreCartridgeGamma
+  completetime: 6
+  materials:
+    DarkCoreCartridgeScrap: 120
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: "2"
+
+- type: latheRecipe
+  id: DarkCoreCartridgeDigammaScrap
+  result: DarkCoreCartridgeDigamma
+  completetime: 8
+  materials:
+    DarkCoreCartridgeScrap: 200
+  icon:
+    sprite: Structures/Machines/parts.rsi
+    state: vbox_0
+
+- type: latheRecipe
+  id: DarkCoreCoolingBlock
+  result: DarkCoreCoolingBlock
+  completetime: 14
+  materials:
+    Steel: 3000
+    Glass: 800
+    Plasma: 300
+  icon:
+    sprite: Structures/AllianceCore/alliance_cooler.rsi
+    state: icon
+
+- type: latheRecipe
+  id: DarkCoreCoolantSynthesizer
+  result: DarkCoreCoolantSynthesizer
+  completetime: 12
+  materials:
+    Steel: 1800
+    Glass: 600
+    Plasma: 200
+  icon:
+    sprite: Structures/Machines/mixer.rsi
+    state: mixer_loaded
+
+- type: latheRecipe
+  id: DarkCoreCoolantWasteProcessor
+  result: DarkCoreCoolantWasteProcessor
+  completetime: 12
+  materials:
+    Steel: 1800
+    Glass: 500
+    Plasma: 150
+  icon:
+    sprite: Structures/Machines/gasrecycler.rsi
+    state: icon
+
+- type: latheRecipe
+  id: DarkCoreCartridgeRecycler
+  result: DarkCoreCartridgeRecycler
+  completetime: 10
+  materials:
+    Steel: 1200
+    Glass: 400
+    Plasma: 100
+  icon:
+    sprite: Structures/Machines/recycling.rsi
+    state: grinder-a0
+
+# Специализированные теплоносители. Канистры печатаются полными: химия остаётся
+# альтернативным путём, но не единственным.
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterCryogelFilled
+  result: DarkCoreCoolantCanisterCryogel
+  completetime: 5
+  materials:
+    Steel: 250
+    Plastic: 100
+    Plasma: 50
+    Silver: 50
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: frezon
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterThermosilFilled
+  result: DarkCoreCoolantCanisterThermosil
+  completetime: 5
+  materials:
+    Steel: 250
+    Plastic: 100
+    Glass: 100
+    Plasma: 100
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: yellow
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterRadiogelFilled
+  result: DarkCoreCoolantCanisterRadiogel
+  completetime: 5
+  materials:
+    Steel: 250
+    Plastic: 100
+    Plasma: 50
+    Uranium: 50
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: greenys
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterIsotopeFilled
+  result: DarkCoreCoolantCanisterIsotope
+  completetime: 6
+  materials:
+    Steel: 300
+    Plastic: 100
+    Plasma: 100
+    Uranium: 100
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: darkblue
+
+- type: latheRecipe
+  id: DarkCoreCoolantCanisterDigammaFilled
+  result: DarkCoreCoolantCanisterDigamma
+  completetime: 8
+  materials:
+    Steel: 400
+    Plastic: 150
+    Plasma: 200
+    Uranium: 200
+    Gold: 100
+  icon:
+    sprite: Structures/Storage/canister.rsi
+    state: red
+- type: latheRecipe
+  id: DarkCoreCoolantMixer
+  result: DarkCoreCoolantMixer
+  completetime: 12
+  materials:
+    Steel: 1600
+    Glass: 700
+    Plasma: 150
+  icon:
+    sprite: Structures/Machines/Medical/electrolysis.rsi
+    state: base

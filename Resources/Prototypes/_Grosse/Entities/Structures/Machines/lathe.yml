@@ -1,3 +1,42 @@
+# Специализированный фабрикатор топлива и патронов РТМ.
+- type: entity
+  parent: BaseLatheLube
+  id: DarkCoreFabricator
+  name: фабрикатор РТМ
+  description: Производит готовый хладагент и патроны для эмиттеров реактора тёмной материи. Не требует труб и отдельных синтезаторов.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/autolathe.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: MaterialStorage
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
+  - type: OreSiloClient
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - DarkCoreFabricatorRecipes
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+
 - type: entity
   id: CMBAutolatheC17
   parent: BaseLatheLube
@@ -21,6 +60,7 @@
     whitelist:
       tags:
         - Sheet
+        - Ingot
         - RawMaterial
         - Meat
   - type: OreSiloClient
@@ -31,6 +71,8 @@
     unlitRunningState: unlit-building
     staticPacks:
     - CMBMaterialPack
+    - DarkCoreReactorParts
+    - DarkMatterResearchEquipment
   - type: ContainerContainer
     containers:
       machine_board: !type:Container

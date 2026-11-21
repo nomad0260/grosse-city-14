@@ -1,0 +1,201 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                      Title="РТМ · Смеситель"
+                      MinSize="900 400"
+                      SetSize="940 440">
+    <!-- Слева — работа с жидкостью, справа двумя колонками — прогноз.
+         Так окно растёт в ширину, а не в высоту. -->
+    <BoxContainer Orientation="Horizontal" Margin="10" SeparationOverride="8">
+
+        <BoxContainer Orientation="Vertical" SeparationOverride="8" MinWidth="400" HorizontalExpand="True">
+
+            <!-- Бак смесителя и действия с ним. -->
+            <PanelContainer>
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="4">
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="БАК СМЕСИТЕЛЯ" StyleClasses="LabelKeyText" FontColorOverride="#E23B3B"
+                               HorizontalExpand="True"/>
+                        <Label Name="ComponentsLabel" Access="Public" Text="компонентов: 0"/>
+                    </BoxContainer>
+                    <ProgressBar Name="MixBar" Access="Public" MinHeight="12"/>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Name="MixtureLabel" Access="Public" Text="бак пуст" HorizontalExpand="True"
+                               ClipText="True"/>
+                        <Label Name="VolumeLabel" Access="Public" Text="0 / 600 ед."
+                               StyleClasses="LabelSubText"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="0 4 0 0">
+                        <Button Name="PourInButton" Access="Public" Text="Влить в бак"
+                                HorizontalExpand="True" MinHeight="30"/>
+                        <Button Name="PourOutButton" Access="Public" Text="Слить смесь в тару"
+                                HorizontalExpand="True" MinHeight="30"/>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <!-- Ячейки: откуда берём жидкость и куда сливаем. -->
+            <BoxContainer Orientation="Horizontal" SeparationOverride="8" HorizontalExpand="True">
+
+                <PanelContainer HorizontalExpand="True">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                        <Label Text="ОТКУДА" FontColorOverride="#E23B3B"/>
+                        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8">
+                            <SpriteView Name="InputSlotView" Access="Public" Scale="2 2" MinSize="56 56"/>
+                            <BoxContainer Orientation="Vertical" VerticalAlignment="Center" SeparationOverride="2"
+                                          MinWidth="100">
+                                <Label Name="InputSlotLabel" Access="Public" Text="ячейка пуста" ClipText="True"/>
+                                <Label Name="InputSlotFill" Access="Public" Text="—"
+                                       StyleClasses="LabelSubText"/>
+                            </BoxContainer>
+                        </BoxContainer>
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <Button Name="InsertInputButton" Access="Public" Text="Вложить" HorizontalExpand="True"/>
+                            <Button Name="EjectInputButton" Access="Public" Text="Забрать" HorizontalExpand="True"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <PanelContainer HorizontalExpand="True">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                        <Label Text="КУДА" FontColorOverride="#E23B3B"/>
+                        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8">
+                            <SpriteView Name="OutputSlotView" Access="Public" Scale="2 2" MinSize="56 56"/>
+                            <BoxContainer Orientation="Vertical" VerticalAlignment="Center" SeparationOverride="2"
+                                          MinWidth="100">
+                                <Label Name="OutputSlotLabel" Access="Public" Text="ячейка пуста" ClipText="True"/>
+                                <Label Name="OutputSlotFill" Access="Public" Text="—"
+                                       StyleClasses="LabelSubText"/>
+                            </BoxContainer>
+                        </BoxContainer>
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <Button Name="InsertOutputButton" Access="Public" Text="Вложить" HorizontalExpand="True"/>
+                            <Button Name="EjectOutputButton" Access="Public" Text="Забрать" HorizontalExpand="True"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+            <!-- Что уже влили в бак. -->
+            <PanelContainer VerticalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="4" VerticalExpand="True">
+                    <Label Text="СОСТАВ СМЕСИ" StyleClasses="LabelKeyText" FontColorOverride="#E23B3B"/>
+                    <ScrollContainer MinHeight="56" HorizontalExpand="True" VerticalExpand="True">
+                        <BoxContainer Name="ReagentList" Access="Public" Orientation="Vertical"
+                                      SeparationOverride="2" HorizontalExpand="True"/>
+                    </ScrollContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <Label Name="StatusLabel" Access="Public" Text="" ClipText="True"
+                   StyleClasses="LabelSubText"/>
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="8" MinWidth="440" HorizontalExpand="True">
+
+            <!-- Прогноз: что эта смесь даст блоку охладителя. -->
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="4">
+                    <Label Text="ХАРАКТЕРИСТИКИ СМЕСИ" StyleClasses="LabelKeyText" FontColorOverride="#E23B3B"/>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Теплоотвод" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="CapacityLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Расход" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="ConsumptionLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Канистры хватит" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="RuntimeLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Теплоёмкость" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="HeatCapacityLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Теплоотдача" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="HeatTransferLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Поток" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="FlowLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Вязкость" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="ViscosityLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Радиация" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="RadiationLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Стабильность" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="StabilityLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Диапазон" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="RangeLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Отработка" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="WasteLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Загрязнение" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="ContaminationLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <!-- Бонусы основной жидкости: по ним и выбирают хладагент. -->
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#0C0A0A" BorderColor="#2A1416" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="4">
+                    <Label Text="БОНУСЫ ЖИДКОСТИ" StyleClasses="LabelKeyText" FontColorOverride="#E23B3B"/>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Жидкость" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="DominantLabel" Access="Public" Text="—" ClipText="True"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Энергия" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="EnergyLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Износ" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="WearLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Стабилизация" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="StabilizationLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Порог перегрева" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="ToleranceLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal">
+                        <Label Text="Нагрев" HorizontalExpand="True" StyleClasses="LabelSubText"/>
+                        <Label Name="HeatGenLabel" Access="Public" Text="—"/>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

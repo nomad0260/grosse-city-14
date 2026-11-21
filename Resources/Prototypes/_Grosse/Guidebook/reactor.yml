@@ -1,0 +1,53 @@
+- type: guideEntry
+  id: GrosseReactor
+  name: guide-entry-grosse-reactor
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor.xml"
+  children:
+  - GrosseReactorBuild
+  - GrosseReactorCartridges
+  - GrosseReactorCoolant
+  - GrosseReactorStartup
+  - GrosseReactorConsole
+  - GrosseReactorEmergencies
+  - GrosseReactorMaintenance
+  - GrosseReactorReference
+
+- type: guideEntry
+  id: GrosseReactorBuild
+  name: guide-entry-grosse-reactor-build
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Build.xml"
+
+- type: guideEntry
+  id: GrosseReactorCartridges
+  name: guide-entry-grosse-reactor-cartridges
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Cartridges.xml"
+
+- type: guideEntry
+  id: GrosseReactorCoolant
+  name: guide-entry-grosse-reactor-coolant
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Coolant.xml"
+
+- type: guideEntry
+  id: GrosseReactorStartup
+  name: guide-entry-grosse-reactor-startup
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Startup.xml"
+
+- type: guideEntry
+  id: GrosseReactorConsole
+  name: guide-entry-grosse-reactor-console
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Console.xml"
+
+- type: guideEntry
+  id: GrosseReactorEmergencies
+  name: guide-entry-grosse-reactor-emergencies
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Emergencies.xml"
+
+- type: guideEntry
+  id: GrosseReactorMaintenance
+  name: guide-entry-grosse-reactor-maintenance
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Maintenance.xml"
+
+- type: guideEntry
+  id: GrosseReactorReference
+  name: guide-entry-grosse-reactor-reference
+  text: "/ServerInfo/Guidebook/_Grosse/GrosseReactor/Reference.xml"

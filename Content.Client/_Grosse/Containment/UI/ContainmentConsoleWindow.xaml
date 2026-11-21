@@ -1,0 +1,499 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+    xmlns:ui="clr-namespace:Content.Client._Grosse.Containment.UI"
+    Title="РТМ · Центральный реактор"
+    MinSize="1180 660"
+    SetSize="1268 675">
+
+    <LayoutContainer Name="ScreenRoot" HorizontalExpand="True" VerticalExpand="True">
+
+        <PanelContainer Name="BackdropPanel"/>
+
+        <BoxContainer Name="Shell" Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+
+            <!-- Левый рельс: брендинг и разделы. -->
+            <PanelContainer Name="Sidebar" MinWidth="188" HorizontalExpand="False">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+
+                    <BoxContainer Orientation="Horizontal" Margin="16 18 12 15" SeparationOverride="10">
+                        <ui:UnionEmblem Name="BrandEmblem" MinSize="44 44" VerticalAlignment="Center"/>
+                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center" SeparationOverride="0">
+                            <Label Name="BrandTitle" Text="Вселенский"/>
+                            <Label Name="BrandSubtitle" Text="Союз" StyleClasses="LabelKeyText"/>
+                        </BoxContainer>
+                    </BoxContainer>
+
+                    <PanelContainer Name="SidebarRule" MinHeight="1"/>
+
+                    <BoxContainer Orientation="Vertical" Margin="11 16 11 8" SeparationOverride="5">
+                        <Button Name="NavDashboard" Text="◈   Реактор" TextAlign="Left"
+                                ToggleMode="True" MinHeight="42" HorizontalExpand="True"/>
+                        <Button Name="NavSystems" Text="▤   Системы" TextAlign="Left"
+                                ToggleMode="True" MinHeight="42" HorizontalExpand="True"/>
+                        <Button Name="NavSettings" Text="⚙   Настройки" TextAlign="Left"
+                                ToggleMode="True" MinHeight="42" HorizontalExpand="True"/>
+                    </BoxContainer>
+
+                    <Control VerticalExpand="True"/>
+
+                    <BoxContainer Orientation="Vertical" Margin="17 8 12 12" SeparationOverride="3">
+                        <Label Text="РТМ-01 · КОНТУР УПРАВЛЕНИЯ" StyleClasses="LabelSubText"/>
+                        <Label Name="ClockLabel" Text="00:00:00" StyleClasses="LabelSubText"/>
+                        <ui:AccentSlashes Name="SidebarSlashes" MinSize="56 22" Margin="0 5 0 0"/>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <!-- Основная колонка. -->
+            <BoxContainer Name="MainColumn" Orientation="Vertical" Margin="18 14 16 12" SeparationOverride="9"
+                          HorizontalExpand="True" VerticalExpand="True">
+
+                <BoxContainer Name="HeaderRow" Orientation="Horizontal" HorizontalExpand="True" MinHeight="54">
+                    <BoxContainer Orientation="Vertical" VerticalAlignment="Center" SeparationOverride="1">
+                        <Label Name="ModeTitle" Text="Реактор"/>
+                        <Label Name="ModeSubtitle" Text="Центральный реактор станции" StyleClasses="LabelSubText"/>
+                    </BoxContainer>
+
+                    <Control HorizontalExpand="True"/>
+
+                    <PanelContainer Name="HealthChip" VerticalAlignment="Center" Margin="0 0 8 0">
+                        <BoxContainer Orientation="Horizontal" Margin="12 7" SeparationOverride="8">
+                            <ui:PulseDot Name="HealthDot" MinSize="13 13" VerticalAlignment="Center"/>
+                            <BoxContainer Orientation="Vertical" SeparationOverride="0" VerticalAlignment="Center">
+                                <RichTextLabel Name="RunningLabel" Text="Система в норме"/>
+                            </BoxContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <ui:AccentSlashes Name="HeaderSlashes" MinSize="48 24" VerticalAlignment="Center"/>
+                </BoxContainer>
+
+                <PanelContainer Name="HeaderDivider" MinHeight="1"/>
+
+                <TabContainer Name="Tabs" TabsVisible="False" HorizontalExpand="True" VerticalExpand="True">
+
+                    <!-- Страница 1: дашборд из референса. -->
+                    <BoxContainer Name="DashboardPage" Orientation="Vertical" HorizontalExpand="True"
+                                  VerticalExpand="True" SeparationOverride="8">
+
+                        <BoxContainer Name="DashboardTop" Orientation="Horizontal" HorizontalExpand="True"
+                                      MinHeight="280" SeparationOverride="9">
+
+                            <PanelContainer Name="HeroCard" MinWidth="310" HorizontalExpand="True"
+                                            SizeFlagsStretchRatio="1.1">
+                                <BoxContainer Orientation="Vertical" Margin="8">
+                                    <ui:ReactorCoreView Name="CoreView" HorizontalExpand="True" VerticalExpand="True"/>
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <GridContainer Name="MetricGrid" Columns="2" HorizontalExpand="True"
+                                           VerticalExpand="True" SizeFlagsStretchRatio="1.65"
+                                           HSeparationOverride="8" VSeparationOverride="8">
+
+                                <PanelContainer Name="StabilityCard" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="13 9 13 10" SeparationOverride="3">
+                                        <BoxContainer Orientation="Horizontal">
+                                            <Label Text="◈  Стабильность" StyleClasses="LabelSubText"/>
+                                            <Control HorizontalExpand="True"/>
+                                            <Label Text="норма" StyleClasses="LabelSubText"/>
+                                        </BoxContainer>
+                                        <Label Name="StabilityValue" Text="100.0%"/>
+                                        <ui:CrtSegmentBar Name="StabilityBar" MinHeight="7" HorizontalExpand="True"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                                <PanelContainer Name="TempCard" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="13 9 13 10" SeparationOverride="3">
+                                        <BoxContainer Orientation="Horizontal">
+                                            <Label Text="◉  Температура" StyleClasses="LabelSubText"/>
+                                            <Control HorizontalExpand="True"/>
+                                            <Label Text="ядро" StyleClasses="LabelSubText"/>
+                                        </BoxContainer>
+                                        <Label Name="TempValue" Text="—"/>
+                                        <ui:CrtSegmentBar Name="TempBar" MinHeight="7" HorizontalExpand="True"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                                <PanelContainer Name="OutputCard" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="13 9 13 10" SeparationOverride="2">
+                                        <BoxContainer Orientation="Horizontal">
+                                            <Label Text="ϟ  Выработка энергии" StyleClasses="LabelSubText"/>
+                                            <Control HorizontalExpand="True"/>
+                                            <Label Text="сеть" StyleClasses="LabelSubText"/>
+                                        </BoxContainer>
+                                        <Label Name="OutputValue" Text="0.00 MW"/>
+                                        <ui:CrtSparkline Name="EnergySpark" MinHeight="25" HorizontalExpand="True"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                                <PanelContainer Name="ContainmentCard" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="13 9 13 10" SeparationOverride="3">
+                                        <BoxContainer Orientation="Horizontal">
+                                            <Label Text="⬡  Сдерживание" StyleClasses="LabelSubText"/>
+                                            <Control HorizontalExpand="True"/>
+                                            <Label Text="поле" StyleClasses="LabelSubText"/>
+                                        </BoxContainer>
+                                        <Label Name="ContainmentValue" Text="100.0%"/>
+                                        <ui:CrtSegmentBar Name="ContainmentBar" MinHeight="7" HorizontalExpand="True"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                            </GridContainer>
+
+                            <BoxContainer Name="ActionColumn" Orientation="Vertical" MinWidth="188"
+                                          SizeFlagsStretchRatio="0.72" SeparationOverride="9" VerticalExpand="True">
+                                <PanelContainer Name="StartCard" MinHeight="116" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="12 11" SeparationOverride="5"
+                                                  VerticalAlignment="Center">
+                                        <Button Name="CoreToggleButton" Text="▶  Запустить ядро"
+                                                MinHeight="50" HorizontalExpand="True" TextAlign="Center"/>
+                                        <Label Name="StartHint" Text="Ядро уже работает"
+                                               StyleClasses="LabelSubText" HorizontalAlignment="Center"
+                                               Visible="False"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                                <PanelContainer Name="ScramCard" MinHeight="106" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="12 11" SeparationOverride="5"
+                                                  VerticalAlignment="Center">
+                                        <Button Name="ScramButton" Text="■  Аварийный сброс"
+                                                MinHeight="50" HorizontalExpand="True" TextAlign="Center"/>
+                                        <Label Name="ScramHint" Text="Необратимая остановка"
+                                               StyleClasses="LabelSubText" HorizontalAlignment="Center"
+                                               Visible="False"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+                            </BoxContainer>
+                        </BoxContainer>
+
+                        <PanelContainer Name="WarningPanel" Visible="False">
+                            <BoxContainer Orientation="Horizontal" Margin="11 5" SeparationOverride="8">
+                                <PanelContainer Name="WarningAccent" MinWidth="3" MinHeight="16" VerticalExpand="True"/>
+                                <RichTextLabel Name="WarningLabel" HorizontalExpand="True" VerticalAlignment="Center"/>
+                            </BoxContainer>
+                        </PanelContainer>
+
+                        <PanelContainer Name="TelemetryCard" VerticalExpand="True" MinHeight="198">
+                            <BoxContainer Orientation="Vertical" Margin="13 9 13 8" SeparationOverride="5">
+
+                                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" SeparationOverride="5">
+                                    <Button Name="TelemetryTabButton" Text="⌁  Телеметрия"
+                                            ToggleMode="True" MinHeight="28" MinWidth="108"/>
+                                    <Button Name="DiagnosticsTabButton" Text="⚒  Диагностика"
+                                            ToggleMode="True" MinHeight="28" MinWidth="112"/>
+                                    <Control HorizontalExpand="True"/>
+                                    <Button Name="Range1m" Text="1м" ToggleMode="True" MinWidth="34" MinHeight="26"/>
+                                    <Button Name="Range5m" Text="5м" ToggleMode="True" MinWidth="34" MinHeight="26"/>
+                                    <Button Name="Range15m" Text="15м" ToggleMode="True" MinWidth="38" MinHeight="26"/>
+                                    <Button Name="Range1h" Text="1ч" ToggleMode="True" MinWidth="34" MinHeight="26"/>
+                                </BoxContainer>
+
+                                <TabContainer Name="ViewTabs" TabsVisible="False" VerticalExpand="True"
+                                              HorizontalExpand="True">
+
+                                    <BoxContainer Name="TelemetryView" Orientation="Horizontal"
+                                                  HorizontalExpand="True" VerticalExpand="True"
+                                                  SeparationOverride="12">
+                                        <ui:CrtTelemetryGraph Name="TelemetryGraph" MinHeight="145"
+                                                              HorizontalExpand="True"
+                                                              SizeFlagsStretchRatio="4"/>
+                                        <BoxContainer Orientation="Vertical" MinWidth="132" SeparationOverride="5"
+                                                      VerticalAlignment="Center">
+                                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                                <PanelContainer Name="StabilityLegendDot" MinSize="7 7"
+                                                                VerticalAlignment="Center"/>
+                                                <Label Text="Стабильность" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Label Name="StabilityLegendValue" Text="100.0%"/>
+                                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                                <PanelContainer Name="TempLegendDot" MinSize="7 7"
+                                                                VerticalAlignment="Center"/>
+                                                <Label Text="Температура" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Label Name="TempLegendValue" Text="—"/>
+                                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                                <PanelContainer Name="EnergyLegendDot" MinSize="7 7"
+                                                                VerticalAlignment="Center"/>
+                                                <Label Text="Выработка" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Label Name="EnergyLegendValue" Text="0.00 MW"/>
+                                        </BoxContainer>
+                                    </BoxContainer>
+
+                                    <BoxContainer Name="DiagnosticsView" Orientation="Vertical" HorizontalExpand="True"
+                                                  VerticalExpand="True" SeparationOverride="4">
+                                        <RichTextLabel Name="DashboardDiagnosticsLabel"
+                                                       Text="Диагностика ядра и контура."/>
+                                        <Label Text="Сводка обновляется вместе с телеметрией."
+                                               StyleClasses="LabelSubText"/>
+                                    </BoxContainer>
+
+                                </TabContainer>
+                            </BoxContainer>
+                        </PanelContainer>
+
+                    </BoxContainer>
+
+                    <!-- Страница 2: эмиттеры и поле. -->
+                    <ScrollContainer Name="SystemsPage" HScrollEnabled="False" HorizontalExpand="True"
+                                     VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="2 2 8 4" SeparationOverride="8"
+                                      HorizontalExpand="True">
+
+                            <Label Text="СИСТЕМЫ РЕАКТОРА" StyleClasses="LabelHeadingBigger"/>
+                            <Label Text="Исправность эмиттеров, патроны и параметры сдерживающего поля."
+                                   StyleClasses="LabelSubText"/>
+
+                            <PanelContainer Name="ProjectorsCard">
+                                <BoxContainer Orientation="Vertical" Margin="12 9" SeparationOverride="6"
+                                              HorizontalExpand="True">
+                                    <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                                        <BoxContainer Orientation="Vertical" SeparationOverride="1"
+                                                      HorizontalExpand="True">
+                                            <Label Text="ЭМИТТЕРЫ СТАБИЛИЗАЦИИ" StyleClasses="LabelKeyText"/>
+                                            <Label Text="Интенсивность задаёт нагрузку луча и расход патрона."
+                                                   StyleClasses="LabelSubText"/>
+                                        </BoxContainer>
+                                        <RichTextLabel Name="ProjectorsCountLabel" VerticalAlignment="Center"/>
+                                    </BoxContainer>
+
+                                    <PanelContainer Name="ProjectorHeaderPanel">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="10 4">
+                                            <Label Text="#" StyleClasses="LabelSubText" MinWidth="20"/>
+                                            <Label Text="ИСПРАВНОСТЬ · ХЛАДАГЕНТ · ПАТРОН" StyleClasses="LabelSubText" MinWidth="150"
+                                                   HorizontalExpand="True"/>
+                                            <Label Text="ПАТРОН / ХЛАДАГЕНТ" StyleClasses="LabelSubText" MinWidth="132"/>
+                                            <Label Text="ВКЛ" StyleClasses="LabelSubText" MinWidth="48"
+                                                   HorizontalAlignment="Center"/>
+                                            <Label Text="ИНТЕНСИВНОСТЬ" StyleClasses="LabelSubText" MinWidth="190"
+                                                   HorizontalAlignment="Center"/>
+                                        </BoxContainer>
+                                    </PanelContainer>
+
+                                    <PanelContainer Name="Proj1Row">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="10 5">
+                                            <Label Name="Proj1Label" Text="1" MinWidth="20" VerticalAlignment="Center"/>
+                                            <BoxContainer Orientation="Horizontal" MinWidth="150" HorizontalExpand="True"
+                                                          SeparationOverride="6" VerticalAlignment="Center">
+                                                <BoxContainer Orientation="Vertical" SeparationOverride="3"
+                                                              HorizontalExpand="True" VerticalAlignment="Center">
+                                                    <ui:CrtSegmentBar Name="Proj1Bar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj1CoolantBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj1CartridgeBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                </BoxContainer>
+                                                <Label Name="Proj1Health" MinWidth="42"/>
+                                            </BoxContainer>
+                                            <BoxContainer Orientation="Vertical" MinWidth="132" SeparationOverride="1"
+                                                          VerticalAlignment="Center">
+                                                <Label Name="Proj1Cartridge"/>
+                                                <Label Name="Proj1Coolant" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Button Name="Proj1Toggle" ToggleMode="True" Text="ВКЛ" MinWidth="48"
+                                                    MinHeight="24"/>
+                                            <Slider Name="Proj1Slider" MinValue="0" MaxValue="200" Rounded="True"
+                                                    RoundingDecimals="0" MinWidth="110" HorizontalExpand="True"
+                                                    VerticalAlignment="Center"/>
+                                            <Label Name="Proj1Intensity" MinWidth="26" HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"/>
+                                            <Button Name="Proj1Minus" Text="−" MinWidth="22" MinHeight="22"/>
+                                            <Button Name="Proj1Plus" Text="+" MinWidth="22" MinHeight="22"/>
+                                        </BoxContainer>
+                                    </PanelContainer>
+
+                                    <PanelContainer Name="Proj2Row">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="10 5">
+                                            <Label Name="Proj2Label" Text="2" MinWidth="20" VerticalAlignment="Center"/>
+                                            <BoxContainer Orientation="Horizontal" MinWidth="150" HorizontalExpand="True"
+                                                          SeparationOverride="6" VerticalAlignment="Center">
+                                                <BoxContainer Orientation="Vertical" SeparationOverride="3"
+                                                              HorizontalExpand="True" VerticalAlignment="Center">
+                                                    <ui:CrtSegmentBar Name="Proj2Bar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj2CoolantBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj2CartridgeBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                </BoxContainer>
+                                                <Label Name="Proj2Health" MinWidth="42"/>
+                                            </BoxContainer>
+                                            <BoxContainer Orientation="Vertical" MinWidth="132" SeparationOverride="1"
+                                                          VerticalAlignment="Center">
+                                                <Label Name="Proj2Cartridge"/>
+                                                <Label Name="Proj2Coolant" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Button Name="Proj2Toggle" ToggleMode="True" Text="ВКЛ" MinWidth="48"
+                                                    MinHeight="24"/>
+                                            <Slider Name="Proj2Slider" MinValue="0" MaxValue="200" Rounded="True"
+                                                    RoundingDecimals="0" MinWidth="110" HorizontalExpand="True"
+                                                    VerticalAlignment="Center"/>
+                                            <Label Name="Proj2Intensity" MinWidth="26" HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"/>
+                                            <Button Name="Proj2Minus" Text="−" MinWidth="22" MinHeight="22"/>
+                                            <Button Name="Proj2Plus" Text="+" MinWidth="22" MinHeight="22"/>
+                                        </BoxContainer>
+                                    </PanelContainer>
+
+                                    <PanelContainer Name="Proj3Row">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="10 5">
+                                            <Label Name="Proj3Label" Text="3" MinWidth="20" VerticalAlignment="Center"/>
+                                            <BoxContainer Orientation="Horizontal" MinWidth="150" HorizontalExpand="True"
+                                                          SeparationOverride="6" VerticalAlignment="Center">
+                                                <BoxContainer Orientation="Vertical" SeparationOverride="3"
+                                                              HorizontalExpand="True" VerticalAlignment="Center">
+                                                    <ui:CrtSegmentBar Name="Proj3Bar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj3CoolantBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj3CartridgeBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                </BoxContainer>
+                                                <Label Name="Proj3Health" MinWidth="42"/>
+                                            </BoxContainer>
+                                            <BoxContainer Orientation="Vertical" MinWidth="132" SeparationOverride="1"
+                                                          VerticalAlignment="Center">
+                                                <Label Name="Proj3Cartridge"/>
+                                                <Label Name="Proj3Coolant" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Button Name="Proj3Toggle" ToggleMode="True" Text="ВКЛ" MinWidth="48"
+                                                    MinHeight="24"/>
+                                            <Slider Name="Proj3Slider" MinValue="0" MaxValue="200" Rounded="True"
+                                                    RoundingDecimals="0" MinWidth="110" HorizontalExpand="True"
+                                                    VerticalAlignment="Center"/>
+                                            <Label Name="Proj3Intensity" MinWidth="26" HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"/>
+                                            <Button Name="Proj3Minus" Text="−" MinWidth="22" MinHeight="22"/>
+                                            <Button Name="Proj3Plus" Text="+" MinWidth="22" MinHeight="22"/>
+                                        </BoxContainer>
+                                    </PanelContainer>
+
+                                    <PanelContainer Name="Proj4Row">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="10 5">
+                                            <Label Name="Proj4Label" Text="4" MinWidth="20" VerticalAlignment="Center"/>
+                                            <BoxContainer Orientation="Horizontal" MinWidth="150" HorizontalExpand="True"
+                                                          SeparationOverride="6" VerticalAlignment="Center">
+                                                <BoxContainer Orientation="Vertical" SeparationOverride="3"
+                                                              HorizontalExpand="True" VerticalAlignment="Center">
+                                                    <ui:CrtSegmentBar Name="Proj4Bar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj4CoolantBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                    <ui:CrtSegmentBar Name="Proj4CartridgeBar" MinWidth="82" MinHeight="4"
+                                                                      HorizontalExpand="True"/>
+                                                </BoxContainer>
+                                                <Label Name="Proj4Health" MinWidth="42"/>
+                                            </BoxContainer>
+                                            <BoxContainer Orientation="Vertical" MinWidth="132" SeparationOverride="1"
+                                                          VerticalAlignment="Center">
+                                                <Label Name="Proj4Cartridge"/>
+                                                <Label Name="Proj4Coolant" StyleClasses="LabelSubText"/>
+                                            </BoxContainer>
+                                            <Button Name="Proj4Toggle" ToggleMode="True" Text="ВКЛ" MinWidth="48"
+                                                    MinHeight="24"/>
+                                            <Slider Name="Proj4Slider" MinValue="0" MaxValue="200" Rounded="True"
+                                                    RoundingDecimals="0" MinWidth="110" HorizontalExpand="True"
+                                                    VerticalAlignment="Center"/>
+                                            <Label Name="Proj4Intensity" MinWidth="26" HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"/>
+                                            <Button Name="Proj4Minus" Text="−" MinWidth="22" MinHeight="22"/>
+                                            <Button Name="Proj4Plus" Text="+" MinWidth="22" MinHeight="22"/>
+                                        </BoxContainer>
+                                    </PanelContainer>
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <GridContainer Columns="2" HorizontalExpand="True" HSeparationOverride="8"
+                                           VSeparationOverride="8">
+                                <PanelContainer Name="FieldPreviewCard" HorizontalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="12 9" SeparationOverride="4">
+                                        <Label Text="СДЕРЖИВАЮЩЕЕ ПОЛЕ" StyleClasses="LabelKeyText"/>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10">
+                                            <ui:CrtFieldPreview Name="FieldPreview" MinSize="190 132"/>
+                                            <BoxContainer Orientation="Vertical" SeparationOverride="4"
+                                                          HorizontalExpand="True" VerticalAlignment="Center">
+                                                <RichTextLabel Name="FieldPreviewLabel"/>
+                                                <RichTextLabel Name="FieldPreviewStats"/>
+                                                <RichTextLabel Name="ContainmentWarning"/>
+                                            </BoxContainer>
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                                            <Label Text="Сжатие поля" StyleClasses="LabelSubText" MinWidth="92"
+                                                   VerticalAlignment="Center"/>
+                                            <ui:CrtSegmentBar Name="CompressionBar" MinHeight="8"
+                                                              HorizontalExpand="True" VerticalAlignment="Center"/>
+                                            <RichTextLabel Name="CompressionValue" MinWidth="130"/>
+                                        </BoxContainer>
+                                    </BoxContainer>
+                                </PanelContainer>
+
+                                <PanelContainer Name="CoolingCard" HorizontalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="12 9" SeparationOverride="4">
+                                        <Label Text="ОХЛАЖДЕНИЕ" StyleClasses="LabelKeyText"/>
+                                        <RichTextLabel Name="CoolingStatusLabel"/>
+                                        <ui:CrtSegmentBar Name="CoolingBar" MinHeight="8" HorizontalExpand="True"/>
+                                        <RichTextLabel Name="CoolingHint"/>
+                                    </BoxContainer>
+                                </PanelContainer>
+                            </GridContainer>
+
+                        </BoxContainer>
+                    </ScrollContainer>
+
+                    <!-- Страница 3: настройки мощности. -->
+                    <ScrollContainer Name="SettingsPage" HScrollEnabled="False" HorizontalExpand="True"
+                                     VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="2 2 8 4" SeparationOverride="8"
+                                      HorizontalExpand="True">
+                            <Label Text="НАСТРОЙКИ РЕАКТОРА" StyleClasses="LabelHeadingBigger"/>
+                            <Label Text="Мощность ядра, баланс сети и радиационный контур."
+                                   StyleClasses="LabelSubText"/>
+
+                            <PanelContainer Name="PowerSettingsCard">
+                                <BoxContainer Orientation="Vertical" Margin="14 11" SeparationOverride="6">
+                                    <Label Text="МОЩНОСТЬ ЯДРА" StyleClasses="LabelKeyText"/>
+                                    <BoxContainer Orientation="Horizontal" SeparationOverride="10">
+                                        <Label Text="Мощность ядра" StyleClasses="LabelSubText" MinWidth="112"
+                                               VerticalAlignment="Center"/>
+                                        <Slider Name="PowerSlider" MinValue="0" MaxValue="300" Rounded="True"
+                                                RoundingDecimals="0" HorizontalExpand="True" MinWidth="160"
+                                                VerticalAlignment="Center"/>
+                                        <RichTextLabel Name="PowerValue" MinWidth="190"/>
+                                    </BoxContainer>
+                                    <ui:CrtSegmentBar Name="PowerBar" MinHeight="8" HorizontalExpand="True"/>
+                                    <RichTextLabel Name="PowerHint"/>
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <PanelContainer Name="LoadCard">
+                                <BoxContainer Orientation="Vertical" Margin="14 11" SeparationOverride="5">
+                                    <Label Text="БАЛАНС СЕТИ" StyleClasses="LabelKeyText"/>
+                                    <RichTextLabel Name="PowerLoadLabel"/>
+                                    <ui:CrtSegmentBar Name="LoadBalanceBar" MinHeight="8" HorizontalExpand="True"/>
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <PanelContainer Name="RadiationCard">
+                                <BoxContainer Orientation="Horizontal" Margin="14 11" SeparationOverride="10">
+                                    <Label Text="РАДИАЦИЯ" StyleClasses="LabelKeyText" MinWidth="102"
+                                           VerticalAlignment="Center"/>
+                                    <RichTextLabel Name="RadiationValue" MinWidth="110"/>
+                                    <ui:CrtSegmentBar Name="RadiationBar" MinHeight="8" HorizontalExpand="True"
+                                                      VerticalAlignment="Center"/>
+                                </BoxContainer>
+                            </PanelContainer>
+                        </BoxContainer>
+                    </ScrollContainer>
+
+                </TabContainer>
+
+            </BoxContainer>
+        </BoxContainer>
+
+        <ui:CrtOverlay Name="CrtOverlay" MouseFilter="Ignore"/>
+
+        <ui:CrtScreenFrame Name="ScreenFrame" MouseFilter="Ignore"/>
+
+    </LayoutContainer>
+</controls:FancyWindow>

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "license": "CC0-1.0",
+  "copyright": "Created for Grosse City",
+  "size": {
+    "x": 128,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "ring",
+      "directions": 1
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+# Производство и утилизация жидкостей РТМ без трубопроводов.
+# Охладители заправляются канистрами напрямую; отдельная жидкостная сеть не нужна.
+- type: entity
+  parent: BaseMachinePowered
+  id: DarkCoreCoolantSynthesizer
+  name: синтезатор хладагента РТМ
+  description: Заправляет пустые канистры хладагентом. Не требует труб и насосов.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/mixer.rsi
+    state: mixer_loaded
+  - type: DarkCoreProcessor
+    kind: CoolantSynthesizer
+    delay: 4
+    coolantAmount: 300
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+
+- type: entity
+  parent: BaseMachinePowered
+  id: DarkCoreCoolantWasteProcessor
+  name: утилизатор хладагента РТМ
+  description: Принимает канистру или бочку с отработанным хладагентом и очищает его для повторного использования.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/gasrecycler.rsi
+    state: icon
+  - type: DarkCoreProcessor
+    kind: WasteProcessor
+    delay: 5
+    recoveredCoolantAmount: 150
+  - type: ApcPowerReceiver
+    powerLoad: 2000
+
+- type: entity
+  parent: BaseMachinePowered
+  id: DarkCoreCartridgeRecycler
+  name: утилизатор патронов РТМ
+  description: Разрушает патроны и выдаёт обломки — сырьё, из которого фабрикатор снова делает патроны. Полный патрон можно сдать напрямую, отработанный — только в бочке.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/recycling.rsi
+    state: grinder-a0
+  - type: DarkCoreProcessor
+    kind: CartridgeRecycler
+    delay: 5
+    recycledCartridgeFraction: 0.5
+  - type: ApcPowerReceiver
+    powerLoad: 1200
+- type: entity
+  parent: BaseMachinePowered
+  id: DarkCoreCoolantMixer
+  name: смеситель хладагента РТМ
+  description: Смешивает жидкости в один микс и сразу показывает, что из этого выйдет в охладителе — теплоотвод, расход, стойкость и диапазон температур. Смесь работает хуже чистой жидкости, поэтому цифры стоит смотреть до заправки.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/Medical/electrolysis.rsi
+    state: base
+  - type: Solution
+    solution:
+      maxVol: 600
+  - type: RefillableSolution
+    solution: solution
+  - type: DrainableSolution
+    solution: solution
+  - type: SolutionTransfer
+  - type: ExaminableSolution
+    solution: solution
+    exactVolume: true
+  - type: CoolantMixer
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  # Слева ёмкость, которую вливаем, справа тара под готовую смесь.
+  - type: ItemSlots
+    slots:
+      inputSlot:
+        whitelist:
+          components:
+          - DarkCoreCoolantCanister
+        insertOnInteract: true
+        ejectOnInteract: false
+      outputSlot:
+        whitelist:
+          components:
+          - DarkCoreCoolantCanister
+        insertOnInteract: false
+        ejectOnInteract: false
+  - type: ContainerContainer
+    containers:
+      inputSlot: !type:ContainerSlot
+      outputSlot: !type:ContainerSlot
+  - type: UserInterface
+    interfaces:
+      enum.CoolantMixerUiKey.Key:
+        type: CoolantMixerBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CoolantMixerUiKey.Key
