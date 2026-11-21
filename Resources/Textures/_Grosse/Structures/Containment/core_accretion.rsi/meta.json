@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "license": "CC0-1.0",
+  "copyright": "Created for Grosse City",
+  "size": {
+    "x": 192,
+    "y": 192
+  },
+  "states": [
+    {
+      "name": "disk",
+      "directions": 1
+    }
+  ]
+}

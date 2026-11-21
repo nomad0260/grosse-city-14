@@ -1,0 +1,41 @@
+# Сырьё, которое остаётся после разрушения патрона эмиттера РТМ.
+- type: material
+  id: DarkCoreCartridgeScrap
+  stackEntity: DarkCoreCartridgeScrap1
+  name: materials-dark-core-cartridge-scrap
+  icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: steel }
+  color: "#8B9098"
+  price: 0.1
+
+- type: stack
+  id: DarkCoreCartridgeScrap
+  name: materials-dark-core-cartridge-scrap
+  icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: steel }
+  spawn: DarkCoreCartridgeScrap1
+  maxCount: 1000
+
+- type: entity
+  parent: BaseItem
+  id: DarkCoreCartridgeScrap1
+  name: обломки патрона РТМ
+  description: Спёкшиеся обломки корпуса и стабилизирующей матрицы. Из них фабрикатор РТМ снова делает патроны.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Sheets/metal.rsi
+    state: steel
+    scale: 0.5, 0.5
+  - type: Item
+    size: Tiny
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      DarkCoreCartridgeScrap: 1
+  - type: Stack
+    stackType: DarkCoreCartridgeScrap
+    count: 1
+  - type: Tag
+    tags:
+    - RawMaterial
+  - type: DarkCoreCartridgeScrap
+  - type: StaticPrice
+    price: 0.1

@@ -1,0 +1,392 @@
+# Теплоносители РТМ: шесть специализированных жидкостей и совместимые старые реагенты.
+- type: reagent
+  id: DarkCoreCoolantWater
+  name: reagent-name-dark-core-coolant-water
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-water
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#3B9BFF"
+  specificHeat: 1.0
+  meltingPoint: 0
+  boilingPoint: 100
+
+- type: reagent
+  id: DarkCoreCoolant
+  name: reagent-name-dark-core-coolant
+  group: Biological
+  desc: reagent-desc-dark-core-coolant
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#54D6FF"
+  specificHeat: 1.0
+  meltingPoint: 0
+  boilingPoint: 100
+
+- type: reagent
+  id: DarkCoreCoolantPlasma
+  name: reagent-name-dark-core-coolant-plasma
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-plasma
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#C46BFF"
+  specificHeat: 1.2
+  meltingPoint: -20
+  boilingPoint: 180
+
+- type: reagent
+  id: DarkCoreCoolantUranium
+  name: reagent-name-dark-core-coolant-uranium
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-uranium
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#7CFF8A"
+  specificHeat: 1.5
+  meltingPoint: -50
+  boilingPoint: 250
+
+- type: reagent
+  id: DarkCoreCoolantCryogel
+  name: reagent-name-dark-core-coolant-cryogel
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-cryogel
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#B7E7FF"
+  specificHeat: 1.4
+  meltingPoint: -100
+  boilingPoint: 80
+
+- type: reagent
+  id: DarkCoreCoolantThermosil
+  name: reagent-name-dark-core-coolant-thermosil
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-thermosil
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#D8A35B"
+  specificHeat: 1.1
+  meltingPoint: 20
+  boilingPoint: 350
+
+- type: reagent
+  id: DarkCoreCoolantRadiogel
+  name: reagent-name-dark-core-coolant-radiogel
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-radiogel
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#9DDB7B"
+  specificHeat: 1.2
+  meltingPoint: -20
+  boilingPoint: 180
+
+- type: reagent
+  id: DarkCoreCoolantIsotope
+  name: reagent-name-dark-core-coolant-isotope
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-isotope
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#E0D36B"
+  specificHeat: 1.5
+  meltingPoint: -50
+  boilingPoint: 250
+
+- type: reagent
+  id: DarkCoreCoolantDigamma
+  name: reagent-name-dark-core-coolant-digamma
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-digamma
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#B36BFF"
+  specificHeat: 1.8
+  meltingPoint: -80
+  boilingPoint: 300
+
+- type: reagent
+  id: DarkCoreCoolantWaste
+  name: reagent-name-dark-core-coolant-waste
+  group: Biological
+  desc: reagent-desc-dark-core-coolant-waste
+  physicalDesc: reagent-physical-desc-opaque
+  color: "#5C3A70"
+
+# Базовая канистра и её варианты под каждый теплоноситель.
+- type: entity
+  parent: BaseItem
+  id: DarkCoreCoolantCanisterEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра хладагента РТМ
+  description: Канистра под хладагент. Заправляется в синтезаторе РТМ.
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/canister.rsi
+    state: grey
+  - type: Item
+    size: Normal
+  - type: Solution
+    solution:
+      maxVol: 300
+  - type: RefillableSolution
+    solution: solution
+  - type: DrainableSolution
+    solution: solution
+  - type: SolutionTransfer
+  - type: ExaminableSolution
+    solution: solution
+    exactVolume: true
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolant
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterWaterEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра водяного хладагента РТМ
+  description: Канистра под водяной теплоноситель. Дешёвый, но быстро расходуется.
+  components:
+  - type: Sprite
+    state: blue
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantWater
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterPlasmaEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра плазменного хладагента РТМ
+  description: Канистра под плазменный теплоноситель. Эффективнее базового.
+  components:
+  - type: Sprite
+    state: orange
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantPlasma
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterUraniumEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра уранового хладагента РТМ
+  description: Канистра под урановый теплоноситель. Самый эффективный и самый дорогой.
+  components:
+  - type: Sprite
+    state: green
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantUranium
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanister
+  name: канистра хладагента РТМ
+  description: Готовая к заправке охладителей канистра с базовым хладагентом.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolant
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolant
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterWaterEmpty
+  id: DarkCoreCoolantCanisterWater
+  name: канистра водяного хладагента РТМ
+  description: Водяной теплоноситель. Дешёвый, но быстрее расходуется и даёт больше отработки.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantWater
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantWater
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterPlasmaEmpty
+  id: DarkCoreCoolantCanisterPlasma
+  name: канистра плазменного хладагента РТМ
+  description: Плазменный теплоноситель. Даёт больше холода на единицу расхода.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantPlasma
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantPlasma
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterUraniumEmpty
+  id: DarkCoreCoolantCanisterUranium
+  name: канистра уранового хладагента РТМ
+  description: Урановый теплоноситель. Максимальная эффективность при минимальном расходе.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantUranium
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantUranium
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantWasteCanister
+  name: канистра отработанного хладагента РТМ
+  description: Отработанный теплоноситель. Сдаётся в установку переработки жидкостей.
+  components:
+  - type: Sprite
+    state: black
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantWaste
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    waste: true
+
+# Специализированные теплоносители: штатная канистра под каждый тип.
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterCryogelEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра криогеля РТМ
+  description: Канистра под криогель. Даёт холод, но вязкий и быстро расходуется.
+  components:
+  - type: Sprite
+    state: frezon
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantCryogel
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterThermosilEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра термосила РТМ
+  description: Канистра под термосил. Держит горячий контур.
+  components:
+  - type: Sprite
+    state: yellow
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantThermosil
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterRadiogelEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра радиогеля РТМ
+  description: Канистра под радиогель. Стойкий к радиации, но опасен при деградации.
+  components:
+  - type: Sprite
+    state: greenys
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantRadiogel
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterIsotopeEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра изотопного хладагента РТМ
+  description: Канистра под изотопный хладагент. Экспериментальный состав с собственным фоном.
+  components:
+  - type: Sprite
+    state: darkblue
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantIsotope
+
+- type: entity
+  parent: DarkCoreCoolantCanisterEmpty
+  id: DarkCoreCoolantCanisterDigammaEmpty
+  categories: [ HideSpawnMenu ]
+  name: пустая канистра дигамма-флюида РТМ
+  description: Канистра под дигамма-флюид. Нестабильный состав, требует осторожности.
+  components:
+  - type: Sprite
+    state: red
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantDigamma
+
+- type: entity
+  parent: DarkCoreCoolantCanisterCryogelEmpty
+  id: DarkCoreCoolantCanisterCryogel
+  name: канистра криогеля РТМ
+  description: Готовый к заправке криогель. Вязкий — расход выше, чем у воды.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantCryogel
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantCryogel
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterThermosilEmpty
+  id: DarkCoreCoolantCanisterThermosil
+  name: канистра термосила РТМ
+  description: Готовый к заправке термосил. Лучший выбор для горячего контура.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantThermosil
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantThermosil
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterRadiogelEmpty
+  id: DarkCoreCoolantCanisterRadiogel
+  name: канистра радиогеля РТМ
+  description: Готовый к заправке радиогель. Долго не загрязняется.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantRadiogel
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantRadiogel
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterIsotopeEmpty
+  id: DarkCoreCoolantCanisterIsotope
+  name: канистра изотопного хладагента РТМ
+  description: Готовый к заправке изотопный хладагент. Высокая теплоотдача при умеренном расходе.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantIsotope
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantIsotope
+    waste: false
+
+- type: entity
+  parent: DarkCoreCoolantCanisterDigammaEmpty
+  id: DarkCoreCoolantCanisterDigamma
+  name: канистра дигамма-флюида РТМ
+  description: Готовый к заправке дигамма-флюид. Нестабилен и загрязняется быстрее остальных.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolantDigamma
+        Quantity: 300
+  - type: DarkCoreCoolantCanister
+    coolantReagent: DarkCoreCoolantDigamma
+    waste: false

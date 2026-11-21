@@ -1,0 +1,555 @@
+# Пул компонентов ЕНК-ТМ. Игрок сам заливает жидкость и загружает сырьё в КС-1;
+# reagentIds/materialIds связывают реальные реагенты и материалы с характеристиками.
+
+# ---------- Жидкости ----------
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidWater
+  name: очищенная вода
+  kind: Liquid
+  reagentIds:
+  - Water
+  description: Нейтральная основа с хорошей теплопроводностью.
+  color: "#6FA8FF"
+  weight: 2.0
+  density: 0.9
+  strength: 0.4
+  energyCapacity: 90
+  stability: 65
+  radiationActivity: 0
+  thermalResistance: 1.2
+  degradation: 0.06
+  efficiency: 0.9
+  purity: 0.92
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidPlasma
+  name: плазма
+  kind: Liquid
+  reagentIds:
+  - Plasma
+  description: Энергонасыщенная жидкость, склонная к перегреву.
+  color: "#FF6B7A"
+  weight: 1.0
+  density: 0.7
+  strength: 0.3
+  energyCapacity: 180
+  stability: 38
+  radiationActivity: 0.4
+  thermalResistance: 0.7
+  degradation: 0.25
+  efficiency: 1.35
+  purity: 0.7
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidAmmonia
+  name: аммиак
+  kind: Liquid
+  reagentIds:
+  - Ammonia
+  description: Хладагент с выраженной химической активностью.
+  color: "#9AE6C2"
+  weight: 1.4
+  density: 0.8
+  strength: 0.35
+  energyCapacity: 70
+  stability: 58
+  radiationActivity: 0
+  thermalResistance: 1.6
+  degradation: 0.1
+  efficiency: 0.8
+  purity: 0.84
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidSulfuricAcid
+  name: серная кислота
+  kind: Liquid
+  reagentIds:
+  - SulfuricAcid
+  description: Агрессивная среда, повышающая реактивность образца.
+  color: "#FFD166"
+  weight: 1.1
+  density: 1.4
+  strength: 0.5
+  energyCapacity: 60
+  stability: 42
+  radiationActivity: 0.1
+  thermalResistance: 0.9
+  degradation: 0.22
+  efficiency: 1.2
+  purity: 0.76
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidOxygen
+  name: жидкий кислород
+  kind: Liquid
+  reagentIds:
+  - Oxygen
+  description: Криогенная жидкость с высоким окислительным потенциалом.
+  color: "#8BD3FF"
+  weight: 1.2
+  density: 1.1
+  strength: 0.3
+  energyCapacity: 120
+  stability: 46
+  radiationActivity: 0
+  thermalResistance: 2.0
+  degradation: 0.18
+  efficiency: 1.1
+  purity: 0.8
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidMercury
+  name: ртуть
+  kind: Liquid
+  reagentIds:
+  - Mercury
+  description: Тяжёлый металл, повышающий плотность и энергоёмкость.
+  color: "#C7D0E0"
+  weight: 0.9
+  density: 3.2
+  strength: 0.6
+  energyCapacity: 140
+  stability: 55
+  radiationActivity: 0.3
+  thermalResistance: 1.1
+  degradation: 0.12
+  efficiency: 1.05
+  purity: 0.72
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidFuel
+  name: сварочное топливо
+  kind: Liquid
+  reagentIds:
+  - WeldingFuel
+  description: Дешёвая горючая основа с нестабильной структурой.
+  color: "#F2A65A"
+  weight: 1.5
+  density: 0.75
+  strength: 0.25
+  energyCapacity: 130
+  stability: 35
+  radiationActivity: 0
+  thermalResistance: 0.6
+  degradation: 0.3
+  efficiency: 1.15
+  purity: 0.62
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidMutagen
+  name: мутаген
+  kind: Liquid
+  reagentIds:
+  - UnstableMutagen
+  description: Биологически активная жидкость, искажающая свойства кристалла.
+  color: "#B6FF6B"
+  weight: 0.8
+  density: 1.0
+  strength: 0.3
+  energyCapacity: 100
+  stability: 28
+  radiationActivity: 0.8
+  thermalResistance: 0.8
+  degradation: 0.35
+  efficiency: 1.5
+  purity: 0.55
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidCryoxadone
+  name: криоксадон
+  kind: Liquid
+  reagentIds:
+  - Cryoxadone
+  description: Стабилизирующий раствор, снижающий деградацию.
+  color: "#8FE3FF"
+  weight: 1.0
+  density: 0.85
+  strength: 0.35
+  energyCapacity: 80
+  stability: 82
+  radiationActivity: 0
+  thermalResistance: 2.2
+  degradation: 0.03
+  efficiency: 0.95
+  purity: 0.95
+
+- type: darkMatterMaterial
+  id: DarkMatterLiquidSuspension
+  name: суспензия тёмной материи
+  kind: Liquid
+  description: Редкая жидкость с собственной тёмной составляющей.
+  color: "#B388FF"
+  weight: 0.35
+  density: 2.0
+  strength: 0.5
+  energyCapacity: 240
+  stability: 30
+  radiationActivity: 1.8
+  thermalResistance: 1.0
+  degradation: 0.4
+  efficiency: 1.8
+  purity: 0.6
+
+# ---------- Минералы и металлы ----------
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidIron
+  name: железо
+  kind: Metal
+  materialIds:
+  - Steel
+  description: Распространённый конструкционный металл.
+  color: "#8A8F98"
+  weight: 2.0
+  density: 2.2
+  strength: 1.8
+  energyCapacity: 80
+  stability: 70
+  radiationActivity: 0
+  thermalResistance: 1.1
+  degradation: 0.08
+  efficiency: 0.9
+  purity: 0.88
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidPlasteel
+  name: пласталь
+  kind: Metal
+  materialIds:
+  - Plasteel
+  description: Усиленный сплав с высокой прочностью.
+  color: "#AEB7C4"
+  weight: 1.2
+  density: 2.6
+  strength: 3.2
+  energyCapacity: 110
+  stability: 78
+  radiationActivity: 0
+  thermalResistance: 1.5
+  degradation: 0.05
+  efficiency: 1.0
+  purity: 0.9
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidGold
+  name: золото
+  kind: Metal
+  materialIds:
+  - Gold
+  description: Инертный металл с отличной проводимостью.
+  color: "#FFD56B"
+  weight: 0.7
+  density: 4.4
+  strength: 1.2
+  energyCapacity: 120
+  stability: 74
+  radiationActivity: 0
+  thermalResistance: 1.3
+  degradation: 0.04
+  efficiency: 1.25
+  purity: 0.95
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidSilver
+  name: серебро
+  kind: Metal
+  materialIds:
+  - Silver
+  description: Проводящий металл, усиливающий энергетические воздействия.
+  color: "#E3E8F0"
+  weight: 0.8
+  density: 3.9
+  strength: 1.0
+  energyCapacity: 135
+  stability: 68
+  radiationActivity: 0.1
+  thermalResistance: 1.4
+  degradation: 0.06
+  efficiency: 1.3
+  purity: 0.93
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidUranium
+  name: уран
+  kind: Mineral
+  materialIds:
+  - Uranium
+  description: Радиоактивный минерал с огромным запасом энергии.
+  color: "#7CFF6B"
+  weight: 0.45
+  density: 5.2
+  strength: 2.0
+  energyCapacity: 360
+  stability: 32
+  radiationActivity: 6.5
+  thermalResistance: 1.2
+  degradation: 0.3
+  efficiency: 1.6
+  purity: 0.7
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidDiamond
+  name: алмаз
+  kind: Mineral
+  materialIds:
+  - Diamond
+  description: Сверхтвёрдый кристалл с высокой термостойкостью.
+  color: "#BFF7FF"
+  weight: 0.4
+  density: 4.8
+  strength: 5.0
+  energyCapacity: 190
+  stability: 86
+  radiationActivity: 0
+  thermalResistance: 4.2
+  degradation: 0.01
+  efficiency: 1.15
+  purity: 0.98
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidBluespace
+  name: блюспейс
+  kind: Experimental
+  materialIds:
+  - Bluespace
+  description: Пространственно нестабильный материал, искажающий метрику.
+  color: "#6B9BFF"
+  weight: 0.25
+  density: 1.8
+  strength: 1.2
+  energyCapacity: 420
+  stability: 22
+  radiationActivity: 2.2
+  thermalResistance: 0.8
+  degradation: 0.45
+  efficiency: 2.0
+  purity: 0.65
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidBananium
+  name: бананиум
+  kind: Experimental
+  materialIds:
+  - Bananium
+  description: Нелепый, но удивительно упругий экспериментальный сплав.
+  color: "#FFE45C"
+  weight: 0.3
+  density: 1.4
+  strength: 2.4
+  energyCapacity: 160
+  stability: 50
+  radiationActivity: 0
+  thermalResistance: 1.0
+  degradation: 0.2
+  efficiency: 1.4
+  purity: 0.6
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidGlass
+  name: стекло
+  kind: Mineral
+  materialIds:
+  - Glass
+  description: Прозрачная матрица, хорошо удерживающая энергию.
+  color: "#9FE8FF"
+  weight: 1.4
+  density: 1.5
+  strength: 0.8
+  energyCapacity: 100
+  stability: 62
+  radiationActivity: 0
+  thermalResistance: 1.8
+  degradation: 0.14
+  efficiency: 0.85
+  purity: 0.86
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidPlastic
+  name: пластик
+  kind: Organic
+  materialIds:
+  - Plastic
+  description: Лёгкий полимер с низкой термостойкостью.
+  color: "#D7D7D7"
+  weight: 1.6
+  density: 0.9
+  strength: 0.7
+  energyCapacity: 60
+  stability: 68
+  radiationActivity: 0
+  thermalResistance: 0.4
+  degradation: 0.12
+  efficiency: 0.75
+  purity: 0.8
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidWood
+  name: древесина
+  kind: Organic
+  materialIds:
+  - Wood
+  description: Органическая основа с пористой структурой.
+  color: "#B07A4A"
+  weight: 1.8
+  density: 0.65
+  strength: 0.5
+  energyCapacity: 45
+  stability: 60
+  radiationActivity: 0
+  thermalResistance: 0.3
+  degradation: 0.2
+  efficiency: 0.65
+  purity: 0.7
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidBone
+  name: кость
+  kind: Organic
+  materialIds:
+  - Bone
+  description: Биоминеральная структура, стабилизирующая формулу.
+  color: "#F2E7D0"
+  weight: 1.1
+  density: 1.6
+  strength: 1.4
+  energyCapacity: 70
+  stability: 72
+  radiationActivity: 0
+  thermalResistance: 0.9
+  degradation: 0.1
+  efficiency: 0.85
+  purity: 0.78
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidTitanium
+  name: титан
+  kind: Metal
+  materialIds:
+  - Titanium
+  description: Тугоплавкий металл с превосходной термостойкостью.
+  color: "#C9D4E0"
+  weight: 0.9
+  density: 3.1
+  strength: 3.8
+  energyCapacity: 140
+  stability: 80
+  radiationActivity: 0
+  thermalResistance: 3.0
+  degradation: 0.04
+  efficiency: 1.05
+  purity: 0.92
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidLead
+  name: свинец
+  kind: Metal
+  materialIds:
+  - Lead
+  description: Плотный металл, экранирующий излучение.
+  color: "#7F8794"
+  weight: 1.0
+  density: 6.0
+  strength: 1.0
+  energyCapacity: 90
+  stability: 75
+  radiationActivity: 0
+  thermalResistance: 1.6
+  degradation: 0.05
+  efficiency: 0.8
+  purity: 0.85
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidPotassium
+  name: калий
+  kind: Mineral
+  materialIds:
+  - Potassium
+  description: Химически активный минерал, усиливающий реакции.
+  color: "#E8D6FF"
+  weight: 0.8
+  density: 0.9
+  strength: 0.6
+  energyCapacity: 110
+  stability: 30
+  radiationActivity: 0.2
+  thermalResistance: 0.5
+  degradation: 0.32
+  efficiency: 1.45
+  purity: 0.65
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidSulfur
+  name: сера
+  kind: Mineral
+  materialIds:
+  - Sulfur
+  description: Жёлтый минерал с выраженной реактивностью.
+  color: "#F4D35E"
+  weight: 1.2
+  density: 1.3
+  strength: 0.7
+  energyCapacity: 65
+  stability: 48
+  radiationActivity: 0.1
+  thermalResistance: 0.7
+  degradation: 0.22
+  efficiency: 1.2
+  purity: 0.72
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidAlienAlloy
+  name: чужеродный сплав
+  kind: Experimental
+  materialIds:
+  - Plasteel
+  description: Сплав неизвестного происхождения с аномальными свойствами.
+  color: "#8CFFB0"
+  weight: 0.2
+  density: 3.6
+  strength: 4.4
+  energyCapacity: 300
+  stability: 44
+  radiationActivity: 1.1
+  thermalResistance: 2.6
+  degradation: 0.16
+  efficiency: 1.9
+  purity: 0.82
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidObsidian
+  name: обсидиан
+  kind: Mineral
+  materialIds:
+  - Glass
+  description: Вулканическое стекло с острой структурой.
+  color: "#5A4B7A"
+  weight: 0.7
+  density: 2.8
+  strength: 1.6
+  energyCapacity: 85
+  stability: 66
+  radiationActivity: 0.3
+  thermalResistance: 2.4
+  degradation: 0.09
+  efficiency: 1.0
+  purity: 0.8
+
+- type: darkMatterMaterial
+  id: DarkMatterSolidComposite
+  name: композит тёмной материи
+  kind: Experimental
+  materialIds:
+  - Plasteel
+  description: Лабораторный композит, насыщенный тёмной материей.
+  color: "#9B7CFF"
+  weight: 0.15
+  density: 4.0
+  strength: 3.0
+  energyCapacity: 500
+  stability: 25
+  radiationActivity: 3.5
+  thermalResistance: 1.8
+  degradation: 0.5
+  efficiency: 2.2
+  purity: 0.7

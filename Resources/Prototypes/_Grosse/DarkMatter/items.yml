@@ -1,0 +1,61 @@
+- type: entity
+  parent: BaseItem
+  id: DarkMatterResearchSample
+  name: экспериментальный образец
+  description: Образец материала с динамическими физическими характеристиками.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/sample_tubes.rsi
+    state: blank
+    color: "#9B7CFF"
+  - type: ResearchMaterial
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: BaseItem
+  id: DarkMatterClot
+  name: сгусток тёмной материи
+  description: Радиоактивный сгусток, извлечённый из работающего РТМ. Обязательный компонент синтеза в КС-1 «Матрица».
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Shards/crystal.rsi
+    state: shard1
+    color: "#D59BFF"
+  - type: DarkMatterClot
+  - type: RadiationSource
+    intensity: 6
+    slope: 0.3
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: BaseItem
+  id: DarkMatterCrystal
+  name: кристалл закономерности
+  description: Кристалл с записанной формулой. Выполняет операции, пока в нём есть энергия и структура стабильна.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Shards/crystal.rsi
+    state: shard2
+    color: "#9B7CFF"
+  - type: ResearchArtifact
+  - type: Damageable
+    damageModifierSet: Glass
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: PointLight
+    enabled: true
+    color: "#9B7CFF"
+    radius: 2
+    energy: 1.5
+  - type: StaticPrice
+    price: 0

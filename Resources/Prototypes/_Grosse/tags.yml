@@ -47,6 +47,9 @@
   id: CMBDispencer
 
 - type: Tag
+  id: DarkCoreSpentCartridge
+
+- type: Tag
   id: CMBBlackMaterial
 
 - type: Tag

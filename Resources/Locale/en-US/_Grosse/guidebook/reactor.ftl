@@ -1,0 +1,9 @@
+guide-entry-grosse-reactor = RTM Reactor
+guide-entry-grosse-reactor-build = Setup and Assembly
+guide-entry-grosse-reactor-cartridges = Cartridges
+guide-entry-grosse-reactor-coolant = Coolants
+guide-entry-grosse-reactor-startup = Startup and Shutdown
+guide-entry-grosse-reactor-console = Console and Alarms
+guide-entry-grosse-reactor-emergencies = Emergencies and Issues
+guide-entry-grosse-reactor-maintenance = Maintenance and Supply
+guide-entry-grosse-reactor-reference = Loadouts and Math

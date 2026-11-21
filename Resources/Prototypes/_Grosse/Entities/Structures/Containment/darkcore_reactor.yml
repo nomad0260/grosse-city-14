@@ -1,0 +1,411 @@
+# РТМ: реактор тёмной материи со стабилизирующими эмиттерами и моделью сдерживания.
+
+- type: entity
+  id: DarkCoreReactor
+  name: ядро реактора тёмной материи
+  description: Раскалённое ядро в кольце удерживающих лучей. Гудит, светится и очень сильно фонит.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 1
+        density: 500
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    layers:
+    - sprite: Structures/AllianceCore/podstavka-core.rsi
+      state: icon
+      map: ["base"]
+      scale: 0.625, 0.625
+    # Светящийся ореол, корона и кольца живут отдельными слоями: клиентский
+    # визуализатор двигает их независимо и красит под состояние ядра.
+    - sprite: _Grosse/Structures/Containment/core_halo.rsi
+      state: glow
+      map: ["halo"]
+      visible: false
+      shader: unshaded
+    - sprite: _Grosse/Structures/Containment/core_corona.rsi
+      state: corona
+      map: ["corona"]
+      visible: false
+      shader: unshaded
+    - sprite: Structures/AllianceCore/alliance_core.rsi
+      state: pulse
+      map: ["core"]
+    - sprite: _Grosse/Structures/Containment/core_accretion.rsi
+      state: disk
+      map: ["accretion"]
+      visible: false
+      shader: unshaded
+    - sprite: _Grosse/Structures/Containment/core_accretion.rsi
+      state: disk
+      map: ["accretionOuter"]
+      visible: false
+      shader: unshaded
+    - sprite: _Grosse/Structures/Containment/core_shockwave.rsi
+      state: ring
+      map: ["shockwave"]
+      visible: false
+      shader: unshaded
+    - sprite: Effects/sparks.rsi
+      state: sparks
+      map: ["sparkA"]
+      visible: false
+      shader: unshaded
+    - sprite: Effects/sparks.rsi
+      state: sparks
+      map: ["sparkB"]
+      visible: false
+      shader: unshaded
+  - type: Appearance
+  - type: PointLight
+    enabled: false
+    color: "#B070FF"
+    radius: 14
+    energy: 8
+    softness: 2
+    castShadows: false
+  - type: AmbientSound
+    volume: -2
+    range: 20
+    sound:
+      path: /Audio/_Grosse/Machines/darkcore/core_contained_loop1.wav
+  - type: RadiationSource
+    intensity: 0
+    slope: 0.15
+  - type: ContainmentCore
+    maxStabilizers: 4
+  - type: DarkMatterClotSource
+    interval: 35
+    maxNearby: 3
+
+# Один тип эмиттера. Роль задаётся не корпусом, а установленным патроном.
+- type: entity
+  id: DarkCoreProjector
+  name: эмиттер стабилизации РТМ
+  description: Удерживает ядро лучом. Характеристики луча определяются установленным патроном; без патрона эмиттер бесполезен.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: Structures/AllianceCore/alliance_emitter.rsi
+    state: icon
+    scale: 0.5, 0.5
+    color: "#D6A6FF"
+    noRot: true
+  - type: PointLight
+    enabled: true
+    color: "#B070FF"
+    radius: 6
+    energy: 2
+  - type: AmbientSound
+    volume: -6
+    range: 8
+    sound:
+      path: /Audio/_Grosse/Machines/darkcore/core_partialcontain_loop1.wav
+  - type: ThermalEquipment
+    label: Эмиттер стабилизации
+    heatGeneration: 120
+    nominalTemperature: 330
+    maxTemperature: 500
+    thermalMass: 500
+  - type: ContainmentStabilizer
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: DarkCoreSupportBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.5
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: Structures/Power/Generation/Singularity/containment.rsi
+    state: on
+    noRot: true
+  - type: AmbientSound
+    volume: -6
+    range: 10
+    sound:
+      path: /Audio/_Grosse/Machines/darkcore/core_partialcontain_loop1.wav
+
+- type: entity
+  parent: DarkCoreSupportBase
+  id: DarkCoreContainmentLoop
+  name: сдерживающие зажимы РТМ
+  description: Четыре зажима, которые крепятся прямо на ядро и помогают удерживать его.
+  components:
+  - type: Sprite
+    sprite: Structures/AllianceCore/alliance_clamps.rsi
+    state: rotation
+    noRot: true
+    drawdepth: OverMobs
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.05
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ReactorSupport
+    kind: ContainmentLoop
+    range: 0.75
+    containmentBonus: 20
+    stabilizationBonus: 40
+  - type: ThermalEquipment
+    label: Сдерживающие зажимы
+    heatGeneration: 110
+    nominalTemperature: 320
+    maxTemperature: 420
+    thermalMass: 700
+
+- type: entity
+  parent: DarkCoreSupportBase
+  id: DarkCoreRadiationScreen
+  name: радиационный экран РТМ
+  description: При полной исправности полностью экранирует радиацию от ядра.
+  components:
+  - type: Sprite
+    sprite: Structures/Windows/reinforced_window.rsi
+    state: full
+    color: "#8BFF9E"
+    noRot: true
+  - type: ReactorSupport
+    kind: RadiationScreen
+    range: 12
+  # Физически перекрывает поток радиации, а не только снижает фон вокруг ядра.
+  - type: RadiationBlocker
+    resistance: 100000
+  - type: ThermalEquipment
+    label: Радиационный экран
+    heatGeneration: 60
+    nominalTemperature: 310
+    maxTemperature: 400
+    thermalMass: 400
+
+# Один охладитель на 100 единиц. У него свой бак хладагента: трубы и насосы не нужны.
+- type: entity
+  abstract: true
+  parent: DarkCoreSupportBase
+  id: DarkCoreCoolingBlockBase
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: DarkCoreCoolant
+        Quantity: 300
+  - type: RefillableSolution
+    solution: solution
+  - type: DrainableSolution
+    solution: solution
+  - type: SolutionTransfer
+  - type: ExaminableSolution
+    solution: solution
+    exactVolume: true
+  - type: CoolingBlockCoolant
+    baseCoolingCapacity: 120
+
+- type: entity
+  parent: DarkCoreCoolingBlockBase
+  id: DarkCoreCoolingBlock
+  name: охладитель РТМ
+  description: Отводит тепло от одного эмиттера. Сколько именно — зависит от жидкости, от 110 у воды до 350 у дигамма-флюида. Заправляется хладагентом РТМ.
+  components:
+  - type: Sprite
+    sprite: Structures/AllianceCore/alliance_cooler.rsi
+    state: icon
+    scale: 0.5, 0.5
+  - type: ReactorSupport
+    kind: CoolingBlock
+    coolingCapacity: 120
+    range: 12
+  - type: ThermalEquipment
+    label: Охладитель РТМ
+    heatGeneration: 80
+    nominalTemperature: 330
+    maxTemperature: 450
+    thermalMass: 900
+  - type: CoolingBlockCoolant
+    baseCoolingCapacity: 120
+  # Две ячейки: баллон с хладагентом и тара под отработку.
+  - type: ItemSlots
+    slots:
+      coolantSlot:
+        whitelist:
+          components:
+          - DarkCoreCoolantCanister
+        insertOnInteract: true
+        ejectOnInteract: false
+      wasteSlot:
+        whitelist:
+          components:
+          - DarkCoreCoolantCanister
+        insertOnInteract: false
+        ejectOnInteract: false
+  - type: ContainerContainer
+    containers:
+      coolantSlot: !type:ContainerSlot
+      wasteSlot: !type:ContainerSlot
+  - type: UserInterface
+    interfaces:
+      enum.CoolerUiKey.Key:
+        type: CoolerBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CoolerUiKey.Key
+
+- type: entity
+  parent: DarkCoreSupportBase
+  id: DarkCoreDistributor
+  name: энергетический распределитель РТМ
+  description: Передаёт вырабатываемую реактором энергию в сеть.
+  components:
+  - type: Sprite
+    sprite: Structures/Power/smes.rsi
+    state: smes
+    color: "#FFCC66"
+    noRot: true
+  - type: ReactorDistributor
+    load: 800
+  - type: ThermalEquipment
+    label: Распределитель энергии
+    heatGeneration: 130
+    nominalTemperature: 320
+    maxTemperature: 470
+    thermalMass: 550
+
+# Единственная консоль управления. Остальные терминалы удалены.
+- type: entity
+  abstract: true
+  parent: BaseComputer
+  id: DarkCoreTerminalBase
+  name: терминал РТМ
+  components:
+  - type: ContainmentConsole
+  # Консоль питается от контура самого реактора: в отсеке РТМ нет ни кабелей,
+  # ни сети станции, а интерфейс должен открываться всегда.
+  - type: ApcPowerReceiver
+    needsPower: false
+  - type: AmbientSound
+    volume: -10
+    range: 6
+    sound:
+      path: /Audio/_Grosse/Machines/darkcore/core_contained_loop1.wav
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: generic
+  - type: UserInterface
+    interfaces:
+      enum.ContainmentConsoleUiKey.Key:
+        type: ContainmentConsoleBoundUserInterface
+  - type: ActivatableUI
+    key: enum.ContainmentConsoleUiKey.Key
+
+- type: entity
+  parent: DarkCoreTerminalBase
+  id: DarkCoreConsole
+  name: центральная консоль РТМ
+  description: Полное управление реактором — холодный пуск, эмиттеры, патроны, поле, мощность, охлаждение и аварийная остановка. Объявляет аварийную тревогу.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+      color: "#8FB8FF"
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: engine
+  - type: PointLight
+    enabled: true
+    color: "#8FB8FF"
+    radius: 3
+    energy: 2
+  - type: ContainmentConsole
+    mode: Full
+
+# Луч эмиттера РТМ. Прототип обязателен: без него BeamSystem падает
+# с EntityCreationException на каждом апдейте привязанного эмиттера.
+- type: entity
+  id: DarkCoreStabilizerBeam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: /Textures/Effects/techanom_beam.rsi
+    drawdepth: Effects
+    layers:
+    - state: beam
+      shader: unshaded
+      color: "#8FB8FF"
+  - type: Physics
+    canCollide: false
+  - type: PointLight
+    enabled: true
+    color: "#8FB8FF"
+    radius: 3
+    softness: 1
+    autoRot: true
+    castShadows: false
+  - type: Beam
+  - type: Tag
+    tags:
+      - HideContextMenu
+

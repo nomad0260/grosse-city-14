@@ -1,0 +1,34 @@
+# Отработанные патроны нельзя просто выбрасывать: их складируют в свинцовую бочку.
+- type: entity
+  parent: BaseBarrelChemRadioactiveEmpty
+  id: DarkCoreSpentCartridgeBarrel
+  name: бочка отходов РТМ
+  description: Свинцовая бочка для отработанных патронов и жидких отходов. Вмещает четыре патрона, экранирует излучение и принимает отработанный хладагент.
+  components:
+  - type: Sprite
+    state: radbarrel
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,2,3
+  - type: MultiHandedItem
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,3,1
+    whitelist:
+      tags:
+      - DarkCoreSpentCartridge
+    clickInsert: true
+    openOnActivate: true
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+  - type: RefillableSolution
+    solution: tank
+  - type: SolutionTransfer
+  - type: RadiationBlockingContainer
+    resistance: 300
+  - type: DarkCoreSpentCartridgeBarrel
+  - type: StaticPrice
+    price: 350

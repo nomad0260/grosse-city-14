@@ -1,0 +1,75 @@
+<Document>
+  # Хладагенты
+
+  Жидкости образуют лестницу: каждая следующая отводит больше тепла и даёт бонус.
+
+  <Table Columns="4">
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Жидкость</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Отвод</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Бонус</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Тянет патрон</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Вода</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">110</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Износ эмиттеров −10%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Базовый хладагент</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">130</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">—</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Криогель</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">160</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Износ эмиттеров −25%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Термосил</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">215</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Порог перегрева +100 K</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма, Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Радиогель</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">235</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Тепло эмиттеров −10%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма, Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Изотопный хладагент</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">255</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Стабилизация +10%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма, Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Плазменный хладагент</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">285</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Энергия +10%, расход −15%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма, Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Урановый хладагент</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">315</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Энергия +15%, порог +50 K</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа, Гамма, Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Дигамма-флюид</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">350</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Энергия +25%, износ +25%</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Все, включая Дигамму</Box></ColorBox>
+  </Table>
+
+  ## Подбор жидкости под патрон
+
+  Посмотрите, какой патрон стоит в эмиттере, найдите строку жидкости и проверьте, хватает ли её отвода.
+
+  - Альфа выделяет 105 тепла. Хватает любой жидкости.
+  - Гамма выделяет 150. Нужен криогель или выше.
+  - Бета выделяет 210. Нужен термосил или выше.
+  - Дигамма выделяет 330. Нужен только дигамма-флюид.
+
+  Если отвод меньше тепла патрона, эмиттер греется, луч слабеет, а потом корпус разрушается. Второй охладитель к нему не приставить — меняйте жидкость на ступень выше.
+
+  ## Смешивание
+
+  Не смешивайте разные жидкости в одном баке. Смесь теряет около 10% теплоотвода, а её усреднённая стабильность обычно ниже, поэтому бак зарастает быстрее. Выгоднее слить остаток и залить чистую жидкость.
+
+  Если смесь всё-таки нужна, используйте [bold]смеситель хладагента РТМ[/bold]: канистра вставляется в ячейку «Откуда», кнопка «Влить в бак» переливает её в бак, а окно сразу показывает, что даст смесь — теплоотвод, расход, ресурс канистры, стойкость к радиации, стабильность, диапазон температур и скорость накопления отработки. Отдельным блоком выводятся бонусы основной жидкости: энергия, износ эмиттеров, стабилизация и порог перегрева. Готовая смесь сливается в тару из ячейки «Куда».
+
+  ## Отработка
+
+  Охладитель расходует жидкость и накапливает отработку. На 150 единицах отработки бак встаёт и перестаёт охлаждать до промывки.
+
+  Форсаж эмиттера ускоряет расход: на 200% интенсивности бак пустеет вдвое быстрее.
+
+  Слить можно двумя способами: «Слить отработку» убирает только грязную часть, «Слить всё в тару» — весь бак целиком. Перед заправкой свежей жидкостью бак стоит освободить полностью.
+
+  Радиогель, урановый хладагент и дигамма-флюид при загрязнении выше 45% повреждают контур охладителя.
+</Document>

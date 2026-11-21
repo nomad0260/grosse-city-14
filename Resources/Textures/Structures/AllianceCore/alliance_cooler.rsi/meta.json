@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Alliance Emitter",
+    "size": {
+        "x": 256,
+        "y": 256
+    },
+    "states": [
+        {
+            "name": "icon",
+            "directions": 4
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+# ЕНК: терминал, анализатор и КС-1 «Матрица».
+# Всё оборудование работает без отдельной сети труб: терминал связывается с машинами по радиусу.
+
+- type: entity
+  abstract: true
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: DarkMatterMachineBase
+  components:
+  - type: Anchorable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ApcPowerReceiver
+    powerLoad: 2500
+
+- type: entity
+  parent: DarkMatterMachineBase
+  id: DarkMatterSubstanceAnalyzer
+  name: анализатор вещества ЕНК
+  description: Измеряет характеристики образца. Вставьте образец в слот — он же служит сырьём для создания кристалла.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/artifact_analyzer.rsi
+    state: icon
+  - type: DarkMatterMachine
+    kind: Analyzer
+  - type: ItemSlots
+  - type: Machine
+    board: DarkMatterSubstanceAnalyzerCircuitboard
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: PointLight
+    enabled: true
+    color: "#9B7CFF"
+    radius: 2
+    energy: 1.5
+
+- type: entity
+  parent: DarkMatterMachineBase
+  id: DarkMatterSynthesizer
+  name: КС-1 «Матрица»
+  description: Три физических слота — жидкость, сырьё и сгусток тёмной материи. Заказ формируется случайно; загрузите указанные компоненты и синтезируйте образец.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/Anomaly/adv_anomaly_vessel.rsi
+    state: base
+    color: "#FFCE73"
+  - type: DarkMatterMachine
+    kind: Synthesizer
+  - type: ItemSlots
+  - type: Machine
+    board: DarkMatterSynthesizerCircuitboard
+  - type: ApcPowerReceiver
+    powerLoad: 3500
+  - type: PointLight
+    enabled: true
+    color: "#FFCE73"
+    radius: 2
+    energy: 1.5
+
+- type: entity
+  parent: BaseComputer
+  id: DarkMatterResearchTerminal
+  name: терминал ЕНК
+  description: Интерфейс научного комплекса. Управляет анализатором и КС-1 «Матрица», хранит блюпринты и создаёт кристаллы.
+  components:
+  - type: ResearchTerminal
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+      color: "#8FB8FF"
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: artifact
+  - type: PointLight
+    enabled: true
+    color: "#8FB8FF"
+    radius: 3
+    energy: 2
+  - type: UserInterface
+    interfaces:
+      enum.ResearchTerminalUiKey.Key:
+        type: ResearchTerminalBoundUserInterface
+  - type: ActivatableUI
+    key: enum.ResearchTerminalUiKey.Key
