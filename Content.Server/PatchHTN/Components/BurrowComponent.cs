@@ -35,6 +35,19 @@ public sealed partial class BurrowComponent : Component
     public bool AddedStealth;
 
     /// <summary>
+    /// Previous <see cref="Content.Shared.Stealth.Components.StealthComponent.Enabled"/> value when the entity
+    /// already had stealth before burrowing.
+    /// </summary>
+    [ViewVariables]
+    public bool PreviousStealthEnabled;
+
+    /// <summary>
+    /// Previous stealth visibility when the entity already had stealth before burrowing.
+    /// </summary>
+    [ViewVariables]
+    public float PreviousStealthVisibility;
+
+    /// <summary>
     /// Played when digging in.
     /// </summary>
     [DataField]

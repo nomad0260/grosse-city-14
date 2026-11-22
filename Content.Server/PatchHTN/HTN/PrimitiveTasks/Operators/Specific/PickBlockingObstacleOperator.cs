@@ -74,6 +74,9 @@ public sealed partial class PickBlockingObstacleOperator : HTNOperator
         if (direct.Result == PathResult.Path)
             return (false, null);
 
+        if (!_entManager.TryGetComponent<TransformComponent>(owner, out xform))
+            return (false, null);
+
         // Shortest route that goes through destructible obstacles. The pathfinder already prices
         // obstacles by their durability, so this is the cheapest wall to break through.
         var path = await _pathfinding.GetPath(owner, xform.Coordinates, target, ArriveRange, cancelToken, flags);

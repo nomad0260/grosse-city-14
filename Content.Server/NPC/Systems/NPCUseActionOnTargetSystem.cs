@@ -2,6 +2,9 @@ using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Shared.Actions;
 using Content.Shared.Interaction;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
+using Content.Shared.NPC;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
@@ -11,6 +14,7 @@ public sealed partial class NPCUseActionOnTargetSystem : EntitySystem
 {
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
     /// <inheritdoc/>
@@ -49,15 +53,22 @@ public sealed partial class NPCUseActionOnTargetSystem : EntitySystem
         base.Update(frameTime);
 
         // Tries to use the attack on the current target.
-        var query = EntityQueryEnumerator<NPCUseActionOnTargetComponent, HTNComponent>();
-        while (query.MoveNext(out var uid, out var comp, out var htn))
+        var query = EntityQueryEnumerator<ActiveNPCComponent, NPCUseActionOnTargetComponent, HTNComponent>();
+        while (query.MoveNext(out var uid, out _, out var comp, out var htn))
         {
+            if (!htn.Enabled || !_mobState.IsAlive(uid))
+                continue;
+
             // Skip the blackboard and distance checks while the action is still recharging.
             if (_actions.GetAction(comp.ActionEnt) is not { } action || !_actions.ValidAction(action))
                 continue;
 
-            if (!htn.Blackboard.TryGetValue<EntityUid>(comp.TargetKey, out var target, EntityManager))
+            if (!htn.Blackboard.TryGetValue<EntityUid>(comp.TargetKey, out var target, EntityManager) ||
+                TerminatingOrDeleted(target) ||
+                (TryComp<MobStateComponent>(target, out var targetState) && !_mobState.IsAlive(target, targetState)))
+            {
                 continue;
+            }
 
             if (!CanUseOnTarget(uid, target, comp, out var targetCoordinates))
                 continue;

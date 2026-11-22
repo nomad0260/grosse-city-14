@@ -76,9 +76,10 @@ public sealed partial class PickStrategicPointOperator : HTNOperator
             return (false, null);
 
         var mapId = _transform.GetMapId(xform.Coordinates);
-        var candidates = new List<(float Priority, float Distance, EntityCoordinates Coordinates)>();
+        var candidates = new List<(float Priority, float Distance, EntityUid Point, EntityCoordinates Coordinates)>();
 
-        foreach (var (point, pointXform) in _entManager.EntityQuery<NPCStrategicPointComponent, TransformComponent>())
+        var query = _entManager.EntityQueryEnumerator<NPCStrategicPointComponent, TransformComponent>();
+        while (query.MoveNext(out var pointUid, out var point, out var pointXform))
         {
             if (!point.Enabled ||
                 point.Network != Network ||
@@ -94,7 +95,7 @@ public sealed partial class PickStrategicPointOperator : HTNOperator
             }
 
             // Priority is the primary ordering; distance only breaks equal-priority ties.
-            candidates.Add((point.Priority, distance, pointXform.Coordinates));
+            candidates.Add((point.Priority, distance, pointUid, pointXform.Coordinates));
         }
 
         candidates.Sort((a, b) =>
@@ -110,17 +111,24 @@ public sealed partial class PickStrategicPointOperator : HTNOperator
 
         for (var i = 0; i < checks; i++)
         {
-            var destination = candidates[i].Coordinates;
+            var candidate = candidates[i];
+            if (_entManager.Deleted(candidate.Point) ||
+                !_entManager.TryGetComponent<TransformComponent>(owner, out var currentXform))
+            {
+                continue;
+            }
+
+            var destination = candidate.Coordinates;
 
             var path = await _pathfinding.GetPath(
                 owner,
-                xform.Coordinates,
+                currentXform.Coordinates,
                 destination,
                 ArriveRange,
                 cancelToken,
                 flags);
 
-            if (path.Result != PathResult.Path)
+            if (path.Result != PathResult.Path || _entManager.Deleted(candidate.Point))
                 continue;
 
             return (true, new Dictionary<string, object>

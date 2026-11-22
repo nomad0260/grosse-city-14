@@ -68,7 +68,7 @@ public sealed partial class BurrowSystem : EntitySystem
 
             if (now - burrow.BurrowedAt >= TimeSpan.FromSeconds(burrow.MaxBurrowTime))
             {
-                TrySurface(uid, burrow);
+                SurfaceAndReplan(uid, burrow);
                 continue;
             }
 
@@ -77,10 +77,7 @@ public sealed partial class BurrowSystem : EntitySystem
 
             // Surface and ask for a fresh plan right away: the current plan is sitting on its wait task and
             // would otherwise keep the antlion in the ground until the wait is over.
-            TrySurface(uid, burrow);
-
-            if (TryComp<HTNComponent>(uid, out var htn))
-                _htn.Replan(htn);
+            SurfaceAndReplan(uid, burrow);
         }
     }
 
@@ -98,8 +95,17 @@ public sealed partial class BurrowSystem : EntitySystem
         // VisibilityComponent cannot hide a normal-layer entity: the engine's visibility mask always keeps the
         // Normal bit set (VisibilitySystem.GetParentVisibilityMask starts at 1), so removing the layer left
         // buried mobs fully visible. Stealth is the one networked way to make a mob invisible to players.
-        burrow.AddedStealth = !HasComp<StealthComponent>(uid);
-        var stealth = EnsureComp<StealthComponent>(uid);
+        burrow.AddedStealth = !TryComp<StealthComponent>(uid, out var stealth);
+        if (stealth != null)
+        {
+            burrow.PreviousStealthEnabled = stealth.Enabled;
+            burrow.PreviousStealthVisibility = _stealth.GetVisibility(uid, stealth);
+        }
+        else
+        {
+            stealth = EnsureComp<StealthComponent>(uid);
+        }
+
         _stealth.SetVisibility(uid, -1f, stealth);
         _stealth.SetEnabled(uid, true, stealth);
 
@@ -116,8 +122,18 @@ public sealed partial class BurrowSystem : EntitySystem
 
         burrow.Burrowed = false;
 
-        if (!TerminatingOrDeleted(uid) && burrow.AddedStealth)
-            RemComp<StealthComponent>(uid);
+        if (!TerminatingOrDeleted(uid))
+        {
+            if (burrow.AddedStealth)
+            {
+                RemComp<StealthComponent>(uid);
+            }
+            else if (TryComp<StealthComponent>(uid, out var stealth))
+            {
+                _stealth.SetVisibility(uid, burrow.PreviousStealthVisibility, stealth);
+                _stealth.SetEnabled(uid, burrow.PreviousStealthEnabled, stealth);
+            }
+        }
 
         burrow.AddedStealth = false;
 
@@ -178,10 +194,32 @@ public sealed partial class BurrowSystem : EntitySystem
         return false;
     }
 
+    private void SurfaceAndReplan(EntityUid uid, BurrowComponent burrow)
+    {
+        if (!TrySurface(uid, burrow))
+            return;
+
+        if (!TryComp<HTNComponent>(uid, out var htn))
+            return;
+
+        // Cancel the running burrow/wait plan so the NPC does not stay parked on WaitOperator
+        // until the wait expires, and so HTNSystem.UpdateNPC does not reject a lower-priority
+        // patrol/idle plan just because AntlionBurrowCompound sits earlier in the compound.
+        if (htn.Plan != null)
+        {
+            _htn.ShutdownTask(htn.Plan.CurrentOperator, htn.Blackboard, HTNOperatorStatus.Failed);
+            _htn.ShutdownPlan(htn);
+            htn.Plan = null;
+        }
+
+        if (htn.Enabled && _mobState.IsAlive(uid))
+            _htn.Replan(htn);
+    }
+
     private void OnDamageChanged(EntityUid uid, BurrowComponent burrow, DamageChangedEvent args)
     {
         if (args.DamageIncreased && burrow.Burrowed)
-            TrySurface(uid, burrow);
+            SurfaceAndReplan(uid, burrow);
     }
 
     private void OnShutdown(EntityUid uid, BurrowComponent burrow, ComponentShutdown args)
@@ -191,8 +229,20 @@ public sealed partial class BurrowSystem : EntitySystem
 
         burrow.Burrowed = false;
 
-        if (!Terminating(uid) && burrow.AddedStealth)
-            RemComp<StealthComponent>(uid);
+        if (!Terminating(uid))
+        {
+            if (burrow.AddedStealth)
+            {
+                RemComp<StealthComponent>(uid);
+            }
+            else if (TryComp<StealthComponent>(uid, out var stealth))
+            {
+                _stealth.SetVisibility(uid, burrow.PreviousStealthVisibility, stealth);
+                _stealth.SetEnabled(uid, burrow.PreviousStealthEnabled, stealth);
+            }
+
+            _idle.ResetIdleTime(uid);
+        }
 
         burrow.AddedStealth = false;
     }
