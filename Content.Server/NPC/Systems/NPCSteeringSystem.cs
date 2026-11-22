@@ -374,12 +374,14 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         // TODO: This should be fly
         steering.CanSeek = true;
 
+        var steerFrameTime = steering.ForceMove ? frameTime : frameTime * 3f;
+
         var ev = new NPCSteeringEvent(steering, xform, worldPos, offsetRot);
         RaiseLocalEvent(uid, ref ev);
         // If seek has arrived at the target node for example then immediately re-steer.
         var forceSteer = true;
 
-        if (steering.CanSeek && !TrySeek(uid, mover, steering, body, xform, offsetRot, moveSpeed, interest, frameTime, ref forceSteer))
+        if (steering.CanSeek && !TrySeek(uid, mover, steering, body, xform, offsetRot, moveSpeed, interest, steerFrameTime, ref forceSteer))
         {
             SetDirection(uid, mover, steering, Vector2.Zero);
             return;
@@ -405,7 +407,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         Separation(uid, offsetRot, worldPos, agentRadius, layer, mask, body, xform, danger);
 
         // Blend last and current tick
-        Blend(steering, frameTime, interest, danger);
+        Blend(steering, steerFrameTime, interest, danger);
 
         // Remove the danger map from the interest map.
         var desiredDirection = -1;

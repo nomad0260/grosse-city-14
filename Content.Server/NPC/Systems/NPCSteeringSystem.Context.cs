@@ -60,27 +60,34 @@ public sealed partial class NPCSteeringSystem
 
         // TODO: Ideally for "FreeSpace" we check all entities on the tile and build flags dynamically (pathfinder refactor in future).
         var ents = _entSetPool.Get();
-        _lookup.GetLocalEntitiesIntersecting(node.GraphUid, node.Box.Enlarged(-0.04f), ents, flags: LookupFlags.Static);
         var result = true;
 
-        if (ents.Count > 0)
+        try
         {
-            var fixtures = _fixturesQuery.GetComponent(uid);
-            var physics = _physicsQuery.GetComponent(uid);
+            _lookup.GetLocalEntitiesIntersecting(node.GraphUid, node.Box.Enlarged(-0.04f), ents, flags: LookupFlags.Static);
 
-            foreach (var intersecting in ents)
+            if (ents.Count > 0)
             {
-                if (!_physics.IsCurrentlyHardCollidable((uid, fixtures, physics), intersecting))
-                {
-                    continue;
-                }
+                var fixtures = _fixturesQuery.GetComponent(uid);
+                var physics = _physicsQuery.GetComponent(uid);
 
-                result = false;
-                break;
+                foreach (var intersecting in ents)
+                {
+                    if (!_physics.IsCurrentlyHardCollidable((uid, fixtures, physics), intersecting))
+                    {
+                        continue;
+                    }
+
+                    result = false;
+                    break;
+                }
             }
         }
+        finally
+        {
+            _entSetPool.Return(ents);
+        }
 
-        _entSetPool.Return(ents);
         return result;
     }
 
@@ -144,13 +151,6 @@ public sealed partial class NPCSteeringSystem
 
         // Grab the target position, either the next path node or our end goal..
         var targetCoordinates = GetTargetCoordinates(steering);
-
-        if (!targetCoordinates.IsValid(EntityManager))
-        {
-            steering.Status = SteeringStatus.NoPath;
-            return false;
-        }
-
         var needsPath = false;
 
         // If the next node is invalid then get new ones
@@ -167,6 +167,12 @@ public sealed partial class NPCSteeringSystem
             }
         }
 
+        if (!targetCoordinates.IsValid(EntityManager))
+        {
+            steering.Status = SteeringStatus.NoPath;
+            return false;
+        }
+
         // Check if mapids match.
         var targetMap = _transform.ToMapCoordinates(targetCoordinates);
         var ourMap = _transform.ToMapCoordinates(ourCoordinates);
@@ -179,17 +185,11 @@ public sealed partial class NPCSteeringSystem
 
         var direction = targetMap.Position - ourMap.Position;
 
-        // This runs every steering tick, and IsFreeSpace does a static entity lookup for a blocked node, so
-        // the next poly and whether it is free are resolved once here instead of once per branch below.
-        // Nothing between here and the last use modifies the path.
-        var nextNode = steering.CurrentPath.Count > 0 ? steering.CurrentPath.Peek() : null;
-        var nextNodeFree = nextNode != null && IsFreeSpace(uid, steering, nextNode);
-
         // Cache smash-target range once; this method runs every steering tick.
         var hasSmashTarget = false;
         var smashTargetInRange = false;
-        if (nextNode != null && !nextNodeFree)
-            hasSmashTarget = TryGetSmashTargetInRange(uid, steering, nextNode, out smashTargetInRange);
+        if (steering.CurrentPath.TryPeek(out var blockedNode) && !IsFreeSpace(uid, steering, blockedNode))
+            hasSmashTarget = TryGetSmashTargetInRange(uid, steering, blockedNode, out smashTargetInRange);
 
         // Need to be pretty close if it's just a node to make sure LOS for door bashes or the likes.
         bool arrived;
@@ -198,22 +198,22 @@ public sealed partial class NPCSteeringSystem
         {
             // What's our tolerance for arrival.
             // If it's a pathfinding node it might be different to the destination.
-            // The blocked node can be the destination itself (the only path poly left), and a polygon's
-            // centre or edge is not the obstacle's physical surface: there the melee range check decides,
-            // otherwise the NPC stops a poly short of the wall and never starts smashing it.
-            arrived = nextNode != null && !nextNodeFree && hasSmashTarget
+            // A polygon's centre or edge is not the obstacle's physical surface, so when the target
+            // sits behind a smashable obstacle let the melee range check decide. Otherwise the NPC
+            // stops a poly short of the wall and never starts smashing it.
+            arrived = hasSmashTarget
                 ? smashTargetInRange
                 : direction.Length() <= steering.Range;
         }
         // If next node is a free tile then get within its bounds.
         // This is to avoid popping it too early
-        else if (nextNode != null && nextNodeFree)
+        else if (steering.CurrentPath.TryPeek(out var node) && IsFreeSpace(uid, steering, node))
         {
             // The node may be on another grid (e.g. the next grid after a docking portal), so compare in
             // world space instead of mixing our parent's local space with the node's grid-local box.
             // Test the point itself: the transformed AABB grows on grids rotated not by 90°.
-            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(nextNode.GraphUid));
-            arrived = nextNode.Box.Contains(nodeLocal);
+            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(node.GraphUid));
+            arrived = node.Box.Contains(nodeLocal);
         }
         // For destructible blockers, use the same nearest-entity range check as melee attacks.
         // A polygon's center or edge isn't necessarily the obstacle's physical surface.
@@ -230,7 +230,7 @@ public sealed partial class NPCSteeringSystem
         if (arrived)
         {
             // Node needs some kind of special handling like access or smashing.
-            if (nextNode != null && !nextNodeFree)
+            if (steering.CurrentPath.TryPeek(out var node) && !IsFreeSpace(uid, steering, node))
             {
                 // Ignore stuck while handling obstacles.
                 ResetStuck(steering, ourCoordinates);
@@ -253,7 +253,7 @@ public sealed partial class NPCSteeringSystem
                 // Breaking behaviours and the likes.
                 lock (_obstacles)
                 {
-                    status = TryHandleFlags(uid, steering, nextNode);
+                    status = TryHandleFlags(uid, steering, node);
                 }
 
                 // TODO: Need to handle re-pathing in case the target moves around.
