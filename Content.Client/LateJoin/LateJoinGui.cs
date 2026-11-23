@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Client.CrewManifest;
 using Content.Client.GameTicking.Managers;
 using Content.Client.Lobby;
+using Content.Client.UIpatch;
 using Content.Client.UserInterface.Controls;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Shared.CCVar;
@@ -11,16 +12,18 @@ using Content.Shared.Roles;
 using Content.Shared.StatusIcon;
 using Robust.Client.Console;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
-namespace Content.Client.LateJoin
-{
+namespace Content.Client.LateJoin;
+
     public sealed partial class LateJoinGui : DefaultWindow
     {
         [Dependency] private IPrototypeManager _prototypeManager = default!;
@@ -46,7 +49,7 @@ namespace Content.Client.LateJoin
 
         public LateJoinGui()
         {
-            MinSize = SetSize = new Vector2(450, 560);
+            MinSize = SetSize = new Vector2(540, 620);
             IoCManager.InjectDependencies(this);
             _sprites = _entitySystem.GetEntitySystem<SpriteSystem>();
             _crewManifest = _entitySystem.GetEntitySystem<CrewManifestSystem>();
@@ -61,7 +64,17 @@ namespace Content.Client.LateJoin
                 VerticalExpand = true,
             };
 
+            var glass = new LobbyGlassPanel
+            {
+                HorizontalExpand = true,
+                VerticalExpand = true,
+                Tint = LobbyFx.Graphite.WithAlpha(0.32f),
+                EdgeColor = Color.Transparent,
+            };
+
+            ContentsContainer.AddChild(glass);
             ContentsContainer.AddChild(_base);
+            ApplyTranslucentWindowTheme(this);
 
             _jobRequirements.Updated += RebuildUI;
             RebuildUI();
@@ -75,6 +88,36 @@ namespace Content.Client.LateJoin
             };
 
             _gameTicker.LobbyJobsAvailableUpdated += JobsAvailableUpdated;
+        }
+
+        private static void ApplyTranslucentWindowTheme(Control root)
+        {
+            foreach (var child in root.Children)
+            {
+                if (child is PanelContainer panel)
+                {
+                    if (panel.HasStyleClass(StyleClassWindowPanel))
+                    {
+                        panel.PanelOverride = new StyleBoxFlat
+                        {
+                            BackgroundColor = LobbyFx.Graphite.WithAlpha(0.46f),
+                            BorderColor = LobbyFx.Steel.WithAlpha(0.45f),
+                            BorderThickness = new Thickness(1f),
+                        };
+                    }
+                    else if (panel.HasStyleClass(StyleClassWindowHeader))
+                    {
+                        panel.PanelOverride = new StyleBoxFlat
+                        {
+                            BackgroundColor = LobbyFx.GraphiteDark.WithAlpha(0.68f),
+                            BorderColor = LobbyFx.RedAccent.WithAlpha(0.85f),
+                            BorderThickness = new Thickness(0f, 0f, 0f, 2f),
+                        };
+                    }
+                }
+
+                ApplyTranslucentWindowTheme(child);
+            }
         }
 
         private void RebuildUI()
@@ -111,19 +154,33 @@ namespace Content.Client.LateJoin
                     }
                 };
 
-                _base.AddChild(new StripeBack()
+                _base.AddChild(new PanelContainer
                 {
+                    PanelOverride = new StyleBoxFlat
+                    {
+                        BackgroundColor = LobbyFx.Graphite.WithAlpha(0.50f),
+                        BorderColor = LobbyFx.RedAccent.WithAlpha(0.85f),
+                        BorderThickness = new Thickness(3f, 0f, 0f, 1f),
+                        ContentMarginLeftOverride = 12,
+                        ContentMarginRightOverride = 10,
+                        ContentMarginTopOverride = 8,
+                        ContentMarginBottomOverride = 8,
+                    },
                     Children =
                     {
-                        new PanelContainer()
+                        new BoxContainer
                         {
+                            Orientation = LayoutOrientation.Horizontal,
+                            HorizontalExpand = true,
                             Children =
                             {
-                                new Label()
+                                new Label
                                 {
-                                    StyleClasses = { "LabelBig" },
+                                    StyleClasses = { "LobbyHeroSub" },
                                     Text = name,
-                                    Align = Label.AlignMode.Center,
+                                    FontColorOverride = Color.FromHex("#ECEEEB"),
+                                    HorizontalExpand = true,
+                                    VerticalAlignment = VAlignment.Center,
                                 },
                                 collapseButton
                             }
@@ -133,11 +190,27 @@ namespace Content.Client.LateJoin
 
                 if (_configManager.GetCVar(CCVars.CrewManifestWithoutEntity))
                 {
-                    var crewManifestButton = new Button()
+                    var crewManifestButton = new Button
                     {
-                        Text = Loc.GetString("crew-manifest-button-label")
+                        Text = Loc.GetString("crew-manifest-button-label"),
+                        Margin = new Thickness(0, 6, 0, 4),
+                        StyleBoxOverride = new StyleBoxFlat
+                        {
+                            BackgroundColor = LobbyFx.GraphiteDark.WithAlpha(0.48f),
+                            BorderColor = LobbyFx.Steel.WithAlpha(0.42f),
+                            BorderThickness = new Thickness(1f),
+                            ContentMarginLeftOverride = 10,
+                            ContentMarginRightOverride = 10,
+                            ContentMarginTopOverride = 5,
+                            ContentMarginBottomOverride = 5,
+                        }
                     };
-                    crewManifestButton.OnPressed += _ => _crewManifest.RequestCrewManifest(id);
+                    crewManifestButton.OnMouseEntered += _ => LobbyFx.PlayHover();
+                    crewManifestButton.OnPressed += _ =>
+                    {
+                        LobbyFx.PlayClick();
+                        _crewManifest.RequestCrewManifest(id);
+                    };
 
                     _base.AddChild(crewManifestButton);
                 }
@@ -203,23 +276,49 @@ namespace Content.Client.LateJoin
                     if (firstCategory)
                     {
                         firstCategory = false;
+                        category.AddChild(new Control { MinSize = new Vector2(0, 6) });
                     }
                     else
                     {
                         category.AddChild(new Control
                         {
-                            MinSize = new Vector2(0, 23),
+                            MinSize = new Vector2(0, 14),
                         });
                     }
 
-                    category.AddChild(new PanelContainer
+                    category.AddChild(new BoxContainer
                     {
+                        Orientation = LayoutOrientation.Vertical,
+                        SeparationOverride = 4,
+                        Margin = new Thickness(0, 0, 0, 6),
                         Children =
                         {
                             new Label
                             {
-                                StyleClasses = { "LabelBig" },
+                                StyleClasses = { "LobbyDeployHeading" },
                                 Text = Loc.GetString("late-join-gui-department-jobs-label", ("departmentName", departmentName))
+                            },
+                            new BoxContainer
+                            {
+                                Orientation = LayoutOrientation.Horizontal,
+                                HorizontalExpand = true,
+                                Children =
+                                {
+                                    new PanelContainer
+                                    {
+                                        PanelOverride = new StyleBoxFlat(Color.FromHex("#D13239")),
+                                        MinSize = new Vector2(28, 2),
+                                        MaxSize = new Vector2(28, 2),
+                                    },
+                                    new PanelContainer
+                                    {
+                                        PanelOverride = new StyleBoxFlat(Color.FromHex("#777970").WithAlpha(0.35f)),
+                                        MinSize = new Vector2(0, 1),
+                                        MaxSize = new Vector2(float.PositiveInfinity, 1),
+                                        HorizontalExpand = true,
+                                        VerticalAlignment = VAlignment.Center,
+                                    }
+                                }
                             }
                         }
                     });
@@ -340,20 +439,71 @@ namespace Content.Client.LateJoin
 
     sealed class JobButton : ContainerButton
     {
+        private static readonly Color BaseBg = Color.FromHex("#151817");
+        private static readonly Color HoverBg = Color.FromHex("#1E2221");
+        private static readonly Color Steel = Color.FromHex("#777970");
+        private static readonly Color RedAccent = Color.FromHex("#D13239");
+
         public Label JobLabel { get; }
         public string JobId { get; }
         public string JobLocalisedName { get; }
         public int? Amount { get; private set; }
         private bool _initialised = false;
+        private float _hover;
+        private bool _wasHovered;
 
         public JobButton(Label jobLabel, ProtoId<JobPrototype> jobId, string jobLocalisedName, int? amount)
         {
             JobLabel = jobLabel;
             JobId = jobId;
             JobLocalisedName = jobLocalisedName;
+            Margin = new Thickness(0, 2);
+            MinHeight = 36f;
             RefreshLabel(amount);
-            AddStyleClass(StyleClassButton);
+            StyleBoxOverride = new StyleBoxFlat(Color.Transparent)
+            {
+                ContentMarginLeftOverride = 12,
+                ContentMarginRightOverride = 10,
+                ContentMarginTopOverride = 6,
+                ContentMarginBottomOverride = 6,
+            };
+            OnPressed += _ => LobbyFx.PlayDeploy();
             _initialised = true;
+        }
+
+        protected override void FrameUpdate(FrameEventArgs args)
+        {
+            base.FrameUpdate(args);
+            var hovered = !Disabled && IsHovered;
+            if (hovered && !_wasHovered)
+                LobbyFx.PlayHover();
+
+            _wasHovered = hovered;
+            _hover = LobbyFx.Approach(_hover, hovered ? 1f : 0f, 14f, args.DeltaSeconds);
+        }
+
+        protected override void Draw(DrawingHandleScreen handle)
+        {
+            var size = new Vector2(PixelSize.X, PixelSize.Y);
+            if (size.X > 0f && size.Y > 0f)
+            {
+                var bg = Disabled
+                    ? BaseBg.WithAlpha(0.24f)
+                    : Color.InterpolateBetween(BaseBg.WithAlpha(0.40f), HoverBg.WithAlpha(0.72f), _hover);
+                handle.DrawRect(new UIBox2(0f, 0f, size.X, size.Y), bg);
+
+                var border = Disabled
+                    ? Steel.WithAlpha(0.20f)
+                    : Color.InterpolateBetween(Steel.WithAlpha(0.35f), RedAccent.WithAlpha(0.80f), _hover);
+                handle.DrawRect(new UIBox2(0f, 0f, size.X, 1f), border);
+                handle.DrawRect(new UIBox2(0f, size.Y - 1f, size.X, size.Y), border);
+                handle.DrawRect(new UIBox2(size.X - 1f, 0f, size.X, size.Y), border);
+
+                var leftBar = Disabled ? Steel.WithAlpha(0.25f) : Color.InterpolateBetween(Steel.WithAlpha(0.55f), RedAccent, _hover);
+                handle.DrawRect(new UIBox2(0f, 0f, 2f + 2f * _hover, size.Y), leftBar);
+            }
+
+            base.Draw(handle);
         }
 
         public void RefreshLabel(int? amount)
@@ -369,4 +519,3 @@ namespace Content.Client.LateJoin
                 Loc.GetString("late-join-gui-job-slot-uncapped", ("jobName", JobLocalisedName));
         }
     }
-}

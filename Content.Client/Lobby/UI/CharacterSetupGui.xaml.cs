@@ -1,6 +1,7 @@
 using Content.Client.Info;
 using Content.Client.Resources;
 using Content.Client.Stylesheets;
+using Content.Client.UIpatch;
 using Content.Corvax.Interfaces.Client;
 using Content.Shared.CCVar;
 using Content.Shared.Preferences;
@@ -39,21 +40,32 @@ namespace Content.Client.Lobby.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            // Flat rounded backing instead of the old near-black beveled button texture.
-            BackgroundPanel.PanelOverride = new RoundedStyleBox
+            // Frosted glass backdrop matching the main lobby panels.
+            BackdropGlass.Tint = LobbyFx.Graphite.WithAlpha(0.32f);
+            BackdropGlass.EdgeColor = Color.Transparent;
+
+            BackgroundPanel.PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#262B35").WithAlpha(0.96f),
-                BorderColor = Color.FromHex("#4C5665"),
-                BorderThickness = 1f,
-                CornerRadius = 12f,
-                Padding = new Thickness(10f),
+                BackgroundColor = Color.Transparent,
+                BorderColor = LobbyFx.Steel.WithAlpha(0.28f),
+                BorderThickness = new Thickness(1f),
             };
 
             _createNewCharacterButton = new Button
             {
                 Text = Loc.GetString("character-setup-gui-create-new-character-button"),
+                MinHeight = 36f,
+                StyleBoxOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = LobbyFx.GraphiteDark.WithAlpha(0.62f),
+                    BorderColor = LobbyFx.RedAccent.WithAlpha(0.75f),
+                    BorderThickness = new Thickness(2f, 0f, 0f, 1f),
+                    ContentMarginLeftOverride = 12,
+                    ContentMarginRightOverride = 12,
+                },
             };
 
+            LobbyFx.AttachAudio(_createNewCharacterButton);
             _createNewCharacterButton.OnPressed += args =>
             {
                 _preferencesManager.CreateCharacter(HumanoidCharacterProfile.Random());
@@ -63,6 +75,7 @@ namespace Content.Client.Lobby.UI
 
             CharEditor.AddChild(profileEditor);
             RulesButton.OnPressed += _ => new RulesAndInfoWindow().Open();
+            LobbyFx.AttachAudio(AdminRemarksButton);
 
             _cfg.OnValueChanged(CCVars.SeeOwnNotes, p => AdminRemarksButton.Visible = p, true);
             // Corvax-Sponsors-Start

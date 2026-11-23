@@ -1,6 +1,6 @@
 pvp-lobby-header = Teams
 pvp-lobby-random = Random
-pvp-lobby-summary-empty = No loadout selected
+pvp-lobby-summary-empty = SELECT LOADOUT
 pvp-lobby-summary-random = Random loadout
 pvp-lobby-summary-team = Team selected
 pvp-lobby-cost = { $cost } pts

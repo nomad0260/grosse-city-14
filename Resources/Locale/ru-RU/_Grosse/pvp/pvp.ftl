@@ -1,6 +1,6 @@
 pvp-lobby-header = Команды
 pvp-lobby-random = Рандом
-pvp-lobby-summary-empty = Не выбран
+pvp-lobby-summary-empty = ВЫБЕРИТЕ НАБОР
 pvp-lobby-summary-random = Случайная команда
 pvp-lobby-summary-team = Команда выбрана
 pvp-lobby-cost = { $cost } очк.

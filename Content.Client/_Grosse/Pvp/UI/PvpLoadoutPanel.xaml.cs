@@ -78,6 +78,9 @@ public sealed partial class PvpLoadoutPanel : Robust.Client.UserInterface.Contro
     public void SetCompact(bool compact)
     {
         TeamButtons.Columns = compact ? 1 : 2;
+        // На низких экранах список классов короче, иначе раскрытая карточка
+        // вместе с досье выходит за нижний край.
+        ClassScroll.MaxHeight = compact ? 104f : 168f;
     }
 
     private void UpdateVisibility()

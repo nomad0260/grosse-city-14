@@ -3,6 +3,7 @@ character-setup-gui-character-setup-adminremarks-button = Admin Remarks
 character-setup-gui-character-setup-stats-button = Stats
 character-setup-gui-character-setup-rules-button = Rules
 character-setup-gui-character-setup-close-button = Close
+character-setup-gui-character-setup-back-button = ‹ BACK TO LOBBY
 character-setup-gui-create-new-character-button = Create new slot...
 character-setup-gui-create-new-character-button-tooltip = A maximum of {$maxCharacters} characters are allowed.
 character-setup-gui-character-picker-button-delete-button = Delete
