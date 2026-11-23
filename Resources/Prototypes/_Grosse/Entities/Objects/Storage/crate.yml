@@ -1,17 +1,10 @@
 - type: entity
-  id: WoodenCrateC17
-  name: деревянный ящик
-  description: Внушительного размера ящик, для транспортировки предметов.
+  id: BaseWoodenCrateC17
   parent: BaseItem
+  abstract: true
   components:
   - type: Item
     size: Huge
-    sprite: _Grosse/rsi/hlstaff/misc/inhand.rsi
-    inhandVisuals:
-      left:
-      - state: inhand-box
-      right:
-      - state: inhand-box
   - type: MultiHandedItem
   - type: ClothingSpeedModifier
     walkModifier: 0.75
@@ -28,7 +21,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 20
+        damage: 30
       behaviors:
       - !type:EmptyAllContainersBehaviour
       - !type:SpawnEntitiesBehavior
@@ -40,21 +33,6 @@
         acts: [ "Destruction" ]
   - type: Sprite
     noRot: true
-    sprite: _Grosse/rsi/Structures/Decoration/boxes.rsi
-    layers:
-    - state: 5
-      map: [ "enum.DamageStateVisualLayers.Base" ]
-  - type: RandomSprite
-    available:
-    - enum.DamageStateVisualLayers.Base:
-        2: ""
-        3: ""
-        4: ""
-        5: ""
-        6: ""
-        7: ""
-        8: ""
-        9: ""
   - type: Appearance
   - type: Storage
     grid:
@@ -74,16 +52,47 @@
     fixtures:
       fix1:
         shape:
-          !type:PhysShapeCircle
-          radius: 0.3
-        density: 150
-        mask:
-        - MachineMask
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.45"
+        density: 100
+        hard: true
         layer:
         - MachineLayer
+        mask:
+        - MachineMask
 
 - type: entity
-  parent: WoodenCrateC17
+  id: WoodenCrateC17
+  name: деревянный ящик
+  description: Внушительного размера ящик, для транспортировки предметов.
+  parent: BaseWoodenCrateC17
+  components:
+  - type: Item
+    sprite: _Grosse/rsi/hlstaff/misc/inhand.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-box
+      right:
+      - state: inhand-box
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/boxes.rsi
+    layers:
+    - state: 5
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        2: ""
+        3: ""
+        4: ""
+        5: ""
+        6: ""
+        7: ""
+        8: ""
+        9: ""
+
+- type: entity
+  parent: BaseWoodenCrateC17
   id: BoxWoodenC17
   name: wooden box
   description: A big wooden box with many hidden toys. Maybe.
@@ -91,21 +100,6 @@
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/box.rsi
     state: box
-    noRot: true
-  - type: Damageable
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 30
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          MaterialWoodPlank1:
-            min: 3
-            max: 5
   - type: Fixtures
     fixtures:
       fix1:
