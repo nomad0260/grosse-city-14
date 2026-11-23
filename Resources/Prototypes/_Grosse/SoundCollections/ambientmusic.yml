@@ -5,7 +5,7 @@
 # grosse.ambient_music.directory (по умолчанию data/ambient_music рядом с сервером).
 # Имена отсюда должны совпадать с содержимым этой папки, поэтому при добавлении трека
 # дописываем его здесь. Все треки в OGG Vorbis.
-- type: soundCollection
+- type: grosseAmbientPlaylist
   id: GrosseCityAmbient
   files:
     - /_Grosse/Music/ambient_1.ogg

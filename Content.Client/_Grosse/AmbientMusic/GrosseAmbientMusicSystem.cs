@@ -1,4 +1,5 @@
 using Content.Client.Gameplay;
+using Content.Shared._Grosse.AmbientMusic;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Robust.Client.Audio;
@@ -28,9 +29,9 @@ namespace Content.Client._Grosse.AmbientMusic;
 public sealed partial class GrosseAmbientMusicSystem : EntitySystem
 {
     /// <summary>
-    ///     Sound collection with the ambient tracks.
+    ///     Playlist with the ambient tracks.
     /// </summary>
-    private static readonly ProtoId<SoundCollectionPrototype> AmbientCollection = "GrosseCityAmbient";
+    private static readonly ProtoId<GrosseAmbientPlaylistPrototype> AmbientCollection = "GrosseCityAmbient";
 
     /// <summary>
     ///     Volume the tracks are normalised at, before the music setting is added on top of it.
@@ -431,18 +432,20 @@ public sealed partial class GrosseAmbientMusicSystem : EntitySystem
     {
         _tracks.Clear();
 
-        if (!_proto.TryIndex(AmbientCollection, out SoundCollectionPrototype? collection))
+        if (!_proto.TryIndex(AmbientCollection, out GrosseAmbientPlaylistPrototype? collection))
         {
-            _sawmill.Error($"Sound collection {AmbientCollection} is missing, the city will have no ambience");
+            _sawmill.Error($"Ambient playlist {AmbientCollection} is missing, the city will have no ambience");
             _queue.Clear();
             return;
         }
 
-        foreach (var file in collection.PickFiles)
+        foreach (var file in collection.Files)
         {
+            var resPath = new ResPath(file);
+
             // A file listed twice would play twice in the same pass, so the playlist is deduplicated.
-            if (!_tracks.Contains(file))
-                _tracks.Add(file);
+            if (!_tracks.Contains(resPath))
+                _tracks.Add(resPath);
         }
 
         // Keep the pass that is already running: only tracks that are gone leave it.
@@ -458,7 +461,7 @@ public sealed partial class GrosseAmbientMusicSystem : EntitySystem
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
-        if (!args.WasModified<SoundCollectionPrototype>())
+        if (!args.WasModified<GrosseAmbientPlaylistPrototype>())
             return;
 
         LoadTracks();

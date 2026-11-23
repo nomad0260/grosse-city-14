@@ -1,7 +1,6 @@
 using System.IO;
 using Content.Shared._Grosse.AmbientMusic;
 using Content.Shared.CCVar;
-using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Log;
@@ -9,6 +8,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server._Grosse.AmbientMusic;
 
@@ -18,12 +18,12 @@ namespace Content.Server._Grosse.AmbientMusic;
 /// <remarks>
 ///     The tracks are not part of the repository, so nothing copyrighted is shipped with the client. They live in the
 ///     folder of <see cref="CCVars.GrosseAmbientMusicDirectory"/> on the server machine and are sent at the start of
-///     the round, one track per request. Only the files of the <c>GrosseCityAmbient</c> sound collection are served,
+///     the round, one track per request. Only the files of the <c>GrosseCityAmbient</c> playlist are served,
 ///     so a client cannot read arbitrary files from the server.
 /// </remarks>
 public sealed partial class GrosseAmbientMusicServerSystem : EntitySystem
 {
-    private static readonly ProtoId<SoundCollectionPrototype> AmbientCollection = "GrosseCityAmbient";
+    private static readonly ProtoId<GrosseAmbientPlaylistPrototype> AmbientCollection = "GrosseCityAmbient";
 
     /// <summary>
     ///     Size of one part of a track. A whole track would be a multi-megabyte network message, which the network
@@ -165,7 +165,7 @@ public sealed partial class GrosseAmbientMusicServerSystem : EntitySystem
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
-        if (args.WasModified<SoundCollectionPrototype>())
+        if (args.WasModified<GrosseAmbientPlaylistPrototype>())
             LoadTracks();
     }
 
@@ -173,14 +173,14 @@ public sealed partial class GrosseAmbientMusicServerSystem : EntitySystem
     {
         _tracks.Clear();
 
-        if (!_proto.TryIndex(AmbientCollection, out SoundCollectionPrototype? collection))
+        if (!_proto.TryIndex(AmbientCollection, out GrosseAmbientPlaylistPrototype? collection))
         {
-            _sawmill.Error($"Sound collection {AmbientCollection} is missing, no ambient track can be sent");
+            _sawmill.Error($"Ambient playlist {AmbientCollection} is missing, no ambient track can be sent");
             return;
         }
 
-        foreach (var file in collection.PickFiles)
-            _tracks.Add(file.Filename);
+        foreach (var file in collection.Files)
+            _tracks.Add(new ResPath(file).Filename);
 
         var directory = _config.GetCVar(CCVars.GrosseAmbientMusicDirectory);
 
