@@ -81,3 +81,40 @@
         - MachineMask
         layer:
         - MachineLayer
+
+- type: entity
+  parent: WoodenCrateC17
+  id: BoxWoodenC17
+  name: wooden box
+  description: A big wooden box with many hidden toys. Maybe.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/box.rsi
+    state: box
+    noRot: true
+  - type: Damageable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 3
+            max: 5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.45"
+        density: 100
+        hard: true
+        layer:
+        - MachineLayer
+        mask:
+        - MachineMask
