@@ -18,6 +18,7 @@ using Robust.Shared.Spawners;
 namespace Content.IntegrationTests.Tests
 {
     [TestFixture]
+    [Category("CiHeavy")]
     [TestOf(typeof(EntityUid))]
     public sealed class EntityTest : GameTest
     {

@@ -30,6 +30,7 @@ using Robust.Shared.Utility;
 namespace Content.IntegrationTests.Tests
 {
     [TestFixture]
+    [Category("CiMaps")]
     public sealed class PostMapInitTest : GameTest
     {
         public override PoolSettings PoolSettings => new PoolSettings()

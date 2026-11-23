@@ -1,5 +1,8 @@
 name: Build & Test Debug
 
+# Sequential jobs: core → maps → heavy.
+# Suites split via [Category("CiHeavy"|"CiMaps")] and ci-*.runsettings.
+
 on:
   push:
     branches: [ master, staging, stable ]
@@ -7,23 +10,28 @@ on:
   pull_request:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'merge_group' }}
+
+env:
+  DOTNET_VERSION: 10.0.x
+  CONFIG: DebugOpt
+  DOTNET_gcServer: "1"
 
 jobs:
-  build:
+  core:
     if: github.actor != 'IanComradeBot' && github.event.pull_request.draft == false
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
-    - name: Checkout Master
+    - name: Checkout
       uses: actions/checkout@v7
 
     - name: Setup Submodule
-      run: |
-        git submodule update --init --recursive
+      run: git submodule update --init --recursive
 
     - name: Pull engine updates
       uses: space-wizards/submodule-dependency@v0.1.5
@@ -33,26 +41,37 @@ jobs:
         cd RobustToolbox/
         git submodule update --init --recursive
 
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Install dependencies
+    - name: Restore
       run: dotnet restore
 
-    - name: Build Project
-      run: dotnet build --configuration DebugOpt --no-restore /m
+    - name: Build
+      run: dotnet build --configuration ${{ env.CONFIG }} --no-restore /m
 
     - name: Run Content.Tests
-      shell: pwsh
-      run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+      run: >
+        dotnet test --no-build --configuration ${{ env.CONFIG }}
+        Content.Tests/Content.Tests.csproj --
+        NUnit.ConsoleOut=0
+        NUnit.TestOutputXml=logs
+        NUnit.WorkDirectory=${{ github.workspace }}/test_results
 
-    - name: Run Content.IntegrationTests
-      shell: pwsh
+    - name: Run Content.IntegrationTests (core)
       run: |
-        $env:DOTNET_gcServer=1
-        dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+        set -euo pipefail
+        timeout -k 30s 30m \
+          dotnet test --no-build --configuration "${CONFIG}" \
+          Content.IntegrationTests/Content.IntegrationTests.csproj \
+          --settings Content.IntegrationTests/ci-core.runsettings \
+          -- \
+          NUnit.ConsoleOut=1 \
+          NUnit.MapWarningTo=Failed \
+          NUnit.TestOutputXml=logs \
+          NUnit.WorkDirectory="${GITHUB_WORKSPACE}/test_results"
 
     - name: Print failed tests
       if: always()
@@ -84,19 +103,195 @@ jobs:
 
         if ($count -eq 0) { Write-Host "No failed or warning tests in NUnit xml." }
 
-    - name: Archive NUnit3 test results.
+    - name: Archive core test results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: nunit3-results-${{ matrix.os }}
-        path: test_results/*
+        name: nunit3-results-core
+        path: test_results/**
         retention-days: 7
+        if-no-files-found: ignore
         compression-level: 9
+
+  maps:
+    needs: core
+    if: github.actor != 'IanComradeBot' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    - name: Setup Submodule
+      run: git submodule update --init --recursive
+
+    - name: Pull engine updates
+      uses: space-wizards/submodule-dependency@v0.1.5
+
+    - name: Update Engine Submodules
+      run: |
+        cd RobustToolbox/
+        git submodule update --init --recursive
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration ${{ env.CONFIG }} --no-restore /m
+
+    - name: Run Content.IntegrationTests (maps)
+      run: |
+        set -euo pipefail
+        timeout -k 30s 100m \
+          dotnet test --no-build --configuration "${CONFIG}" \
+          Content.IntegrationTests/Content.IntegrationTests.csproj \
+          --settings Content.IntegrationTests/ci-maps.runsettings \
+          -- \
+          NUnit.ConsoleOut=1 \
+          NUnit.MapWarningTo=Failed \
+          NUnit.TestOutputXml=logs \
+          NUnit.WorkDirectory="${GITHUB_WORKSPACE}/test_results"
+
+    - name: Print failed tests
+      if: always()
+      shell: pwsh
+      run: |
+        $files = Get-ChildItem -Path test_results -Filter *.xml -Recurse -ErrorAction SilentlyContinue
+        if (-not $files) {
+          Write-Host "No NUnit xml found."
+          exit 0
+        }
+
+        $count = 0
+        foreach ($file in $files) {
+          [xml]$doc = Get-Content -Raw -Path $file.FullName
+          foreach ($case in $doc.SelectNodes("//test-case[@result='Failed' or @result='Warning']")) {
+            $count++
+            $name = $case.GetAttribute("fullname")
+            if (-not $name) { $name = $case.GetAttribute("name") }
+            $result = $case.GetAttribute("result")
+            $node = $case.SelectSingleNode("failure/message")
+            if (-not $node) { $node = $case.SelectSingleNode("reason/message") }
+            $text = if ($node) { $node.InnerText.Trim() } else { "(no message)" }
+            if ($text.Length -gt 6000) { $text = $text.Substring(0, 6000) + "`n... truncated" }
+            Write-Host "==== $result $name ===="
+            Write-Host $text
+            Write-Host ""
+          }
+        }
+
+        if ($count -eq 0) { Write-Host "No failed or warning tests in NUnit xml." }
+
+    - name: Archive map test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: nunit3-results-maps
+        path: test_results/**
+        retention-days: 7
+        if-no-files-found: ignore
+        compression-level: 9
+
+  heavy:
+    needs: maps
+    if: github.actor != 'IanComradeBot' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    - name: Setup Submodule
+      run: git submodule update --init --recursive
+
+    - name: Pull engine updates
+      uses: space-wizards/submodule-dependency@v0.1.5
+
+    - name: Update Engine Submodules
+      run: |
+        cd RobustToolbox/
+        git submodule update --init --recursive
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration ${{ env.CONFIG }} --no-restore /m
+
+    - name: Run Content.IntegrationTests (heavy)
+      run: |
+        set -euo pipefail
+        timeout -k 30s 70m \
+          dotnet test --no-build --configuration "${CONFIG}" \
+          Content.IntegrationTests/Content.IntegrationTests.csproj \
+          --settings Content.IntegrationTests/ci-heavy.runsettings \
+          -- \
+          NUnit.ConsoleOut=1 \
+          NUnit.MapWarningTo=Failed \
+          NUnit.TestOutputXml=logs \
+          NUnit.WorkDirectory="${GITHUB_WORKSPACE}/test_results"
+
+    - name: Print failed tests
+      if: always()
+      shell: pwsh
+      run: |
+        $files = Get-ChildItem -Path test_results -Filter *.xml -Recurse -ErrorAction SilentlyContinue
+        if (-not $files) {
+          Write-Host "No NUnit xml found."
+          exit 0
+        }
+
+        $count = 0
+        foreach ($file in $files) {
+          [xml]$doc = Get-Content -Raw -Path $file.FullName
+          foreach ($case in $doc.SelectNodes("//test-case[@result='Failed' or @result='Warning']")) {
+            $count++
+            $name = $case.GetAttribute("fullname")
+            if (-not $name) { $name = $case.GetAttribute("name") }
+            $result = $case.GetAttribute("result")
+            $node = $case.SelectSingleNode("failure/message")
+            if (-not $node) { $node = $case.SelectSingleNode("reason/message") }
+            $text = if ($node) { $node.InnerText.Trim() } else { "(no message)" }
+            if ($text.Length -gt 6000) { $text = $text.Substring(0, 6000) + "`n... truncated" }
+            Write-Host "==== $result $name ===="
+            Write-Host $text
+            Write-Host ""
+          }
+        }
+
+        if ($count -eq 0) { Write-Host "No failed or warning tests in NUnit xml." }
+
+    - name: Archive heavy test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: nunit3-results-heavy
+        path: test_results/**
+        retention-days: 7
+        if-no-files-found: ignore
+        compression-level: 9
+
   ci-success:
     name: Build & Test Debug
-    needs:
-      - build
+    needs: [core, maps, heavy]
+    if: always() && github.actor != 'IanComradeBot' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: CI succeeded
-        run: exit 0
+      - name: Require all test jobs
+        run: |
+          echo "core=${{ needs.core.result }}"
+          echo "maps=${{ needs.maps.result }}"
+          echo "heavy=${{ needs.heavy.result }}"
+          test "${{ needs.core.result }}" = "success"
+          test "${{ needs.maps.result }}" = "success"
+          test "${{ needs.heavy.result }}" = "success"

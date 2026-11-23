@@ -10,6 +10,7 @@ using Robust.Shared.Prototypes;
 namespace Content.IntegrationTests.Tests;
 
 [TestFixture]
+[Category("CiMaps")]
 public sealed class SalvageTest : GameTest
 {
     /// <summary>
