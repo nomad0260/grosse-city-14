@@ -8,6 +8,7 @@ using Robust.Shared.GameObjects;
 namespace Content.IntegrationTests.Tests.GameRules;
 
 [TestFixture]
+[Category("CiHeavy")]
 public sealed class StartEndGameRulesTest : GameTest
 {
     public override PoolSettings PoolSettings => new PoolSettings

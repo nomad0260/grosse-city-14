@@ -27,6 +27,7 @@ namespace Content.IntegrationTests.Tests;
 /// create them.
 /// </summary>
 [TestFixture]
+[Category("CiHeavy")]
 public sealed class MaterialArbitrageTest : GameTest
 {
     // These sets are for selectively excluding recipes from arbitrage.

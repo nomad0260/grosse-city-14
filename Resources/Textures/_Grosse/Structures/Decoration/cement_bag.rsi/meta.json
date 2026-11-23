@@ -1,0 +1,15 @@
+{
+  "version": 1,
+    "license": "All right reserved",
+    "copyright": "Made for Stalker14, use with permission only, Make by ss14nekow for Stalker",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon",
+      "directions": 4
+    }
+  ]
+}

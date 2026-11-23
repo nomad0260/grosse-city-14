@@ -25,6 +25,7 @@
   startingGear: CMOGear
   icon: "JobIconChiefMedicalOfficer"
   supervisors: job-supervisors-captain
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Medical
   - Command

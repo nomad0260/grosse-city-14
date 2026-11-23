@@ -5,6 +5,7 @@
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
@@ -22,6 +23,7 @@
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemIronsandConcrete
@@ -40,6 +42,7 @@
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemIronsandConcreteMono
@@ -58,6 +61,7 @@
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemIronsandConcreteSmooth
@@ -75,6 +79,7 @@
   - 1.0
   baseTurf: Space
   isSubfloor: true
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepAsteroid
   friction: 1.5
@@ -92,6 +97,7 @@
   - 1.0
   baseTurf: Space
   isSubfloor: false
+  weather: true #Grosse-edit
   footstepSounds:
     collection: FootstepTile
   friction: 1.5

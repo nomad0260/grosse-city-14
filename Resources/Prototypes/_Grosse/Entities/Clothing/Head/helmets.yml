@@ -7,9 +7,9 @@
   description: Military-grade helmet for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/helmets/ota.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/ota.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/helmets/ota.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/ota.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -19,15 +19,26 @@
         Heat: 0.8
   - type: ExplosionResistance
     damageCoefficient: 0.8
-  - type: ToggleableClothing
-    action: ActionToggleSuitPiece
-    clothingPrototype: ClothingMaskOTAC17
-    slot: mask
-    requiredSlot:
-    - head
-  - type: ContainerContainer
-    containers:
-      toggleable-clothing: !type:ContainerSlot {}
+  - type: ClothingRequiredSlots
+    slots: [mask, eyes]
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: Tag
+    tags:
+    - TranshumanGear
+    - HelmetEVA
+    - WhitelistChameleon
+#  - type: ToggleableClothing
+#    action: ActionToggleSuitPiece
+#    clothingPrototype: ClothingMaskOTAC17
+#    slot: mask
+#    requiredSlot:
+#    - head
+#  - type: ContainerContainer
+#    containers:
+#      toggleable-clothing: !type:ContainerSlot {}
 
 - type: entity
   parent: ClothingHeadOTAC17
@@ -36,11 +47,11 @@
   description: Military-grade helmet for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/helmets/shotgunner.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/otashotgunner.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/helmets/shotgunner.rsi
-  - type: ToggleableClothing
-    clothingPrototype: ClothingMaskOTAC17Shotgunner
+    sprite: _Grosse/Clothing/Head/Helmets/otashotgunner.rsi
+  #- type: ToggleableClothing
+  #  clothingPrototype: ClothingMaskOTAC17Shotgunner
 
 - type: entity
   parent:
@@ -64,6 +75,7 @@
     slots:
     - HeadSide
   #- type: ToggleableClothing
+  #  action: ActionToggleSuitPiece
   #  clothingPrototype: ClothingMaskCPC17
   #  slot: mask
   #  requiredSlot:
@@ -71,6 +83,19 @@
   #- type: ContainerContainer
   #  containers:
   #    toggleable-clothing: !type:ContainerSlot {}
+
+- type: entity
+  parent: ClothingHeadCPC17
+  id: ClothingHeadCPEliteC17
+  name: overwatch CP unit helmet
+  description: Police helmet for civil protection overwatch units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+  - type: Clothing
+    sprite: _Grosse/rsi/hlstaff/helmets/cp.rsi
+  #- type: ToggleableClothing
+  #  clothingPrototype: ClothingMaskCPSeCC17
 
 - type: entity
   parent:
@@ -81,9 +106,9 @@
   description: Military-grade helmet for special overwatch units.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/helmets/otaking.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/otaking.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/helmets/otaking.rsi
+    sprite: _Grosse/Clothing/Head/Helmets/otaking.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -93,15 +118,21 @@
         Heat: 0.8
   - type: ExplosionResistance
     damageCoefficient: 0.8
-  - type: ToggleableClothing
-    action: ActionToggleSuitPiece
-    clothingPrototype: ClothingMaskOTAEliteC17
-    slot: mask
-    requiredSlot:
-    - head
-  - type: ContainerContainer
-    containers:
-      toggleable-clothing: !type:ContainerSlot {}
+  - type: EyeProtection
+  - type: FlashImmunity
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: ClothingRequiredSlots
+    slots: [mask]
+  #- type: ToggleableClothing
+  #  action: ActionToggleSuitPiece
+  #  clothingPrototype: ClothingMaskOTAEliteC17
+  #  slot: mask
+  #  requiredSlot:
+  #  - head
+  #- type: ContainerContainer
+  #  containers:
+  #    toggleable-clothing: !type:ContainerSlot {}
 
 - type: entity
   parent:
@@ -163,6 +194,17 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: ClothingHeadCapMVD
+  name: MVD Cap
+  description: Cap for MVD units.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/cap.rsi
 
 - type: entity
   parent: ClothingHeadHelmetBase

@@ -123,3 +123,9 @@
 
 - type: Tag
   id: CartridgeImpulse
+
+- type: Tag
+  id: TranshumanGear
+
+- type: Tag
+  id: ImmovableObject

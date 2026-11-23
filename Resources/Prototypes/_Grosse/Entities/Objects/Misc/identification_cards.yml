@@ -193,6 +193,29 @@
 
 - type: entity
   parent: UnionIDCard
+  id: UnionIDCardOTASoldierLeader
+  name: union OTA Soldier ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: id_combine
+  - type: IdCard
+    jobTitle: job-title-ota-soldier
+    jobIcon: JobIconUnionCommander
+  - type: FactionClothing
+    faction: UniversalUnion
+  - type: Access
+    tags:
+    - UnionBase
+    - Engineering
+    - UnionCP
+    - UnionOTA
+    - UnionAdmin
+    - UnionBaseSector
+    - UnionCPArmory
+
+- type: entity
+  parent: UnionIDCard
   id: UnionIDCardOTASoldierElite
   name: union OTA Elite Soldier ID card
   components:

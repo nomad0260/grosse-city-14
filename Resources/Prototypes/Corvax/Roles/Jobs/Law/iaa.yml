@@ -3,6 +3,7 @@
   name: job-name-iaa
   description: job-description-iaa
   playTimeTracker: JobIAA
+  overrideConsoleVisibility: false
   requirements:
   - !type:DepartmentTimeRequirement
     department: Command

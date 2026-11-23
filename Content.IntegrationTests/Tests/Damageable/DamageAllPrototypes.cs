@@ -13,6 +13,7 @@ using Robust.Shared.Map;
 namespace Content.IntegrationTests.Tests.Damageable;
 
 [TestFixture]
+[Category("CiHeavy")]
 [TestOf(typeof(DamageableComponent))]
 [TestOf(typeof(DamageableSystem))]
 public sealed class DamageAllPrototypesTest : GameTest

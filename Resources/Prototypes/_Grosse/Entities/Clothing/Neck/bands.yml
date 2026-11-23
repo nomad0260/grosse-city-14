@@ -1,0 +1,39 @@
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckRebelBand
+  name: Rebel armored band
+  description: Damn, it feels good to be a rebel.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Neck/armor.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Neck/armor.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.95
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckMedicBand
+  name: medic band
+  description: You look like a real doctor!
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Neck/bandage_krest.rsi
+  - type: Clothing
+    sprite: _Grosse/Clothing/Neck/bandage_krest.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckTieMVD
+  name: MVD Tie
+  description: Tie for MVD.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi
+  - type: Clothing
+    sprite: _Grosse/Entities/Clothing/mvd/tie.rsi

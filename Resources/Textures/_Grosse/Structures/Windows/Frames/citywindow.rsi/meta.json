@@ -1,0 +1,31 @@
+{
+    "version": 1,
+    "license": "Grosse Private Licence",
+    "copyright": "Made for Grosse-city-14 Project by yri_nouri (discord)",
+    "size": {
+        "x": 32,
+        "y": 64
+    },
+    "states": [
+        {
+            "name": "windows1",
+            "directions": 4
+        },
+        {
+            "name": "windows2",
+            "directions": 4
+        },
+        {
+            "name": "windows3",
+            "directions": 4
+        },
+        {
+            "name": "windows4",
+            "directions": 4
+        },
+        {
+            "name": "windows5",
+            "directions": 4
+        }
+    ]
+}

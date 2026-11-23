@@ -38,8 +38,6 @@
   - type: RandomHumanoidAppearance
     randomizeName: false
   - type: MindShield
-  - type: ShowJobIcons
-  - type: ShowMindShieldIcons
   - type: Temperature
   - type: TemperatureDamage
     damageCap: 0
@@ -77,8 +75,6 @@
   - type: NpcFactionMember
     factions:
       - UniversalUnion
-  - type: ShowJobIcons
-  - type: ShowMindShieldIcons
   - type: IdBind
   - type: GrosseHeldGunBonus
     angleDecay: 20
@@ -126,7 +122,7 @@
       - NamesMilitaryCMBLeaderLast
     nameFormat: name-format-combine-soldier
   - type: Loadout
-    prototypes: [OTAAR2Gear]
+    prototypes: [OTALeaderGear]
   - type: MindShield
   - type: Tag
     tags:

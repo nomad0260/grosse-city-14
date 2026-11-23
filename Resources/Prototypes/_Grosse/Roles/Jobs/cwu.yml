@@ -3,7 +3,7 @@
   name: job-title-cmb-worker
   description: job-title-cmb-worker-description
   playTimeTracker: JobWorkerC17
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CMBWorkerNotReadyGear
@@ -17,13 +17,10 @@
       species:
       - Human
 
-- type: playTimeTracker
-  id: JobWorkerC17
-
 - type: job
   id: CWUDoctor
-  name: job-name-doctor
-  description: job-description-doctor
+  name: job-name-cwu-doctor
+  description: job-cwu-doctor-description
   playTimeTracker: JobCWUDoctor
   startingGear: CWUMedicGear
   icon: "JobIconMedicalDoctor"
@@ -34,47 +31,56 @@
   - !type:GiveItemOnHolidaySpecial
     holiday: DoctorDay
     prototype: WehMedipen
-
-- type: playTimeTracker
-  id: JobCWUDoctor
+  requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
+    - !type:SpeciesRequirement
+      species:
+      - Human
 
 - type: job
   id: CWUEngineer
   name: job-title-cmb-engineer
   description: job-title-cmb-engineer-description
   playTimeTracker: JobCWUEngineerC17
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
-  startingGear: CMBWorkerNotReadyGear
+  startingGear: CWUEngineer
   icon: "JobIconUnionPerson"
   supervisors: job-supervisors-gsr-and-factory
   access:
     - UnionBase
     - Engineering
   requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
     - !type:SpeciesRequirement
       species:
       - Human
-
-- type: playTimeTracker
-  id: JobCWUEngineerC17
-
-- type: playTimeTracker
-  id: JobUnionWorkersHead
 
 - type: job
   id: UnionWorkersHead
   name: Глава ГСР
   description: Руководи Гражданским Союзом Рабочих
   playTimeTracker: JobUnionWorkersHead
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: HeadUnionWorker
   icon: "JobIconUnionGrey"
   supervisors: job-supervisors-city-administrator
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14HighRole
+      time: 5h
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
+    - !type:OverallPlaytimeRequirement
+      time: 15h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -92,22 +98,22 @@
     - type: NpcFactionMember
       factions:
       - UniversalUnion
-
-- type: playTimeTracker
-  id: JobUnionFactoryHead
 
 - type: job
   id: UnionFactoryHead
   name: Начальник Завода
   description: Руководи Заводским Районом
   playTimeTracker: JobUnionFactoryHead
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: UnionFactoryHead
   icon: "JobIconUnionGrey"
   supervisors: job-supervisors-city-administrator
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -126,15 +132,12 @@
       factions:
       - UniversalUnion
 
-- type: playTimeTracker
-  id: JobUnionResearcher
-
 - type: job
   id: UnionResearcher
   name: Старший Внешний Сотрудник
   description: Назначай работы происходящие вне города.
   playTimeTracker: JobUnionResearcher
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CMBWorkerResearcherGear
@@ -146,6 +149,9 @@
     - Engineering
     - UnionAdmin
   requirements:
+    - !type:DepartmentTimeRequirement
+      department: City14
+      time: 5h
     - !type:SpeciesRequirement
       species:
       - Human
@@ -154,15 +160,12 @@
     components:
     - type: AntagImmune
 
-- type: playTimeTracker
-  id: JobUnionMiner
-
 - type: job
   id: UnionMiner
   name: Внешний Сотрудник
   description: Выполняй работы вне города.
   playTimeTracker: JobUnionMiner
-  applyTraits: false
+  applyTraits: true
   joinNotifyCrew: false
   overrideConsoleVisibility: true
   startingGear: CMBWorkerMinerGear
@@ -172,6 +175,9 @@
     - UnionBase
     - Engineering
   requirements:
+    #- !type:DepartmentTimeRequirement
+    #  department: City14
+    #  time: 1h
     - !type:SpeciesRequirement
       species:
       - Human

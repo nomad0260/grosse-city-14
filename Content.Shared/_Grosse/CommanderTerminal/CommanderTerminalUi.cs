@@ -19,19 +19,22 @@ public sealed class CommanderTerminalState : BoundUserInterfaceState, IEquatable
     public List<CommanderMember> Members { get; }
     public List<CommanderGroup> Groups { get; }
     public List<CommanderFloor> Floors { get; }
+    public bool CommandsEnabled { get; }
 
     public CommanderTerminalState(
         string stationName,
         NetEntity? consoleGrid,
         List<CommanderMember> members,
         List<CommanderGroup> groups,
-        List<CommanderFloor> floors)
+        List<CommanderFloor> floors,
+        bool commandsEnabled)
     {
         StationName = stationName;
         ConsoleGrid = consoleGrid;
         Members = members;
         Groups = groups;
         Floors = floors;
+        CommandsEnabled = commandsEnabled;
     }
 
     public bool Equals(CommanderTerminalState? other)
@@ -39,6 +42,7 @@ public sealed class CommanderTerminalState : BoundUserInterfaceState, IEquatable
         return other != null
                && StationName == other.StationName
                && ConsoleGrid == other.ConsoleGrid
+               && CommandsEnabled == other.CommandsEnabled
                && Members.SequenceEqual(other.Members)
                && Groups.SequenceEqual(other.Groups)
                && Floors.SequenceEqual(other.Floors);
@@ -54,6 +58,7 @@ public sealed class CommanderTerminalState : BoundUserInterfaceState, IEquatable
         var hash = new HashCode();
         hash.Add(StationName);
         hash.Add(ConsoleGrid);
+        hash.Add(CommandsEnabled);
         foreach (var member in Members)
             hash.Add(member);
         foreach (var group in Groups)

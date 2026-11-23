@@ -294,6 +294,7 @@
   id: ClothingHeadsetWizard
   name: wizard headset
   description: A headset used by the dreaded space wizards.
+  categories: [ HideSpawnMenu ]
   components:
     - type: ContainerFill
       containers:

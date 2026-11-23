@@ -1,0 +1,111 @@
+- type: entity
+  parent: BaseStructure
+  id: BaseFenceMetalC17
+  name: стальная решетка
+  description: Металлическое ограждение, отгораживающее что-то, вероятно, очень важное.
+  abstract: true
+  components:
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path:
+          "/Audio/Weapons/grille_hit.ogg"
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Walls/fence.rsi
+    drawdepth: Mobs
+    offset: "0, 0.3"
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    anchored: true
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: InteractionPopup
+    interactSuccessString: fence-rattle-success
+    messagePerceivedByOthers: fence-rattle-success
+    interactSuccessSound:
+      collection: FenceRattle
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseFenceMetalC17
+  id: FenceMetalStraightC17
+  suffix: Прямой
+  components:
+  - type: Sprite
+    layers:
+    - state: straight
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.10,-0.5,0.10,0.5"
+        density: 1000
+        mask:
+        - FullTileMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
+- type: entity
+  parent: BaseFenceMetalC17
+  id: FenceMetalCornerC17
+  suffix: Угол
+  components:
+  - type: Sprite
+    layers:
+    - state: corner
+  - type: Fixtures
+    fixtures:
+      # needs two shapes to properly handle a triangle corner without weirdness
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.1,0.1,0.5"
+        density: 1000
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.1,-0.1,0.1"
+        density: 1000
+        mask:
+        - TableMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
+- type: entity
+  parent: BaseFenceMetalC17
+  id: FenceMetalEndC17
+  suffix: Конец
+  components:
+  - type: Sprite
+    layers:
+    - state: end
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.5,0.1,0.0"
+        density: 1000
+        mask:
+        - TableMask
+        layer:
+        - MidImpassable
+        - LowImpassable

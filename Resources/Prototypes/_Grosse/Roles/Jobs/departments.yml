@@ -19,6 +19,7 @@
   - Citizen
   - Worker
   - UnionMiner
+  - CWUEngineer
   - CWUDoctor
   - UnionResearcher
   - UnionFactoryHead
@@ -38,14 +39,26 @@
   - CivilProtactionUnitOfficer
 
 - type: department
+  id: City14HighRole
+  name: department-City14-high-role
+  description: department-City14-high-role-description
+  color: "Orange"
+  weight: -18
+  primary: false
+  roles:
+  - CivilProtactionUnitDispetcher
+  - CivilProtactionUnitJudge
+  - UnionResearcher
+  - UnionFactoryHead
+
+- type: department
   id: City14Command
   name: department-City14-command
   description: department-City14-command-description
   color: "Red"
-  weight: -18
+  weight: -19
   primary: false
   roles:
   - CivilProtactionUnitOfficer
-  - UnionFactoryHead
   - UnionWorkersHead
-  - UnionResearcher
+  - CityAdministrator

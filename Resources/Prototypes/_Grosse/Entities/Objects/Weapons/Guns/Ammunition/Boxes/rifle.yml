@@ -18,5 +18,6 @@
     capacity: 120
     proto: CartridgeRifleLight762x39
   - type: Item
+    size: Normal
     shape:
     - 0,0,1,1

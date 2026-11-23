@@ -2,6 +2,7 @@
   id: City14
   mapName: 'City 14'
   mapPath: /Maps/_Grosse/City14/city140.yml
+  fallback: true
   minPlayers: 0
   maxPlayers: 140
   maxRandomOffset: 0
@@ -18,6 +19,8 @@
             # ГСР
             Worker: [ 10, 10 ]
             UnionMiner: [ 10, 10 ]
+            CWUEngineer: [ 6, 6 ]
+            CWUDoctor: [ 4, 4 ]
             # Главы
             UnionResearcher: [ 1, 1 ]
             UnionFactoryHead: [ 1, 1 ]
@@ -39,7 +42,24 @@
           - /Maps/_Grosse/City14/city14-1.yml
           mapsAbove:
           - /Maps/_Grosse/City14/city141.yml
-          - /Maps/_Grosse/City14/city141.yml
+          - /Maps/_Grosse/City14/city142.yml
+          - /Maps/_Grosse/City14/city143.yml
+          zLevelsComponentOverrides:
+            - type: MapAtmosphere
+              space: False
+              mixture:
+                volume: 2500
+                immutable: True
+                temperature: 293.15
+                moles:
+                  Oxygen: 21.82478
+                  Nitrogen: 82.10312
+            - type: SunShadowCycle
+            - type: LightCycle
+              originalColor: "#ffed75"
+            - type: SunShadow
+            - type: MapLight
+              ambientLightColor: "#ffed75"
 
 - type: entity
   id: StandardCombineCity
@@ -50,6 +70,7 @@
     - BaseStationJobsSpawning
     - BaseStationRecords
     - BaseStationAlertLevels
+    - BaseStationAllEventsEligible
     - BaseCity14Jobs
   categories: [ HideSpawnMenu ]
   components:

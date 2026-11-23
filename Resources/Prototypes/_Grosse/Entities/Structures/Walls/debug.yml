@@ -1,0 +1,184 @@
+- type: entity
+  parent: BaseStructure
+  id: WallReinforcedDown
+  name: низкая стена
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/solid.rsi
+    drawdepth: BelowMobs
+  - type: Icon
+  - type: Damageable
+    damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: IconSmooth
+    key: walls
+    base: solid
+  - type: Appearance
+  - type: WallReplacementMarker
+  - type: Climbable
+    delay: 1
+  - type: StaticPrice
+    price: 150
+  - type: RadiationBlocker
+    resistance: 5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 80
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+  - type: Clickable
+  - type: PlaceableSurface
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepHull
+  - type: Tag
+    tags:
+    - ForceFixRotations
+
+- type: entity
+  parent: TableBase
+  id: WallSteelDown
+  name: низкая стена
+  suffix: Обычная
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/solid.rsi
+  - type: Icon
+    sprite: Structures/Walls/solid.rsi
+    state: rgeneric
+  - type: Damageable
+    damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: IconSmooth
+    key: walls
+    base: reinf_over
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ReinforcedWallVisuals.DeconstructionStage:
+        ReinforcedWallVisualLayers.Deconstruction:
+          -1: { visible: false }
+          0: { state: reinf_construct-0, visible: true}
+          1: { state: reinf_construct-1, visible: true}
+          2: { state: reinf_construct-2, visible: true}
+          3: { state: reinf_construct-3, visible: true}
+          4: { state: reinf_construct-4, visible: true}
+          5: { state: reinf_construct-5, visible: true}
+  - type: ReinforcedWallReplacementMarker
+  - type: Climbable
+    delay: 40
+  - type: StaticPrice
+    price: 150
+  - type: RadiationBlocker
+    resistance: 5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 80
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+
+- type: entity
+  id: InvisibleWall
+  parent: BaseStructure
+  name: вечная невидимая стена
+  description: Have we all become invisible?
+  suffix: Включите BB в панели песочницы
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: WallMount
+    arc: 360
+  - type: Tag
+    tags:
+      - ForceFixRotations
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb {}
+        mask:
+        - FullTileMask
+        layer:
+        - GlassAirlockLayer
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/cross.rsi
+    layers:
+    - state: green
+      shader: unshaded
+    - sprite: Structures/Furniture/Tables/frame.rsi
+      state: full
+      shader: unshaded
+  - type: Marker
+  - type: Airtight
+
+- type: entity
+  id: InvisibleDirectionalWall
+  parent: InvisibleWall
+  name: вечная невидимая направленная стена
+  components:
+  - type: WallMount
+    arc: 360
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,-0.28125"
+        mask:
+        - FullTileMask
+        layer:
+        - GlassAirlockLayer
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    layers:
+    - state: green
+      shader: unshaded
+    - sprite: Structures/Windows/directional.rsi
+      state: window
+      shader: unshaded
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+    airBlockedDirection:
+    - South
+  - type: RequireProjectileTarget
+    active: true

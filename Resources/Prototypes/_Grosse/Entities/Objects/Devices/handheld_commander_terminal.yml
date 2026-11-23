@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseHandheldComputer
+  id: HandheldCommanderTerminalC17
+  name: portable commander map
+  description: A pocket map of Civil Protection squads. It cannot edit groups or issue orders.
+  components:
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: _Grosse/Objects/Devices/PDA.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+  - type: ActivatableUI
+    inHandsOnly: true
+    singleUser: true
+    key: enum.CommanderTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CommanderTerminalUiKey.Key:
+        type: CommanderTerminalBoundUserInterface
+  - type: CommanderTerminal
+    commandsEnabled: false

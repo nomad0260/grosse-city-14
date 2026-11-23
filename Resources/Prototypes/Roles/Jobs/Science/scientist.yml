@@ -10,6 +10,7 @@
   startingGear: ScientistGear
   icon: "JobIconScientist"
   supervisors: job-supervisors-rd
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Research
   - Maintenance

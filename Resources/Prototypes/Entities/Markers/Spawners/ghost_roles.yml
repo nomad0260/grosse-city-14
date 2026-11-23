@@ -18,6 +18,7 @@
   name: ghost role spawn point
   suffix: rat king
   parent: MarkerBase
+  categories: [ HideSpawnMenu ]
   components:
   - type: GhostRole
     name: ghost-role-information-rat-king-name

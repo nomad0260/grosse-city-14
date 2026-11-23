@@ -22,11 +22,13 @@
     damageModifierSet: Wood
   - type: Injurable
     damageContainer: StructuralInorganic
+  - type: CollisionWake
+    enabled: false
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 100
+        damage: 20
       behaviors:
       - !type:EmptyAllContainersBehaviour
       - !type:SpawnEntitiesBehavior
@@ -74,8 +76,7 @@
         shape:
           !type:PhysShapeCircle
           radius: 0.3
-        # very not dense to make it easy to pull
-        density: 20
+        density: 150
         mask:
         - MachineMask
         layer:

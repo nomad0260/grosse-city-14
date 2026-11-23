@@ -533,6 +533,7 @@
   id: ClothingHeadHatRedwizard
   name: red wizard hat
   description: A strange-looking red hat that most certainly belongs to a powerful magic-user.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/redwizard.rsi
@@ -814,6 +815,7 @@
   id: ClothingHeadHatWizard
   name: wizard hat
   description: A strange-looking blue hat that most certainly belongs to a powerful magic-user.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/wizardhat.rsi
@@ -1542,6 +1544,7 @@
   id: ClothingHeadHatMitreClown
   name: honkmother mitre
   description: It's hard for parishoners to see a banana peel on the floor when they're looking up at your glorious chapeau.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/mitre_clown.rsi

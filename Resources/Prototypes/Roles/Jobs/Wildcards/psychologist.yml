@@ -6,6 +6,7 @@
   startingGear: PsychologistGear
   icon: "JobIconPsychologist"
   supervisors: job-supervisors-cmo
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Medical
   - Maintenance

@@ -29,6 +29,7 @@
   id: ClothingShoesClown
   name: clown shoes
   description: "The prankster's standard-issue clowning shoes. Damn they're huge!"
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Shoes/Specific/clown.rsi

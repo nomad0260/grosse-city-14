@@ -56,6 +56,7 @@
   id: ClothingBackpackDuffelClown
   name: clown duffel bag
   description: A large duffel bag for holding extra honk goods.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Back/Duffels/clown.rsi

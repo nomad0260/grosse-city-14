@@ -1,0 +1,39 @@
+- type: job
+  id: CityAdministrator
+  name: job-title-city-administrator
+  description: job-title-city-administrator-description
+  playTimeTracker: JobCityAdministrator
+  applyTraits: false
+  joinNotifyCrew: false
+  overrideConsoleVisibility: true
+  startingGear: CityAdministratorGear
+  icon: "JobIconUnionGold"
+  supervisors: job-supervisors-our-benefactors
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 20h
+    - !type:DepartmentTimeRequirement
+      department: City14Command
+      time: 5h
+    - !type:RoleTimeRequirement
+      role: JobCivilianC17
+      time: 5h
+    - !type:SpeciesRequirement
+      species:
+      - Human
+  access:
+    - UnionBase
+    - UnionBaseSector
+    - UnionCPArmory
+    - UnionCP
+    - Engineering
+    - UnionAdmin
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: NpcFactionMember
+      factions:
+      - UniversalUnion
