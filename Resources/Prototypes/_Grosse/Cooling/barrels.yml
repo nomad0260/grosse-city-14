@@ -30,5 +30,10 @@
   - type: RadiationBlockingContainer
     resistance: 300
   - type: DarkCoreSpentCartridgeBarrel
+  # Собственный состав: наследованный от родителя стальной лом (3000) дороже крафта и цены.
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+      Plastic: 100
   - type: StaticPrice
     price: 350

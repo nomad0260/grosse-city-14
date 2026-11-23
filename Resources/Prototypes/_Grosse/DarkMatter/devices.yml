@@ -34,7 +34,14 @@
     state: icon
   - type: DarkMatterMachine
     kind: Analyzer
+    slot:
+      name: образец
   - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      dark_matter_slot: !type:ContainerSlot
   - type: Machine
     board: DarkMatterSubstanceAnalyzerCircuitboard
   - type: ApcPowerReceiver
@@ -57,7 +64,29 @@
     color: "#FFCE73"
   - type: DarkMatterMachine
     kind: Synthesizer
+    liquidSlot:
+      name: жидкость
+      whitelist:
+        components:
+        - FitsInDispenser
+    oreSlot:
+      name: сырьё
+      whitelist:
+        components:
+        - Material
+    clotSlot:
+      name: сгусток тёмной материи
+      whitelist:
+        components:
+        - DarkMatterClot
   - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      dark_matter_liquid: !type:ContainerSlot
+      dark_matter_ore: !type:ContainerSlot
+      dark_matter_clot: !type:ContainerSlot
   - type: Machine
     board: DarkMatterSynthesizerCircuitboard
   - type: ApcPowerReceiver
@@ -75,6 +104,8 @@
   description: Интерфейс научного комплекса. Управляет анализатором и КС-1 «Матрица», хранит блюпринты и создаёт кристаллы.
   components:
   - type: ResearchTerminal
+  - type: Computer
+    board: DarkMatterResearchTerminalCircuitboard
   - type: Sprite
     layers:
     - map: ["computerLayerBody"]

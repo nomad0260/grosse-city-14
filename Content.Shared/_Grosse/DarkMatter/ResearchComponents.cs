@@ -165,11 +165,13 @@ public sealed partial class DarkMatterMachineComponent : Component
     public ItemSlot ClotSlot = new();
 
     /// <summary>The randomly selected liquid prototype required by the current synthesis order.</summary>
-    [DataField]
+    /// <remarks>Runtime state: it is re-rolled on spawn, so it must not be serialized.</remarks>
+    [ViewVariables]
     public string RequiredLiquidId = string.Empty;
 
     /// <summary>The randomly selected solid prototype required by the current synthesis order.</summary>
-    [DataField]
+    /// <remarks>Runtime state: it is re-rolled on spawn, so it must not be serialized.</remarks>
+    [ViewVariables]
     public string RequiredOreId = string.Empty;
 }
 

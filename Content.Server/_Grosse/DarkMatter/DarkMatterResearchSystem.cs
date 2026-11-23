@@ -80,19 +80,13 @@ public sealed partial class DarkMatterResearchSystem : EntitySystem
 
     private void OnMachineInit(EntityUid uid, DarkMatterMachineComponent machine, ComponentInit args)
     {
+        // Slot names and whitelists are declared in the prototypes, so spawning must not change them.
         if (machine.Kind != DarkMatterMachineKind.Synthesizer)
         {
-            machine.Slot.Name = "образец";
             _slots.AddItemSlot(uid, DarkMatterMachineComponent.SlotId, machine.Slot);
             return;
         }
 
-        machine.LiquidSlot.Name = "жидкость";
-        machine.LiquidSlot.Whitelist = new EntityWhitelist { Components = new[] { "FitsInDispenser" } };
-        machine.OreSlot.Name = "сырьё";
-        machine.OreSlot.Whitelist = new EntityWhitelist { Components = new[] { "Material" } };
-        machine.ClotSlot.Name = "сгусток тёмной материи";
-        machine.ClotSlot.Whitelist = new EntityWhitelist { Components = new[] { "DarkMatterClot" } };
         _slots.AddItemSlot(uid, DarkMatterMachineComponent.LiquidSlotId, machine.LiquidSlot);
         _slots.AddItemSlot(uid, DarkMatterMachineComponent.OreSlotId, machine.OreSlot);
         _slots.AddItemSlot(uid, DarkMatterMachineComponent.ClotSlotId, machine.ClotSlot);
