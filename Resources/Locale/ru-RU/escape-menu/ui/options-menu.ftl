@@ -8,6 +8,7 @@ ui-options-tab-controls = Управление
 ui-options-tab-audio = Аудио
 ui-options-tab-network = Сеть
 ui-options-tab-misc = Основные
+ui-options-tab-music = Музыка
 
 ui-options-apply = Сохранить и применить
 ui-options-reset-all = Сброс изменений
@@ -40,6 +41,20 @@ ui-options-event-music = Музыка событий
 ui-options-admin-sounds = Музыка админов
 ui-options-bwoink-sound = Звук уведомления Ахелпа
 ui-options-volume-label = Громкость
+
+## Music player menu
+
+ui-options-player-heading = Плеер
+ui-options-player-nothing = Тишина
+ui-options-player-track-unknown = Трек 1
+ui-options-player-previous = Назад
+ui-options-player-play = Играть
+ui-options-player-pause = Пауза
+ui-options-player-next = Далее
+ui-options-player-state-playing = Играет
+ui-options-player-state-paused = Пауза
+ui-options-player-state-idle = Ожидание
+ui-options-player-hint = Переключает музыку города. Звучит только во время раунда; ползунок выше меняет громкость сразу.
 
 ## Graphics menu
 

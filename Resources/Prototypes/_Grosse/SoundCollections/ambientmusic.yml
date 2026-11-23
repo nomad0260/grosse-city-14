@@ -1,0 +1,42 @@
+# Эмбиент города для GrosseAmbientMusicSystem.
+# Громкость этого слоя берётся из настройки «Громкость музыки окружения».
+#
+# Это только список треков: сами файлы в репозитории не лежат, их отдаёт сервер из папки
+# grosse.ambient_music.directory (по умолчанию data/ambient_music рядом с сервером).
+# Имена отсюда должны совпадать с содержимым этой папки, поэтому при добавлении трека
+# дописываем его здесь. Все треки в OGG Vorbis.
+- type: soundCollection
+  id: GrosseCityAmbient
+  files:
+    - /_Grosse/Music/ambient_1.ogg
+    - /_Grosse/Music/ambient_3.ogg
+    - /_Grosse/Music/ambient_4.ogg
+    - /_Grosse/Music/ambient_5.ogg
+    - /_Grosse/Music/ambient_6.ogg
+    - /_Grosse/Music/ambient_7.ogg
+    - /_Grosse/Music/ambient_8.ogg
+    - /_Grosse/Music/ambient_9.ogg
+    - /_Grosse/Music/ambient_10.ogg
+    - /_Grosse/Music/ambient_11.ogg
+    - /_Grosse/Music/ambient_13.ogg
+    - /_Grosse/Music/ambient_14.ogg
+    - /_Grosse/Music/ambient_16.ogg
+    - /_Grosse/Music/ambient_18.ogg
+    - /_Grosse/Music/ambient_20.ogg
+    - /_Grosse/Music/ambient_22.ogg
+    - /_Grosse/Music/ambient_23.ogg
+    - /_Grosse/Music/ambient_25.ogg
+    - /_Grosse/Music/ambient_26.ogg
+    - /_Grosse/Music/ambient_27.ogg
+    - /_Grosse/Music/ambient_28.ogg
+    - /_Grosse/Music/ambient_29.ogg
+    - /_Grosse/Music/ambient_30.ogg
+    - /_Grosse/Music/ambient_31.ogg
+    - /_Grosse/Music/ambient_32.ogg
+    - /_Grosse/Music/ambient_33.ogg
+    - /_Grosse/Music/ambient_34.ogg
+    - /_Grosse/Music/ambient_35.ogg
+    - /_Grosse/Music/ambient_36.ogg
+    - /_Grosse/Music/ambient_37.ogg
+    - /_Grosse/Music/ambient_38.ogg
+    - /_Grosse/Music/ambient_39.ogg
