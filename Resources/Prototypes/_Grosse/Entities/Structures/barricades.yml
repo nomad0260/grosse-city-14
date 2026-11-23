@@ -302,6 +302,9 @@
           MaterialWoodPlank1:
             min: 2
             max: 4
+  - type: Construction
+    graph: Barricade17
+    node: barricadefull
   - type: Tag
     tags:
       - Structure

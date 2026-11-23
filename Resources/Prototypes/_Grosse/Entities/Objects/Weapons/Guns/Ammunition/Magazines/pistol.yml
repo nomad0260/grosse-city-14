@@ -49,3 +49,26 @@
       - state: inhand-right-mag
     shape:
     - 0,0,0,1
+
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineSelfmadeSMGMagC17
+  name: самодельный магазин ПП
+  description: Простейший механизм подачи боеприпасов, металическая рама, пружинка и небольшой лист метала на пружинку. Осталось найти патроны.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 20
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/smgmagSM.rsi
+    scale: 0.8,0.8
+  - type: Item
+    shape:
+    - 0,0,0,1
+
+- type: entity
+  parent: MagazineSelfmadeSMGMagC17
+  id: MagazineSelfmadeSMGMagEmptyC17
+  components:
+  - type: BallisticAmmoProvider
+    proto: null

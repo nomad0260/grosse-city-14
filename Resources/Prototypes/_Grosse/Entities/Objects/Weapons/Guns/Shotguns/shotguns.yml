@@ -58,3 +58,56 @@
     spread: 0.6
   - type: BallisticAmmoProvider
     capacity: 2
+
+- type: entity
+  name: самодельный ручной дробовик
+  parent: WeaponFlareGun
+  id: WeaponShotgunSelfmadeMini
+  description: An immortal classic. Uses .50 shotgun shells.
+  suffix: Дробовик, Оружие 17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/minishotgunSM.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/minishotgunSM.rsi
+  - type: Gun
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
+  - type: GunSpreadModifier
+    spread: 1
+  - type: ItemSlots
+    slots:
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags:
+             - ShellShotgun
+
+- type: entity
+  name: самодельный дробовик
+  parent: [BaseWeaponShotgun, BaseGunWieldable]
+  id: WeaponShotgunSelfmade
+  description: An immortal classic. Uses .50 shotgun shells.
+  suffix: Дробовик, Оружие 17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/shotgunSM/big.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    sprite: _Grosse/Objects/Weapons/Guns/Shotguns/shotgunSM/tiny.rsi
+    shape:
+    - 0,0,3,1
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 1
+  - type: GunSpreadModifier
+    spread: 1.5
+  - type: BallisticAmmoProvider
+    capacity: 6
+    proto: null

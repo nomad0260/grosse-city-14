@@ -126,3 +126,6 @@
 
 - type: Tag
   id: ImmovableObject
+
+- type: Tag
+  id: WoodenPieceSheet

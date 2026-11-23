@@ -9,7 +9,7 @@
     layers:
     - state: ironingot
   - type: Item
-    size: Large
+    size: Normal
     shape:
     - 0,0,1,1
   - type: Tag
@@ -37,9 +37,9 @@
     layers:
     - state: roundplate
   - type: Item
-    size: Large
+    size: Normal
     shape:
-    - 0,0,1,1
+    - 0,0,0,0
   - type: Tag
     tags:
     - roundingotPiece
@@ -67,7 +67,7 @@
   - type: Item
     size: Large
     shape:
-    - 0,0,0,1
+    - 0,0,0,0
   - type: Tag
     tags:
     - CMBScrab

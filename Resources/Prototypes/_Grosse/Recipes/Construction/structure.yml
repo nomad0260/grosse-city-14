@@ -1,0 +1,12 @@
+- type: construction
+  id: WoodenBarricade17
+  graph: Barricade17
+  startNode: start
+  targetNode: barricadefull
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
