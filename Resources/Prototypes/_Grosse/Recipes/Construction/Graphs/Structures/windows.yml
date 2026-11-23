@@ -1,0 +1,58 @@
+- type: constructionGraph
+  id: FrameWindows
+  start: start
+  graph:
+    - node: start
+      actions:
+        - !type:DeleteEntity {}
+      edges:
+        - to: WindowFrame
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          steps:
+            - material: MetalRod
+              amount: 2
+              doAfter: 1
+
+    - node: WindowFrameCrack
+      entity: FrameWindowCrackC17
+      edges:
+        - to: WindowFrame
+          completed:
+            - !type:SpawnPrototype
+                prototype: ShardGlass
+                amount: 2
+          steps:
+            - tool: Anchoring
+              doAfter: 1
+
+    - node: WindowFrame
+      entity: FrameWindowCrackWithoutShardsC17
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+                prototype: MaterialWoodPlank1
+                amount: 5
+          steps:
+            - tool: Anchoring
+              doAfter: 1
+
+        - to: WindowFrameWindowed
+          steps:
+            - material: Glass
+              amount: 4
+              doAfter: 1
+
+    - node: WindowFrameWindowed
+      entity: FrameWindowC17
+      edges:
+        - to: WindowFrame
+          completed:
+            - !type:SpawnPrototype
+                prototype: SheetGlass1
+                amount: 4
+          steps:
+            - tool: Anchoring
+              doAfter: 1

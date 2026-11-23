@@ -19,6 +19,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-2.5,0.8,2"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: GrosseCar
     engineForce: 100000
     brakeForce: 150000
@@ -128,6 +137,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-1.9,0.8,1.9"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: GrosseCar
     engineForce: 40000
     brakeForce: 100000
@@ -217,6 +235,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.8,-2,0.8,2"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: GrosseCar
     engineForce: 200000
     brakeForce: 350000
@@ -246,9 +273,16 @@
       path: /Audio/_Grosse/Vehicles/APC/apc_cruise_loop3.ogg
       params:
         loop: true
+    hitDamage:
+      types:
+        Blunt: 55
     selfDamage:
       types:
-        Blunt: 0
+        Blunt: 15
+    wallDamage:
+      types:
+        Blunt: 25
+    occupantDamageMultiplier: 0.1
     slots:
     - id: driver
       name: grosse-car-slot-driver

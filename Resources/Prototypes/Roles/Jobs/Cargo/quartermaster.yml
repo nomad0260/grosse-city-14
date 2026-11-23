@@ -23,6 +23,7 @@
   startingGear: QuartermasterGear
   icon: "JobIconQuarterMaster"
   supervisors: job-supervisors-captain
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Cargo
   - Salvage

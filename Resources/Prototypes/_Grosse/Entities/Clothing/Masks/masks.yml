@@ -22,16 +22,40 @@
     tankLowPressure: 30.0
 
 - type: entity
-  parent: ClothingMaskGas
+  parent: ClothingMaskBase
+  id: ClothingMaskUnionBase
+  name: gas mask
+  description: A face-covering mask that can be connected to an air supply.
+  components:
+  - type: Sprite
+    sprite: Clothing/Mask/gas.rsi
+  - type: Clothing
+    sprite: Clothing/Mask/gas.rsi
+  - type: Mask
+    enabled: false
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+
+- type: entity
+  parent: ClothingMaskUnionBase
   id: ClothingMaskOTAC17
   name: overwatch soldier unit gasmask
   description: A military-grade gas mask that can be connected to an air supply.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+    sprite: _Grosse/Clothing/Mask/ota.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/gasmask/ota.rsi
+    sprite: _Grosse/Clothing/Mask/ota.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -45,12 +69,14 @@
   - type: FlashImmunity
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
+  - type: Mask
+    enabled: false
   - type: Tag
     tags:
     - HidesHair
 
 - type: entity
-  parent: ClothingMaskGas
+  parent: ClothingMaskUnionBase
   id: ClothingMaskCPC17
   name: overwatch CP unit gasmask
   description: A Police gas mask that can be connected to an air supply.
@@ -83,18 +109,20 @@
     - Snout
   - type: VoiceMask
   - type: IdBoundVoiceMask
+  - type: Mask
+    enabled: true
 
 - type: entity
-  parent: ClothingMaskGas
+  parent: ClothingMaskOTAC17
   id: ClothingMaskOTAEliteC17
   name: overwatch soldier unit gasmask
   description: A military-grade gas mask that can be connected to an air supply.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/gasmask/otaking.rsi
+    sprite: _Grosse/Clothing/Mask/otaking.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/gasmask/otaking.rsi
+    sprite: _Grosse/Clothing/Mask/otaking.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -104,16 +132,9 @@
         Heat: 0.7
   - type: ExplosionResistance
     damageCoefficient: 0.7
-  - type: EyeProtection
-  - type: FlashImmunity
-  - type: ShowJobIcons
-  - type: ShowMindShieldIcons
-  - type: Tag
-    tags:
-    - HidesHair
 
 - type: entity
-  parent: ClothingMaskGas
+  parent: ClothingMaskUnionBase
   id: ClothingMaskWorkerC17
   name: CMB worker gasmask
   description: A worker gas mask that can be connected to an air supply.
@@ -155,14 +176,14 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/gasmask/shotgunner.rsi
+    sprite: _Grosse/Clothing/Mask/otashotgunner.rsi
   - type: Clothing
-    sprite: _Grosse/rsi/hlstaff/gasmask/shotgunner.rsi
+    sprite: _Grosse/Clothing/Mask/otashotgunner.rsi
 
 - type: entity
   parent: ClothingMaskCPC17
   id: ClothingMaskCPSeCC17
-  name: overwatch sectorial commander gasmask
+  name: overwatch high commander gasmask
   components:
   - type: Sprite
     sprite: _Grosse/rsi/hlstaff/gasmask/cpsec.rsi

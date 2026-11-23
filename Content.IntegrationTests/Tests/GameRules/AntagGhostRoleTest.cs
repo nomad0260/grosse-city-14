@@ -17,6 +17,8 @@ using Robust.Shared.Random;
 
 namespace Content.IntegrationTests.Tests.GameRules;
 
+[TestFixture]
+[Category("CiHeavy")]
 public sealed partial class AntagGhostRoleTest : AntagTest
 {
     public override PoolSettings PoolSettings => new()

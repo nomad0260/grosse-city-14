@@ -1,6 +1,6 @@
 - type: entity
   id: BathroomC17
-  parent: BaseStructure
+  parent: BaseStructureC17
   name: ванна
   description: Резервуар для обмывания и погружения разных частей тела в воду.
   components:
@@ -20,3 +20,16 @@
         - MachineMask
         layer:
         - WallLayer
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 5
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

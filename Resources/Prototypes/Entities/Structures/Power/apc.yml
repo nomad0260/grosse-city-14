@@ -23,7 +23,7 @@
   - type: AccessReader
     access: [["Engineering"]]
   - type: Sprite
-    drawdepth: WallMountedItems
+    drawdepth: OverMobs #grosse-edit
     sprite: Structures/Power/apc.rsi
     layers:
     - state: base

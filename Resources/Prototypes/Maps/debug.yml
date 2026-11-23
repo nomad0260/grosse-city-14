@@ -12,21 +12,69 @@
         - type: StationJobs
           availableJobs:
             Passenger: [ -1, -1 ]
+            Citizen: [ -1, -1 ] # Grosse-edit: default overflow job
+
+- type: entity
+  id: DevStation # Grosse-edit: NT station without an evac shuttle. Dev0 has no docking ports.
+  parent:
+    - BaseStation
+    - BaseStationGoal
+    - BaseStationNews
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationShuttles
+    - BaseStationCentcomm
+    - BaseStationAlertLevels
+    - BaseStationMagnet
+    - BaseStationExpeditions
+    - BaseStationSalvageJobs
+    - BaseStationSiliconLawNTDefault
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+    - BaseStationDeliveries
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Transform
 
 - type: gameMap
   id: Dev
   mapName: Dev
-  mapPath: /Maps/Test/dev_map.yml
+  mapPath: /Maps/_Grosse/Dev/Dev0.yml  # Grosse-edit
   minPlayers: 0
   stations:
     Dev:
-      stationProto: StandardNanotrasenStation
+      stationProto: DevStation # Grosse-edit
       components:
         - type: StationNameSetup
           mapNameTemplate: "Dev"
         - type: StationJobs
           availableJobs:
-            Captain: [ -1, -1 ]
+          # Grosse-edit-start
+            Worker: [ -1, -1 ]
+        - type: GrosseStationZLevels
+          mapsAbove:
+          - /Maps/_Grosse/Dev/Dev1.yml
+          - /Maps/_Grosse/Dev/Dev2.yml
+          zLevelsComponentOverrides:
+            - type: MapAtmosphere
+              space: False
+              mixture:
+                volume: 2500
+                immutable: True
+                temperature: 293.15
+                moles:
+                  Oxygen: 21.82478
+                  Nitrogen: 82.10312
+            - type: SunShadowCycle
+            - type: LightCycle
+              originalColor: "#ffed75"
+            - type: SunShadow
+            - type: MapLight
+              ambientLightColor: "#ffed75"
+          # Grosse-edit-end
 
 - type: gameMap
   id: TestTeg

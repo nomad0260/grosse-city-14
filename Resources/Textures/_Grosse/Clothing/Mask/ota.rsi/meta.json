@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by yri_nouri from Discord",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-MASK",
+      "directions": 4
+    }
+  ]
+}

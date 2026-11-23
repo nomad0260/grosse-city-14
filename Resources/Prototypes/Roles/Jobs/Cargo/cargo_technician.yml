@@ -6,6 +6,7 @@
   startingGear: CargoTechGear
   icon: "JobIconCargoTechnician"
   supervisors: job-supervisors-qm
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Cargo
   - Maintenance

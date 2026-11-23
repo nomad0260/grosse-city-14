@@ -23,7 +23,12 @@
     node: tubeLight
   - type: Sprite
     sprite: Structures/Wallmounts/Lighting/light_tube.rsi
-    drawdepth: WallMountedItems
+    #Grosse-edit-start
+    #drawdepth: WallMountedItems
+    drawdepth: OverMobs
+    offset: 0, 0.5
+    noRot: true
+    #Grosse-edit-end
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
       state: base

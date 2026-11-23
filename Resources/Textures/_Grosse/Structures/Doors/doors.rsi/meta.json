@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made by Nimfar11 (GitHub) for Space Station 14 & edited by github:Morb0",
+    "size": {
+        "x": 32,
+        "y": 48
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "closed",
+            "directions": 4
+        },
+        {
+           "name": "open",
+            "directions": 4
+        }
+    ]
+}

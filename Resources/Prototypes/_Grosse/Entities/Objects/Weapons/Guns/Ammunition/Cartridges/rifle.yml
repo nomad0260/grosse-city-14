@@ -28,7 +28,7 @@
   parent: BaseCartridgeRifleLightSniper
   components:
   - type: Sprite
-    scale: 0.8, 0.8
+    scale: 0.7, 0.7
   - type: CartridgeAmmo
     proto: BulletRifle762x39
   - type: Tag
@@ -41,10 +41,15 @@
   name: cartridge (7,62x54)
   parent: BaseCartridgeRifleLightSniper
   components:
-  - type: Sprite
-    scale: 0.8, 0.8
   - type: CartridgeAmmo
     proto: BulletLight762
+  - type: Sprite
+    scale: 0.8, 0.8
+    layers:
+    - state: 20combat
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: SpentAmmoVisuals
+    state: 20combat
   - type: Tag
     tags:
       - Cartridge

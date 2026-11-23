@@ -111,6 +111,15 @@
         - BulletImpassable
         layer:
         - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.7,-1.7,0.7,1.5"
+        hard: false
+        mask:
+        - MidImpassable
+        layer:
+        - MachineLayer
   - type: Storage
     grid:
     - 0,0,5,5

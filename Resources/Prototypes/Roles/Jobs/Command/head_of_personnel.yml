@@ -29,6 +29,7 @@
   startingGear: HoPGear
   icon: "JobIconHeadOfPersonnel"
   supervisors: job-supervisors-captain
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Command
   - HeadOfPersonnel

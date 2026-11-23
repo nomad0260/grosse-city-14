@@ -23,6 +23,7 @@
   startingGear: ChiefEngineerGear
   icon: "JobIconChiefEngineer"
   supervisors: job-supervisors-captain
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Maintenance
   - Engineering

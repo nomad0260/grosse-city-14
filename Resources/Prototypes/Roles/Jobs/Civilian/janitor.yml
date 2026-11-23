@@ -6,6 +6,7 @@
   startingGear: JanitorGear
   icon: "JobIconJanitor"
   supervisors: job-supervisors-hop
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Service
   - Janitor

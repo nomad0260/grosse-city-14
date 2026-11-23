@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "size": {
+    "x": 32,
+    "y": 128
+  },
+    "license": "Grosse Private Licence",
+    "copyright": "Made for Grosse-city-14 Project by yri_nouri",
+    "states":[
+    {
+      "name": "steel-stolb"
+    },
+    {
+      "name": "steel-stolb2"
+    },
+    {
+      "name": "stolb"
+    },
+    {
+      "name": "stolb2"
+    },
+    {
+      "name": "stolb3"
+    },
+    {
+      "name": "stolb4"
+    },
+    {
+      "name": "stolb5"
+    }
+  ]
+}
