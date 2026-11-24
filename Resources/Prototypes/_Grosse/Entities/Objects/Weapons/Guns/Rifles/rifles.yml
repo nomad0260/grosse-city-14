@@ -156,7 +156,13 @@
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ AKMag ]
+      visible: false
+    - state: mag-0
+      sprite: _Grosse/Objects/Weapons/Guns/SMGs/smgSMT2/big.rsi
+      offset: 0.0,0.03
+      map: [ SMGMag ]
+      visible: false
   - type: Clothing
     sprite: _Grosse/Objects/Weapons/Guns/Rifles/akSM/tiny.rsi
   - type: Item
@@ -189,6 +195,7 @@
         whitelist:
           tags:
             - MagazineLightRifle
+            - MagazinePistolSubMachineGun
       gun_chamber:
         name: Chamber
         priority: 1
@@ -199,10 +206,19 @@
     containers:
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-  - type: MagazineVisuals
-    magState: mag
-    steps: 1
-    zeroVisible: true
+  - type: ItemMapper
+    spriteLayers:
+    - AKMag
+    - SMGMag
+    mapLayers:
+      AKMag:
+        whitelist:
+          tags:
+          - MagazineLightRifle
+      SMGMag:
+        whitelist:
+          tags:
+          - MagazinePistolSubMachineGun
   - type: Appearance
   - type: Wieldable
   - type: UseDelay

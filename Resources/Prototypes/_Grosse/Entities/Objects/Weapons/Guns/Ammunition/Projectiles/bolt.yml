@@ -1,0 +1,112 @@
+- type: entity
+  parent: BaseItem
+  id: BaseCrossbowBolt
+  abstract: true
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/bolt.rsi
+    drawdepth: Mobs
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 5
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.1,-0.3,0.1,-0.1"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: EmbeddableProjectile
+    sound: /Audio/_Grosse/Weapons/Ranged/crossbow_hit1.ogg
+    embedOnThrow: false
+  - type: Ammo
+    muzzleFlash: null
+  - type: Tag
+    tags:
+    - CrossbowBolt
+  - type: Projectile
+    deleteOnCollide: false
+    onlyCollideWhenShot: true
+    #ignoreResistances: true #может сломать баланс, по идее
+    damage:
+      types:
+        Piercing: 80
+  - type: Appearance
+  - type: TimedDespawn #пропади все пропадом, будь ты проклят офф что занерфил луки!
+    lifetime: 10
+  - type: SpawnOnDespawn
+    prototype: CrossbowBoltCartridge
+  - type: TriggerOnEmbed
+    keyOut: Hit
+  - type: TriggerOnUnembed
+    keyOut: Removed
+  - type: DeleteOnTrigger
+    keysIn:
+    - Removed
+  - type: RemoveComponentsOnTrigger
+    targetUser: false
+    keysIn:
+    - Hit
+    components:
+    - type: TimedDespawn
+      lifetime: 10
+  - type: SpawnOnTrigger
+    proto: CrossbowBoltCartridge
+    keysIn:
+    - Removed
+
+- type: entity
+  parent: BaseCrossbowBolt
+  id: ImprovisedCrossbowBolt
+  name: bolt
+  description: You can feel the power of the steppe within you.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    layers:
+    - state: bolt
+
+- type: entity
+  parent: BaseItem
+  id: CrossbowBoltCartridge
+  name: bolt
+  description: You can feel the power of the steppe within you.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Ammunition/bolt.rsi
+    layers:
+    - state: Base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Item
+    size: Tiny
+    shape:
+    - 0,0,0,1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask:
+          - ItemMask
+        restitution: 0.3  # fite me
+        friction: 0.2
+  - type: CartridgeAmmo
+    proto: ImprovisedCrossbowBolt
+    deleteOnSpawn: true
+  - type: Tag
+    tags:
+    - CrossbowBolt

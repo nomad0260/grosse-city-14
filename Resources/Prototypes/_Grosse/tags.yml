@@ -129,3 +129,6 @@
 
 - type: Tag
   id: WoodenPieceSheet
+
+- type: Tag
+  id: CrossbowBolt
