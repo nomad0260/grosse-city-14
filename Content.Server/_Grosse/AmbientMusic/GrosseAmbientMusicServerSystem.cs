@@ -121,11 +121,9 @@ public sealed partial class GrosseAmbientMusicServerSystem : EntitySystem
 
         if (!Path.IsPathRooted(directory))
         {
+            // Integration tests and virtual filesystems have no physical UserData root; treat as unavailable.
             if (_res.UserData.RootDir is not { } root)
-            {
-                _sawmill.Error($"Cannot resolve the relative ambient music folder {directory}");
                 return false;
-            }
 
             directory = Path.Combine(root, directory);
         }
@@ -187,6 +185,10 @@ public sealed partial class GrosseAmbientMusicServerSystem : EntitySystem
         if (string.IsNullOrWhiteSpace(directory))
         {
             _sawmill.Info($"{CCVars.GrosseAmbientMusicDirectory.Name} is empty, the city ambience is off");
+        }
+        else if (!Path.IsPathRooted(directory) && _res.UserData.RootDir == null)
+        {
+            _sawmill.Info($"Ambient music folder {directory} is unavailable (no UserData root), the city ambience is off");
         }
         else
         {
