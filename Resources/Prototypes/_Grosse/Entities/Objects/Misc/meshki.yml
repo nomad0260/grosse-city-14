@@ -1,0 +1,42 @@
+- type: entity
+  id: MeshokC17
+  name: мешок
+  description: Вязанный мешок, на вид прочный.
+  parent: BaseItem
+  components:
+  - type: Tag
+    tags:
+      - Meshok
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _Grosse/Objects/Misc/meshok_sand.rsi
+    layers:
+    - state: meshoksand1
+
+- type: entity
+  id: MeshokPochvC17
+  name: мешок почвы
+  description: Довоенный мешок для садоводства, этикетку давно содрали, но на ткани все еще можно увидеть следы клея... Или что это?
+  parent: BaseItem
+  components:
+  - type: Tag
+    tags:
+      - MeshokPochv
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: _Grosse/Objects/Misc/meshok_pochv.rsi
+    layers:
+    - state: meshokpochv3
+
+- type: entity
+  id: MeshokPochvEmptyC17
+  name: мешок
+  description: Пустой Довоенный мешок для садоводства, этикетку давно содрали, но на ткани все еще можно увидеть следы клея... Или что это?
+  parent: MeshokC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Misc/meshok_pochv.rsi
+    layers:
+    - state: meshokpochv3

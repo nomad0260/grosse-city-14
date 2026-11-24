@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "license": "cc-by-sa-3.0",
+    "copyright": "Made by infrared_baron, palette was redacted ",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "meshoksand1"
+        },
+        {
+            "name": "meshoksand2"
+        },
+        {
+            "name": "meshoksand3"
+        }
+    ]
+}

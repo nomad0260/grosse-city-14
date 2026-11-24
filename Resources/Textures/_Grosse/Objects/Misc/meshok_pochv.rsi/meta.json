@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "license": "cc-by-sa-3.0",
+    "copyright": "Made by infrared_baron",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "meshokpochv1"
+        },
+        {
+            "name": "meshokpochv2"
+        },
+        {
+            "name": "meshokpochv3"
+        }
+    ]
+}
