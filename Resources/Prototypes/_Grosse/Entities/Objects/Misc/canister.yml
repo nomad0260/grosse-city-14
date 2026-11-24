@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ SolutionLarge, DrinkBaseMaterialStrongPlastic, DrinkBase, DrinkVisualsFill ]
+  parent: [ SolutionLarge, DrinkBaseMaterialStrongPlastic, DrinkBase ]
   id: CanisterС17
   name: канистра бензина
   description: Старая канистра для бензина, от сюда не понятно что в ней... Постой, может она  вообще пустая?
