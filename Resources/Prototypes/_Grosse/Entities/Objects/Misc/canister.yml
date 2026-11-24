@@ -38,7 +38,7 @@
 
 - type: entity
   parent: CanisterС17
-  id: CanisterWaterFullС17
+  id: CanisterFuelFullС17
   suffix: Full Fuel
   components:
   - type: Solution
