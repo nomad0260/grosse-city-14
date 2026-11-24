@@ -8,7 +8,7 @@
   - type: Sprite
     sprite: _Grosse/Structures/Walls/fence.rsi
     layers:
-    - state: end
+    - state: door-closed
       map: ["enum.DoorVisualLayers.Base"]
     - state: electrified
       sprite: Effects/electricity.rsi
@@ -30,8 +30,8 @@
         - LowImpassable
   - type: InteractionOutline
   - type: Door
-    openSpriteState: door_opened
-    closedSpriteState: door_closed
+    openSpriteState: door-opened
+    closedSpriteState: door-closed
     canPry: false
     occludes: false
     changeAirtight: false
