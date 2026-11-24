@@ -40,7 +40,7 @@
         spawn:
           SheetSteel1:
             min: 1
-            max: 1
+            max: 4
       - !type:DoActsBehavior
         acts: ["Destruction"]
 
@@ -115,3 +115,10 @@
         whitelist:
           tags:
           - KalashnikovGun
+  - type: ContainerContainer
+    containers:
+      weapon1: !type:ContainerSlot
+      weapon2: !type:ContainerSlot
+      weapon3: !type:ContainerSlot
+      weapon4: !type:ContainerSlot
+      weapon5: !type:ContainerSlot
