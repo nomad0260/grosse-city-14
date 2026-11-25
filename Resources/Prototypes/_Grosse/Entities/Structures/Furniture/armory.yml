@@ -5,14 +5,10 @@
   abstract: true
   description: A storage unit for expedited pacification measures.
   components:
-  - type: Anchorable
   - type: InteractionOutline
   - type: Transform
     anchored: true
-    noRot: true
   - type: Sprite
-    snapCardinals: true
-    noRot: true
     sprite: _Grosse/Structures/Furniture/gun-armory.rsi
     layers:
     - state: storage-empty
@@ -25,14 +21,9 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 600
-      behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
         damage: 300
       behaviors:
+      - !type:EmptyAllContainersBehaviour
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak

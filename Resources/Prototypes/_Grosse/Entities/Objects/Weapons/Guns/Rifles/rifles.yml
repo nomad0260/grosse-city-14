@@ -65,6 +65,9 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
+  - type: Tags
+    tags:
+    - KalashnikovGun
 
 - type: entity
   name: AK-74U
@@ -141,3 +144,6 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
+  - type: Tags
+    tags:
+    - KalashnikovGun
