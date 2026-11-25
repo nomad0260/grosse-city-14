@@ -86,10 +86,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         // Grids are connected through the pathfinder (e.g. via docking portals), so the only thing that
         // makes a target unreachable by definition is a different map. Everything else is up to the pathfinder.
-        var ownerMap = _transform.GetMap(xform.Coordinates);
-        var targetMap = _transform.GetMap(targetCoordinates);
-
-        if (ownerMap == null || targetMap == null || ownerMap != targetMap)
+        if (_transform.GetMap(xform.Coordinates) != _transform.GetMap(targetCoordinates))
         {
             return (false, null);
         }

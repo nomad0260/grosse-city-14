@@ -67,6 +67,7 @@ public sealed partial class HTNSystem : EntitySystem
         {
             comp.PlanningToken?.Cancel();
             comp.PlanningToken = null;
+            comp.ReplanPending = false;
 
             if (comp.Plan != null)
             {
@@ -134,6 +135,7 @@ public sealed partial class HTNSystem : EntitySystem
         _npc.OnNPCShutdown(uid, component, args);
         component.PlanningToken?.Cancel();
         component.PlanningJob = null;
+        component.ReplanPending = false;
     }
 
     /// <summary>
@@ -151,6 +153,7 @@ public sealed partial class HTNSystem : EntitySystem
 
         ent.Comp.Enabled = state;
         ent.Comp.PlanAccumulator = planCooldown;
+        ent.Comp.ReplanPending = false;
 
         ent.Comp.PlanningToken?.Cancel();
         ent.Comp.PlanningToken = null;
@@ -314,14 +317,17 @@ public sealed partial class HTNSystem : EntitySystem
                 }
 
                 // A request that arrived while this job was running was promised to run once it finished, so
-                // don't make it wait for another full cooldown.
+                // don't make it wait for another full cooldown or the empty-plan backoff.
                 if (comp.ReplanPending)
+                {
                     comp.PlanAccumulator = 0f;
-
-                // Grosse: a mob whose root compound cannot produce a plan would otherwise ask again every
-                // PlanCooldown forever, which on a crowded map is pure planner load. Back off instead.
-                if (comp.Plan == null && comp.PlanningJob.Result == null)
+                }
+                else if (comp.Plan == null && comp.PlanningJob.Result == null)
+                {
+                    // Grosse: a mob whose root compound cannot produce a plan would otherwise ask again every
+                    // PlanCooldown forever, which on a crowded map is pure planner load. Back off instead.
                     comp.PlanAccumulator = MathF.Max(comp.PlanAccumulator, comp.PlanCooldown * 4f);
+                }
 
                 comp.PlanningJob = null;
                 comp.PlanningToken = null;
@@ -391,7 +397,8 @@ public sealed partial class HTNSystem : EntitySystem
         // immediately for a request that had to wait for the plan job in flight. The cooldown gate is what
         // stops a repeated request (a hostile standing in front of an unreachable mob) from chaining plans
         // back to back on a crowded map.
-        if (component.PlanAccumulator <= 0f &&
+        if (component.PlanningJob == null &&
+            component.PlanAccumulator <= 0f &&
             (component.ReplanPending || component.ConstantlyReplan || component.Plan is null))
         {
             component.ReplanPending = false;
