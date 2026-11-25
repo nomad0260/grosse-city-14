@@ -1,0 +1,15 @@
+- type: entity
+  id: TableCounter
+  parent: Table
+  name: counter table
+  description: This is simple kitchen counter table. Cook on it, c'mon!
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Furniture/kitchentable.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Furniture/kitchentable.rsi
+  - type: IconSmooth
+    key: kitchencounter
+#  - type: Construction
+#    graph: Table
+#    node: TableCounterKitchen

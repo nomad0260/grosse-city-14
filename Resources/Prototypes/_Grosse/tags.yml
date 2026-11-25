@@ -104,6 +104,9 @@
   id: PulseBullet
 
 - type: Tag
+  id: KalashnikovGun
+  
+- type: Tag
   id: MagazinePistolPM
 
 - type: Tag

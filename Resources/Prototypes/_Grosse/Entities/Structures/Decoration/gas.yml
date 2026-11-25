@@ -1,16 +1,58 @@
-
 - type: entity
-  id: GasStation17
-  parent: BaseStructureC17
-  name: бензоколонка
-  description: Старая бензоколонка, врядли она работает.
+  id: GasStationDirtyC17
+  parent: BaseStructure
+  name: dirty gas station
+  description: Old gas station, it's unlikely, that it works.
   placement:
     mode: SnapgridCenter
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi #заглушка
-    layers:
-    - state: windows5
+    sprite: _Grosse/Structures/Decoration/gasstation.rsi
+    state: icon-dirty
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.08,-0.08,0.08,0.08"
+        mask:
+        - TabletopMachineMask
+        layer:
+        - TabletopMachineLayer
+        density: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      #- !type:PlaySoundBehavior
+        #sound:
+          #path: /Audio/Effects/metalbreak.ogg #Звука нет
+
+- type: entity
+  id: GasStation17
+  parent: BaseStructure
+  name: gas station
+  description: Old gas station, it's unlikely, that it works.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/gasstation.rsi
+    state: icon-clean
   - type: InteractionOutline
   - type: Physics
     bodyType: Static

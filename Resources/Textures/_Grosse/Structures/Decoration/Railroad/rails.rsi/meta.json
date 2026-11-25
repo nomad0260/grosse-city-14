@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "Grosse Private Licence",
+  "copyright": "made by HowJours AKA Howik",
+  "states":[
+    {
+        "name": "rails-metal",
+        "directions": 4
+    },
+
+    {
+      "name": "rails-wood",
+      "directions": 4
+    },
+
+    {
+      "name": "rails-crossroad"
+    }
+
+  ]
+}
