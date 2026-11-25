@@ -45,6 +45,6 @@
     openingAnimationTime: 0
     closingAnimationTime: 0
     openSound:
-      collection: FenceRattle
+      path: /Audio/_Grosse/Effects/doorchainlink_open.ogg
     closeSound:
-      collection: FenceRattle
+      path: /Audio/_Grosse/Effects/doorchainlink_close.ogg

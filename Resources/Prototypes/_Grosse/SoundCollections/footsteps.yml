@@ -7,3 +7,37 @@
   - /Audio/_Grosse/Mobs/Footsteps/gear4.ogg
   - /Audio/_Grosse/Mobs/Footsteps/gear5.ogg
   - /Audio/_Grosse/Mobs/Footsteps/gear6.ogg
+
+- type: soundCollection
+  id: FootstepConcreteC17
+  files:
+  - /Audio/_Grosse/Effects/Footstep/concrete1.ogg
+  - /Audio/_Grosse/Effects/Footstep/concrete2.ogg
+  - /Audio/_Grosse/Effects/Footstep/concrete3.ogg
+  - /Audio/_Grosse/Effects/Footstep/concrete4.ogg
+  - /Audio/_Grosse/Effects/Footstep/concrete5.ogg
+  - /Audio/_Grosse/Effects/Footstep/concrete6.ogg
+
+- type: soundCollection
+  id: FootstepMetalC17
+  files:
+  - /Audio/_Grosse/Effects/Footstep/metal1.ogg
+  - /Audio/_Grosse/Effects/Footstep/metal2.ogg
+  - /Audio/_Grosse/Effects/Footstep/metal3.ogg
+  - /Audio/_Grosse/Effects/Footstep/metal4.ogg
+
+- type: soundCollection
+  id: FootstepTileC17
+  files:
+  - /Audio/_Grosse/Effects/Footstep/tile1.ogg
+  - /Audio/_Grosse/Effects/Footstep/tile2.ogg
+  - /Audio/_Grosse/Effects/Footstep/tile3.ogg
+  - /Audio/_Grosse/Effects/Footstep/tile4.ogg
+
+- type: soundCollection
+  id: FootstepWoodC17
+  files:
+  - /Audio/_Grosse/Effects/Footstep/woodpanel1.ogg
+  - /Audio/_Grosse/Effects/Footstep/woodpanel2.ogg
+  - /Audio/_Grosse/Effects/Footstep/woodpanel3.ogg
+  - /Audio/_Grosse/Effects/Footstep/woodpanel4.ogg

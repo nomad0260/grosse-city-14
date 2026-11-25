@@ -4,7 +4,7 @@
   heatCapacity: 10000
   isSubfloor: false
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepTileC17
   weather: true
   indestructible: true # Не уверена, но думаю, что покрытие оголять не требуется
 
@@ -13,24 +13,32 @@
   parent: BaseTileC17
   name: tiles-pavement-c17
   sprite: /Textures/_Grosse/Tiles/bluediravaya.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorPavementBasicC17
   parent: BaseTileC17
   name: tiles-pavement-basic-c17
   sprite: /Textures/_Grosse/Tiles/blueplate.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorPavementCorrodedC17
   parent: BaseTileC17
   name: tiles-pavement-corroded-c17
   sprite: /Textures/_Grosse/Tiles/corrosiadiravaya.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorMetalCorrodedC17
   parent: BaseTileC17
   name: tiles-metal-corroded-c17
   sprite: /Textures/_Grosse/Tiles/corrosianplate.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorPavementGrayC17
@@ -43,18 +51,24 @@
   parent: BaseTileC17
   name: tiles-stairs-c17
   sprite: /Textures/_Grosse/Tiles/lestnitca.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorStairsAltC17
   parent: BaseTileC17
   name: tiles-stairs-alt-c17
   sprite: /Textures/_Grosse/Tiles/lestnitcab.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: FloorMetalPlateC17
   parent: BaseTileC17
   name: tiles-metal-plate-c17
   sprite: /Textures/_Grosse/Tiles/metalplate.png
+  footstepSounds:
+    collection: FootstepMetalC17
 
 - type: tile
   id: Floorgrass1C17
@@ -70,18 +84,24 @@
   - 1.0
   - 1.0
   - 1.0
+  footstepSounds:
+    collection: FootstepGrass
 
 - type: tile
   id: Floorgravvv1C17
   parent: BaseTileC17
   name: tiles-metal-grav-plate-c17
   sprite: /Textures/_Grosse/Tiles/gravvv1.png
+  footstepSounds:
+    collection: FootstepAsteroid
 
 - type: tile
   id: Floorgravvv2C17
   parent: BaseTileC17
   name: tiles-metal-grav-plate-c17
   sprite: /Textures/_Grosse/Tiles/gravvv2.png
+  footstepSounds:
+    collection: FootstepAsteroid
 
 - type: tile
   id: Floorkamn1C17
@@ -100,18 +120,24 @@
   parent: BaseTileC17
   name: tiles-metal-grav-c17
   sprite: /Textures/_Grosse/Tiles/graviy.png
+  footstepSounds:
+    collection: FootstepAsteroid
 
 - type: tile
   id: FlooroakplateC17
   parent: BaseTileC17
   name: tiles-oak-plate-c17
   sprite: /Textures/_Grosse/Tiles/oakplate.png
+  footstepSounds:
+    collection: FootstepWoodC17
 
 - type: tile
   id: FloorAsphaltC17
   parent: BaseTileC17
   name: tiles-asphalt-c17
   sprite: /Textures/_Grosse/Tiles/long/asphalt.png
+  footstepSounds:
+    collection: FootstepAsteroid
   variants: 8
   placementVariants:
   - 1.0
@@ -129,6 +155,8 @@
   name: tiles-sand-c17
   sprite: /Textures/_Grosse/Tiles/long/sand.png
   variants: 2
+  footstepSounds:
+    collection: FootstepAsteroid
   placementVariants:
   - 1.0
   - 1.0
