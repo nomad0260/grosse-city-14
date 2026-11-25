@@ -28,6 +28,11 @@ commander-terminal-members = Состав
 commander-terminal-no-crew = На станции нет сотрудников ГО.
 commander-terminal-missing-member = не на связи
 commander-terminal-no-id = нет карты
+commander-terminal-handheld-title = Портативная карта командира
+commander-terminal-party-order = Приказ: {$location}
 
 ent-CommanderTerminalC17 = терминал командира
     .desc = Консоль Гражданской обороны. Показывает карту по маякам, собирает группы и отдаёт им точку по рации Альянса.
+
+ent-HandheldCommanderTerminalC17 = портативная карта командира
+    .desc = Карманная карта отрядов Гражданской обороны. Показывает состав на карте и не принимает приказы.

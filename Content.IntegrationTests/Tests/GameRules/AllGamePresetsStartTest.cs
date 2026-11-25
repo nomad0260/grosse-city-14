@@ -16,6 +16,7 @@ using Robust.Shared.Player;
 namespace Content.IntegrationTests.Tests.GameRules;
 
 [TestFixture]
+[Category("CiHeavy")]
 public sealed class AllGamePresetsStartTest : AntagTest
 {
     /// <summary>

@@ -1,0 +1,103 @@
+{
+    "version": 1,
+    "license": "Grosse Private Licence",
+    "copyright": "Made for Grosse-city-14 Project by yri_nuri (discord)",
+    "size": {
+        "x": 32,
+        "y": 128
+    },
+    "states": [
+        {
+            "name": "Blacblu0",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu1",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu2",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu3",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu4",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu5",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu6",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu7",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu8",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu9",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu10",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu11",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu12",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu13",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu14",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu15",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu16",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu17",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu18",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu19",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu20",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu21",
+            "directions": 4
+        },
+        {
+            "name": "Blacblu22",
+            "directions": 4
+        }
+    ]
+}

@@ -43,15 +43,66 @@
     - 1.05
     - 0.1
     stick: true
-  - type: SpeedModifierContacts
-    walkSpeedModifier: 0.3
-    sprintSpeedModifier: 0.3
+  #- type: SpeedModifierContacts
+  #  walkSpeedModifier: 0.3
+  #  sprintSpeedModifier: 0.3
 
 - type: entity
   id: ZLevelsLadder
   parent: ZLevelLadderBase
-  name: ladder
+  name: stair
+  suffix: Zlevel
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Decoration/stairs.rsi
+    sprite: _Grosse/Structures/stairs.rsi
     state: lestnitca
+
+- type: entity
+  id: ZLevelsLadderB
+  parent: ZLevelLadderBase
+  name: stair
+  suffix: City Zlevel
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/stairs.rsi
+    state: lestnitcab
+
+- type: entity
+  id: ZLevelsLadderRock
+  parent: ZLevelLadderBase
+  name: rock stair
+  suffix: City Zlevel
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/stairs.rsi
+    state: lesnt1
+
+- type: entity
+  id: StairC17
+  parent: Stairs
+  suffix: City
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/stairs.rsi
+    state: lestnitca
+    drawdepth: FloorTiles
+
+- type: entity
+  id: StairBC17
+  parent: Stairs
+  suffix: City
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/stairs.rsi
+    state: lestnitcab
+    drawdepth: FloorTiles
+
+- type: entity
+  id: StairRockC17
+  parent: Stairs
+  suffix: City
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/stairs.rsi
+    state: lesnt1
+    drawdepth: FloorTiles

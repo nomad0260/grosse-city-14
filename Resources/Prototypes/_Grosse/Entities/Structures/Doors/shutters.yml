@@ -1,0 +1,26 @@
+- type: entity
+  id: ShuttersC17
+  parent: [BaseDeltaPressureGlass, BaseShutter]
+  components:
+  - type: Occluder
+    boundingBox: -0.5, -0.5, 0.5, 0.5
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+    airBlockedDirection:
+      - South
+  - type: Sprite
+    sprite: _Grosse/Structures/Doors/shutters.rsi
+    drawdepth: Mobs
+    offset: 0,0.25
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49, -0.49, 0.49, 0.49"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - AirlockLayer

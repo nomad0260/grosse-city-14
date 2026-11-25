@@ -10,6 +10,9 @@
       - EncryptionKeyCMBC17
       - EncryptionKeyEngineering
       - EncryptionKeyCargo
+  - type: EncryptionKeyHolder
+    keySlots: 5
+    keysExtractionMethod: PulsingResistance
   - type: Sprite
     sprite: _Grosse/rsi/Ears/Headsets/base.rsi
   - type: Clothing
@@ -47,6 +50,19 @@
 - type: entity
   parent: ClothingHeadsetCMBC17
   id: ClothingHeadsetCMBLeaderC17
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommand
+      - EncryptionKeyCMBCommandC17
+      - EncryptionKeyCMBC17
+      - EncryptionKeyEngineering
+      - EncryptionKeyCargo
+
+- type: entity
+  parent: ClothingHeadsetCMBC17
+  id: ClothingHeadsetCMBOTAC17
   components:
   - type: ContainerFill
     containers:

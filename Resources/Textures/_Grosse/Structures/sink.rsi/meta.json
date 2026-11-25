@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for grosse-city-14 by yri_nuri",
+  "size": {
+    "x": 64,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "wateh"
+    }
+  ]
+}

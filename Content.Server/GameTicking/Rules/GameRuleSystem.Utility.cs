@@ -106,7 +106,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
 
         // Prefer a weighted random grid, then fall through other grids if that one has no
         // placeable tiles. Random AABB sampling alone is heisentest-prone on sparse maps
-        // (ParadoxCloneSpawn on Saltern in AntagGhostRoleTest).
+        // (ParadoxCloneSpawn in AntagGhostRoleTest).
         (targetGrid, var preferredGrid) = RobustRandom.Pick(weights);
         if (TryFindRandomTileOnGrid(targetGrid, preferredGrid, out tile, out targetCoords))
             return true;

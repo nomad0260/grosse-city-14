@@ -30,7 +30,7 @@ namespace Content.Benchmarks;
 [CategoriesColumn]
 public class ComponentQueryBenchmark
 {
-    public const string Map = "Maps/saltern.yml";
+    public const string Map = "Maps/_Grosse/City14/city140.yml";
 
     private TestPair _pair = default!;
     private IEntityManager _entMan = default!;

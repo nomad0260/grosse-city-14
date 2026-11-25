@@ -195,6 +195,7 @@
   id: ClothingOuterWizardViolet
   name: violet wizard robes
   description: A bizarre gem-encrusted violet robe that radiates magical energies.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Misc/violetwizard.rsi
@@ -209,6 +210,7 @@
   id: ClothingOuterWizard
   name: wizard robes
   description: A bizarre gem-encrusted blue robe that radiates magical energies.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Misc/wizard.rsi

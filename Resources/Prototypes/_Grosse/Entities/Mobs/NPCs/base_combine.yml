@@ -8,6 +8,8 @@
     sprite: Markers/jobs.rsi
     state: cyborg
   - type: ProtectedFromStepTriggers
+  - type: Inventory
+    templateId: transhuman
   - type: Speech
     speechSounds: Combine
     soundCooldownTime: 0.1

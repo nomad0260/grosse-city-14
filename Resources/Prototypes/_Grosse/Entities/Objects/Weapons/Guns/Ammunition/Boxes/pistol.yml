@@ -15,5 +15,6 @@
     steps: 3
     zeroVisible: false
   - type: Item
+    size: Normal
     shape:
     - 0,0,1,1

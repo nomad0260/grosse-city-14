@@ -9,6 +9,7 @@
     color: black
   - type: Clothing
     sprite: _Grosse/rsi/hlstaff/field.rsi
+  - type: Unremoveable
   - type: Storage
     grid:
     - 0,0,10,5
@@ -114,15 +115,15 @@
     sprite: _Grosse/Clothing/Back/Backpacks/green.rsi
   - type: Storage
     grid:
-    #- 0,3,1,4
-    #- 3,1,5,4
-    #- 7,3,8,4
-    - 3,0,5,0
-    - 3,1,3,2
-    - 5,1,5,2
-    - 0,1,1,2
-    - 7,1,8,2
-    - 3,3,5,3
+    - 0,3,1,4
+    - 3,1,5,4
+    - 7,3,8,4
+    #- 3,0,5,0
+    #- 3,1,3,2
+    #- 5,1,5,2
+    #- 0,1,1,2
+    #- 7,1,8,2
+    #- 3,3,5,3
 
 - type: entity
   id: SaboteurBackpackEquip
@@ -145,6 +146,49 @@
     interfaces:
       enum.ThiefBackpackUIKey.Key:
         type: ThiefBackpackBoundUserInterface
+
+- type: entity
+  parent: ClothingBackpackSatchelLeather
+  id: ClothingBackpackSatchelLeatherC17
+  suffix: City 14
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Satchels/leather.rsi
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,3,1
+
+- type: entity
+  parent: ClothingBackpackSatchelLeatherC17
+  id: ClothingBackpackSatchelMedicalC17
+  name: медицинская сумка
+  description: Смотря на эту сумку, можно увидеть какая тяжелая ноша была у медиков во времена войны, наудивление им все еще можно штатно пользоваться.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Back/Backpacks/medical.rsi
+  - type: Storage
+    grid:
+    - 0,0,2,1
+    - 4,0,5,1
+
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackCampC17
+  name: походный рюкзак
+  description: Довоенный армейский рюкзак, использовалась армиями многих стран еще до захвата Альянса.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Clothing/Back/Backpacks/backpack-gray.rsi
+  - type: Storage
+    grid:
+    - 0,3,1,4
+    - 3,1,5,4
+    - 7,3,8,4
+  - type: ClothingSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.8
+  - type: HeldSpeedModifier
 
 #- type: construction
 #  id: BackpackRefugeeC17

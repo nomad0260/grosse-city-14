@@ -1,0 +1,98 @@
+- type: entity
+  parent: WallReinforcedDown
+  id: HalfWallBrickC17
+  name: brick halfwall
+  suffix: WallC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrick.rsi
+    layers:
+    - state: full
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrick.rsi
+    state: full
+  - type: IconSmooth
+    enabled: false
+    mode: NoSprite
+  - type: Cover
+    shootThroughRadius: 1
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallBrickFacadeC17
+  name: brick facade halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickfacade.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickfacade.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallBrickMetalC17
+  name: brick metal halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickmetal.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallbrickmetal.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcreteC17
+  name: concrete halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcrete2C17
+  name: concrete halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete2.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete2.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcrete3C17
+  name: concrete halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete3.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallconcrete3.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcretePaperC17
+  name: concrete papered halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpaper.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpaper.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcretePaperBlueC17
+  name: concrete papered blue halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpaperblue.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpaperblue.rsi
+
+- type: entity
+  parent: HalfWallBrickC17
+  id: HalfWallConcretePaperGreenC17
+  name: concrete papered green halfwall
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpapergreen.rsi
+  - type: Icon
+    sprite: _Grosse/Structures/Walls/Half-Wall/wallpapergreen.rsi

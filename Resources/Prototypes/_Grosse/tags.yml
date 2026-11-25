@@ -104,6 +104,9 @@
   id: PulseBullet
 
 - type: Tag
+  id: KalashnikovGun
+  
+- type: Tag
   id: MagazinePistolPM
 
 - type: Tag
@@ -120,3 +123,9 @@
 
 - type: Tag
   id: CartridgeImpulse
+
+- type: Tag
+  id: TranshumanGear
+
+- type: Tag
+  id: ImmovableObject

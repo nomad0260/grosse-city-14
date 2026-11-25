@@ -1,0 +1,14 @@
+ent-BaseBrokenMachineC17 = сломанное устройство
+    .desc = Довоенное устройство, по идее можно починить, только толку то?
+ent-BrokenMachineC17 = { ent-BaseBrokenMachineC17 }
+    .desc = { ent-BaseBrokenMachineC17.desc }
+ent-BrokenMachineb5C17 = { ent-BaseBrokenMachineC17 }
+    .desc = { ent-BaseBrokenMachineC17.desc }
+ent-GasStoveC17 = газовая плита
+    .desc = Кухонная плита, использующая в качестве топлива горючий газ. Может использоваться природный газ из городской газовой сети или сжиженный газ.
+ent-RustyGasStoveC17 = { ent-GasStoveC17 }
+    .desc = { ent-GasStoveC17.desc }
+ent-GasStove5C17 = { ent-GasStoveC17 }
+    .desc = { ent-GasStoveC17.desc }
+ent-RustyGasStove6C17 = { ent-GasStoveC17 }
+    .desc = { ent-GasStoveC17.desc }

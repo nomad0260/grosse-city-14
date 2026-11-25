@@ -10,6 +10,7 @@
   startingGear: StationEngineerGear
   icon: "JobIconStationEngineer"
   supervisors: job-supervisors-ce
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Maintenance
   - Engineering

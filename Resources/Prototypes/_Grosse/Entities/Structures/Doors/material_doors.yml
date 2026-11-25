@@ -31,6 +31,8 @@
     closeTimeTwo: 0
     openTimeOne: 0
     openTimeTwo: 0
+    openingAnimationTime: 0
+    closingAnimationTime: 0
     openSound:
       path: /Audio/Effects/door_open.ogg
     closeSound:
@@ -55,7 +57,28 @@
   description: Обычная стальная дверь.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/metal/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/doors.rsi
+    offset: 0,0.25
+    noRot: true
+    drawdepth: Mobs
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49, -0.49, 0.49, 0.49"
+#          bounds: "-0.49, -0.2, 0.49, 0.2"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - AirlockLayer
+  - type: Occluder
+    boundingBox: -0.5, -0.5, 0.5, 0.5
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+    airBlockedDirection:
+      - South
 
 - type: entity
   id: MetalBarDoorFallout
@@ -180,6 +203,28 @@
     sprite: _Grosse/rsi/doors/union/metalalt.rsi
   - type: AccessReader
     access: [["UnionOTA"]]
+
+- type: entity
+  id: MetalAltDoorFalloutUnionCPArmory
+  parent: MetalAltDoorFalloutUnionBase
+  description: Крепкая стальная дверь с надёжным замком.
+  suffix: Альянс, CP Armory
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+  - type: AccessReader
+    access: [["UnionCPArmory"]]
+
+- type: entity
+  id: MetalAltDoorFalloutUnionBaseSector
+  parent: MetalAltDoorFalloutUnionBase
+  description: Крепкая стальная дверь с надёжным замком.
+  suffix: Альянс, Base Sector
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+  - type: AccessReader
+    access: [["UnionBaseSector"]]
 
 - type: entity
   parent: BaseStructureComputer

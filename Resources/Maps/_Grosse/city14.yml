@@ -315411,7 +315411,7 @@ entities:
     - type: Transform
       pos: -59.5,100.5
       parent: 81589
-- proto: MeteorRockIndestructibleOccluded
+- proto: RockDebrisIndestructibleOccludedC17
   entities:
   - uid: 783
     components:
@@ -492518,7 +492518,7 @@ entities:
     - type: Transform
       pos: 206.5,179.5
       parent: 29942
-- proto: WallReinforcedDown
+- proto: HalfWallBrickC17
   entities:
   - uid: 29
     components:

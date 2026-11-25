@@ -6,6 +6,7 @@
   startingGear: BotanistGear
   icon: "JobIconBotanist"
   supervisors: job-supervisors-hop
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Service
   - Maintenance

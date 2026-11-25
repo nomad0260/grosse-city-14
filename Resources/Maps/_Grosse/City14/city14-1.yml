@@ -112,6 +112,11 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: Gravity
+      gravityShakeSound: !type:SoundPathSpecifier
+        path: /Audio/Effects/alert.ogg
+      inherent: True
+      enabled: True
   - uid: 81589
     components:
     - type: MetaData
@@ -68772,7 +68777,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -56.5,104.5
       parent: 81589
-- proto: WallReinforcedDown
+- proto: HalfWallBrickC17
   entities:
   - uid: 89774
     components:

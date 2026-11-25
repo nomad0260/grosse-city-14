@@ -15,6 +15,7 @@
   startingGear: WardenGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-hos
+  overrideConsoleVisibility: false #Grosse-edit
   access:
   - Security
   - Brig

@@ -28,6 +28,7 @@
     mode: AlignTileAny
   components:
   - type: Sprite
+    drawdepth: Mobs
     layers:
     - sprite: _Grosse/Structures/Walls/allianceA.rsi
       state: full
@@ -112,6 +113,7 @@
     mode: AlignTileAny
   components:
   - type: Sprite
+    drawdepth: Mobs
     layers:
     - sprite: _Grosse/Structures/Walls/allianceB.rsi
       state: full

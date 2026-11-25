@@ -1,0 +1,152 @@
+- type: entity
+  id: FullWindowCrackC17
+  parent: BaseStructure
+  name: window crack
+  description: Don't smudge up the glass down there.
+  suffix: WallC17
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Window
+  components:
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Rotatable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassBreak
+  - type: WallMount
+    arc: 360
+  - type: Tag
+    tags:
+      - ForceFixRotations
+      - Window
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Grosse/Structures/Windows/glass_shards.rsi
+    offset: 0, 0.25
+    noRot: true
+    layers:
+    - state: shardsfull
+  - type: Icon
+    sprite: _Grosse/Structures/Windows/glass_shards.rsi
+    state: shardsfull
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        hard: false
+        mask:
+        - FullTileMask
+        layer:
+        - GlassLayer
+      slowdown:
+        shape: !type:PhysShapeAabb
+          bounds: -0.4,-0.4,0.4,0.4
+        layer:
+        - SlipLayer
+        mask:
+        - ItemMask
+        density: 1000
+        hard: false
+  - type: Damageable
+    damageModifierSet: Glass
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    enabled: false
+    mode: NoSprite
+  - type: DamageContacts
+    damage:
+      types:
+        Piercing: 5
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.6
+    sprintSpeedModifier: 0.6
+  - type: Appearance
+
+- type: entity
+  id: HalfWindowCrackC17
+  parent: FullWindowCrackC17
+  components:
+  - type: Sprite
+    layers:
+    - state: shardshalf
+  - type: Icon
+    state: shardshalf
+
+- type: entity
+  id: FrameWindowCrackC17
+  parent: FullWindowCrackC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi
+    layers:
+    - state: windows4
+  - type: Icon
+    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi
+    state: windows4
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:ChangeConstructionNodeBehavior
+        node: WindowFrame
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: FrameWindows
+    node: WindowFrameCrack
+
+- type: entity
+  id: FrameWindowCrackWithoutShardsC17
+  parent: FrameWindowCrackC17
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi
+    layers:
+    - state: windows5
+  - type: Icon
+    sprite: _Grosse/Structures/Windows/Frames/citywindow.rsi
+    state: windows5
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: WoodDestroy
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MaterialWoodPlank1:
+            min: 2
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DamageContacts
+    damage:
+      types:
+        Piercing: 0
+  - type: Construction
+    graph: FrameWindows
+    node: WindowFrame

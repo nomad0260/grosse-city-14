@@ -1,0 +1,8 @@
+- type: startingGear
+  id: CityAdministratorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitLawyerBlack
+    ears: ClothingHeadsetCMBLeaderC17
+    shoes: ClothingShoesBootsLaceup
+    id: UnionIDCardAdministrator
+    pocket1: WeaponPistolC17

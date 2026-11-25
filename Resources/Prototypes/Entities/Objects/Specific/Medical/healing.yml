@@ -9,6 +9,8 @@
     size: Small
     sprite: Objects/Specific/Medical/medical.rsi
     heldPrefix: ointment
+    shape: #Grosse-edit
+    - 0,0,0,0
   # Inherited
   - type: StaticPrice
     price: 0
