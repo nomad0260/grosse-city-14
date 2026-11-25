@@ -1,0 +1,7 @@
+- type: construction
+  id: MeshokC17
+  graph: MeshokGraph
+  startNode: start
+  targetNode: graph
+  category: construction-category-materials
+  objectType: Item

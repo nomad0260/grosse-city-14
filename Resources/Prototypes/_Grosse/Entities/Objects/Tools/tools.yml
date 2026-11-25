@@ -22,3 +22,18 @@
   - type: Tool
     qualities:
       - PulsingCombine
+
+- type: entity
+  name: лопата
+  parent: Shovel
+  id: ShovelC17
+  description: A large tool for digging and moving dirt.
+  suffix: City 14
+  components:
+  - type: Construction
+    graph: ShovelC17Graph
+    node: graph
+  - type: Tool
+    qualities:
+      - ShovelC17
+

@@ -24,3 +24,27 @@
           steps:
             - tool: Prying
               doAfter: 15
+
+- type: constructionGraph
+  id: BarricadeSandbag17
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: barricadefull
+          steps:
+            - material: Cloth
+              amount: 10
+              doAfter: 20
+    - node: barricadefull
+      entity: BarricadeSandbagFullC17
+      edges:
+      - to: start
+        completed:
+          - !type:SpawnPrototype
+            prototype: MaterialCloth1
+            amount: 5
+          - !type:DeleteEntity
+        steps:
+          - tool: Slicing
+            doAfter: 10

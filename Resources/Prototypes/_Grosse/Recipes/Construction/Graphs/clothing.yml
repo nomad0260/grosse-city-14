@@ -1,0 +1,23 @@
+- type: constructionGraph
+  id: MeshokGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: graph
+      steps:
+      - material: Cloth
+        amount: 3
+        doAfter: 5
+  - node: graph
+    entity: MeshokC17
+    edges:
+    - to: start
+      completed:
+        - !type:SpawnPrototype
+          prototype: MaterialCloth1
+          amount: 3
+        - !type:DeleteEntity
+      steps:
+        - tool: Slicing
+          doAfter: 2

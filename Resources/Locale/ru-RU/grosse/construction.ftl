@@ -5,3 +5,4 @@ construction-insert-grub-core = ядро муравьиной личинки
 construction-insert-parts = детали
 construction-insert-gunpowder = порох
 construction-insert-round-blank = круглая заготовка
+construction-insert-meshok = мешок

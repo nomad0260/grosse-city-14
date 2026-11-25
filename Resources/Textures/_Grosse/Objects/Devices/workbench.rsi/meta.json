@@ -1,0 +1,21 @@
+{
+    "version": 1,
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+
+    "license": "All right reserved",
+    "copyright": "Made for Stalker14, use with permission only. Made by Tornado-Technology (github)",
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "icon_stel"
+        },
+        {
+            "name": "jab"
+        }
+    ]
+}

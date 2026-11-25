@@ -30,6 +30,9 @@
     size: Large
     shape:
     - 0,0,0,0
+  - type: Construction
+    graph: WoodenBlank
+    node: icon
   - type: Tag
     tags:
     - WoodenPieceSheet

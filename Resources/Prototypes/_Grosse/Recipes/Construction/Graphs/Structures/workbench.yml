@@ -1,0 +1,44 @@
+- type: constructionGraph
+  id: WorkBench
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: workbench17
+          steps:
+            - material: WoodPlank
+              amount: 10
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 3
+    - node: workbench17
+      entity: WorkStationC17
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: MaterialWoodPlank1
+              amount: 5
+            - !type:SpawnPrototype
+              prototype: SheetSteel1
+              amount: 5
+            - !type:DeleteEntity {}
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tool: Prying
+              doAfter: 15
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: CrossbowBoltCartridge
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - material: MetalRod
+              amount: 5
+              doAfter: 5

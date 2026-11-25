@@ -3,19 +3,18 @@
   start: start
   graph:
   - node: start
-    entity: MaterialWoodPlank1
     edges:
     - to: icon
       steps:
-      - tag: ManhackBlade
-        name: construction-insert-manhack-blades
-        icon:
-          sprite: _Grosse/rsi/hlstaff/misc/material.rsi
-          state: sheet-scrapwood
-        doAfter: 2
+      #- tag: ManhackBlade
+      #  name: construction-insert-manhack-blades
+      #  icon:
+      #    sprite: _Grosse/rsi/hlstaff/misc/material.rsi
+      #    state: sheet-scrapwood
+      #  doAfter: 2
       - material: WoodPlank
-        amount: 1
-        doAfter: 1
+        amount: 5
+        doAfter: 2
   - node: icon
     entity: ComponentWoodenBlank
 

@@ -9,6 +9,9 @@
       - Meshok
   - type: Item
     size: Small
+  - type: Construction
+    graph: MeshokGraph
+    node: graph
   - type: Sprite
     sprite: _Grosse/Objects/Misc/meshok_sand.rsi
     layers:

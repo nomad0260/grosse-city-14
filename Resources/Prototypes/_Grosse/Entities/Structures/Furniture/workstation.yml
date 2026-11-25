@@ -1,0 +1,81 @@
+- type: entity
+  id: WorkStationBase
+  parent: BaseStructure
+  abstract: true
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/Barricades/baricada.rsi
+    layers:
+    - state: road_barrier
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.2,0.5,0.2"
+        density: 155
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 2
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  id: WorkStationC17
+  parent: WorkStationBase
+  name: верстак
+  description: Крутой стол.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Devices/workbench.rsi
+    layers:
+    - state: icon
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 75
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -6
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 0
+            max: 5
+          MaterialWoodPlank1:
+            min: 0
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Construction
+    graph: WorkBench
+    node: workbench17
+  - type: Tag
+    tags:
+      - WorkBench
+  - type: Appearance

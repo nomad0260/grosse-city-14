@@ -3,5 +3,5 @@
   graph: WoodenBlank
   startNode: start
   targetNode: icon
-  category: construction-category-weapons
+  category: construction-category-materials
   objectType: Item
