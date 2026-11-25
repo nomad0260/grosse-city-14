@@ -143,7 +143,7 @@
     bodyType: Static
 
 - type: entity
-  parent: BaseMachine
+  parent: [SolutionTank, SolutionSmall, PortableGeneratorBase]
   id: GeneratorC17
   name: generator
   description: This generator looks rusty and old. But the control panel is so odd that you can't understand how you should even launch it.
@@ -152,20 +152,14 @@
     sprite: _Grosse/Structures/generator.rsi
     state: generator
     noRot: true
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 500
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+    layers:
+    - state: generator
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.95,-0.95,0.95,0.95"
+          bounds: "-0.4,-0.4,0.4,0.4"
         density: 250
         hard: true
         layer:
@@ -177,6 +171,74 @@
   - type: Rotatable
   - type: Transform
     noRot: false
+  - type: AmbientSound
+    range: 12
+    volume: 4
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+  - type: Solution
+    solution:
+      maxVol: 1200
+  - type: FuelGenerator
+    targetPower: 5000
+    minTargetPower: 4000
+    optimalPower: 8000
+    maxTargetPower: 8000
+    optimalBurnRate: 1
+    fuelEfficiencyConstant: 0.3
+  - type: ChemicalFuelGeneratorAdapter
+    solution: tank
+    reagents:
+      WeldingFuel: 1
+  - type: RefillableSolution
+    solution: tank
+  - type: PortableGenerator
+    # Unreliable bugger
+    startChance: 0.2
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: Apc
+  - type: PowerMonitoringDevice
+    group: Generator
+    loadNode: output
+    sprite: Structures/Power/Generation/portable_generator.rsi
+    state: portgen3
+  - type: PowerSupplier
+    # No ramping needed on this bugger.
+    voltage: Apc
+    supplyRampTolerance: 2000
+  - type: GeneratorExhaustGas
+    gasType: CarbonDioxide
+    # Full tank is 25 moles of gas
+    moleRatio: 0.5
+  - type: Explosive
+    explosionType: Default
+    tileBreakScale: 0
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 75
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
 
 - type: entity
   parent: StructureWheeled
