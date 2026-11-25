@@ -65,7 +65,7 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
-  - type: Tags
+  - type: Tag
     tags:
     - KalashnikovGun
 
@@ -144,6 +144,6 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
-  - type: Tags
+  - type: Tag
     tags:
     - KalashnikovGun
