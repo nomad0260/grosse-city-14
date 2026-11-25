@@ -151,37 +151,37 @@
 
 #region Двойные
 
-- type: entity
-  id: MetalDoorDouble
-  name: двойная металическая дверь
-  parent: MetalDoorFallout
-  description: Обычная металическая дверь.
-  suffix: ТЕСТОВАЯ ХУЙНЯ, спрайты в производстве
-  components:
-  - type: Sprite
-    sprite: _Grosse/Structures/Doors/Material/Metal/metaldouble.rsi
-    offset: 0.5, 0.25
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-1.49, -0.2, 0.49, 0.2"
-        density: 100
-        mask:
-        - FullTileMask
-        layer:
-        - AirlockLayer
-  - type: Occluder
-    boundingBox: -1.5, -0.5, 0.5, 0.5
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1200 #Две же двери, значит и хп в два раза больше :clueless:
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
+#- type: entity
+#  id: MetalDoorDouble
+#  name: двойная металическая дверь
+#  parent: MetalDoorFallout
+#  description: Обычная металическая дверь.
+#  suffix: ТЕСТОВАЯ ХУЙНЯ, спрайты в производстве
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/Structures/Doors/Material/Metal/metaldouble.rsi
+#    offset: 0.5, 0.25
+#  - type: Fixtures
+#    fixtures:
+#      fix1:
+#        shape:
+#          !type:PhysShapeAabb
+#          bounds: "-1.49, -0.2, 0.49, 0.2"
+#        density: 100
+#        mask:
+#        - FullTileMask
+#        layer:
+#        - AirlockLayer
+#  - type: Occluder
+#    boundingBox: -1.5, -0.5, 0.5, 0.5
+#  - type: Destructible
+#    thresholds:
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 1200 #Две же двери, значит и хп в два раза больше :clueless:
+#      behaviors:
+#      - !type:DoActsBehavior
+#        acts: ["Destruction"]
 
 #region Альянс
 
