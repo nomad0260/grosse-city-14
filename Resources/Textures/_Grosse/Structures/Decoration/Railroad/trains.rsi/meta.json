@@ -1,12 +1,12 @@
 {
-"version": 1,
-"size": {
-  "x": 128,
-  "y": 128
-},
-"license": "Grosse Private Licence",
-"copyright": "made by HowJours AKA Howik",
-"states": [
+    "version": 1,
+    "size": {
+    "x": 128,
+    "y": 128
+  },
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by HowJours AKA Howik",
+  "states":[
     {
         "name": "train",
         "directions": 4
@@ -21,5 +21,6 @@
       "name": "wagon-open",
       "directions": 4
     }
+    
   ]
 }

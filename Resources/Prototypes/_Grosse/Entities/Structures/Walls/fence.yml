@@ -23,11 +23,6 @@
     damageModifierSet: FlimsyMetallic
   - type: Injurable
     damageContainer: StructuralInorganic
-  - type: InteractionPopup
-    interactSuccessString: fence-rattle-success
-    messagePerceivedByOthers: fence-rattle-success
-    interactSuccessSound:
-      collection: FenceRattle
   - type: Destructible
     thresholds:
     - trigger:
@@ -45,6 +40,11 @@
   - type: Sprite
     layers:
     - state: straight
+  - type: InteractionPopup
+    interactSuccessString: fence-rattle-success
+    messagePerceivedByOthers: fence-rattle-success
+    interactSuccessSound:
+      collection: FenceRattle
   - type: Fixtures
     fixtures:
       fix1:
@@ -66,6 +66,11 @@
   - type: Sprite
     layers:
     - state: corner
+  - type: InteractionPopup
+    interactSuccessString: fence-rattle-success
+    messagePerceivedByOthers: fence-rattle-success
+    interactSuccessSound:
+      collection: FenceRattle
   - type: Fixtures
     fixtures:
       # needs two shapes to properly handle a triangle corner without weirdness
@@ -97,6 +102,11 @@
   - type: Sprite
     layers:
     - state: end
+  - type: InteractionPopup
+    interactSuccessString: fence-rattle-success
+    messagePerceivedByOthers: fence-rattle-success
+    interactSuccessSound:
+      collection: FenceRattle
   - type: Fixtures
     fixtures:
       fix1:
