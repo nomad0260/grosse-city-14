@@ -1,12 +1,15 @@
 - type: entity
   id: MetalDoorFallout
   name: металическая дверь
-  suffix: Door 17
   parent: BaseMaterialDoor
   description: Обычная металическая дверь.
+  suffix: Двери City 14
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/metal/metal.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
+    offset: 0,0.25
+    noRot: true
+    drawdepth: Mobs
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
@@ -15,12 +18,18 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.49,-0.49,0.49,0.49"
+          bounds: "-0.49, -0.2, 0.49, 0.2"
         density: 100
         mask:
         - FullTileMask
         layer:
         - AirlockLayer
+  - type: Occluder
+    boundingBox: -0.5, -0.5, 0.5, 0.5
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+    airBlockedDirection:
+      - South
   - type: Door
     performCollisionCheck: false
     canPry: false
@@ -57,34 +66,18 @@
   description: Обычная стальная дверь.
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Doors/doors.rsi
-    offset: 0,0.25
-    noRot: true
-    drawdepth: Mobs
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.49, -0.49, 0.49, 0.49"
-#          bounds: "-0.49, -0.2, 0.49, 0.2"
-        density: 100
-        mask:
-        - FullTileMask
-        layer:
-        - AirlockLayer
+    sprite: _Grosse/Structures/Doors/Material/Metal/metalalt.rsi
+  - type: Door
+    occludes: false
   - type: Occluder
-    boundingBox: -0.5, -0.5, 0.5, 0.5
-  - type: Airtight
-    noAirWhenFullyAirBlocked: false
-    airBlockedDirection:
-      - South
+    enabled: false
 
 - type: entity
   id: MetalBarDoorFallout
   name: решетчатая дверь
   parent: MetalDoorFallout
   description: Обычная решетчатая дверь.
+  suffix: Outdate
   components:
   - type: Sprite
     sprite: _Grosse/rsi/doors/metal/metalbar.rsi
@@ -102,6 +95,7 @@
   name: решетчатая дверь
   parent: MetalBarDoorFallout
   description: Обычная решетчатая дверь
+  suffix: Outdate
   components:
   - type: Sprite
     sprite: _Grosse/rsi/doors/metal/metalgrate.rsi
@@ -111,9 +105,19 @@
   name: оконная стальная дверь
   parent: MetalBarDoorFallout
   description: Обычная стальная дверь, с окном.
+  suffix: Outdate
   components:
   - type: Sprite
     sprite: _Grosse/rsi/doors/metal/metalwindow.rsi
+
+- type: entity
+  id: PlasticDoorC17
+  name: пластиковая дверь
+  parent: MetalBarDoorFallout
+  description: Пластиковый мир победил.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Doors/Material/Plastic/plastic.rsi
 
 - type: entity
   id: WoodDoorFallout
@@ -122,7 +126,7 @@
   description: Обычная деревянная дверь.
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/wood/wood.rsi
+    sprite: _Grosse/Structures/Doors/Material/Wooden/wooden.rsi
   - type: Damageable
     damageModifierSet: Wood
   - type: Injurable
@@ -137,13 +141,58 @@
         acts: ["Destruction"]
 
 - type: entity
+  id: WoodenDoorAltC17
+  name: деревянная дверь
+  parent: WoodDoorFallout
+  description: Обычная деревянная дверь.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Doors/Material/Wooden/woodenalt.rsi
+
+#region Двойные
+
+#- type: entity
+#  id: MetalDoorDouble
+#  name: двойная металическая дверь
+#  parent: MetalDoorFallout
+#  description: Обычная металическая дверь.
+#  suffix: ТЕСТОВАЯ ХУЙНЯ, спрайты в производстве
+#  components:
+#  - type: Sprite
+#    sprite: _Grosse/Structures/Doors/Material/Metal/metaldouble.rsi
+#    offset: 0.5, 0.25
+#  - type: Fixtures
+#    fixtures:
+#      fix1:
+#        shape:
+#          !type:PhysShapeAabb
+#          bounds: "-1.49, -0.2, 0.49, 0.2"
+#        density: 100
+#        mask:
+#        - FullTileMask
+#        layer:
+#        - AirlockLayer
+#  - type: Occluder
+#    boundingBox: -1.5, -0.5, 0.5, 0.5
+#  - type: Destructible
+#    thresholds:
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 1200 #Две же двери, значит и хп в два раза больше :clueless:
+#      behaviors:
+#      - !type:DoActsBehavior
+#        acts: ["Destruction"]
+
+#region Альянс
+
+- type: entity
   id: MetalAltDoorFalloutUnionBase
   parent: MetalDoorFallout
   description: Крепкая стальная дверь с надёжным замком.
   suffix: Альянс, Base
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metal.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
@@ -166,7 +215,7 @@
     denySound:
       path: /Audio/_Grosse/Effects/combine_button_locked.ogg
       params:
-        volume: 2
+        volume: -1
   - type: Destructible
     thresholds:
     - trigger:
@@ -177,7 +226,7 @@
   id: MetalAltDoorFalloutUnionAdmin
   parent: MetalAltDoorFalloutUnionBase
   description: Крепкая стальная дверь с надёжным замком.
-  suffix: Альянс, Admin
+  suffix: Двери Альянс, Admin
   components:
   - type: AccessReader
     access: [["UnionAdmin"]]
@@ -186,10 +235,10 @@
   id: MetalAltDoorFalloutUnionCP
   parent: MetalAltDoorFalloutUnionBase
   description: Крепкая стальная дверь с надёжным замком.
-  suffix: Альянс, CP
+  suffix: Двери Альянс, CP
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
   - type: AccessReader
     access: [["UnionCP"]]
 
@@ -197,10 +246,10 @@
   id: MetalAltDoorFalloutUnionOTA
   parent: MetalAltDoorFalloutUnionBase
   description: Крепкая стальная дверь с надёжным замком.
-  suffix: Альянс, OTA
+  suffix: Двери Альянс, OTA
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
   - type: AccessReader
     access: [["UnionOTA"]]
 
@@ -208,10 +257,10 @@
   id: MetalAltDoorFalloutUnionCPArmory
   parent: MetalAltDoorFalloutUnionBase
   description: Крепкая стальная дверь с надёжным замком.
-  suffix: Альянс, CP Armory
+  suffix: Двери Альянс, CP Armory
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
   - type: AccessReader
     access: [["UnionCPArmory"]]
 
@@ -219,10 +268,10 @@
   id: MetalAltDoorFalloutUnionBaseSector
   parent: MetalAltDoorFalloutUnionBase
   description: Крепкая стальная дверь с надёжным замком.
-  suffix: Альянс, Base Sector
+  suffix: Двери Альянс, Base Sector
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
   - type: AccessReader
     access: [["UnionBaseSector"]]
 
@@ -234,7 +283,10 @@
   suffix: Ограничитель карты
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/doors/union/metalalt.rsi
+    sprite: _Grosse/Structures/Doors/Material/Metal/metal.rsi
+    offset: 0,0.25
+    noRot: true
+    drawdepth: Mobs
     layers:
     - state: closed
   - type: IsRoof

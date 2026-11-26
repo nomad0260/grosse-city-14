@@ -24,3 +24,11 @@
   - /Audio/_Grosse/Weapons/Ranged/shotgun_shell1.ogg
   - /Audio/_Grosse/Weapons/Ranged/shotgun_shell2.ogg
   - /Audio/_Grosse/Weapons/Ranged/shotgun_shell3.ogg
+
+- type: soundCollection
+  id: ConcreteBulletImpact
+  files:
+  - /Audio/_Grosse/Effects/Impact/concrete_impact_bullet1.ogg
+  - /Audio/_Grosse/Effects/Impact/concrete_impact_bullet2.ogg
+  - /Audio/_Grosse/Effects/Impact/concrete_impact_bullet3.ogg
+  - /Audio/_Grosse/Effects/Impact/concrete_impact_bullet4.ogg

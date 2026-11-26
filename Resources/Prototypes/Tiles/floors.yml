@@ -851,7 +851,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemConcrete
 
 - type: tile
@@ -866,7 +866,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemConcreteMono
 
 - type: tile
@@ -881,7 +881,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemConcreteSmooth
 
 - type: tile
@@ -896,7 +896,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemGrayConcrete
 
 - type: tile
@@ -911,7 +911,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemGrayConcreteMono
 
 - type: tile
@@ -926,7 +926,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemGrayConcreteSmooth
 
 - type: tile
@@ -941,7 +941,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemOldConcrete
 
 - type: tile
@@ -956,7 +956,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemOldConcreteMono
 
 - type: tile
@@ -971,7 +971,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcreteC17 #Grosse-edit
   itemDrop: FloorTileItemOldConcreteSmooth
 
 # Carpets (non smoothing)
@@ -1277,7 +1277,7 @@
   - 1.0
   - 1.0
   baseTurf: FloorDirt
-  isSubfloor: true
+  isSubfloor: false #grosse-edit
   footstepSounds:
     collection: FootstepTile
   heatCapacity: 10000

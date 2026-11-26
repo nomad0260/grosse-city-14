@@ -61,12 +61,17 @@
     sprite: _Grosse/Structures/Walls/beton.rsi
   - type: Icon
     sprite: _Grosse/Structures/Walls/beton.rsi
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection:
+          ConcreteBulletImpact
   - type: IconSmooth
     key: walls
     base: beton
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallConcreteBC17
   name: concrete wall
   components:
@@ -79,7 +84,7 @@
     base: betona
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallConcreteCC17
   name: concrete wall
   components:
@@ -92,7 +97,7 @@
     base: betonb
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallBrickC17
   name: brick wall
   components:
@@ -126,7 +131,7 @@
     base: kirpichmetall
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallBrickFacadeC17
   name: brick wall with concrete facade
   components:
@@ -139,7 +144,7 @@
     base: kirpichpoloski
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallBrickWallpaperAC17
   name: brick wall with wallpaper
   components:
@@ -152,7 +157,7 @@
     base: kirpichwallpapera
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallBrickWallpaperBC17
   name: brick wall with wallpaper
   components:
@@ -165,7 +170,7 @@
     base: kirpichwallpaperc
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallBrickWallpaperCC17
   name: brick wall with wallpaper
   components:
@@ -178,7 +183,7 @@
     base: kirpichwallpaperd
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallConcreteC17
   name: concrete
   components:
@@ -192,7 +197,7 @@
     base: betonc
 
 - type: entity
-  parent: BaseWallC17
+  parent: WallConcreteAC17
   id: WallConcreteCAC17
   name: concrete
   components:

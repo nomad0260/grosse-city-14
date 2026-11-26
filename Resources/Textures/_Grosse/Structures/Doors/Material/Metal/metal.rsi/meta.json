@@ -1,10 +1,10 @@
 {
     "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Made by Nimfar11 (GitHub) for Space Station 14 & edited by github:Morb0",
+    "license": "Grosse Private Licence",
+    "copyright": "Made for Grosse-city-14 Project by doner4037 (discord)",
     "size": {
-        "x": 32,
-        "y": 48
+        "x": 64,
+        "y": 80
     },
     "states": [
         {
