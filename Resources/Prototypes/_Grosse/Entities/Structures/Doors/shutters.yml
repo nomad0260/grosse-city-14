@@ -24,3 +24,15 @@
         - FullTileMask
         layer:
         - AirlockLayer
+  - type: Door
+    performCollisionCheck: false
+    canCrush: false
+    canPry: false
+    openSound:
+      path: /Audio/_Grosse/Effects/garage_open.ogg
+      params:
+        volume: -5
+    closeSound:
+      path: /Audio/_Grosse/Effects/garage_close.ogg
+      params:
+        volume: -5

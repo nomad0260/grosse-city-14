@@ -45,6 +45,6 @@
     openingAnimationTime: 0
     closingAnimationTime: 0
     openSound:
-      path: /Audio/Effects/door_open.ogg
+      path: /Audio/_Grosse/Effects/doorchainlink_open.ogg
     closeSound:
-      path: /Audio/Effects/door_close.ogg
+      path: /Audio/_Grosse/Effects/doorchainlink_close.ogg

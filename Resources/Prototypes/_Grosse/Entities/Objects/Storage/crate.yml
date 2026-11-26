@@ -31,6 +31,10 @@
             max: 5
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: BoxDamaged
   - type: Sprite
     noRot: true
   - type: Appearance

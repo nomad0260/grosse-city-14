@@ -9,7 +9,9 @@
   components:
   - type: Sprite
     sprite: _Grosse/Structures/Railroad/train.rsi
-    drawdepth: HighFloorObjects
+    drawdepth: Mobs
+    offset: 0,0.4
+    noRot: true
     layers:
       - state: cargo_tank
   - type: Transform
@@ -21,7 +23,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.25,-0.75,1.25,0.75"
+          bounds: "-1.2,-0.5,1.2,0.5"
         density: 5000
         mask:
         - LargeMobMask
@@ -195,6 +197,8 @@
   components:
   - type: Sprite
     sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    offset: 0,0.85
+    noRot: true
     layers:
       - state: train
   - type: Fixtures
@@ -202,7 +206,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-1.25,-0.5,1.25,0.5"
+          bounds: "-1.25,-0.25,1.25,0.25"
         density: 5000
         mask:
         - LargeMobMask
@@ -215,7 +219,7 @@
   name: вагон позда бритвы
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    offset: 0.4,1
     layers:
       - state: wagon
 
@@ -225,7 +229,7 @@
   name: вагон позда бритвы
   components:
   - type: Sprite
-    sprite: _Grosse/Structures/Railroad/trains_cmb.rsi
+    offset: 0.4,1
     layers:
       - state: wagon-open
 
