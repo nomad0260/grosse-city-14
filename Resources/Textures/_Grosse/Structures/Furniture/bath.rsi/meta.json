@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for Grosse-city-14 Project by Odleer",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "bath"
+    },
+    {
+      "name": "bath-rust"
+    }
+  ]
+}

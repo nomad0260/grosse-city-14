@@ -65,6 +65,9 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
+  - type: Tag
+    tags:
+    - KalashnikovGun
 
 - type: entity
   name: AK-74U
@@ -141,6 +144,9 @@
   - type: Wieldable
   - type: UseDelay
     delay: 0.5
+  - type: Tag
+    tags:
+    - KalashnikovGun
 
 - type: entity
   name: самодельная штурмовая винтовка

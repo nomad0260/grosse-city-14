@@ -1,0 +1,114 @@
+- type: entity
+  id: BaseWoodenCrateC17
+  parent: BaseItem
+  abstract: true
+  components:
+  - type: Item
+    size: Huge
+  - type: MultiHandedItem
+  - type: ClothingSpeedModifier
+    walkModifier: 0.75
+    sprintModifier: 0.75
+  - type: HeldSpeedModifier
+  - type: InteractionOutline
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: CollisionWake
+    enabled: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Sprite
+    noRot: true
+  - type: Appearance
+  - type: Storage
+    grid:
+    - 0,0,5,3
+    maxItemSize: Normal
+    storageOpenSound: /Audio/Effects/closetopen.ogg
+    storageCloseSound: /Audio/Effects/closetclose.ogg
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.45"
+        density: 100
+        hard: true
+        layer:
+        - MachineLayer
+        mask:
+        - MachineMask
+
+- type: entity
+  id: WoodenCrateC17
+  name: деревянный ящик
+  description: Внушительного размера ящик, для транспортировки предметов.
+  parent: BaseWoodenCrateC17
+  components:
+  - type: Item
+    sprite: _Grosse/rsi/hlstaff/misc/inhand.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-box
+      right:
+      - state: inhand-box
+  - type: Sprite
+    sprite: _Grosse/rsi/Structures/Decoration/boxes.rsi
+    layers:
+    - state: 5
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        2: ""
+        3: ""
+        4: ""
+        5: ""
+        6: ""
+        7: ""
+        8: ""
+        9: ""
+
+- type: entity
+  parent: BaseWoodenCrateC17
+  id: BoxWoodenC17
+  name: wooden box
+  description: A big wooden box with many hidden toys. Maybe.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Structures/Decoration/box.rsi
+    state: box
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.45"
+        density: 100
+        hard: true
+        layer:
+        - MachineLayer
+        mask:
+        - MachineMask
