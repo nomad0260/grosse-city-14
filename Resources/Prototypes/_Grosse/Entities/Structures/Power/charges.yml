@@ -4,18 +4,21 @@
   parent: [ BaseItemRecharger, BaseWallmount ]
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/structure/wallmount.rsi
+    sprite: _Grosse/Structures/Wallmount/charger.rsi
+    drawdepth: OverMobs
+    snapCardinals: false
     layers:
     - map: ["enum.PowerChargerVisualLayers.Base"]
       state: suitcharger_03
     - map: ["enum.PowerChargerVisualLayers.Light"]
       state: suitcharger
+      shader: "unshaded"
   - type: PowerChargerVisuals
     emptyState: suitcharger_03
-    occupiedState: suitcharger
+    occupiedState: suitcharger_03
     lightStates:
-      off: suitcharger_03
-      empty: suitcharger_03
+      off: null
+      empty: suitcharger
       charging: suitcharger
       charged: suitcharger
   - type: Charger

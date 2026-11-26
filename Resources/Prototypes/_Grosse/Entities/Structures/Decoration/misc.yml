@@ -240,7 +240,7 @@
         shape: !type:PhysShapeAabb
           bounds: "-0.95, -0.95, -0.6, 0.95"
         density: 250
-        hard: true
+        hard: false
         layer:
         - ItemMask
         mask:
@@ -249,7 +249,7 @@
         shape: !type:PhysShapeAabb
           bounds: "0.6, -0.95, 0.95, 0.95"
         density: 250
-        hard: true
+        hard: false
         layer:
         - ItemMask
         mask:
@@ -271,6 +271,8 @@
   - type: Sprite
     noRot: true
     sprite: _Grosse/Structures/Furniture/computeh.rsi
+    drawdepth: Mobs
+    offset: 0,0.45
     state: computeh
   - type: InteractionOutline
   - type: Physics
@@ -307,6 +309,8 @@
   - type: Sprite
     noRot: true
     sprite: _Grosse/Structures/Furniture/computer_table.rsi
+    drawdepth: Mobs
+    offset: 0,0.45
     state: computeh_table
   - type: InteractionOutline
   - type: Physics
@@ -377,7 +381,9 @@
   - type: Sprite
     noRot: true
     sprite: _Grosse/Structures/Decoration/cylinder-big.rsi
+    drawdepth: Mobs
     state: cylinder-big
+    offset: 0,0.45
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
@@ -385,7 +391,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.4,0.75,0.4,-0.75"
+          bounds: "-0.4,0.4,0.4,-0.4"
         density: 155
         mask:
         - MachineMask
@@ -419,12 +425,13 @@
   - type: Sprite
     sprite: _Grosse/Structures/Decoration/cylinder.rsi
     state: cylinder-small
+    offset: 0,0.25
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.3,0.4,0.3,-0.5"
+          bounds: "-0.3,0.3,0.3,-0.3"
         density: 155
         mask:
         - MachineMask

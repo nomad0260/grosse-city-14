@@ -6,13 +6,21 @@
   suffix: Full
   components:
   - type: Sprite
-    sprite: _Grosse/rsi/hlstaff/power_cells.rsi
+    sprite: _Grosse/Objects/Devices/battery.rsi
     layers:
     - map: [ "enum.PowerCellVisualLayers.Base" ]
       state: battery
     - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-      state: o2
+      state: o3
       shader: unshaded
+  - type: BatteryVisuals
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: o3}
+          Neither: {visible: true, state: o2}
+          Empty: {visible: true, state: o1}
   - type: Battery
     maxCharge: 6000
     startingCharge: 6000
