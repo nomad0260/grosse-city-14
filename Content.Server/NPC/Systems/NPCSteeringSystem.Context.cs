@@ -9,6 +9,7 @@ using Content.Shared.Movement.Components;
 using Content.Shared.NPC;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using ClimbingComponent = Content.Shared.Climbing.Components.ClimbingComponent;
@@ -59,27 +60,34 @@ public sealed partial class NPCSteeringSystem
 
         // TODO: Ideally for "FreeSpace" we check all entities on the tile and build flags dynamically (pathfinder refactor in future).
         var ents = _entSetPool.Get();
-        _lookup.GetLocalEntitiesIntersecting(node.GraphUid, node.Box.Enlarged(-0.04f), ents, flags: LookupFlags.Static);
         var result = true;
 
-        if (ents.Count > 0)
+        try
         {
-            var fixtures = _fixturesQuery.GetComponent(uid);
-            var physics = _physicsQuery.GetComponent(uid);
+            _lookup.GetLocalEntitiesIntersecting(node.GraphUid, node.Box.Enlarged(-0.04f), ents, flags: LookupFlags.Static);
 
-            foreach (var intersecting in ents)
+            if (ents.Count > 0)
             {
-                if (!_physics.IsCurrentlyHardCollidable((uid, fixtures, physics), intersecting))
-                {
-                    continue;
-                }
+                var fixtures = _fixturesQuery.GetComponent(uid);
+                var physics = _physicsQuery.GetComponent(uid);
 
-                result = false;
-                break;
+                foreach (var intersecting in ents)
+                {
+                    if (!_physics.IsCurrentlyHardCollidable((uid, fixtures, physics), intersecting))
+                    {
+                        continue;
+                    }
+
+                    result = false;
+                    break;
+                }
             }
         }
+        finally
+        {
+            _entSetPool.Return(ents);
+        }
 
-        _entSetPool.Return(ents);
         return result;
     }
 
@@ -143,13 +151,6 @@ public sealed partial class NPCSteeringSystem
 
         // Grab the target position, either the next path node or our end goal..
         var targetCoordinates = GetTargetCoordinates(steering);
-
-        if (!targetCoordinates.IsValid(EntityManager))
-        {
-            steering.Status = SteeringStatus.NoPath;
-            return false;
-        }
-
         var needsPath = false;
 
         // If the next node is invalid then get new ones
@@ -166,6 +167,12 @@ public sealed partial class NPCSteeringSystem
             }
         }
 
+        if (!targetCoordinates.IsValid(EntityManager))
+        {
+            steering.Status = SteeringStatus.NoPath;
+            return false;
+        }
+
         // Check if mapids match.
         var targetMap = _transform.ToMapCoordinates(targetCoordinates);
         var ourMap = _transform.ToMapCoordinates(ourCoordinates);
@@ -178,6 +185,12 @@ public sealed partial class NPCSteeringSystem
 
         var direction = targetMap.Position - ourMap.Position;
 
+        // Cache smash-target range once; this method runs every steering tick.
+        var hasSmashTarget = false;
+        var smashTargetInRange = false;
+        if (steering.CurrentPath.TryPeek(out var blockedNode) && !IsFreeSpace(uid, steering, blockedNode))
+            hasSmashTarget = TryGetSmashTargetInRange(uid, steering, blockedNode, out smashTargetInRange);
+
         // Need to be pretty close if it's just a node to make sure LOS for door bashes or the likes.
         bool arrived;
 
@@ -185,16 +198,29 @@ public sealed partial class NPCSteeringSystem
         {
             // What's our tolerance for arrival.
             // If it's a pathfinding node it might be different to the destination.
-            arrived = direction.Length() <= steering.Range;
+            // A polygon's centre or edge is not the obstacle's physical surface, so when the target
+            // sits behind a smashable obstacle let the melee range check decide. Otherwise the NPC
+            // stops a poly short of the wall and never starts smashing it.
+            arrived = hasSmashTarget
+                ? smashTargetInRange
+                : direction.Length() <= steering.Range;
         }
         // If next node is a free tile then get within its bounds.
         // This is to avoid popping it too early
         else if (steering.CurrentPath.TryPeek(out var node) && IsFreeSpace(uid, steering, node))
         {
-            arrived = node.Box.Contains(ourCoordinates.Position);
+            // The node may be on another grid (e.g. the next grid after a docking portal), so compare in
+            // world space instead of mixing our parent's local space with the node's grid-local box.
+            // Test the point itself: the transformed AABB grows on grids rotated not by 90°.
+            var nodeLocal = Vector2.Transform(ourMap.Position, _transform.GetInvWorldMatrix(node.GraphUid));
+            arrived = node.Box.Contains(nodeLocal);
         }
-        // Try getting into blocked range I guess?
-        // TODO: Consider melee range or the likes.
+        // For destructible blockers, use the same nearest-entity range check as melee attacks.
+        // A polygon's center or edge isn't necessarily the obstacle's physical surface.
+        else if (hasSmashTarget)
+        {
+            arrived = smashTargetInRange;
+        }
         else
         {
             arrived = direction.Length() <= SharedInteractionSystem.InteractionRange - 0.05f;
@@ -208,17 +234,25 @@ public sealed partial class NPCSteeringSystem
             {
                 // Ignore stuck while handling obstacles.
                 ResetStuck(steering, ourCoordinates);
+
+                // We're standing at the obstacle: stop steering into it. Obstacle do-afters
+                // (prying doors, climbing) break on movement and would be cancelled by our own
+                // walking input. TrySeek returns to Steer, which blends the previous interest map
+                // again, so clear it and skip that blend.
+                Array.Clear(steering.Interest);
+                steering.LastSteerDirection = Vector2.Zero;
+                SetDirection(uid, mover, steering, Vector2.Zero, false);
+                forceSteer = false;
+
+                // Wait until we actually stop before starting the interaction.
+                if (body.LinearVelocity.LengthSquared() > 0.01f)
+                    return true;
+
                 SteeringObstacleStatus status;
 
                 // Breaking behaviours and the likes.
                 lock (_obstacles)
                 {
-                    // We're still coming to a stop so wait for the do_after.
-                    if (body.LinearVelocity.LengthSquared() > 0.01f)
-                    {
-                        return true;
-                    }
-
                     status = TryHandleFlags(uid, steering, node);
                 }
 
@@ -235,6 +269,8 @@ public sealed partial class NPCSteeringSystem
                         return false;
                     case SteeringObstacleStatus.Continuing:
                         CheckPath(uid, steering, xform, needsPath, targetDistance);
+                        return true;
+                    case SteeringObstacleStatus.Waiting:
                         return true;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -351,6 +387,54 @@ public sealed partial class NPCSteeringSystem
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Checks whether an anchored destructible obstacle on this path node is within the NPC's actual
+    /// melee range. Returns false when this node has no eligible smash target, allowing other obstacle
+    /// handlers to keep using their normal interaction-range behavior.
+    /// </summary>
+    private bool TryGetSmashTargetInRange(
+        EntityUid uid,
+        NPCSteeringComponent steering,
+        PathPoly node,
+        out bool inRange)
+    {
+        inRange = false;
+
+        if ((steering.Flags & PathFlags.Smashing) == 0x0 ||
+            !_melee.TryGetWeapon(uid, out _, out var weapon))
+        {
+            return false;
+        }
+
+        if (!TryComp<MapGridComponent>(node.GraphUid, out var grid))
+            return false;
+
+        var (layer, mask) = _physics.GetHardCollision(uid);
+        var foundTarget = false;
+
+        foreach (var obstacle in _mapSystem.GetLocalAnchoredEntities(node.GraphUid, grid, node.Box))
+        {
+            if (!_destructibleQuery.HasComponent(obstacle) ||
+                !_physicsQuery.TryGetComponent(obstacle, out var body) ||
+                !body.Hard ||
+                !body.CanCollide ||
+                (body.CollisionMask & layer) == 0x0 && (body.CollisionLayer & mask) == 0x0)
+            {
+                continue;
+            }
+
+            foundTarget = true;
+            if (!_interaction.InRangeUnobstructed(uid, obstacle, weapon.Range))
+                continue;
+
+            inRange = true;
+            return true;
+        }
+
+        // The node has a smash target, but none of its eligible targets is in range yet.
+        return foundTarget;
     }
 
     private void ResetStuck(NPCSteeringComponent component, EntityCoordinates ourCoordinates)

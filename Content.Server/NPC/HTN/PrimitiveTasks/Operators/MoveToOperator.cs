@@ -4,7 +4,6 @@ using Content.Server.NPC.Components;
 using Content.Server.NPC.Pathfinding;
 using Content.Server.NPC.Systems;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
@@ -82,11 +81,12 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
         if (!_entManager.TryGetComponent<TransformComponent>(owner, out var xform) ||
-            !_entManager.TryGetComponent<PhysicsComponent>(owner, out var body))
+            !_entManager.TryGetComponent<PhysicsComponent>(owner, out _))
             return (false, null);
 
-        if (!_entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid) ||
-            !_entManager.TryGetComponent<MapGridComponent>(_transform.GetGrid(targetCoordinates), out var targetGrid))
+        // Grids are connected through the pathfinder (e.g. via docking portals), so the only thing that
+        // makes a target unreachable by definition is a different map. Everything else is up to the pathfinder.
+        if (_transform.GetMap(xform.Coordinates) != _transform.GetMap(targetCoordinates))
         {
             return (false, null);
         }
