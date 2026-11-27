@@ -8,6 +8,7 @@ ui-options-tab-controls = Controls
 ui-options-tab-audio = Audio
 ui-options-tab-network = Network
 ui-options-tab-misc = General
+ui-options-tab-music = Music
 
 ui-options-apply = Save & apply
 ui-options-reset-all = Reset changed
@@ -40,6 +41,20 @@ ui-options-event-music = Event Music
 ui-options-admin-sounds = Play Admin Sounds
 ui-options-bwoink-sound = Play AHelp Notification Sound
 ui-options-volume-label = Volume
+
+## Music player menu
+
+ui-options-player-heading = Player
+ui-options-player-nothing = Nothing playing
+ui-options-player-track-unknown = Track 1
+ui-options-player-previous = Previous
+ui-options-player-play = Play
+ui-options-player-pause = Pause
+ui-options-player-next = Next
+ui-options-player-state-playing = Playing
+ui-options-player-state-paused = Paused
+ui-options-player-state-idle = Idle
+ui-options-player-hint = Switches the city music. It plays during a round only; the slider above applies immediately.
 
 ## Graphics menu
 
