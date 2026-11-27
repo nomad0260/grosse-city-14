@@ -86,6 +86,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
             _profileEditor.RefreshAntags();
             _profileEditor.RefreshJobs();
         }
+
+        PreviewPanel?.SetServiceRecord(_requirements.FetchOverallPlaytime());
     }
 
     private void OnProtoReload(PrototypesReloadedEventArgs obj)
@@ -188,12 +190,13 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         if (character is not HumanoidCharacterProfile humanoid)
         {
             PreviewPanel.ProfilePreviewSpriteView.ClearPreview();
-            PreviewPanel.SetSummaryText(string.Empty);
+            PreviewPanel.ClearDossier();
             return;
         }
 
         PreviewPanel.ProfilePreviewSpriteView.LoadPreview(humanoid);
-        PreviewPanel.SetSummaryText(humanoid.Summary);
+        PreviewPanel.SetDossier(humanoid, _preferencesManager.Preferences?.SelectedCharacterIndex ?? 0);
+        PreviewPanel.SetServiceRecord(_requirements.FetchOverallPlaytime());
     }
 
     private void RefreshProfileEditor()

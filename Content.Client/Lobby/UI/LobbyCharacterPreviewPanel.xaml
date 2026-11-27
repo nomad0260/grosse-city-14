@@ -1,24 +1,87 @@
 <Control
     xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls">
-    <BoxContainer Name="VBox" Orientation="Vertical">
-        <controls:NanoHeading Name="Header" Text="{Loc 'lobby-character-preview-panel-header'}">
+    xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
+    xmlns:combine="clr-namespace:Content.Client.UIpatch">
+    <BoxContainer Name="VBox" Orientation="Vertical" HorizontalExpand="True">
+        <BoxContainer Name="Loaded" Orientation="Vertical" HorizontalExpand="True" Visible="False"
+                      SeparationOverride="12">
 
-        </controls:NanoHeading>
-        <BoxContainer Name="Loaded" Orientation="Vertical"
-                      Visible="False">
-            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3" StyleClasses="LabelBig"/>
-            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center">
-                <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
-                                                  OverrideDirection="South"
-                                                  Scale="6 6"
-                                                  MaxSize="150 150"
-                                                  Stretch="Fill"
-                                                  Access="Public" />
+            <!-- Минималистичный идентификационный скан субъекта -->
+            <combine:LobbyCornerFrame HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10"
+                              Margin="12 12 12 14">
+                    <!-- Заголовок скана и маленький индикатор статуса -->
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="8" HorizontalExpand="True">
+                        <PanelContainer StyleClasses="LobbyNodeDot" MinSize="6 6" MaxSize="6 6"
+                                        VerticalAlignment="Center" />
+                        <Label Text="{Loc 'ui-lobby-dossier-subject'}" StyleClasses="LobbyDeployRowKey"
+                               VerticalAlignment="Center" />
+                        <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" MaxHeight="1"
+                                        HorizontalExpand="True" VerticalAlignment="Center" />
+                    </BoxContainer>
+
+                    <!-- Увеличенный аватар в неполной угловой рамке -->
+                    <PanelContainer StyleClasses="LobbyPortraitFrame"
+                                    MinWidth="112" MaxWidth="112" MinHeight="184" MaxHeight="184"
+                                    HorizontalAlignment="Left">
+                        <Control RectClipContent="True">
+                            <combine:LobbySpotlight />
+                            <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
+                                                              OverrideDirection="South"
+                                                              Scale="5 5"
+                                                              Stretch="Fit"
+                                                              MinHeight="176"
+                                                              HorizontalExpand="True"
+                                                              VerticalExpand="True"
+                                                              Access="Public" />
+                            <combine:DossierScanOverlay />
+                        </Control>
+                    </PanelContainer>
+
+                    <!-- Имя персонажа — главный элемент досье -->
+                    <Label Name="DossierNameLabel" Text="—" StyleClasses="LobbyDossierName" ClipText="True" />
+
+                    <!-- Компактные характеристики в 2 колонки без лишних разделителей -->
+                    <GridContainer Columns="2" HorizontalExpand="True" HSeparationOverride="18" VSeparationOverride="8">
+                        <BoxContainer Orientation="Vertical" SeparationOverride="1" HorizontalExpand="True">
+                            <Label Text="{Loc 'ui-lobby-dossier-role'}" StyleClasses="LobbyStatLabel" />
+                            <Label Name="JobValue" Text="—" StyleClasses="LobbyStatValue" ClipText="True" />
+                        </BoxContainer>
+
+                        <BoxContainer Orientation="Vertical" SeparationOverride="1" HorizontalExpand="True">
+                            <Label Text="{Loc 'ui-lobby-dossier-playtime'}" StyleClasses="LobbyStatLabel" />
+                            <Label Name="PlaytimeValue" Text="—" StyleClasses="LobbyStatValue" ClipText="True" />
+                        </BoxContainer>
+
+                        <BoxContainer Orientation="Vertical" SeparationOverride="1" HorizontalExpand="True">
+                            <Label Text="{Loc 'ui-lobby-dossier-shifts'}" StyleClasses="LobbyStatLabel" />
+                            <Label Name="ShiftsValue" Text="—" StyleClasses="LobbyStatValue" ClipText="True" />
+                        </BoxContainer>
+
+                        <BoxContainer Orientation="Vertical" SeparationOverride="1" HorizontalExpand="True">
+                            <Label Text="{Loc 'ui-lobby-dossier-equipment'}" StyleClasses="LobbyStatLabel" />
+                            <Label Name="EquipmentValue" Text="—" StyleClasses="LobbyStatValue" ClipText="True" />
+                        </BoxContainer>
+                    </GridContainer>
+                </BoxContainer>
+            </combine:LobbyCornerFrame>
+
+            <!-- Эти поля обновляются состоянием, но в референсе их не видно. -->
+            <BoxContainer Orientation="Horizontal" Visible="False" SeparationOverride="8">
+                <Label Name="Status" Text="{Loc 'ui-lobby-dossier-status-active'}"
+                       StyleClasses="LobbyDossierStatus" VerticalAlignment="Center" />
+                <Label Name="FileId" Text="FILE-—" StyleClasses="LobbyFileCode" VerticalAlignment="Center" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" Visible="False" SeparationOverride="8">
+                <Label Name="AgeValue" Text="—" StyleClasses="LobbyDeployRowValue" />
+                <Label Name="SpeciesValue" Text="—" StyleClasses="LobbyDeployRowValue" />
             </BoxContainer>
         </BoxContainer>
-        <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
+
+        <Label Name="Unloaded"
+               Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"
+               StyleClasses="LobbyTextMuted"
+               Margin="12 12" />
     </BoxContainer>
 </Control>

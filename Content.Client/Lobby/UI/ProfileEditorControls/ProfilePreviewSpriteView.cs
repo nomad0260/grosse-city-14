@@ -1,6 +1,9 @@
+using System;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.Maths;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
@@ -58,6 +61,39 @@ public sealed partial class ProfilePreviewSpriteView : SpriteView
     {
         EntMan.DeleteEntity(PreviewDummy);
         PreviewDummy = EntityUid.Invalid;
+    }
+
+    private static readonly Direction[] CardinalDirections =
+    {
+        Direction.North,
+        Direction.East,
+        Direction.South,
+        Direction.West,
+    };
+
+    /// <summary>
+    /// Rotates the dossier portrait with the mouse wheel. It keeps the fixed
+    /// South-facing framing of the reference as the default.
+    /// </summary>
+    protected override void MouseWheel(GUIMouseWheelEventArgs args)
+    {
+        base.MouseWheel(args);
+
+        if (PreviewDummy == EntityUid.Invalid)
+            return;
+
+        var index = 2;
+        if (OverrideDirection is { } direction)
+        {
+            var found = Array.IndexOf(CardinalDirections, direction);
+            if (found >= 0)
+                index = found;
+        }
+
+        index = (index + (args.Delta.Y > 0f ? 1 : -1) + CardinalDirections.Length)
+            % CardinalDirections.Length;
+        OverrideDirection = CardinalDirections[index];
+        args.Handle();
     }
 
     protected override void ExitedTree()

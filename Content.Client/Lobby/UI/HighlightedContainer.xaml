@@ -2,7 +2,9 @@
     xmlns="https://spacestation14.io"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client">
     <PanelContainer.PanelOverride>
-        <graphics:StyleBoxFlat BackgroundColor="#363B45"
+        <graphics:StyleBoxFlat BackgroundColor="#15181748"
+                               BorderColor="#77797048"
+                               BorderThickness="1"
                                ContentMarginTopOverride="10"
                                ContentMarginBottomOverride="10"
                                ContentMarginLeftOverride="10"

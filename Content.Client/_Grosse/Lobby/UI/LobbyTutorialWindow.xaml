@@ -1,0 +1,386 @@
+<tut:LobbyTutorialWindow xmlns="https://spacestation14.io"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:tut="clr-namespace:Content.Client._Grosse.Lobby.UI"
+                        xmlns:combine="clr-namespace:Content.Client.UIpatch">
+
+    <!-- Затемнение: обучение перекрывает лобби, пока игрок его не закроет. -->
+    <PanelContainer Name="Dim" StyleClasses="LobbyTutorialDim" MouseFilter="Stop"
+                    HorizontalExpand="True" VerticalExpand="True">
+        <!-- Позицию окна считает код: так терминал стоит ровно по центру при любом разрешении. -->
+        <LayoutContainer Name="Stage" HorizontalExpand="True" VerticalExpand="True">
+            <PanelContainer Name="TutorialPanel" StyleClasses="LobbyTutorialPanel">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="0"
+                              HorizontalExpand="True" VerticalExpand="True">
+
+                    <!-- Оглавление: список из девяти разделов строится в коде. -->
+                    <PanelContainer Name="Rail" StyleClasses="LobbyTutorialRail"
+                                    MinWidth="252" MaxWidth="252" VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" SeparationOverride="9" HorizontalExpand="True">
+                            <BoxContainer Orientation="Vertical" SeparationOverride="3" HorizontalExpand="True">
+                                <Label Text="{Loc 'lobby-tutorial-kicker'}" StyleClasses="LobbyTutorialKicker" />
+                                <Label Text="{Loc 'lobby-tutorial-codename'}" StyleClasses="LobbyMonoSmall" />
+                            </BoxContainer>
+
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="0" HorizontalExpand="True">
+                                <PanelContainer StyleClasses="LobbyAccent" MinWidth="28" MaxWidth="28" MinHeight="2" MaxHeight="2"
+                                                VerticalAlignment="Center" />
+                                <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" MaxHeight="1"
+                                                HorizontalExpand="True" VerticalAlignment="Center" />
+                            </BoxContainer>
+
+                            <BoxContainer Name="NavList" Orientation="Vertical" SeparationOverride="4"
+                                          HorizontalExpand="True" Margin="0 4 0 0" />
+
+                            <Control VerticalExpand="True" />
+
+                            <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" MaxHeight="1"
+                                            HorizontalExpand="True" />
+                            <Label Text="{Loc 'lobby-tutorial-footer'}" StyleClasses="LobbyMonoSmall" />
+                            <Label Name="StepLabel" Text="01 / 09" StyleClasses="LobbyTutorialStep" />
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <!-- Кант между оглавлением и страницей. -->
+                    <PanelContainer StyleClasses="LobbyTutorialRailEdge" MinWidth="1" MaxWidth="1"
+                                    VerticalExpand="True" />
+
+                    <!-- Страница: заголовок, прокручиваемый текст и кнопки. -->
+                    <BoxContainer Orientation="Vertical" SeparationOverride="11" HorizontalExpand="True"
+                                  VerticalExpand="True" Margin="24 18 24 16">
+                        <BoxContainer Orientation="Vertical" SeparationOverride="8" HorizontalExpand="True">
+                            <Label Name="PageTitle" StyleClasses="LobbyTutorialTitle" ClipText="True"
+                                   HorizontalExpand="True" />
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="0" HorizontalExpand="True">
+                                <PanelContainer StyleClasses="LobbyAccent" MinWidth="42" MaxWidth="42" MinHeight="2" MaxHeight="2"
+                                                VerticalAlignment="Center" />
+                                <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" MaxHeight="1"
+                                                HorizontalExpand="True" VerticalAlignment="Center" />
+                            </BoxContainer>
+                        </BoxContainer>
+
+                        <ScrollContainer Name="BodyScroll" HorizontalExpand="True" VerticalExpand="True"
+                                         HScrollEnabled="False" VScrollEnabled="True"
+                                         ReserveScrollbarSpace="True" ReturnMeasure="True">
+                            <BoxContainer Name="Pages" Orientation="Vertical" SeparationOverride="10"
+                                          HorizontalExpand="True">
+
+                                <!-- 01. Что это за сервер -->
+                                <BoxContainer Name="Page0" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-setting'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-departments'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-death'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-mood'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-basics-tone'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-basics-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 02. Управление и таблица клавиш -->
+                                <BoxContainer Name="Page1" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-controls-intro'}" />
+
+                                    <BoxContainer Name="Binds" Orientation="Vertical" SeparationOverride="4"
+                                                  HorizontalExpand="True" Margin="0 2 0 2">
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="W A S D" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-move'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Shift" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-walk'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="E" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-use'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="{Loc 'lobby-tutorial-key-mouse'}" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-click'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Z" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-item'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Alt + Z" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-alt'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="{Loc 'lobby-tutorial-key-shift-mouse'}" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-examine'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="T" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-chat'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Y" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-radio'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Q" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-drop'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="Ctrl + Q" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-throw'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True">
+                                            <PanelContainer StyleClasses="LobbyTutorialKey" MinWidth="120" MaxWidth="120">
+                                                <Label Text="F10" StyleClasses="LobbyTutorialKeyText"
+                                                       HorizontalAlignment="Center" />
+                                            </PanelContainer>
+                                            <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                           Text="{Loc 'lobby-tutorial-act-settings'}" />
+                                        </BoxContainer>
+                                    </BoxContainer>
+
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-controls-binds'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-controls-pace'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-controls-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 03. Правила HL2RP -->
+                                <BoxContainer Name="Page2" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-death'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-nonrp'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-fear'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-pg'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-nlr'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-meta'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rules-hunt'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-rules-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 04. Лор Half-Life -->
+                                <BoxContainer Name="Page3" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-lore-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-lore-breen'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-lore-freeman'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-lore-world'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-lore-city'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-lore-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 05. Жизнь под оккупацией -->
+                                <BoxContainer Name="Page4" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-ally'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-blend'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-papers'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-work'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-life-trust'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-life-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 06. Выбор роли -->
+                                <BoxContainer Name="Page5" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-cp'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-citizen'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-gsr'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-refugee'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-roles-locked'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-roles-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 07. Антагонисты -->
+                                <BoxContainer Name="Page6" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-antag-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-antag-revolutionary'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-antag-saboteur'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-antag-rules'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-antag-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 08. Отыгрыш -->
+                                <BoxContainer Name="Page7" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rp-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rp-cp'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rp-cp-tone'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rp-citizen'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-rp-citizen-life'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-rp-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+
+                                <!-- 09. Быстрый старт -->
+                                <BoxContainer Name="Page8" Orientation="Vertical" SeparationOverride="9"
+                                              HorizontalExpand="True" Visible="False">
+                                    <RichTextLabel StyleClasses="LobbyTutorialLead" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-intro'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-arrival'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-checkpoint'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-legend'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-cid'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-city'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-job'}" />
+                                    <RichTextLabel StyleClasses="LobbyTutorialText" HorizontalExpand="True"
+                                                   Text="{Loc 'lobby-tutorial-start-phases'}" />
+                                    <PanelContainer StyleClasses="LobbyTutorialQuote">
+                                        <RichTextLabel StyleClasses="LobbyTutorialQuoteText" HorizontalExpand="True"
+                                                       Text="{Loc 'lobby-tutorial-start-box'}" />
+                                    </PanelContainer>
+                                </BoxContainer>
+                            </BoxContainer>
+                        </ScrollContainer>
+
+                        <PanelContainer StyleClasses="LobbyDivider" MinHeight="1" MaxHeight="1"
+                                        HorizontalExpand="True" />
+
+                        <!-- Нижняя навигация брифинга в стиле основного меню. -->
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="16" HorizontalExpand="True">
+                            <combine:CombineButton Name="SkipButton" ButtonStyle="Link" MinHeight="28">
+                                <Label Text="{Loc 'lobby-tutorial-skip'}" StyleClasses="LobbyBottomHint"
+                                       Margin="4 0" VerticalAlignment="Center" />
+                            </combine:CombineButton>
+                            <combine:CombineButton Name="NeverButton" ButtonStyle="Link" MinHeight="28">
+                                <Label Text="{Loc 'lobby-tutorial-never'}" StyleClasses="LobbyTextMuted"
+                                       Margin="4 0" VerticalAlignment="Center" />
+                            </combine:CombineButton>
+                            <Control HorizontalExpand="True" />
+                            <combine:CombineButton Name="PrevButton" ButtonStyle="Secondary" MinHeight="30">
+                                <Label Text="{Loc 'lobby-tutorial-prev'}" StyleClasses="LobbyTextButton"
+                                       Margin="12 0" VerticalAlignment="Center" />
+                            </combine:CombineButton>
+                            <combine:LobbyBracketButton Name="NextButton" MinHeight="30"
+                                                        AccentColor="#D13239">
+                                <BoxContainer Orientation="Horizontal" Margin="14 0" SeparationOverride="8">
+                                    <Label Name="NextLabel" Text="{Loc 'lobby-tutorial-next'}"
+                                           StyleClasses="LobbyTextButton" VerticalAlignment="Center" />
+                                    <combine:LobbyIcon Icon="ArrowTopRight" IconColor="#D13239"
+                                                       MinSize="12 12" MaxSize="12 12" VerticalAlignment="Center" />
+                                </BoxContainer>
+                            </combine:LobbyBracketButton>
+                        </BoxContainer>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </LayoutContainer>
+    </PanelContainer>
+</tut:LobbyTutorialWindow>
