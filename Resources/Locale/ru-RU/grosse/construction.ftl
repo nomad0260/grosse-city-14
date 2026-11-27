@@ -12,3 +12,4 @@ construction-insert-shotgun-t1 = самодельный дробовик Т1
 construction-insert-smg-t1 = самодельный ПП Т1
 construction-insert-powercell-union = батарейка Альянса
 construction-insert-bolt-action-rifle = самодельная болтовка
+construction-insert-bolt-crossbow = болт арбалета

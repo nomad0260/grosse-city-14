@@ -76,6 +76,22 @@
         - to: workbench17
           completed:
             - !type:SpawnPrototype
+              prototype: CartridgeMagnum
+              amount: 3
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: CrossbowBolt
+              name: construction-insert-bolt-crossbow
+              doAfter: 1
+            - material: Steel
+              amount: 1
+              doAfter: 3
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
               prototype: CartridgeRifleLight762x54
               amount: 5
           conditions:
