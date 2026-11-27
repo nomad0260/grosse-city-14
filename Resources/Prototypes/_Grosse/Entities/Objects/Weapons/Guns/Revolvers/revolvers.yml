@@ -44,7 +44,7 @@
   - type: RevolverAmmoProvider
     proto: null
     capacity: 5
-    chambers: [ True, True, True, True, True ]
+    chambers: [ null, null, null, null, null ]
     ammoSlots: [ null, null, null, null, null ]
     whitelist:
       tags:
@@ -81,7 +81,7 @@
   - type: RevolverAmmoProvider
     proto: null
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
+    chambers: [ null, null, null, null, null, null ]
     ammoSlots: [ null, null, null, null, null, null ]
   - type: GrosseGunWieldBonus
     kickMagnitudeMax: 5
