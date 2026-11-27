@@ -1,0 +1,9 @@
+guide-entry-grosse-reactor = Реактор РТМ
+guide-entry-grosse-reactor-build = Устройство и сборка
+guide-entry-grosse-reactor-cartridges = Патроны
+guide-entry-grosse-reactor-coolant = Хладагенты
+guide-entry-grosse-reactor-startup = Пуск и остановка
+guide-entry-grosse-reactor-console = Консоль и тревоги
+guide-entry-grosse-reactor-emergencies = Аварии и проблемы
+guide-entry-grosse-reactor-maintenance = Обслуживание и снабжение
+guide-entry-grosse-reactor-reference = Сборки и расчёты

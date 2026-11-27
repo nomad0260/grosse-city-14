@@ -1,0 +1,54 @@
+<Document>
+  # Патроны
+
+  Патрон — сменный картридж: он задаёт характер луча и имеет собственный ресурс.   Ресурс тратится, пока эмиттер работает; на нуле эмиттер останавливается и выбрасывает отработанный патрон. Патрон извлекается рукой, остаток ресурса при этом сохраняется. Отработанный патрон обратно не вставляется — только в утилизатор или свинцовую бочку.
+
+  <Table Columns="4">
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Патрон</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Стабилизация / сжатие / энергия</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Тепло при 100%</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Ресурс</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Альфа</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">1.0 / 0.5 / 1.0</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">105</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">10 000</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Бета</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">0.6 / 0.3 / 1.8</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">210</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">6 000</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Гамма</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">1.8 / 0.6 / 0.6</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">150</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">8 000</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Дигамма</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">0.8 / 0.6 / 2.5</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">330</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">3 000</Box></ColorBox>
+  </Table>
+
+  <Box>
+  <GuideEntityEmbed Entity="DarkCoreCartridgeAlpha"/>
+  <GuideEntityEmbed Entity="DarkCoreCartridgeBeta"/>
+  <GuideEntityEmbed Entity="DarkCoreCartridgeGamma"/>
+  <GuideEntityEmbed Entity="DarkCoreCartridgeDigamma"/>
+  </Box>
+
+  ## Роли патронов
+
+  - [bold]Альфа[/bold] — спокойный патрон. Мало тепла, нормальная энергия, живёт долго. С него начинают все.
+  - [bold]Гамма[/bold] — почти не даёт энергии, зато сильно стабилизирует ядро. Это «тормоз» реактора.
+  - [bold]Бета[/bold] — много энергии, но много тепла. Нужна жидкость не слабее термосила.
+  - [bold]Дигамма[/bold] — максимум энергии, сильный жар, быстрый износ и маленький ресурс. Расходник для рывка, а не рабочая лошадка.
+
+  ## Синергия патронов
+
+  Типы патронов влияют друг на друга:
+
+  - Альфа и Гамма: стабилизация +15%, сжатие −10%.
+  - Альфа и Бета: стабилизация +5%, энергия +10%.
+  - Бета и Дигамма: энергия +20%, тепло +25%.
+  - Гамма и Дигамма мешают друг другу: стабилизация −10%, сжатие +15%.
+  - Три разных типа и больше: стабилизация −5%, энергия +10%, тепло +10%.
+
+  Поэтому «все четыре разных» — не лучшая идея: набор из альфы и гаммы держит ядро крепче, а бета с дигаммой даёт энергию.
+</Document>

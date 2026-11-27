@@ -1,0 +1,197 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      Title="ЕНК · терминал исследователя"
+                      MinSize="1100 720"
+                      SetSize="1280 860">
+
+    <BoxContainer Orientation="Vertical" Margin="12" SeparationOverride="10">
+
+        <!-- Шапка: название терминала, назначение и имя текущей формулы. -->
+        <PanelContainer Name="HeaderPanel">
+            <BoxContainer Orientation="Horizontal" Margin="16 12" SeparationOverride="14">
+                <PanelContainer Name="HeaderAccent" MinWidth="4" MinHeight="64" VerticalExpand="True"/>
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="4">
+                    <Label Text="Терминал ЕНК" StyleClasses="LabelHeadingBigger"/>
+                    <Label Text="Научный комплекс · синтез материалов, анализ и конструктор формул"
+                           StyleClasses="LabelSubText"/>
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="10" Margin="0 4 0 0">
+                        <Label Text="ФОРМУЛА" StyleClasses="LabelSubText" VerticalAlignment="Center"/>
+                        <LineEdit Name="FormulaNameEdit" Text="Новая формула" HorizontalExpand="True"/>
+                    </BoxContainer>
+                </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+        <!-- Строка статуса терминала и текущий заказ. -->
+        <PanelContainer Name="StatusCard">
+            <BoxContainer Orientation="Horizontal" Margin="16 10" SeparationOverride="10">
+                <PanelContainer Name="StatusAccent" MinWidth="4" MinHeight="20" VerticalExpand="True"/>
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                    <RichTextLabel Name="StatusLabel" Text="Терминал готов к работе."/>
+                    <RichTextLabel Name="RequiredLabel"/>
+                    <RichTextLabel Name="LoadedLabel"/>
+                </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+        <TabContainer Name="Tabs" VerticalExpand="True" HorizontalExpand="True">
+
+            <ScrollContainer Name="WorkbenchTab" HScrollEnabled="False" VerticalExpand="True"
+                             HorizontalExpand="True">
+              <BoxContainer Orientation="Vertical" SeparationOverride="10" Margin="16 14"
+                            VerticalExpand="True" HorizontalExpand="True">
+                <GridContainer Columns="2" HorizontalExpand="True" HSeparationOverride="10"
+                               VSeparationOverride="4">
+                    <PanelContainer Name="SynthesisCard" HorizontalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="14 12" SeparationOverride="6"
+                                      HorizontalExpand="True">
+                            <Label Text="КС-1 · СИНТЕЗ" StyleClasses="LabelKeyText"/>
+                            <BoxContainer Name="FeedRows" Orientation="Vertical" SeparationOverride="6"
+                                          HorizontalExpand="True"/>
+                            <RichTextLabel Name="ClotLabel" Text="Сгусток: нет"/>
+                            <Label Text="Сгустки появляются у работающего РТМ." StyleClasses="LabelSubText"/>
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                <LineEdit Name="SampleNameEdit" Text="Синтезированный материал"
+                                          HorizontalExpand="True"/>
+                                <Button Name="SynthesizeButton" Text="Синтезировать" MinHeight="30"/>
+                            </BoxContainer>
+                            <Button Name="CrystallizeButton" Text="Создать кристалл из образца"
+                                    MinHeight="32"/>
+                            <Button Name="ReflashCrystalButton" Text="Перепрошить кристалл в анализаторе"
+                                    MinHeight="32"/>
+                            <Label Text="Перепрошивка меняет формулу готового кристалла и не расходует образец."
+                                   StyleClasses="LabelSubText"/>
+                            <RichTextLabel Name="SynthesisLabel" Text="Последний синтез: —"
+                                           StyleClasses="LabelSubText"/>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <PanelContainer Name="AnalyzerCard" HorizontalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="14 12" SeparationOverride="5"
+                                      HorizontalExpand="True">
+                            <Label Text="АНАЛИЗАТОР" StyleClasses="LabelKeyText"/>
+                            <RichTextLabel Name="AnalysisHint" Text="Вставьте образец в анализатор."
+                                           StyleClasses="LabelSubText"/>
+                            <ScrollContainer VerticalExpand="True" HorizontalExpand="True"
+                                             HScrollEnabled="False" MinHeight="180">
+                                <BoxContainer Name="AnalysisRows" Orientation="Vertical"
+                                              HorizontalExpand="True" SeparationOverride="4"/>
+                            </ScrollContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+                </GridContainer>
+
+                <PanelContainer Name="WorkOrderCard" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="14 12" SeparationOverride="4"
+                                  VerticalExpand="True" HorizontalExpand="True">
+                        <Label Text="ПОРЯДОК РАБОТЫ" StyleClasses="LabelKeyText"/>
+                        <RichTextLabel Name="WorkHint"
+                                       Text="Терминал сам находит анализатор и матрицу в радиусе действия."
+                                       StyleClasses="LabelSubText"/>
+                        <Label Text="1. Загрузите в КС-1 жидкость, сырьё и сгусток по заказу."
+                               StyleClasses="LabelSubText"/>
+                        <Label Text="2. Нажмите «Синтезировать» и заберите образец."
+                               StyleClasses="LabelSubText"/>
+                        <Label Text="3. Вставьте образец в анализатор."
+                               StyleClasses="LabelSubText"/>
+                        <Label Text="4. Соберите формулу в конструкторе и проверьте её."
+                               StyleClasses="LabelSubText"/>
+                        <Label Text="5. Нажмите «Создать кристалл из образца»."
+                               StyleClasses="LabelSubText"/>
+                    </BoxContainer>
+                </PanelContainer>
+              </BoxContainer>
+            </ScrollContainer>
+
+            <BoxContainer Name="ConstructorTab" Orientation="Vertical" SeparationOverride="8"
+                          Margin="16 14" VerticalExpand="True" HorizontalExpand="True">
+                <PanelContainer Name="ConstructorHeaderCard">
+                    <BoxContainer Orientation="Horizontal" Margin="14 8" SeparationOverride="10">
+                        <Label Text="КОНСТРУКТОР ФОРМУЛЫ" StyleClasses="LabelKeyText"
+                               HorizontalExpand="True"/>
+                        <Label Text="Соединяйте порты одинакового цвета" StyleClasses="LabelSubText"/>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalExpand="True"
+                              VerticalExpand="True">
+                    <PanelContainer Name="PaletteCard" MinWidth="240" MaxWidth="280">
+                        <BoxContainer Orientation="Vertical" Margin="12 10" SeparationOverride="6"
+                                      VerticalExpand="True">
+                            <Label Text="ДЕЙСТВИЯ" StyleClasses="LabelKeyText"/>
+                            <Label Text="Нажмите действие, чтобы добавить его в формулу."
+                                   StyleClasses="LabelSubText"/>
+                            <Label Name="PaletteCount" StyleClasses="LabelSubText" Text=""/>
+                            <LineEdit Name="PaletteSearch" HorizontalExpand="True"/>
+                            <ScrollContainer VerticalExpand="True" HorizontalExpand="True"
+                                             HScrollEnabled="False">
+                                <BoxContainer Name="PaletteRows" Orientation="Vertical"
+                                              HorizontalExpand="True" SeparationOverride="6"/>
+                            </ScrollContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <PanelContainer Name="GraphCard" HorizontalExpand="True" VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="10" VerticalExpand="True"
+                                      HorizontalExpand="True">
+                            <PanelContainer Name="GraphHost" HorizontalExpand="True"
+                                            VerticalExpand="True"/>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <PanelContainer Name="InspectorCard" MinWidth="280" MaxWidth="340">
+                        <BoxContainer Orientation="Vertical" Margin="12 10" SeparationOverride="5"
+                                      VerticalExpand="True">
+                            <Label Text="НАСТРОЙКА" StyleClasses="LabelKeyText"/>
+                            <Label Name="SelectedNodeLabel" Text="Узел не выбран"
+                                   StyleClasses="LabelSubText"/>
+                            <ScrollContainer VerticalExpand="True" HorizontalExpand="True"
+                                             HScrollEnabled="False">
+                                <BoxContainer Name="ParameterRows" Orientation="Vertical"
+                                              HorizontalExpand="True" SeparationOverride="4"/>
+                            </ScrollContainer>
+                            <RichTextLabel Name="ValidationLabel" StyleClasses="LabelSubText"/>
+                            <Button Name="DeleteNodeButton" Text="Удалить узел" MinHeight="30"/>
+                            <Button Name="ClearGraphButton" Text="Очистить формулу" MinHeight="30"/>
+                        </BoxContainer>
+                    </PanelContainer>
+                </BoxContainer>
+
+                <PanelContainer Name="ConstructorFooterCard">
+                    <BoxContainer Orientation="Horizontal" Margin="12 8" SeparationOverride="10">
+                        <Button Name="SaveFormulaButton" Text="Сохранить в архив"
+                                HorizontalExpand="True" MinHeight="32"/>
+                        <Button Name="TestButton" Text="Проверить"
+                                HorizontalExpand="True" MinHeight="32"/>
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+            <BoxContainer Name="ArchiveTab" Orientation="Vertical" SeparationOverride="10"
+                          Margin="16 14" VerticalExpand="True" HorizontalExpand="True">
+                <PanelContainer Name="ArchiveHeaderCard">
+                    <BoxContainer Orientation="Vertical" Margin="14 12" SeparationOverride="4">
+                        <Label Text="АРХИВ ФОРМУЛ" StyleClasses="LabelKeyText"/>
+                        <RichTextLabel Name="ArchiveHint"
+                                       Text="Сохранённая формула не меняется. Загрузка создаёт редактируемую копию в конструкторе."
+                                       StyleClasses="LabelSubText"/>
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <LineEdit Name="RenameFormulaEdit" Text="Новое название"
+                                      HorizontalExpand="True"/>
+                            <Button Name="RenameFormulaButton" Text="Переименовать" MinHeight="30"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <PanelContainer Name="ArchiveListCard" VerticalExpand="True">
+                    <ScrollContainer VerticalExpand="True" HorizontalExpand="True"
+                                     HScrollEnabled="False" Margin="10">
+                        <BoxContainer Name="ArchiveRows" Orientation="Vertical"
+                                      HorizontalExpand="True" SeparationOverride="6"/>
+                    </ScrollContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+        </TabContainer>
+    </BoxContainer>
+</controls:FancyWindow>

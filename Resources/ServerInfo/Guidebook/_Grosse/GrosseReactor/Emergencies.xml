@@ -1,0 +1,54 @@
+<Document>
+  # Аварии и проблемы
+
+  У каждой аварии есть свой отсчёт. Ниже — пороги, время и что делать.
+
+  ## Сколько времени есть
+
+  <Table Columns="3">
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Условие</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Что происходит</Box></ColorBox>
+    <ColorBox Color="#2A1416"><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Сколько времени</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Расширение 100 и выше</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Отсчёт до взрыва установки</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">45 секунд</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Сдерживание у нуля</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Расплавление ядра</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">30 секунд</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Сжатие 340 и плотность выше 100</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Коллапс в сингулярность</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">20 секунд</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Температура 700 K и выше</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Эмиттеры разрушаются</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Постоянно</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Температура 900 K и выше</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Сдерживание разрушается само</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Постоянно</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Отработка 150</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">Охладитель встаёт</Box></ColorBox>
+    <ColorBox><Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">До слива</Box></ColorBox>
+  </Table>
+
+  ## Что делать при аварии
+
+  - [bold]Расширение.[/bold] Мало стабилизации: добавьте гамма-патроны, зажимы, снизьте мощность. Если ядро уже раздуто, сброс его не сдует — остужайте живыми охладителями.
+  - [bold]Потеря сдерживания.[/bold] Проверьте зажимы и исправность эмиттеров, снизьте форсаж и мощность. При 900 K сдерживание разрушается само, так что сначала сбивайте температуру.
+  - [bold]Критическое сжатие.[/bold] Уберите бету или дигамму, снизьте интенсивность. Плотность растёт только от избытка сжатия, поэтому достаточно уйти ниже 340.
+  - [bold]Перегрев.[/bold] Жидкость не тянет патрон: смените её на ступень выше или снизьте интенсивность.
+
+  Аварийная остановка прекращает нагрев, но не отменяет уже начавшуюся аварию: пока ядро горячее, расширение не спадает. Спасает остывание, а его ускоряют живые охладители — без контура остывание идёт вдвое медленнее.
+
+  Остановленное, но раздутое ядро продолжает фонить, а сдерживание у него остаётся низким, пока расширение не спадёт.
+
+  ## Частые проблемы
+
+  - [bold]Энергия ноль.[/bold] Реактор выключен, нет патронов, нет жидкости в охладителях или эмиттеры стоят далеко от ядра.
+  - [bold]Температура растёт, эффективность падает.[/bold] Жидкость слишком слабая для патрона, охладитель дальше 12 клеток от эмиттера или бак загрязнён. Смените жидкость, подвиньте блок, промойте бак.
+  - [bold]Стабильность падает, расширение растёт.[/bold] Мало стабилизации. Добавьте гамма-патроны или контуры сдерживания.
+  - [bold]Сжатие выше 260.[/bold] Слишком много беты или дигаммы. Уберите один патрон или снизьте интенсивность.
+  - [bold]Охладитель встал.[/bold] Набралось 150 отработки. Слейте грязь и промойте бак.
+  - [bold]Вокруг ядра радиация.[/bold] Поставьте четыре экрана — этого хватает полностью.
+  - [bold]Эмиттер дымится и разрушается.[/bold] Он перегрет: жидкости не хватает. Остановите реактор и поменяйте жидкость.
+  - [bold]Консоль не запускает реактор.[/bold] В сообщении указана причина: горячее ядро, стержни ещё не вернулись (20 секунд), нет патрона, форсаж выше 150% или нет рабочего охлаждения.
+  - [bold]После сброса ядро всё равно расплавилось.[/bold] Расширение спадает только ниже 700 K, поэтому охладители должны быть живы к моменту сброса. Сброс гасит реакцию, но не тушит аварию.
+</Document>

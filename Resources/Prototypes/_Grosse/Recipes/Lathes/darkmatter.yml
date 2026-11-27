@@ -1,0 +1,65 @@
+# Производство оборудования ЕНК.
+# Рецепты используют обычные материалы, чтобы комплекс можно было собрать в раунде.
+
+- type: latheRecipe
+  id: DarkMatterResearchTerminalRecipe
+  result: DarkMatterResearchTerminal
+  completetime: 12
+  materials:
+    Steel: 2500
+    Glass: 800
+    Plasma: 250
+    Gold: 100
+  icon:
+    sprite: Structures/Machines/computers.rsi
+    state: computer
+
+- type: latheRecipe
+  id: DarkMatterSubstanceAnalyzerRecipe
+  result: DarkMatterSubstanceAnalyzer
+  completetime: 8
+  materials:
+    Steel: 1400
+    Glass: 500
+    Plasma: 150
+  icon:
+    sprite: Structures/Machines/artifact_analyzer.rsi
+    state: icon
+
+- type: latheRecipe
+  id: DarkMatterSynthesizerRecipe
+  result: DarkMatterSynthesizer
+  completetime: 9
+  materials:
+    Steel: 1600
+    Glass: 600
+    Plasma: 200
+  icon:
+    sprite: Structures/Machines/Anomaly/adv_anomaly_vessel.rsi
+    state: base
+
+# Платы для альтернативной сборки оборудования через Construction.
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: DarkMatterResearchTerminalCircuitboardRecipe
+  result: DarkMatterResearchTerminalCircuitboard
+  completetime: 6
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: cpu_science
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DarkMatterSubstanceAnalyzerCircuitboardRecipe
+  result: DarkMatterSubstanceAnalyzerCircuitboard
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: science
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: DarkMatterSynthesizerCircuitboardRecipe
+  result: DarkMatterSynthesizerCircuitboard
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: science

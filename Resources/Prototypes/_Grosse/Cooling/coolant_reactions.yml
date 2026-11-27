@@ -1,0 +1,93 @@
+# Специализированные охлаждающие жидкости РТМ.
+# Реакции используют только существующие реагенты проекта; названия в ТЗ
+# сопоставлены с фактическими прототипами Grosse City-14.
+
+- type: reaction
+  id: DarkCoreCoolantWaterMixture
+  impact: Low
+  reactants:
+    Water:
+      amount: 25
+    SodiumCarbonate:
+      amount: 3
+    Hydroxide:
+      amount: 2
+  products:
+    DarkCoreCoolantWater: 30
+
+- type: reaction
+  id: DarkCoreCoolantCryogelMixture
+  impact: Low
+  reactants:
+    Water:
+      amount: 12
+    Frezon:
+      amount: 10
+    SodiumPolyacrylate:
+      amount: 5
+    Silicon:
+      amount: 3
+  products:
+    DarkCoreCoolantCryogel: 30
+
+- type: reaction
+  id: DarkCoreCoolantThermosilMixture
+  impact: Low
+  reactants:
+    Water:
+      amount: 10
+    Silicon:
+      amount: 8
+    Oil:
+      amount: 7
+    Hydroxide:
+      amount: 5
+  products:
+    DarkCoreCoolantThermosil: 30
+
+- type: reaction
+  id: DarkCoreCoolantRadiogelMixture
+  impact: Medium
+  reactants:
+    Water:
+      amount: 12
+    Radium:
+      amount: 3
+    SodiumPolyacrylate:
+      amount: 8
+    Fluorosurfactant:
+      amount: 7
+  products:
+    DarkCoreCoolantRadiogel: 30
+
+- type: reaction
+  id: DarkCoreCoolantIsotopeMixture
+  impact: Medium
+  reactants:
+    Frezon:
+      amount: 10
+    Uranium:
+      amount: 5
+    Plasma:
+      amount: 5
+    Water:
+      amount: 10
+  products:
+    DarkCoreCoolantIsotope: 30
+
+- type: reaction
+  id: DarkCoreCoolantDigammaMixture
+  impact: High
+  reactants:
+    Frezon:
+      amount: 8
+    Artifexium:
+      amount: 5
+    Plasma:
+      amount: 10
+    Radium:
+      amount: 2
+    Silicon:
+      amount: 5
+  products:
+    DarkCoreCoolantDigamma: 30

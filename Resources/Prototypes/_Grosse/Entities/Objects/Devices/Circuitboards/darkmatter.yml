@@ -1,0 +1,42 @@
+# Платы ЕНК для альтернативной сборки через Construction.
+# Терминал собирается как компьютер, остальные машины — через MachineFrame.
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DarkMatterResearchTerminalCircuitboard
+  name: плата терминала ЕНК
+  description: Компьютерная плата для сборки терминала научного комплекса.
+  components:
+  - type: Sprite
+    state: cpu_science
+  - type: ComputerBoard
+    prototype: DarkMatterResearchTerminal
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DarkMatterSubstanceAnalyzerCircuitboard
+  name: плата анализатора вещества ЕНК
+  description: Машинная плата для сборки анализатора вещества.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DarkMatterSubstanceAnalyzer
+    stackRequirements:
+      Manipulator: 2
+      Glass: 1
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: DarkMatterSynthesizerCircuitboard
+  name: плата КС-1 «Матрица» ЕНК
+  description: Машинная плата для сборки матрицы синтеза.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: DarkMatterSynthesizer
+    stackRequirements:
+      Manipulator: 3
+      Glass: 1
+      Cable: 5
