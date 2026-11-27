@@ -42,7 +42,7 @@
         - !type:EmptyAllContainers
         - !type:DeleteEntity
       steps:
-      - material: MetalRod
+      - material: MetalRodC17
         amount: 5
         doAfter: 5
   - node: RevolverT2

@@ -42,10 +42,10 @@
   - type: Construction
     graph: MetalRod
     node: MetalRod
-  #- type: FloorTile #grosse-edit
-  #  outputs:
-  #  - Lattice
-  #  - FloorReinforced
+  - type: FloorTile
+    outputs:
+    - Lattice
+    - FloorReinforced
   - type: StaticPrice
     price: 0
   - type: StackPrice

@@ -40,7 +40,7 @@
             - !type:EntityAnchored
               anchored: true
           steps:
-            - material: MetalRod
+            - material: MetalRodC17
               amount: 5
               doAfter: 5
 
@@ -69,7 +69,7 @@
             - material: Plasteel
               amount: 1
               doAfter: 5
-            - material: MetalRod
+            - material: MetalRodC17
               amount: 1
               doAfter: 1
 
@@ -120,7 +120,7 @@
             - material: Steel
               amount: 2
               doAfter: 2
-            - material: MetalRod
+            - material: MetalRodC17
               amount: 4
               doAfter: 2
 
@@ -139,7 +139,7 @@
             - material: Steel
               amount: 2
               doAfter: 2
-            - material: MetalRod
+            - material: MetalRodC17
               amount: 1
               doAfter: 5
 
@@ -192,7 +192,7 @@
             - tag: SelfmadeSMGT1
               name: construction-insert-smg-t1
               doAfter: 2
-            - material: MetalRod
+            - material: MetalRodC17
               amount: 5
               doAfter: 5
             - tag: WoodenPieceSheet
