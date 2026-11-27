@@ -5,3 +5,11 @@
   targetNode: graph
   category: construction-category-materials
   objectType: Item
+
+- type: construction
+  id: BackpackC17
+  graph: BackpackRefugeeGraph
+  startNode: start
+  targetNode: graph
+  category: construction-category-clothing
+  objectType: Item

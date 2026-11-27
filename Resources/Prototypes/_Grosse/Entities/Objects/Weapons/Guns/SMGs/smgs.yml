@@ -102,6 +102,12 @@
   - type: Appearance
   - type: Wieldable
     unwieldOnUse: false
+  - type: Construction
+    graph: SelfmadeSMG
+    node: start
+  - type: Tag
+    tags:
+    - SelfmadeSMGT1
 
 - type: entity
   name: самодельный ПП
@@ -126,3 +132,6 @@
     angleIncrease: 4
     angleDecay: 50
     fireRate: 6
+  - type: Tag
+    tags:
+    - SelfmadeSMGT2

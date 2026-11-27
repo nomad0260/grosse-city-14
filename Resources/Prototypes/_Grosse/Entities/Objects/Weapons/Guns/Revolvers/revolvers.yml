@@ -59,6 +59,13 @@
     maxAngle: 45
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/22smg.ogg
+  - type: Construction
+    graph: SelfmadeRevolver
+    node: start
+  - type: Tag
+    tags:
+    - Sidearm
+    - SelfmadeRevolverT1
 
 - type: entity
   name: самодельный револьвер

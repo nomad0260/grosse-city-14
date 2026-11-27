@@ -86,6 +86,9 @@
         whitelist:
           tags:
              - ShellShotgun
+  - type: Tag
+    tags:
+    - SelfmadeShotgunT1
 
 - type: entity
   name: самодельный дробовик

@@ -281,3 +281,6 @@
   - type: ContainerContainer
     containers:
       gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags:
+    - SelfmadeBoltactionRifle

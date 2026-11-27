@@ -21,3 +21,17 @@
       steps:
         - tool: Slicing
           doAfter: 2
+
+- type: constructionGraph
+  id: BackpackRefugeeGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: graph
+      steps:
+      - material: Cloth
+        amount: 10
+        doAfter: 10
+  - node: graph
+    entity: ClothingBackpackRefugeeC17

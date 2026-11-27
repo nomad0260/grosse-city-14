@@ -105,7 +105,7 @@
 
 - type: Tag
   id: KalashnikovGun
-  
+
 - type: Tag
   id: MagazinePistolPM
 
@@ -144,3 +144,18 @@
 
 - type: Tag
   id: WorkBench
+
+- type: Tag
+  id: SelfmadeRevolverT1
+
+- type: Tag
+  id: SelfmadeShotgunT1
+
+- type: Tag
+  id: SelfmadeSMGT1
+
+- type: Tag
+  id: SelfmadeSMGT2
+
+- type: Tag
+  id: SelfmadeBoltactionRifle

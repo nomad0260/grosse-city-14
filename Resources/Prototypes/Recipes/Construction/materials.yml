@@ -1,5 +1,4 @@
 ﻿- type: construction
-  hide: true # Grosse-change
   id: MetalRod
   graph: MetalRod
   startNode: start

@@ -98,3 +98,11 @@
   - type: Tag
     tags:
       - MagazineLightRifle
+
+- type: entity
+  id: MagazineRifleLightEmpty762x39
+  parent: MagazineRifleLight762x39
+  suffix: Empty
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
