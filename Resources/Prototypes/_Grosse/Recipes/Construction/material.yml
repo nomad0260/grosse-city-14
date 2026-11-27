@@ -1,6 +1,6 @@
 - type: construction
   id: MetalRodC17
-  graph: etalRodC17
+  graph: MetalRodC17
   startNode: start
   targetNode: MetalRod
   category: construction-category-materials
