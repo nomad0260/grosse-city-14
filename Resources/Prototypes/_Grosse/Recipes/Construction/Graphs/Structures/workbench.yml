@@ -1,0 +1,248 @@
+- type: constructionGraph
+  id: WorkBench
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: workbench17
+          steps:
+            - material: WoodPlank
+              amount: 10
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 3
+    - node: workbench17
+      entity: WorkStationC17
+      edges:
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: MaterialWoodPlank1
+              amount: 5
+            - !type:SpawnPrototype
+              prototype: SheetSteel1
+              amount: 5
+            - !type:DeleteEntity {}
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tool: Prying
+              doAfter: 15
+          #region Ammo
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: CrossbowBoltCartridge
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - material: MetalRodC17
+              amount: 5
+              doAfter: 5
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: CartridgePistol
+              amount: 5
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - material: Steel
+              amount: 2
+              doAfter: 4
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: CartridgeRifleLight762x39
+              amount: 5
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - material: Plasteel
+              amount: 1
+              doAfter: 5
+            - material: MetalRodC17
+              amount: 1
+              doAfter: 1
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: CartridgeMagnum
+              amount: 3
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: CrossbowBolt
+              name: construction-insert-bolt-crossbow
+              doAfter: 1
+            - material: Steel
+              amount: 1
+              doAfter: 3
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: CartridgeRifleLight762x54
+              amount: 5
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: GunPowderCMB
+              name: construction-insert-gunpowder
+              doAfter: 1
+            - material: Plasteel
+              amount: 1
+              doAfter: 2
+
+          #region Magazine
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: MagazineSelfmadeSMGMagEmptyC17
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tool: Screwing
+              doAfter: 2
+            - material: Steel
+              amount: 2
+              doAfter: 2
+            - material: MetalRodC17
+              amount: 4
+              doAfter: 2
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: MagazineRifleLightEmpty762x39
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - material: Plastic
+              amount: 2
+              doAfter: 2
+            - material: Steel
+              amount: 2
+              doAfter: 2
+            - material: MetalRodC17
+              amount: 1
+              doAfter: 5
+
+          #region T1 Weapon
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: WeaponRevolverSelfmade
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: WoodenPieceSheet
+              name: construction-insert-wooden-piece
+              doAfter: 2
+            - material: Steel
+              amount: 2
+              doAfter: 2
+
+          #region T2 Weapon
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: WeaponSubMachineGunSelfmadeC17
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: SelfmadeRevolverT1
+              name: construction-insert-revolver-t1
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 2
+
+          #region T3 Weapon
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: WeaponCrossbowC17
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: SelfmadeSMGT1
+              name: construction-insert-smg-t1
+              doAfter: 2
+            - material: MetalRodC17
+              amount: 5
+              doAfter: 5
+            - tag: WoodenPieceSheet
+              name: construction-insert-wooden-piece
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 2
+            - tag: PowerCellCombineUnion
+              name: construction-insert-powercell-union
+              doAfter: 2
+
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: WeaponShotgunSelfmade
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: SelfmadeShotgunT1
+              name: construction-insert-shotgun-t1
+              doAfter: 2
+            - tag: WoodenPieceSheet
+              name: construction-insert-wooden-piece
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 2
+
+          #region T4 Weapon
+        - to: workbench17
+          completed:
+            - !type:SpawnPrototype
+              prototype: WeaponRifleSelfmadeAK
+              amount: 1
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tag: SelfmadeBoltactionRifle
+              name: construction-insert-bolt-action-rifle
+              doAfter: 2
+            - tag: WoodenPieceSheet
+              name: construction-insert-wooden-piece
+              doAfter: 2
+            - material: Steel
+              amount: 5
+              doAfter: 2
+            - material: WoodPlank
+              amount: 4
+              doAfter: 3

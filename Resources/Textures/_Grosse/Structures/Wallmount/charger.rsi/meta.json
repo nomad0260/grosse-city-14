@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "license": "Grosse Private Licence",
+  "copyright": "Made for grosse-city-14 by yri_nuri",
+  "size": {
+    "x": 32,
+    "y": 48
+  },
+  "states": [
+    {
+      "name": "suitcharger"
+    },
+    {
+      "name": "suitcharger_01"
+    },
+    {
+      "name": "suitcharger_02"
+    },
+    {
+      "name": "suitcharger_03"
+    }
+  ]
+}

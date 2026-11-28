@@ -11,7 +11,28 @@
   - type: Item
     size: Large
     shape:
-    - 0,0,1,1
+    - 0,0,0,0
   - type: Tag
     tags:
     - MachineComponent
+
+- type: entity
+  parent: BaseItem
+  id: ComponentWoodenBlank
+  name: деревянный заготовок
+  description: Заготовок деревянных конструкций.
+  components:
+  - type: Sprite
+    sprite: _Grosse/rsi/hlstaff/misc/material.rsi
+    layers:
+    - state: sheet-scrapwood
+  - type: Item
+    size: Large
+    shape:
+    - 0,0,0,0
+  - type: Construction
+    graph: WoodenBlank
+    node: icon
+  - type: Tag
+    tags:
+    - WoodenPieceSheet

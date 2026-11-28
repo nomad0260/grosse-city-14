@@ -52,6 +52,8 @@
   - type: Sprite
     noRot: true
     sprite: _Grosse/Structures/Storage/high.rsi
+    offset: 0,0.25
+    color: "#804804"
     layers:
     - state: secure
       map: ["enum.StorageVisualLayers.Base"]
@@ -89,9 +91,21 @@
     stateBaseClosed: secure
     stateDoorOpen: secure_open
     stateDoorClosed: secure_door
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,0.49"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
   - type: Sprite
     noRot: true
     sprite: _Grosse/Structures/Storage/long.rsi
+    offset: 0,0.25
     layers:
     - state: secure
       map: ["enum.StorageVisualLayers.Base"]

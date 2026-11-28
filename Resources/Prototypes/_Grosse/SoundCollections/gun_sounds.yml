@@ -26,6 +26,12 @@
   - /Audio/_Grosse/Weapons/Ranged/shotgun_shell3.ogg
 
 - type: soundCollection
+  id: CrossbowReload
+  files:
+  - /Audio/_Grosse/Weapons/Ranged/crossbow_bolt_load1.ogg
+  - /Audio/_Grosse/Weapons/Ranged/crossbow_bolt_load2.ogg
+
+- type: soundCollection
   id: ConcreteBulletImpact
   files:
   - /Audio/_Grosse/Effects/Impact/concrete_impact_bullet1.ogg

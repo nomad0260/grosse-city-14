@@ -1,0 +1,7 @@
+- type: construction
+  id: WoodenBlank
+  graph: WoodenBlank
+  startNode: start
+  targetNode: icon
+  category: construction-category-materials
+  objectType: Item

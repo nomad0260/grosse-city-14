@@ -23,6 +23,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ReinforcedShiv
   graph: ReinforcedShiv
   startNode: start
@@ -31,6 +32,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: PlasmaShiv
   graph: PlasmaShiv
   startNode: start
@@ -39,6 +41,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: UraniumShiv
   graph: UraniumShiv
   startNode: start
@@ -55,6 +58,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SpearReinforced
   graph: SpearReinforced
   startNode: start
@@ -63,6 +67,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SpearPlasma
   graph: SpearPlasma
   startNode: start
@@ -71,6 +76,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SpearUranium
   graph: SpearUranium
   startNode: start
@@ -79,6 +85,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: SpearSharkMinnow
   graph: SpearSharkMinnow
   startNode: start
@@ -87,7 +94,6 @@
   objectType: Item
 
 - type: construction
-  hide: true # Grosse-change
   id: Bola
   graph: Bola
   startNode: start
@@ -130,6 +136,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ImprovisedArrowCarp
   graph: ImprovisedArrowCarp
   startNode: start
@@ -138,6 +145,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ImprovisedArrowPlasma
   graph: ImprovisedArrowPlasma
   startNode: start
@@ -146,6 +154,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: ImprovisedArrowUranium
   graph: ImprovisedArrowUranium
   startNode: start
@@ -154,6 +163,7 @@
   objectType: Item
 
 - type: construction
+  hide: true # Grosse-change
   id: CardArrow
   graph: CardArrow
   startNode: start

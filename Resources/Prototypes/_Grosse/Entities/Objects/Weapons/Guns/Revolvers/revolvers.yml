@@ -29,3 +29,65 @@
     maxAngle: 45
     soundGunshot:
       path: /Audio/_Grosse/Weapons/Ranged/357_fire2.ogg
+
+- type: entity
+  name: самодельный револьвер
+  parent: BaseWeaponRevolver
+  id: WeaponRevolverSelfmade
+  suffix: Револьвер, Оружие 17
+  description: Простейший механизм стрельбы, не требует чего-то особенного, да и ничего особенного не создает. Стреляет пистолетным калибром.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolverSMT1.rsi
+  - type: Clothing
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolverSMT1.rsi
+  - type: RevolverAmmoProvider
+    proto: null
+    capacity: 5
+    chambers: [ null, null, null, null, null ]
+    ammoSlots: [ null, null, null, null, null ]
+    whitelist:
+      tags:
+        - CartridgePistol
+  - type: GrosseGunWieldBonus
+    kickMagnitudeMax: 5
+  - type: Gun
+    cameraRecoilScalar: 2
+    angleIncrease: 20
+    angleDecay: 40
+    minAngle: 5
+    maxAngle: 45
+    soundGunshot:
+      path: /Audio/_Grosse/Weapons/Ranged/22smg.ogg
+  - type: Construction
+    graph: SelfmadeRevolver
+    node: start
+  - type: Tag
+    tags:
+    - Sidearm
+    - SelfmadeRevolverT1
+
+- type: entity
+  name: самодельный револьвер
+  parent: BaseWeaponRevolver
+  id: WeaponRevolverSelfmadeT2
+  suffix: Револьвер, Оружие 17
+  description: Улучшенный самодельный револьвер, выглядит не таким убогим, да и благодаря ручке в руку не отдает так сильно, в общем, замечательный револьвер. Стреляет револьверными патронами.
+  components:
+  - type: Sprite
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolverSMT2.rsi
+  - type: Clothing
+    sprite: _Grosse/Objects/Weapons/Guns/Revolvers/revolverSMT2.rsi
+  - type: RevolverAmmoProvider
+    proto: null
+    capacity: 6
+    chambers: [ null, null, null, null, null, null ]
+    ammoSlots: [ null, null, null, null, null, null ]
+  - type: GrosseGunWieldBonus
+    kickMagnitudeMax: 5
+  - type: Gun
+    cameraRecoilScalar: 5
+    angleIncrease: 15
+    angleDecay: 60
+    minAngle: 1
+    maxAngle: 45

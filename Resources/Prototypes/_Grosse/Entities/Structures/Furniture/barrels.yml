@@ -1,6 +1,6 @@
 - type: entity
   id: RandomBarrelC17
-  parent: BaseStructure
+  parent: BaseStructureDynamic
   name: barrel
   description: Just a metalic barrel that can contain various substances.
   components:
@@ -22,9 +22,8 @@
     fixtures:
       fix1:
         shape:
-          !type:PhysShapeAabb
-        #region for tests, gonna change it
-          bounds: "-0.4,-0.4,0.4,0.4"
+          !type:PhysShapeCircle
+          radius: 0.35
         density: 80
         layer:
         - WallLayer

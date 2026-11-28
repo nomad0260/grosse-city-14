@@ -18,59 +18,61 @@
                 sprite: Objects/Materials/Shards/shard.rsi
                 state: shard1
               doAfter: 0.5
-            - tag: GlassShard
-              name: construction-graph-tag-glass-shard
-              icon:
-                sprite: Objects/Materials/Shards/shard.rsi
-                state: shard2
-              doAfter: 0.5
-            - tag: GlassShard
-              name: construction-graph-tag-glass-shard
-              icon:
-                sprite: Objects/Materials/Shards/shard.rsi
-                state: shard1
-              doAfter: 0.5
-            - tag: GlassShard
-              name: construction-graph-tag-glass-shard
-              icon:
-                sprite: Objects/Materials/Shards/shard.rsi
-                state: shard3
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
-            - tag: Matchstick
-              name: construction-graph-tag-match-stick
-              icon:
-                sprite: Objects/Tools/matches.rsi
-                state: match_unlit
-              doAfter: 0.5
+            # grosse-edit-start
+            #- tag: GlassShard
+            #  name: construction-graph-tag-glass-shard
+            #  icon:
+            #    sprite: Objects/Materials/Shards/shard.rsi
+            #    state: shard2
+            #  doAfter: 0.5
+            #- tag: GlassShard
+            #  name: construction-graph-tag-glass-shard
+            #  icon:
+            #    sprite: Objects/Materials/Shards/shard.rsi
+            #    state: shard1
+            #  doAfter: 0.5
+            #- tag: GlassShard
+            #  name: construction-graph-tag-glass-shard
+            #  icon:
+            #    sprite: Objects/Materials/Shards/shard.rsi
+            #    state: shard3
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            #- tag: Matchstick
+            #  name: construction-graph-tag-match-stick
+            #  icon:
+            #    sprite: Objects/Tools/matches.rsi
+            #    state: match_unlit
+            #  doAfter: 0.5
+            # grosse-edit-end
     - node: shell
       entity: ShellShotgunImprovised

@@ -7,6 +7,9 @@
   - type: Sprite
     sprite: _Grosse/rsi/Furniture/beds.rsi
     state: matras
+  - type: Construction
+    graph: MattrasBed17
+    node: mattras
 
 - type: entity
   parent: MattressC17

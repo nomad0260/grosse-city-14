@@ -1,0 +1,50 @@
+- type: constructionGraph
+  id: Barricade17
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: barricadefull
+          steps:
+            - material: WoodPlank
+              amount: 4
+              doAfter: 3
+    - node: barricadefull
+      entity: BarricadeWoodenAC17
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: MaterialWoodPlank1
+              amount: 4
+            - !type:DeleteEntity {}
+          conditions:
+            - !type:EntityAnchored
+              anchored: true
+          steps:
+            - tool: Prying
+              doAfter: 15
+
+- type: constructionGraph
+  id: BarricadeSandbag17
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: barricadefull
+          steps:
+            - material: Cloth
+              amount: 10
+              doAfter: 20
+    - node: barricadefull
+      entity: BarricadeSandbagFullC17
+      edges:
+      - to: start
+        completed:
+          - !type:SpawnPrototype
+            prototype: MaterialCloth1
+            amount: 5
+          - !type:DeleteEntity
+        steps:
+          - tool: Slicing
+            doAfter: 10

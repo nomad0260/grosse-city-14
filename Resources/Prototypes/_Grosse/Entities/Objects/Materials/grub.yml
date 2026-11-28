@@ -11,7 +11,7 @@
   - type: Item
     size: Normal
     shape:
-    - 0,0,1,1
+    - 0,0,0,0
   - type: Tag
     tags:
     - ExtractGrubCore
@@ -29,7 +29,7 @@
   - type: Item
     size: Large
     shape:
-    - 0,0,0,1
+    - 0,0,0,0
   - type: Tag
     tags:
     - AntlionGrubCoreJuice
